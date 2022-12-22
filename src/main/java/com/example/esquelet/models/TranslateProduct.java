@@ -3,9 +3,10 @@ package com.example.esquelet.models;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
-
+@EqualsAndHashCode(exclude = {"lang","product"})
 @AllArgsConstructor
 @NoArgsConstructor
 @Data

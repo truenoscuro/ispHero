@@ -15,7 +15,7 @@ function compilarSASS(){
 }
 function autoCompila(){
     compilarSASS();
-    watch('scss/**/*.scss', { usePolling:true } ,compilarSASS);
+    watch('src/main/resources/scss/**/*.scss', { usePolling:true } ,compilarSASS);
 }
 function copyjs(){
     return src('./node_modules/bootstrap/dist/js/*.js')
