@@ -1,8 +1,6 @@
 package com.example.esquelet.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,9 +10,10 @@ import org.jetbrains.annotations.NotNull;
 @NoArgsConstructor
 @Data
 @Entity
-public class TranslateProperty {
+public class TranslateProduct {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotNull
@@ -22,8 +21,8 @@ public class TranslateProperty {
     private Lang lang;
     @NotNull
     @ManyToOne
-    private Property property;
+    private Product product;
 
     @NotNull
-    private String translate;
+    private String translation;
 }
