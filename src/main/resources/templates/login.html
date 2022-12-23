@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:insert="~{fragments/general.html :: headerfiles}">
+  <title>ISP Hero - Login</title>
+</head>
+<body>
+<header th:insert="~{fragments/general.html :: header}"></header>
+<main>
+  <form action="/login" method="post" class="login">
+    <div class="login-form-title">
+      <h1>Login</h1>
+    </div>
+    <div>
+      <input type="text" name="username" id="username" placeholder="Username">
+    </div>
+    <div>
+      <input type="password" name="password" id="password" placeholder="Password">
+    </div>
+    <div class="login-form-buttons">
+      <input type="submit" value="Login" class="login-form-button">
+      <form action="/register" method="get" class="login">
+        <input type="reset" value="Register" class="register-form-button">
+      </form>
+      <div class="forgot-pw">
+        <a href="#" class="forgot-pw">Forgot your password?</a>
+      </div>
+    </div>
+  </form>
+<footer th:insert="~{fragments/general.html :: footer}"></footer>
+</main>
+</body>
+</html>
