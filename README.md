@@ -1,3 +1,7 @@
+<p align="center">
+  <img width="200" height="200" src="https://github.com/truenoscuro/ispHero/blob/master/src/main/resources/static/img/logo.png">
+</p>
+
 # _Welcome to_ ISP Hero!
 ![Spring](https://img.shields.io/badge/spring-%236DB33F.svg?style=for-the-badge&logo=spring&logoColor=white)![Bootstrap](https://img.shields.io/badge/bootstrap-%23563D7C.svg?style=for-the-badge&logo=bootstrap&logoColor=white)![MySQL](https://img.shields.io/badge/mysql-%2300f.svg?style=for-the-badge&logo=mysql&logoColor=white)![jQuery](https://img.shields.io/badge/jquery-%230769AD.svg?style=for-the-badge&logo=jquery&logoColor=white)
 
