@@ -20,7 +20,7 @@ But that's not all. ISP Hero also provides useful features such as:
 
 1. Sign up for an account at [our website](https://www.isphero.com/)[^1]
 2. Add your domains and hosting information.
-3. Sit back and relax while Domain Manager handles the rest.
+3. Sit back and relax while we at ISP Hero handle the rest.
 4. Support
 
 If you have any questions or encounter any issues while using Domain Manager, please don't hesitate to reach out to our support team at info@isphero.com . We are always happy to help.
