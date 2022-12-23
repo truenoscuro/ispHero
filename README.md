@@ -14,7 +14,7 @@ But that's not all. ISP Hero also provides useful features such as:
 - Domain expiration alerts: Never let a domain expire on you again with customizable email reminders.
 - Hosting monitoring: Keep an eye on your hosting uptime and performance with regular checks.
 - Customizable notes: Add notes to each domain and hosting account for any additional details you need to remember.
-- So why wait? Try Domain Manager today and take control of your web presence.
+- So why wait? Try ISP Hero today and take control of your web presence.
 
 *Getting Started*
 
