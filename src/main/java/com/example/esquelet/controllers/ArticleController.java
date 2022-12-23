@@ -3,6 +3,7 @@ package com.example.esquelet.controllers;
 import ch.qos.logback.core.model.Model;
 import com.example.esquelet.entities.Article;
 import com.example.esquelet.repositories.ArticleRepository;
+import com.example.esquelet.services.ArticleSellService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,11 +15,11 @@ import java.util.List;
 public class ArticleController {
 
     @Autowired
-    ArticleRepository articleRepository;
+    ArticleSellService articleSellService;
 
 
-    @GetMapping(value = "article/{id_product}") // can pass product?
-    public String showByProduct(@PathVariable("id_product") String id, Model model ){
+    @GetMapping(value = "article/{idCategory}") // can pass product?
+    public String showByProduct(@PathVariable("idCategory") String id, Model model ){
 
         //List<Article> articleList = articleRepository.findAllByProduct();
 
