@@ -1,12 +1,10 @@
-package com.example.esquelet.controller;
+package com.example.esquelet.controllers;
 
 import ch.qos.logback.core.model.Model;
-import com.example.esquelet.models.User;
-import com.example.esquelet.models.UserData;
-import com.example.esquelet.repositories.UserRepository;
+import com.example.esquelet.entities.User;
+import com.example.esquelet.entities.UserData;
 import com.example.esquelet.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;

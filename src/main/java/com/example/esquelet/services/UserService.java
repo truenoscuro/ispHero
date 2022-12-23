@@ -1,7 +1,7 @@
 package com.example.esquelet.services;
 
-import com.example.esquelet.models.User;
-import com.example.esquelet.models.UserData;
+import com.example.esquelet.entities.User;
+import com.example.esquelet.entities.UserData;
 import com.example.esquelet.repositories.UserDataRepository;
 import com.example.esquelet.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;

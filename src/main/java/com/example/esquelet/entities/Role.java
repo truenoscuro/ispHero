@@ -1,4 +1,4 @@
-package com.example.esquelet.models;
+package com.example.esquelet.entities;
 
 public enum Role {
     USER,
