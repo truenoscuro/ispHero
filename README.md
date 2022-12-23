@@ -23,9 +23,8 @@ But that's not all. ISP Hero also provides useful features such as:
 3. Sit back and relax while we at ISP Hero handle the rest.
 4. Support
 
-If you have any questions or encounter any issues while using Domain Manager, please don't hesitate to reach out to our support team at info@isphero.com . We are always happy to help.
+If you have any questions or encounter any issues while using ISP Hero please don't hesitate to reach out to our support team at info@isphero.com . We are always happy to help.[^note]
 
-You can also use words, to fit your writing style more closely[^note].
 
 [^1]: © All rights reserved - 2022 ISP Hero
 [^note]:
