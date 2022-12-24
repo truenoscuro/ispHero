@@ -43,11 +43,12 @@ public class ArticleSell {
     }
 
     private void constructChildrenList ( List <Article> childrenList){
+        this.childrenList = new ArrayList<>();
         childrenList.stream()
                 .collect( Collectors.groupingBy( Article::getProduct ) ) // grouping by same Product
                 .forEach( ( key ,articleList ) -> this.childrenList.add(
-                        new ArticleSell( articleList )) 
-                );
+                        new ArticleSell( articleList )
+                ));
     }
 
 }
