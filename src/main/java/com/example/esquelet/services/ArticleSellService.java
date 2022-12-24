@@ -38,8 +38,9 @@ public class ArticleSellService {
         List< Product > productList = productRepository.getAllByCategory( category );
         return  productList.stream().map( product -> {
             List< Article > articleList = articleRepository.getAllByProduct( product );
+            List <Article> childrenList = articleRepository.getAllByArticleChildren(articleList.get(0));
             if( !articleList.isEmpty() ){
-                return new ArticleSell( articleList ) ;
+                return new ArticleSell( articleList , childrenList ) ;
             }
             return null;
         }).toList();

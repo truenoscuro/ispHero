@@ -8,10 +8,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Data
 @AllArgsConstructor
@@ -22,10 +20,17 @@ public class ArticleSell {
     //1- NameProperty  2-{ typeProperty , value }
     Map< String , String [] > properties;
 
-    public ArticleSell( List< Article > articleList ) {
+    List< ArticleSell > childrenList;
+
+    public ArticleSell(List< Article > articleList ){
         this.product = articleList.get( 0 ).getProduct().getName();
         constructMap( articleList );
     }
+    public ArticleSell( List< Article > articleList , List <Article> childrenList) {
+        this( articleList );
+        constructChildrenList( childrenList );
+    }
+
 
     private void constructMap( List< Article > articleList ){
         properties = new HashMap<>();
@@ -36,4 +41,13 @@ public class ArticleSell {
                     article.getValueProperty()});
         });
     }
+
+    private void constructChildrenList ( List <Article> childrenList){
+        childrenList.stream()
+                .collect( Collectors.groupingBy( Article::getProduct ) ) // grouping by same Product
+                .forEach( ( key ,articleList ) -> this.childrenList.add(
+                        new ArticleSell( articleList )) 
+                );
+    }
+
 }
