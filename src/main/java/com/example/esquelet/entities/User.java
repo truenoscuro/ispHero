@@ -1,35 +1,30 @@
-package com.example.esquelet.models;
+package com.example.esquelet.entities;
+
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
 import org.jetbrains.annotations.NotNull;
+
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Entity
-public class UserData {
-
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotNull
-    private String firstName;
+    private String username;
     @NotNull
-    private String lastName1;
-    private String lastName2;
+    private String password;
     @NotNull
-    private String address;
+    private String email;
     @NotNull
-    private String city;
-
-    @NotNull
-    @OneToOne
-    private User user;
-
+    @Enumerated( EnumType.STRING )
+    private Role role;
 
 }

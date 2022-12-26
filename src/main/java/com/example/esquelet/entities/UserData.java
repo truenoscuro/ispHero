@@ -1,4 +1,4 @@
-package com.example.esquelet.models;
+package com.example.esquelet.entities;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -10,16 +10,25 @@ import org.jetbrains.annotations.NotNull;
 @NoArgsConstructor
 @Data
 @Entity
-public class Category {
+public class UserData {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private Long id;
 
     @NotNull
-    private String name;
+    private String firstName;
+    @NotNull
+    private String lastName1;
+    private String lastName2;
+    @NotNull
+    private String address;
+    @NotNull
+    private String city;
 
-    @ManyToOne
-    private Category categoryChildren;
+    @NotNull
+    @OneToOne
+    private User user;
+
+
 }
