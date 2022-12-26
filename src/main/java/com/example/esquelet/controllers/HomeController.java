@@ -25,10 +25,5 @@ public class HomeController {
         return "contact";
     }
 
-    @GetMapping("/login")
-    public String login(Model model) {
-        model.addAttribute("pageTitle", "Login");
-        return "login";
-    }
 
 }

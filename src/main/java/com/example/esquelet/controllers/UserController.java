@@ -1,11 +1,13 @@
 package com.example.esquelet.controllers;
 
-import ch.qos.logback.core.model.Model;
 import com.example.esquelet.entities.User;
 import com.example.esquelet.entities.UserData;
 import com.example.esquelet.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -28,12 +30,23 @@ public class UserController {
     }
 
 
-    @PostMapping("/addUser")
+    @PostMapping("/register")
     public String addUser(@ModelAttribute("userData") UserData userData , Model model){
         // multi-email accept or multi-count accept?
         if(! userService.canAddUser( userData ) ) return "index";
         userService.addUser(userData); // encryptPassw
-        return "succesAdd";
+        return "index";
     }
 
+    @GetMapping("/login")
+    public String login(Model model) {
+        model.addAttribute("pageTitle", "Login");
+        return "login";
+    }
+
+    @GetMapping("/register")
+    public String register(Model model) {
+        model.addAttribute("pageTitle", "Register");
+        return "register";
+    }
 }
