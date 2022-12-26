@@ -19,7 +19,7 @@
     <div class="login-form-buttons">
       <input type="submit" value="Login" class="login-form-button">
       <form action="/register" method="get" class="login">
-        <input type="reset" value="Register" class="register-form-button">
+        <input type="reset" value="Register" class="register-form-button register">
       </form>
       <div class="forgot-pw">
         <a href="#" class="forgot-pw">Forgot your password?</a>
@@ -28,5 +28,33 @@
   </form>
 <footer th:insert="~{fragments/general.html :: footer}"></footer>
 </main>
+
+<script>
+  document.querySelector(".register").addEventListener("click", function (e) {
+    e.preventDefault();
+    window.location.href = "/register";
+  });
+
+    /*$(document).ready(function() {
+        $('.login-form-button').click(function() {
+        let username = $('#username').val();
+        let password = $('#password').val();
+        if (username === '' || password === '') {
+            alert("Please fill all fields");
+        } else {
+            $.post("/login", {
+            username: username,
+            password: password
+            }, function(data) {
+            if (data === 'Invalid Username or Password') {
+                alert(data);
+            } else if (data === 'Successfully Logged in') {
+                $("form")[0].reset();
+            }
+            });
+        }
+        });
+    });*/
+</script>
 </body>
 </html>
