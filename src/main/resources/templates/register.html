@@ -6,33 +6,88 @@
 <body>
 <header th:insert="~{fragments/general.html :: header}"></header>
 <main>
-    <div class="container my-5">
+    <div class="bubbles">
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+    </div>
+
+    <div class="container p-5">
         <div class="row">
             <div class="col-md-12">
-                <h1>Register</h1>
-                <form action="/register" th:object="${user}" method="post">
+                <form action="/register" th:object="${user}" method="post" class="login">
+                    <div class="login-form-title">
+                        <h1>Register</h1>
+                    </div>
                     <div>
                         <div>
                             <div class="form-group">
                                 <label for="username">Username</label>
-                                <input type="text" class="form-control" id="username">
+                                <input type="text" id="username">
                             </div>
                             <div class="form-group">
                                 <label for="password">Password</label>
-                                <input type="password" class="form-control" id="password">
+                                <input type="password" id="password">
                             </div>
                             <div class="form-group">
                                 <label for="password2">Repeat Password</label>
-                                <input type="password" class="form-control" id="password2">
+                                <input type="password" id="password2">
                             </div>
                             <div class="form-group">
                                 <label for="email">Email</label>
-                                <input type="email" class="form-control" id="email">
+                                <input type="email" id="email">
                             </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <button class="btn btn-primary" type="submit">Register</button>
+                    <div class="login-form-buttons">
+                        <input type="submit" value="Register now!" class="login-form-button">
                         <span>Already registered? <a th:href="@{/login}">Login here</a></span>
                     </div>
                 </form>
