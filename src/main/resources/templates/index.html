@@ -5,7 +5,49 @@
 </head>
 <body>
 <header th:insert="~{fragments/general.html :: header}"></header>
-<div style="height: 75vh">ESPACIO PUBLICITARIO</div>
+<div>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <form>
+                    <div class="form-group">
+                        <label for="domainSearch" class="text-primary text-center">Find your perfect domain name:</label>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" id="domainSearch" placeholder="Enter domain name">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="submit">Search</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex justify-content-center d-sm-flex justify-content-sm-evenly flex-column flex-sm-row">
+        <div class="card m-3 w-25">
+            <img th:src="@{/img/people-and-technology.png}" class="card-img-top" alt="Domain Hosting">
+            <div class="card-body">
+                <h5 class="card-title">Domain Hosting</h5>
+                <p class="card-text">Keep your domain name safe and secure with our reliable hosting services. Our team of experts will help you find the perfect domain and keep it running smoothly.</p>
+            </div>
+        </div>
+        <div class="card m-3 w-25">
+            <img th:src="@{/img/stressed-person-using-computer.png}" class="card-img-top" alt="Domain Hosting">
+            <div class="card-body">
+                <h5 class="card-title">We've got you covered</h5>
+                <p class="card-text">Don't worry about any problems you may have. Our team of experts is here to help with any issue you may have, big or small.</p>
+            </div>
+        </div>
+        <div class="card m-3 w-25">
+            <img th:src="@{/img/people-raising-money.png}" class="card-img-top" alt="Domain Hosting">
+            <div class="card-body">
+                <h5 class="card-title">Why Choose Us?</h5>
+                <p class="card-text">We offer the best prices and rates in the industry. Our team works hard to negotiate the best deals for our customers, ensuring that you get the best value for your money.</p>
+            </div>
+        </div>
+    </div>
+
+</div>
 <footer th:insert="~{fragments/general.html :: footer}"></footer>
 </body>
 </html>
