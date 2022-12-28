@@ -70,11 +70,11 @@
                         <div>
                             <div class="form-group">
                                 <label for="username">Username</label>
-                                <input type="text" id="username">
+                                <input type="text" id="username" name="username">
                             </div>
                             <div class="form-group">
                                 <label for="password">Password</label>
-                                <input type="password" id="password">
+                                <input type="password" id="password" name="password">
                             </div>
                             <div class="form-group">
                                 <label for="password2">Repeat Password</label>
@@ -82,8 +82,11 @@
                             </div>
                             <div class="form-group">
                                 <label for="email">Email</label>
-                                <input type="email" id="email">
+                                <input type="email" id="email" name="email">
                             </div>
+                        </div>
+                        <div>
+                            <p th:text="${error}" class="text-danger text-center my-2 mx-auto"></p>
                         </div>
                     </div>
                     <div class="login-form-buttons">
