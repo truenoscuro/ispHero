@@ -26,7 +26,7 @@ public class UserController {
         User userDataBase = userOptional.get(); // need passwordEncrypt
         if(!userDataBase.getPassword().equals(user.getPassword())) return  "index"; // password fail
         // user and password done!
-        return "privatePage"; //create page
+        return "account"; //create page
     }
 
 
@@ -44,9 +44,38 @@ public class UserController {
         return "login";
     }
 
+    @PostMapping("/login")
+    public String login(@ModelAttribute("user") User user, Model model) {
+        // Get user and password from form
+        String userName = user.getUsername();
+        String password = user.getPassword();
+        System.out.println("User: " + userName + " Password: " + password);
+        // Check user and password
+        if (userService.checkUser(userName, password)) {
+            model.addAttribute("user", userName);
+            System.out.println(userName + " logged in");
+//            System.out.println(user.getUserData().getFirstName()); // need to get user data !!
+            return "account";
+        } else {
+            System.out.println("User or password incorrect");
+            // Add error message
+            model.addAttribute("case", "User or password incorrect");
+            return "login";
+        }
+    }
+
     @GetMapping("/register")
     public String register(Model model) {
         model.addAttribute("pageTitle", "Register");
         return "register";
+    }
+
+    @GetMapping("/account")
+    public String account(Model model) {
+        if (model.getAttribute("user") == null) {
+            return "redirect:/login";
+        }
+        model.addAttribute("pageTitle", " My Account");
+        return "account";
     }
 }
