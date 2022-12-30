@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:insert="~{fragments/general.html :: headerfiles}">
+    <title>ISP Hero - About us</title>
+</head>
+<body>
+<header th:insert="~{fragments/general.html :: header}"></header>
+<main>
+    <div class="bubbles">
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+    </div>
+
+    <div class="container p-5">
+        <div class="row">
+            <div class="col-md-12">
+                <form action="/register" th:object="${user}" method="post" class="login">
+                    <div class="login-form-title">
+                        <h1>Register</h1>
+                    </div>
+                    <div>
+                        <div>
+                            <div class="form-group">
+                                <label for="username">Username</label>
+                                <input type="text" id="username" name="username">
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <input type="password" id="password" name="password">
+                            </div>
+                            <div class="form-group">
+                                <label for="password2">Repeat Password</label>
+                                <input type="password" id="password2">
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" name="email">
+                            </div>
+                        </div>
+                        <div>
+                            <p th:text="${error}" class="text-danger text-center my-2 mx-auto"></p>
+                        </div>
+                    </div>
+                    <div class="login-form-buttons">
+                        <input type="submit" value="Register now!" class="login-form-button">
+                        <span>Already registered? <a th:href="@{/login}">Login here</a></span>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+<footer th:insert="~{fragments/general.html :: footer}"></footer>
+
+<script>
+    "use strict";
+
+    function checkPasswordMatch() {
+        let password = $("#password").val();
+        let confirmPassword = $("#password2").val();
+
+        if (password !== confirmPassword)
+            $("#password2").css("border-color", "red");
+        else
+            $("#password2").css("border-color", "green");
+    }
+
+    $(document).ready(function () {
+        $("#password2").keyup(checkPasswordMatch);
+    });
+</script>
+</body>
+</html>

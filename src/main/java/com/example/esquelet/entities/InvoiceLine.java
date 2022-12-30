@@ -1,4 +1,4 @@
-package com.example.esquelet.models;
+package com.example.esquelet.entities;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -13,14 +13,20 @@ import org.jetbrains.annotations.NotNull;
 @NoArgsConstructor
 @Data
 @Entity
-public class Property {
+public class InvoiceLine {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotNull
-    private String type;
+    private String nameArticle;
 
     @NotNull
-    private String name;
+    private String price;
+    @NotNull
+    private String quantity;
+    @NotNull
+    private String vat;
+
+
 }

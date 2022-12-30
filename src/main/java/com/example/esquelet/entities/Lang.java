@@ -1,4 +1,4 @@
-package com.example.esquelet.models;
+package com.example.esquelet.entities;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;

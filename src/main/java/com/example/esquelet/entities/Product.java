@@ -1,4 +1,5 @@
-package com.example.esquelet.models;
+package com.example.esquelet.entities;
+
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -11,20 +12,19 @@ import org.jetbrains.annotations.NotNull;
 @NoArgsConstructor
 @Data
 @Entity
-@EqualsAndHashCode(exclude = {"lang","property"})
-public class TranslateProperty {
+@EqualsAndHashCode(exclude = {"category"})
+public class Product {
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotNull
-    @ManyToOne
-    private Lang lang;
-    @NotNull
-    @ManyToOne
-    private Property property;
+    private String name;
 
     @NotNull
-    private String translation;
+    @ManyToOne
+    private Category category;
+
 }

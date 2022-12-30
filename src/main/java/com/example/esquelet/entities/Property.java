@@ -1,9 +1,11 @@
-package com.example.esquelet.models;
+package com.example.esquelet.entities;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 
@@ -11,17 +13,14 @@ import org.jetbrains.annotations.NotNull;
 @NoArgsConstructor
 @Data
 @Entity
-@EqualsAndHashCode(exclude = {"categoryChildren"})
-public class Category {
-
+public class Property {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private Long id;
 
     @NotNull
-    private String name;
+    private String type;
 
-    @ManyToOne
-    private Category categoryChildren;
+    @NotNull
+    private String name;
 }

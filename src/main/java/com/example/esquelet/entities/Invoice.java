@@ -1,4 +1,4 @@
-package com.example.esquelet.models;
+package com.example.esquelet.entities;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -11,19 +11,20 @@ import org.jetbrains.annotations.NotNull;
 @NoArgsConstructor
 @Data
 @Entity
-@EqualsAndHashCode(exclude = {"user","article"})
-public class WaitingDomain {
+@EqualsAndHashCode(exclude = {"line","user"})
+public class Invoice {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @NotNull
+    @ManyToOne
+    private InvoiceLine line;
+
     @ManyToOne
     private User user;
 
     @NotNull
-    @ManyToOne
-    private Article article;
+    private String fullName;
 
-    @NotNull
-    private String nameDomain;
 }

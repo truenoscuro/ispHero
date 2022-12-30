@@ -1,9 +1,8 @@
-package com.example.esquelet.models;
+package com.example.esquelet.entities;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 
@@ -11,20 +10,25 @@ import org.jetbrains.annotations.NotNull;
 @NoArgsConstructor
 @Data
 @Entity
-@EqualsAndHashCode(exclude = {"line","user"})
-public class Invoice {
+public class UserData {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotNull
-    @ManyToOne
-    private InvoiceLine line;
-
-    @ManyToOne
-    private User user;
+    private String firstName;
+    @NotNull
+    private String lastName1;
+    private String lastName2;
+    @NotNull
+    private String address;
+    @NotNull
+    private String city;
 
     @NotNull
-    private String fullName;
+    @OneToOne
+    private User user;
+
 
 }

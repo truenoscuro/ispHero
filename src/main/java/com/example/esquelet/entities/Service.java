@@ -1,17 +1,13 @@
-package com.example.esquelet.models;
+package com.example.esquelet.entities;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.UpdateTimestamp;
 import org.jetbrains.annotations.NotNull;
-import org.springframework.beans.factory.annotation.Value;
 
-import java.sql.Time;
 import java.sql.Timestamp;
-import java.util.Date;
 
 @AllArgsConstructor
 @NoArgsConstructor
