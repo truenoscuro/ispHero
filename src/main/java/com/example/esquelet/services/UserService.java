@@ -5,7 +5,10 @@ import com.example.esquelet.entities.UserData;
 import com.example.esquelet.repositories.UserDataRepository;
 import com.example.esquelet.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Optional;
 
@@ -32,9 +35,18 @@ public class UserService {
         userDataRepository.save(userData);
     }
 
+    public void addUser(User user) {
+        userRepository.save(user);
+    }
+
     public boolean checkUser(String userName, String password) {
         Optional<User> user = userRepository.searchUserByUsernameEquals(userName);
         return user.map(value -> value.getPassword().equals(password)).orElse(false);
+    }
+
+    public boolean checkUser(String userName) {
+        Optional<User> user = userRepository.searchUserByUsernameEquals(userName);
+        return user.isPresent();
     }
 
 }

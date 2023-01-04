@@ -30,5 +30,4 @@ public class UserData {
     @OneToOne
     private User user;
 
-
 }

@@ -1,10 +1,12 @@
 package com.example.esquelet.controllers;
 
+import com.example.esquelet.entities.Role;
 import com.example.esquelet.entities.User;
 import com.example.esquelet.entities.UserData;
 import com.example.esquelet.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,10 +33,19 @@ public class UserController {
 
 
     @PostMapping("/register")
-    public String addUser(@ModelAttribute("userData") UserData userData , Model model){
-        // multi-email accept or multi-count accept?
-        if(! userService.canAddUser( userData ) ) return "index";
-        userService.addUser(userData); // encryptPassw
+    public String addUser(@ModelAttribute("user") User user , Model model){
+
+        String username = user.getUsername();
+        System.out.println("Username: " + username);
+
+        // Check if any user has the same username
+        if (userService.checkUser(username)) {
+            model.addAttribute("error", "Username already exists");
+            return "register";
+        }
+
+        user.setRole(Role.USER);
+        userService.addUser(user);
         return "index";
     }
 
@@ -52,7 +63,7 @@ public class UserController {
         System.out.println("User: " + userName + " Password: " + password);
         // Check user and password
         if (userService.checkUser(userName, password)) {
-            model.addAttribute("user", userName);
+            model.addAttribute("auth", userName);
             System.out.println(userName + " logged in");
 //            System.out.println(user.getUserData().getFirstName()); // need to get user data !!
             return "account";
