@@ -26,7 +26,7 @@ But that's not all. ISP Hero also provides useful features such as:
 If you have any questions or encounter any issues while using ISP Hero please don't hesitate to reach out to our support team at info@isphero.com . We are always happy to help.[^note]
 
 
-[^1]: © All rights reserved - 2022 ISP Hero
+[^1]: © All rights reserved - 2023 ISP Hero
 [^note]:
     All of this is fictive work and doesn't represent any real business.  
     I declare under penalty of perjury that the foregoing is true and correct, and would be my testimony if I were in a court of law..
