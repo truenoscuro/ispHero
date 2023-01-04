@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head th:insert="~{fragments/general.html :: headerfiles}">
-    <title>ISP Hero - About us</title>
 </head>
 <body>
 <!--<header th:insert="~{fragments/general.html :: header}"></header>-->
@@ -64,7 +63,7 @@
 
     <div class="container p-5">
         <div class="row m-5">
-            <div class="col-md-12">
+            <div class="col-md-12" th:if='${status} == null'>
                 <form action="/register" th:object="${user}" method="post" class="login">
                     <div class="login-form-title">
                         <h1>Register</h1>
@@ -97,6 +96,13 @@
                         <span>Already registered? <a th:href="@{/login}">Login here</a></span>
                     </div>
                 </form>
+            </div>
+            <div class="col-md-12 my-5 blur" th:if='${status == "true"}'>
+                <h1 class="text-center">You have been registered!</h1>
+                <p class="text-center">We have sent you an email to <span class="text-primary" th:text="${user.getEmail()}"></span> to confirm your registration. Please check your inbox.</p>
+                <div class="text-center my-5">
+                    <a href="/" class="btn btn-primary btn-block">Go to homepage</a>
+                </div>
             </div>
         </div>
     </div>
