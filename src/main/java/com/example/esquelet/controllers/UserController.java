@@ -9,10 +9,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.Objects;
 import java.util.Optional;
 
 @Controller
@@ -33,20 +32,28 @@ public class UserController {
 
 
     @PostMapping("/register")
-    public String addUser(@ModelAttribute("user") User user , Model model){
+    public String addUser(@ModelAttribute("user") User user , Model model, @RequestParam(defaultValue = "false") String status) {
 
-        String username = user.getUsername();
-        System.out.println("Username: " + username);
+        if (Objects.equals(status, "false")) {
+            String username = user.getUsername();
+            System.out.println("Username: " + username);
 
-        // Check if any user has the same username
-        if (userService.checkUser(username)) {
-            model.addAttribute("error", "Username already exists");
-            return "register";
+            // Check if any user has the same username
+            if (userService.checkUser(username)) {
+                model.addAttribute("error", "Username already exists");
+                return "register";
+            }
+
+            user.setRole(Role.USER);
+            userService.addUser(user);
+            model.addAttribute("status", "true");
         }
 
-        user.setRole(Role.USER);
-        userService.addUser(user);
-        return "index";
+        else {
+            userService.sendRegisterMail(user);
+            model.addAttribute("status", "false");
+        }
+        return "register";
     }
 
     @GetMapping("/login")
