@@ -49,4 +49,11 @@ public class UserService {
         return user.isPresent();
     }
 
+    public void sendRegisterMail(User user) {
+        String mail = user.getEmail();
+        String subject = "Register";
+        String text = "Welcome to ISP Hero";
+        // TODO to send mail
+    }
+
 }
