@@ -12,7 +12,7 @@ public interface UserRepository extends JpaRepository<User,Long> {
     L'altre en hi ha empleant @Query
      */
     Optional<User> searchUserByUsernameEquals(String username);
-    boolean searchUserByUsernameExists(String username);
+    //boolean searchUserByUsernameExists(String username);
 
 
 }

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:insert="~{fragments/general.html :: headerfiles}">
+</head>
+<body>
+<main>
+  <div th:insert="~{fragments/general.html :: header}"></div>
+
+  <div>
+    <div class="alert alert-success text-center my-5" role="alert">
+      <h4 class="alert-heading">Message Sent!</h4>
+      <p>Thank you for your message. We will get back to you as soon as possible.</p>
+      <p>You will be redirected in <span class="fw-bolder" id="seconds">5</span> seconds.</p>
+    </div>
+  </div>
+</main>
+<script>
+    let seconds = 5;
+    function countdown() {
+        seconds = seconds - 1;
+        if (seconds < 0) {
+        window.location = "/";
+        } else {
+        document.getElementById("seconds").innerHTML = seconds;
+        window.setTimeout("countdown()", 1000);
+        }
+    }
+    countdown();
+</script>
+</body>
+</html>

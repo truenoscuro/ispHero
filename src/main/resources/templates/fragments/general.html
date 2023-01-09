@@ -10,13 +10,14 @@
           integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
           crossorigin="anonymous"></script>
   <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
-  <link rel="apple-touch-icon" th:href="@{/img/logo.png}">
+  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
   <link rel="stylesheet" th:href="@{/imports.css}">
   <meta name="theme-color" content="#fafafa">
   <title th:text="${pageTitle} ? 'ISP Hero - ' + ${pageTitle} : 'ISP Hero'"></title>
 <body>
 <div th:fragment="header">
-  <nav class="navbar navbar-expand-lg bg-light blur">
+  <nav class="navbar navbar-expand-lg blur bg-transparent">
     <div class="container-fluid">
       <a class="navbar-brand" href="/"><img th:src="@{/img/logo.png}" alt="logo" style="width:75px"></a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -28,9 +29,6 @@
         <ul class="navbar-nav d-flex me-auto mb-2 mb-lg-0 mx-3 justify-content-between">
           <li class="nav-item mx-4">
             <a class="nav-link" href="#">Domains</a>
-          </li>
-          <li class="nav-item mx-4">
-            <a class="nav-link" href="#">Hosting</a>
           </li>
           <li class="nav-item dropdown mx-4">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
@@ -47,12 +45,19 @@
             </ul>
           </li>
           <li class="nav-item mx-4">
+            <a class="nav-link" href="#">Hosting</a>
+          </li>
+          <li class="nav-item mx-4">
             <a class="nav-link" href="/about">About us</a>
           </li>
           <li class="nav-item mx-4">
             <a class="nav-link" href="/contact">Contact us</a>
           </li>
         </ul>
+        <div class="nav-item mx-3 language-picker">
+          <svg class="icon" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="8.5" stroke="currentColor"></circle><path d="M13.5 10c0 2.432-.44 4.61-1.129 6.16-.344.777-.742 1.374-1.159 1.77-.414.394-.822.57-1.212.57s-.798-.176-1.212-.57c-.417-.396-.815-.993-1.16-1.77C6.94 14.61 6.5 12.433 6.5 10s.44-4.61 1.128-6.16c.345-.777.743-1.374 1.16-1.77.414-.394.822-.57 1.212-.57s.798.176 1.212.57c.417.396.815.993 1.16 1.77C13.06 5.39 13.5 7.567 13.5 10z" stroke="currentColor"></path><path fill="currentColor" d="M2 7h16v1H2zM2 12h16v1H2z"></path></svg>
+          <span th:text="${languages[0].name}"></span>
+        </div>
         <div th:if="${auth != null}">
           <a class="btn btn-outline-primary" href="/account">Account</a>
           <a class="btn btn-outline-primary" href="/logout">Logout</a>
@@ -64,8 +69,7 @@
     </div>
   </nav>
 </div>
-
-<footer th:fragment="footer">
+<footer th:fragment="footer" class="position-relative align-bottom">
   <footer class="bg-dark text-white py-5">
     <div class="container">
       <div class="row">
@@ -78,8 +82,8 @@
           <ul class="list-unstyled">
             <li>1820 NW 56th St</li>
             <li>Miami, Florida(FL), 33142</li>
-            <li>(305) 635-2218</li>
-            <li>info@isphero.com</li>
+            <li><a href="tel:(305)635-2218">(305) 635-2218</a></li>
+            <li><a href="mailto:info@isphero.com">info@isphero.com</a></li>
           </ul>
         </div>
         <div class="col-md-4">
@@ -92,7 +96,43 @@
         </div>
       </div>
     </div>
+    <button class="back-to-top" onclick="scrollToTop()">
+      <div class="text">
+        <span>Back</span>
+        <span>to</span>
+        <span>top</span>
+      </div>
+      <div class="clone">
+        <span>Back</span>
+        <span>to</span>
+        <span>top</span>
+      </div>
+      <svg width="20px" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+      </svg>
+    </button>
   </footer>
+  <script>
+    $(document).ready(function () {
+      $(window).scroll(function () {
+        if ($(this).scrollTop() > 100) {
+          $('.back-to-top').fadeIn('slow');
+        } else {
+          $('.back-to-top').fadeOut('slow');
+        }
+      })
+      $('#dialog').hide()
+    });
+
+    function scrollToTop() {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }
+
+
+  </script>
 </footer>
 </body>
 </html>

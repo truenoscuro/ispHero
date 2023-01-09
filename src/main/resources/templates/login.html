@@ -4,7 +4,7 @@
   <title>ISP Hero - Login</title>
 </head>
 <body>
-<header th:insert="~{fragments/general.html :: header}"></header>
+<header th:insert="~{fragments/loginandregister.html :: header}"></header>
 <main>
   <div class="bubbles">
     <div class="bubble"></div>
@@ -59,7 +59,7 @@
     <div class="bubble"></div>
   </div>
   <div class="p-5">
-    <form action="/login" method="post" class="login">
+    <form action="/login" method="post" class="login" style="margin-top: 100px;">
       <div class="login-form-title">
         <h1>Login</h1>
       </div>
@@ -73,7 +73,7 @@
         <p th:text="${case}" class="text-danger text-center my-2 mx-auto"></p>
       </div>
       <div class="login-form-buttons">
-        <input type="submit" value="Login" class="login-form-button">
+        <button class="login-form-button login-button" type="submit" style="vertical-align:middle"><span>Login</span></button>
         <form action="/register" method="get" class="login">
           <input type="reset" value="Register" class="register-form-button register">
         </form>
