@@ -16,6 +16,7 @@ public class HomeController {
     @GetMapping("/")
     public String index( Model model) {
         model.addAttribute("languages",languageControler.findAll() );
+
         return "index";
     }
 
@@ -32,12 +33,6 @@ public class HomeController {
     public String contact( Model model ) {
         model.addAttribute("languages",languageControler.findAll() );
         return "contact";
-    }
-
-    @GetMapping("/login")
-    public String login( Model model ) {
-        model.addAttribute("languages",languageControler.findAll() );
-        return "login";
     }
 
 }
