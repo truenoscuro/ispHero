@@ -1,4 +1,7 @@
+package com.example.esquelet.controllers;
+
 import com.example.esquelet.models.ArticleSell;
+import com.example.esquelet.models.Cart;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
