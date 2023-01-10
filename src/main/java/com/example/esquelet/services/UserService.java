@@ -29,13 +29,17 @@ public class UserService {
         return ! userDataRepository.existsByUser( userData.getUser( ) );
     }
 
+
     public void addUser(UserData userData){
         User user = userData.getUser();
         userRepository.save(user); // encript passw
         userDataRepository.save(userData);
     }
 
+    // boolean if you want newsletter
     public void addUser(User user) {
+        // if(wantNewsLetter) newsLetterRepository.save(user.email)
+
         userRepository.save(user);
     }
 
