@@ -37,18 +37,15 @@ public class UserController {
         if (Objects.equals(status, "false")) {
             String username = user.getUsername();
             System.out.println("Username: " + username);
-
             // Check if any user has the same username
             if (userService.checkUser(username)) {
                 model.addAttribute("error", "Username already exists");
                 return "register";
             }
-
             user.setRole(Role.USER);
             userService.addUser(user);
             model.addAttribute("status", "true");
         }
-
         else {
             userService.sendRegisterMail(user);
             model.addAttribute("status", "false");
