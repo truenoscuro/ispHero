@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -32,7 +33,7 @@ public class Service {
     @UpdateTimestamp
     private Timestamp dateBuy;
      */
-    private Timestamp dateExpired;
+    private LocalDateTime dateExpired;
 
     private boolean isCancelled;
     private String nameDomain;
