@@ -37,12 +37,12 @@ public class ArticleSellService {
         Category category = categoryOptional.get(); // check in Controller
         List< Product > productList = productRepository.getAllByCategory( category );
         return  productList.stream().map( product -> {
-            List< Article > articleList = articleRepository.getAllByProduct( product );
+            List<Article> articleList = articleRepository.getAllByProduct( product );
             List <Article> childrenList = articleRepository.getAllByArticleChildren(articleList.get(0));
             if( !articleList.isEmpty() ){
                 return new ArticleSell( articleList , childrenList ) ;
             }
-            return null;
+            return new ArticleSell();
         }).toList();
     }
 

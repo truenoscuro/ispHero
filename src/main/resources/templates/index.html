@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head th:insert="~{fragments/general.html :: headerfiles}">
 </head>
 <body>
@@ -9,12 +8,12 @@
     <div class="container mt-5">
         <div class="row justify-content-center">
             <div class="col-md-6">
-                <form action="/domaincheck">
+                <form action="/domaincheck" method="post">
                     <div class="form-group">
                         <label for="domainSearch" class="text-primary text-center">Find your perfect domain name:</label>
                         <div class="input-group mb-3">
 
-                            <input type="text" class="form-control" id="domainSearch" name="ar" placeholder="Enter domain name">
+                            <input type="text" class="form-control" id="domainSearch" name="domainSearch" placeholder="Enter domain name">
                             <div class="input-group-append">
                                 <button class="btn btn-primary" type="submit">Search</button>
                             </div>

@@ -1,10 +1,18 @@
 <!DOCTYPE html>
+<!--html xmlns:th="http://www.thymeleaf.org" lang="en"-->
 <html lang="en">
 <head th:insert="~{fragments/general.html :: headerfiles}">
 </head>
 <body>
 <header th:insert="~{fragments/general.html :: header}"></header>
 
+
+
+<div th:each="article : ${articleSellList}">
+    <div>
+        <span th:text="${domainName + article.properties.get('tld')[1]}">DOMAIN</span>
+    </div>
+</div>
 
 
 <footer th:insert="~{fragments/general.html :: footer}"></footer>
