@@ -58,7 +58,7 @@
     <div class="bubble"></div>
     <div class="bubble"></div>
   </div>
-  <div class="p-5">
+  <div class="p-5" style="min-height: 75vh">
     <form action="/login" method="post" class="login" style="margin-top: 100px;">
       <div class="login-form-title">
         <h1>Login</h1>
@@ -66,8 +66,9 @@
       <div>
         <input type="text" name="username" id="username" placeholder="Username">
       </div>
-      <div>
+      <div class="d-flex">
         <input type="password" name="password" id="password" placeholder="Password">
+        <i class="far fa-eye" id="togglePassword" style="margin-left: -30px; margin-top: 14px; cursor: pointer;"></i>
       </div>
       <div>
         <p th:text="${case}" class="text-danger text-center my-2 mx-auto"></p>
@@ -91,6 +92,14 @@
     e.preventDefault();
     window.location.href = "/register";
   });
+
+    const togglePassword = document.querySelector('#togglePassword');
+    const password = document.querySelector('#password');
+    togglePassword.addEventListener('click', function (e) {
+      const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+      password.setAttribute('type', type);
+      this.classList.toggle('fa-eye-slash');
+    });
 
     /*$(document).ready(function() {
         $('.login-form-button').click(function() {

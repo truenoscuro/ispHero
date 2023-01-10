@@ -11,10 +11,19 @@
           crossorigin="anonymous"></script>
   <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
   <link rel="stylesheet" th:href="@{/imports.css}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="This is an example of a
 meta description. This will often show up in search results.">
-  <meta name="theme-color" content="#fafafa">
+
+  <!-- PWA -->
+  <link rel="manifest" href="/manifest.json" />
+  <link rel="apple-touch-icon" th:href="@{/icon-192x192.png}"/>
+  <link rel="apple-touch-icon" th:href="@{/icon-256x256.png}"/>
+  <link rel="apple-touch-icon" th:href="@{/icon-384x384.png}"/>
+  <link rel="apple-touch-icon" th:href="@{/icon-512x512.png}"/>
+  <meta name="apple-mobile-web-app-status-bar" content="#db4938" />
+  <meta name="theme-color" content="#db4938" />
   <title th:text="${pageTitle} ? 'ISP Hero - ' + ${pageTitle} : 'ISP Hero'"></title>
 <body>
 <div th:fragment="header">
@@ -86,6 +95,18 @@ meta description. This will often show up in search results.">
         </div>
       </div>
     </div>
+    <div class="container">
+      <div class="row justify-content-between">
+        <div class="col-auto d-flex gap-2">
+            <a href="/privacy-policy">Privacy Policy</a> | <a href="/terms-of-service">Terms of Service</a> | <a href="/cookies-policy">Cookies Policy </a> | <span>&copy; 2023 ISP Hero</span>
+        </div>
+        <div class="col-auto d-flex gap-2">
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+    </div>
     <button class="back-to-top" onclick="scrollToTop()">
       <div class="text">
         <span>Back</span>
@@ -121,6 +142,18 @@ meta description. This will often show up in search results.">
       });
     }
 
+    // Service Worker
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function () {
+        navigator.serviceWorker.register('service-worker.js').then(function (registration) {
+          // Registration was successful
+          console.log('ServiceWorker registration successful with scope: ', registration.scope);
+        }, function (err) {
+          // registration failed :(
+          console.log('ServiceWorker registration failed: ', err);
+        });
+      });
+    }
 
   </script>
 </footer>

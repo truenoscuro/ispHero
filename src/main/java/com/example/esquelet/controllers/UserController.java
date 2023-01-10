@@ -3,6 +3,7 @@ package com.example.esquelet.controllers;
 import com.example.esquelet.entities.Role;
 import com.example.esquelet.entities.User;
 import com.example.esquelet.entities.UserData;
+import com.example.esquelet.repositories.LanguageControler;
 import com.example.esquelet.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -19,6 +20,9 @@ public class UserController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    LanguageControler languageControler;
 
     @PostMapping("/user") // Change name form name
     public String userAcces(@ModelAttribute("user") User user , Model model){
@@ -55,6 +59,7 @@ public class UserController {
 
     @GetMapping("/login")
     public String login(Model model) {
+        model.addAttribute("languages",languageControler.findAll() );
         model.addAttribute("pageTitle", "Login");
         return "login";
     }
@@ -62,6 +67,7 @@ public class UserController {
     @PostMapping("/login")
     public String login(@ModelAttribute("user") User user, Model model) {
         // Get user and password from form
+        model.addAttribute("languages",languageControler.findAll() );
         String userName = user.getUsername();
         String password = user.getPassword();
         System.out.println("User: " + userName + " Password: " + password);
