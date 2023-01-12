@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 public class ArticleSell {
 
+    //private ArticleSell copy = new ArticleSell();
     private String product; // name product Product Domini is named for IspName
     //1- NameProperty  2-{ typeProperty , value }
     Map< String , String [] > properties;

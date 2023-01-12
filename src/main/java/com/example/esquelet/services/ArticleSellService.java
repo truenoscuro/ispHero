@@ -46,6 +46,14 @@ public class ArticleSellService {
         }).toList();
     }
 
+    public ArticleSell getArticleSell(String productName){
+        Optional<Product> productOptional = productRepository.getProductsByName(productName);
+        Product product = productOptional.get();
+        List<Article> articleList = articleRepository.getAllByProduct( product );
+        List <Article> childrenList = articleRepository.getAllByArticleChildren(articleList.get(0));
+        return new ArticleSell( articleList , childrenList );
+    }
+
 
 
 

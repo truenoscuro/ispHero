@@ -9,12 +9,13 @@ import java.util.List;
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
 public class Cart {
-    List<ArticleSell> cart;
+    List<ArticleSell> articlesBuy;
 
-    public void add( ArticleSell articleSell ){ cart.add( articleSell ); }
-    public void remove( ArticleSell articleSell ){ cart.remove( articleSell ); }
-    public void removeAll( ){ cart = new ArrayList<>( ); }
+    public Cart(){ articlesBuy = new ArrayList<>(); }
+
+    public void add( ArticleSell articleSell ){ articlesBuy.add( articleSell ); }
+    public void remove( ArticleSell articleSell ){ articlesBuy.remove( articleSell ); }
+    public void removeAll( ){ articlesBuy = new ArrayList<>( ); }
 
 }

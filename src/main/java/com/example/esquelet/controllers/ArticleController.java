@@ -38,10 +38,10 @@ public class ArticleController {
     @PostMapping("/domaincheck")
     public String  domainCheck(@RequestParam("domainSearch") String domainName,
                               Model model ){
-        model.addAttribute("languages",languageControler.findAll() );
         model.addAttribute("domainName" , domainName );
         model.addAttribute("articleSellList",articleSellService.getListArticleSellList( "1" ));
-        return "domaincheck" ;
+        model.addAttribute("languages",languageControler.findAll() );
+        return "domaincheck";
     }
 
 }
