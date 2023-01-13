@@ -32,17 +32,14 @@ public class ArticleSellService {
         return categoryRepository.searchById(idCategory).isPresent();
     }
 
-    public List< ArticleSell > getListArticleSellList( String idCategory ){
-        Optional< Category > categoryOptional = categoryRepository.searchById( idCategory );
+    public List< ArticleSell > getListArticleSellList( String nameCategory ){
+        Optional< Category > categoryOptional = categoryRepository.searchByName( nameCategory );
         Category category = categoryOptional.get(); // check in Controller
         List< Product > productList = productRepository.getAllByCategory( category );
         return  productList.stream().map( product -> {
             List<Article> articleList = articleRepository.getAllByProduct( product );
             List <Article> childrenList = articleRepository.getAllByArticleChildren(articleList.get(0));
-            if( !articleList.isEmpty() ){
-                return new ArticleSell( articleList , childrenList ) ;
-            }
-            return new ArticleSell();
+            return new ArticleSell( articleList , childrenList ) ;
         }).toList();
     }
 

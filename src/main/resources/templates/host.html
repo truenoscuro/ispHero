@@ -5,9 +5,8 @@
 </head>
 <body>
 <header th:insert="~{fragments/general.html :: header}"></header>
-
-
-
+<div th:text = "${domain}">DOMAINS</div>
+<!--
 <div th:each="article: ${articleSellList}" class="d-flex gap-lg-5">
     <div> <span th:text="${article.product}">DOMAIN</span> </div>
     <div> <span th:text="${article.properties.get('capacity')[1]}">CAPACITY</span> </div>
@@ -22,7 +21,7 @@
     </div>
 </div>
 
-
+-->
 <footer th:insert="~{fragments/general.html :: footer}"></footer>
 </body>
 </html>

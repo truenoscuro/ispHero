@@ -8,6 +8,7 @@ import java.util.Optional;
 
 public interface CategoryRepository extends JpaRepository< Category , Long > {
     Optional< Category > searchById( String id );
+    Optional< Category > searchByName( String name );
 
 
 }
