@@ -5,14 +5,11 @@
 </head>
 <body>
 <header th:insert="~{fragments/general.html :: header}"></header>
-<div th:text = "${domain}">DOMAINS</div>
-<!--
 <div th:each="article: ${articleSellList}" class="d-flex gap-lg-5">
-    <div> <span th:text="${article.product}">DOMAIN</span> </div>
-    <div> <span th:text="${article.properties.get('capacity')[1]}">CAPACITY</span> </div>
-    <div> <span th:text="${article.properties.get('trafic')[1]}">TRAFIC</span> </div>
-    <div> <span th:text="${article.properties.get('price1year')[1]}">PRICE1YEAR</span> </div>
-    <div> <span th:text="${article.properties.get('price2year')[1]}">PRICE2YEAR</span> </div>
+    <div> <span th:text="${article.product}">HOST</span> </div>
+    <div> <span th:text="${article.properties.price1year[1]}">PRICE1YEAR</span> </div>
+    <div> <span th:text="${article.properties.trafic[1]}">TRAFIC</span> </div>
+    <div> <span th:text="${article.properties.capacity[1]}">CAPACITY</span> </div>
     <div>
         <form action="/cartpage" method="post">
             <input type="hidden" th:value="${article.product}" name="productBuy">
@@ -21,7 +18,8 @@
     </div>
 </div>
 
--->
+
+
 <footer th:insert="~{fragments/general.html :: footer}"></footer>
 </body>
 </html>

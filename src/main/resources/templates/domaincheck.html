@@ -10,9 +10,9 @@
 
 <div th:each="article: ${articleSellList}" class="d-flex gap-lg-5">
     <div> <span th:text="${article.product}">DOMAIN</span> </div>
-    <div> <span th:text="${domainName + article.properties.get('tld')[1]}">DOMAIN</span> </div>
-    <div> <span th:text="${article.properties.get('price1year')[1]}">PRICE1YEAR</span> </div>
-    <div> <span th:text="${article.properties.get('price2year')[1]}">PRICE2YEAR</span> </div>
+    <div> <span th:text="${domainName + article.properties.tld[1]}">DOMAIN</span> </div>
+    <div> <span th:text="${article.properties.price1year[1]}">PRICE1YEAR</span> </div>
+    <div> <span th:text="${article.properties.price2year[1]}">PRICE2YEAR</span> </div>
     <div>
         <form action="/cartpage" method="post">
             <input type="hidden" th:value="${article.product}" name="productBuy">
