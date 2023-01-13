@@ -57,7 +57,7 @@
                                 <div class="form-group my-2 ">
                                     <label for="email"></label>
                                     <div class="input-group gap-1">
-                                        <input type="email" class="form-control" id="email" name="email" placeholder="Enter email">
+                                        <input type="text" class="form-control" id="email" name="email" placeholder="Enter email">
                                         <div class="input-group-append">
                                             <button class="btn btn-outline-primary" type="submit">Subscribe</button>
                                         </div>
@@ -72,7 +72,8 @@
     </div>
     <div class="toast d-flex justify-content-center w-100">
         <div class="alert alert-success position-fixed bottom-0 my-5" style="z-index: 3">Your email has been registered!</div>
-        <div class="alert alert-danger position-fixed bottom-0 my-5" style="z-index: 3">You are already subscribed!</div>
+        <div class="alert alert-danger position-fixed bottom-0 my-5 taken" style="z-index: 3">You are already subscribed!</div>
+        <div class="alert alert-danger position-fixed bottom-0 my-5 valid" style="z-index: 3">Please enter a valid email!</div>
     </div>
 </div>
 <footer th:insert="~{fragments/general.html :: footer}"></footer>
@@ -83,23 +84,41 @@
         $('.alert').hide();
         $('form').submit(function (e) {
             e.preventDefault();
-            $.ajax({
-                type: "POST",
-                url: "/subscribe",
-                data: {
-                    email: $('#email').val()
-                },
-                success: function (response) {
-                    if (response === "200") {
-                        $('.alert-success').show().delay(3000).fadeOut();
-                        $('.alert-danger').hide();
-                        $('input').val('');
-                    } else {
-                        $('.alert-danger').show();
-                        $('.alert-success').hide();
+            let email = $('#email').val();
+            console.log(email);
+            function validateEmail(email) {
+                let re = /\S+@\S+\.\S+/;
+                console.log(re.test(email));
+                return re.test(email);
+            }
+
+            if (validateEmail(email)) {
+                $.ajax({
+                    url: '/subscribe',
+                    type: 'POST',
+                    data: {
+                        email: email
+                    },
+                    success: function (data) {
+                        if (data === '200') {
+                            $('.alert-success').show();
+                            setTimeout(function () {
+                                $('.alert-success').fadeOut();
+                            }, 3000);
+                        } else {
+                            $('.taken').show();
+                            setTimeout(function () {
+                                $('.taken').fadeOut();
+                            }, 3000);
+                        }
                     }
-                }
-            });
+                });
+            } else {
+                $('.valid').show();
+                setTimeout(function () {
+                    $('.valid').fadeOut();
+                }, 3000);
+            }
         });
     });
 </script>
