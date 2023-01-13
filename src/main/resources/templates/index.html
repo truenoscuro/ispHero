@@ -53,7 +53,7 @@
                         <h1 class="text-center">Subscribe to our newsletter</h1>
                         <p class="text-center">Get the latest news and updates from our team</p>
                         <div class="container">
-                            <form action="#" method="post">
+                            <form action="#" method="post" id="emailsub">
                                 <div class="form-group my-2 ">
                                     <label for="email"></label>
                                     <div class="input-group gap-1">
@@ -78,11 +78,10 @@
 </div>
 <footer th:insert="~{fragments/general.html :: footer}"></footer>
 <script>
-
     // Function to check if email is already subscribed, if not, add to database
     $(document).ready(function () {
         $('.alert').hide();
-        $('form').submit(function (e) {
+        $('#emailsub').submit(function (e) {
             e.preventDefault();
             let email = $('#email').val();
             console.log(email);
