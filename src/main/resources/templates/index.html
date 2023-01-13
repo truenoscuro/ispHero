@@ -12,13 +12,10 @@
                     <div class="form-group">
                         <label for="domainSearch" class="text-primary text-center">Find your perfect domain name:</label>
                         <div class="input-group mb-3">
-
                             <input type="text" class="form-control" id="domainSearch" name="domainSearch" placeholder="Enter domain name">
                             <div class="input-group-append">
                                 <button class="btn btn-primary" type="submit">Search</button>
                             </div>
-
-                            
                         </div>
                     </div>
                 </form>
@@ -55,21 +52,56 @@
                     <div class="p-5">
                         <h1 class="text-center">Subscribe to our newsletter</h1>
                         <p class="text-center">Get the latest news and updates from our team</p>
-                        <!-- TODO: Add newsletter subscription form -->
-                        <form action="#">
-                            <div class="form-group my-2 ">
-                                <label for="email"></label>
-                                <input type="email" class="form-control" id="email" name="email" placeholder="Enter email">
-                                <button type="submit" class="btn btn-outline-primary">Subscribe</button>
-                            </div>
-                        </form>
+                        <div class="container">
+                            <form action="#" method="post">
+                                <div class="form-group my-2 ">
+                                    <label for="email"></label>
+                                    <div class="input-group gap-1">
+                                        <input type="email" class="form-control" id="email" name="email" placeholder="Enter email">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-outline-primary" type="submit">Subscribe</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
+    <div class="toast d-flex justify-content-center w-100">
+        <div class="alert alert-success position-fixed bottom-0 my-5" style="z-index: 3">Your email has been registered!</div>
+        <div class="alert alert-danger position-fixed bottom-0 my-5" style="z-index: 3">You are already subscribed!</div>
+    </div>
 </div>
 <footer th:insert="~{fragments/general.html :: footer}"></footer>
+<script>
+
+    // Function to check if email is already subscribed, if not, add to database
+    $(document).ready(function () {
+        $('.alert').hide();
+        $('form').submit(function (e) {
+            e.preventDefault();
+            $.ajax({
+                type: "POST",
+                url: "/subscribe",
+                data: {
+                    email: $('#email').val()
+                },
+                success: function (response) {
+                    if (response === "200") {
+                        $('.alert-success').show().delay(3000).fadeOut();
+                        $('.alert-danger').hide();
+                        $('input').val('');
+                    } else {
+                        $('.alert-danger').show();
+                        $('.alert-success').hide();
+                    }
+                }
+            });
+        });
+    });
+</script>
 </body>
 </html>
