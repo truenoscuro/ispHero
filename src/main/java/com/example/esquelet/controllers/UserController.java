@@ -47,6 +47,7 @@ public class UserController {
                 return "register";
             }
             user.setRole(Role.USER);
+            user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
             userService.addUser(user);
             model.addAttribute("status", "true");
         }
@@ -75,7 +76,6 @@ public class UserController {
         if (userService.checkUser(userName, password)) {
             model.addAttribute("auth", userName);
             System.out.println(userName + " logged in");
-//            System.out.println(user.getUserData().getFirstName()); // need to get user data !!
             return "account";
         } else {
             System.out.println("User or password incorrect");
