@@ -24,6 +24,7 @@ meta description. This will often show up in search results.">
   <link rel="apple-touch-icon" th:href="@{/icon-512x512.png}"/>
   <meta name="apple-mobile-web-app-status-bar" content="#db4938" />
   <meta name="theme-color" content="#db4938" />
+  <link rel="icon" type="image/x-icon" th:href="@{/favicon.ico}" />
   <title th:text="${pageTitle} ? 'ISP Hero - ' + ${pageTitle} : 'ISP Hero'"></title>
 <body>
 <div th:fragment="header">
@@ -104,7 +105,7 @@ meta description. This will often show up in search results.">
     <div class="container">
       <div class="row justify-content-between">
         <div class="col-auto d-flex gap-2">
-            <a href="/privacy-policy">Privacy Policy</a> | <a href="/terms-of-service">Terms of Service</a> | <a href="/cookies-policy">Cookies Policy </a> | <span>&copy; 2023 ISP Hero</span>
+            <a href="/privacy-policy" class="text-white text-decoration-none">Privacy Policy</a> | <a href="/terms-of-service" class="text-white text-decoration-none">Terms of Service</a> | <a href="/cookies-policy" class="text-white text-decoration-none">Cookies Policy </a> | <span>&copy; 2023 ISP Hero</span>
         </div>
         <div class="col-auto d-flex gap-3">
             <a href="#"><i class="fab fa-twitter"></i></a>

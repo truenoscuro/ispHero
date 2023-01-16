@@ -3,10 +3,9 @@ package com.example.esquelet;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
 @SpringBootApplication
-public class EsqueletApplication extends SpringBootServletInitializer {
+public class EsqueletApplication extends org.springframework.boot.web.servlet.support.SpringBootServletInitializer {
 
     public static void main(String[] args) {
         SpringApplication.run(EsqueletApplication.class, args);
