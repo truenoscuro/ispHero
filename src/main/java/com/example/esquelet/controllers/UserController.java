@@ -99,4 +99,10 @@ public class UserController {
         model.addAttribute("pageTitle", " My Account");
         return "account";
     }
+    
+    @GetMapping("/logout")
+    public String logout(Model model) {
+        // TODO: Logout
+        return "redirect:/";
+    }
 }
