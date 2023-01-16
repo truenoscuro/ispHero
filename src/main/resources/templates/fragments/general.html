@@ -10,14 +10,24 @@
           integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
           crossorigin="anonymous"></script>
   <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
-  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
-  <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
   <link rel="stylesheet" th:href="@{/imports.css}">
-  <meta name="theme-color" content="#fafafa">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="This is an example of a
+meta description. This will often show up in search results.">
+
+  <!-- PWA -->
+  <link rel="manifest" href="/manifest.json" />
+  <link rel="apple-touch-icon" th:href="@{/icon-192x192.png}"/>
+  <link rel="apple-touch-icon" th:href="@{/icon-256x256.png}"/>
+  <link rel="apple-touch-icon" th:href="@{/icon-384x384.png}"/>
+  <link rel="apple-touch-icon" th:href="@{/icon-512x512.png}"/>
+  <meta name="apple-mobile-web-app-status-bar" content="#db4938" />
+  <meta name="theme-color" content="#db4938" />
   <title th:text="${pageTitle} ? 'ISP Hero - ' + ${pageTitle} : 'ISP Hero'"></title>
 <body>
 <div th:fragment="header">
-  <nav class="navbar navbar-expand-lg blur bg-transparent">
+  <nav class="navbar navbar-expand-lg blur bg-transparent px-5">
     <div class="container-fluid">
       <a class="navbar-brand" href="/"><img th:src="@{/img/logo.png}" alt="logo" style="width:75px"></a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -28,35 +38,24 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav d-flex me-auto mb-2 mb-lg-0 mx-3 justify-content-between">
           <li class="nav-item mx-4">
-            <a class="nav-link" href="#">Domains</a>
+            <a class="nav-link" href="#">Domain</a>
           </li>
-          <li class="nav-item dropdown mx-4">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-               aria-expanded="false">
-              Mail
-            </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Professional Mail</a></li>
-              <li><a class="dropdown-item" href="#">Business Mail</a></li>
-              <li>
-                <hr class="dropdown-divider">
-              </li>
-              <li><a class="dropdown-item" href="#">Office 365</a></li>
-            </ul>
+          <li class="nav-item mx-4">
+            <a class="nav-link" href="#">Mail</a>
           </li>
           <li class="nav-item mx-4">
             <a class="nav-link" href="#">Hosting</a>
           </li>
           <li class="nav-item mx-4">
-            <a class="nav-link" href="/about">About us</a>
+            <a class="nav-link" href="/about">About</a>
           </li>
           <li class="nav-item mx-4">
-            <a class="nav-link" href="/contact">Contact us</a>
+            <a class="nav-link" href="/contact">Contact</a>
           </li>
         </ul>
         <div class="nav-item mx-3 language-picker">
           <svg class="icon" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="8.5" stroke="currentColor"></circle><path d="M13.5 10c0 2.432-.44 4.61-1.129 6.16-.344.777-.742 1.374-1.159 1.77-.414.394-.822.57-1.212.57s-.798-.176-1.212-.57c-.417-.396-.815-.993-1.16-1.77C6.94 14.61 6.5 12.433 6.5 10s.44-4.61 1.128-6.16c.345-.777.743-1.374 1.16-1.77.414-.394.822-.57 1.212-.57s.798.176 1.212.57c.417.396.815.993 1.16 1.77C13.06 5.39 13.5 7.567 13.5 10z" stroke="currentColor"></path><path fill="currentColor" d="M2 7h16v1H2zM2 12h16v1H2z"></path></svg>
-          <span th:text="${languages[0].name}"></span>
+          <span th:text="${languages[1].name}"></span>
         </div>
         <div th:if="${auth != null}">
           <a class="btn btn-outline-primary" href="/account">Account</a>
@@ -82,8 +81,8 @@
           <ul class="list-unstyled">
             <li>1820 NW 56th St</li>
             <li>Miami, Florida(FL), 33142</li>
-            <li><a href="tel:(305)635-2218">(305) 635-2218</a></li>
-            <li><a href="mailto:info@isphero.com">info@isphero.com</a></li>
+            <li><a href="tel:(305)635-2218" class="text-white">(305) 635-2218</a></li>
+            <li><a href="mailto:info@isphero.com" class="text-white">info@isphero.com</a></li>
           </ul>
         </div>
         <div class="col-md-4">
@@ -93,6 +92,18 @@
             <li><a href="#" class="text-white">About</a></li>
             <li><a href="#" class="text-white">Contact</a></li>
           </ul>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row justify-content-between">
+        <div class="col-auto d-flex gap-2">
+            <a href="/privacy-policy">Privacy Policy</a> | <a href="/terms-of-service">Terms of Service</a> | <a href="/cookies-policy">Cookies Policy </a> | <span>&copy; 2023 ISP Hero</span>
+        </div>
+        <div class="col-auto d-flex gap-2">
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
         </div>
       </div>
     </div>
@@ -131,6 +142,18 @@
       });
     }
 
+    // Service Worker
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function () {
+        navigator.serviceWorker.register('service-worker.js').then(function (registration) {
+          // Registration was successful
+          console.log('ServiceWorker registration successful with scope: ', registration.scope);
+        }, function (err) {
+          // registration failed :(
+          console.log('ServiceWorker registration failed: ', err);
+        });
+      });
+    }
 
   </script>
 </footer>

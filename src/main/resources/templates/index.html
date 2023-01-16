@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head th:insert="~{fragments/general.html :: headerfiles}">
 </head>
 <body>
@@ -9,11 +8,11 @@
     <div class="container mt-5">
         <div class="row justify-content-center">
             <div class="col-md-6">
-                <form action="/domaincheck">
+                <form action="/domaincheck" method="post">
                     <div class="form-group">
                         <label for="domainSearch" class="text-primary text-center">Find your perfect domain name:</label>
                         <div class="input-group mb-3">
-                            <input type="text" class="form-control" id="domainSearch" name="ar" placeholder="Enter domain name">
+                            <input type="text" class="form-control" id="domainSearch" name="domainSearch" placeholder="Enter domain name">
                             <div class="input-group-append">
                                 <button class="btn btn-primary" type="submit">Search</button>
                             </div>
@@ -23,7 +22,7 @@
             </div>
         </div>
     </div>
-    <div class="d-flex justify-content-center d-sm-flex justify-content-sm-evenly flex-column flex-sm-row">
+    <div class="d-flex justify-content-center d-sm-flex justify-content-sm-evenly flex-column flex-sm-row p-5">
         <div class="card m-3 w-25">
             <img th:src="@{/img/people-and-technology.png}" class="card-img-top" alt="Domain Hosting">
             <div class="card-body">
@@ -46,8 +45,63 @@
             </div>
         </div>
     </div>
-
+    <div>
+        <div class="container-fluid bg-light text-dark p-5">
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <div class="p-5">
+                        <h1 class="text-center">Subscribe to our newsletter</h1>
+                        <p class="text-center">Get the latest news and updates from our team</p>
+                        <div class="container">
+                            <form action="#" method="post">
+                                <div class="form-group my-2 ">
+                                    <label for="email"></label>
+                                    <div class="input-group gap-1">
+                                        <input type="email" class="form-control" id="email" name="email" placeholder="Enter email">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-outline-primary" type="submit">Subscribe</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="toast d-flex justify-content-center w-100">
+        <div class="alert alert-success position-fixed bottom-0 my-5" style="z-index: 3">Your email has been registered!</div>
+        <div class="alert alert-danger position-fixed bottom-0 my-5" style="z-index: 3">You are already subscribed!</div>
+    </div>
 </div>
 <footer th:insert="~{fragments/general.html :: footer}"></footer>
+<script>
+
+    // Function to check if email is already subscribed, if not, add to database
+    $(document).ready(function () {
+        $('.alert').hide();
+        $('form').submit(function (e) {
+            e.preventDefault();
+            $.ajax({
+                type: "POST",
+                url: "/subscribe",
+                data: {
+                    email: $('#email').val()
+                },
+                success: function (response) {
+                    if (response === "200") {
+                        $('.alert-success').show().delay(3000).fadeOut();
+                        $('.alert-danger').hide();
+                        $('input').val('');
+                    } else {
+                        $('.alert-danger').show();
+                        $('.alert-success').hide();
+                    }
+                }
+            });
+        });
+    });
+</script>
 </body>
 </html>
