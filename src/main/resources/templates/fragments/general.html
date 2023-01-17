@@ -124,7 +124,7 @@ meta description. This will often show up in search results.">
             <p class="text-dark">Select your language:</p>
             <div class="d-flex grid gap-3 align-content-center">
                 <div th:each="language : ${languages}">
-                    <a th:href="@{'/' + ${language.code}}" class="btn btn-outline-secondary" th:text="${language.name}"></a>
+                    <a th:href="@{''(lang=${language.code})}" class="btn btn-outline-secondary" th:text="${language.name}"></a>
                 </div>
             </div>
           </div>
