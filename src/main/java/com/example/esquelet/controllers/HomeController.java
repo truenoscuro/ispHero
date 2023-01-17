@@ -28,10 +28,15 @@ public class HomeController {
     @Autowired
     LanguageConfig languageConfig;
 
+    HttpSession session;
+
     @GetMapping("/")
     public String index(Model model, HttpSession session, HttpServletRequest request) {
         model.addAttribute("languages",languageControler.findAll() );
         System.out.println("Session: " + session.getAttribute("user"));
+        if (session.getAttribute("user") != null) {
+            model.addAttribute("isLogged", true);
+        }
         return "index";
     }
 

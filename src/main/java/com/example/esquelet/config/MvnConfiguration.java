@@ -15,8 +15,6 @@ public class MvnConfiguration implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(org.springframework.web.servlet.config.annotation.InterceptorRegistry registry) {
-        System.out.println("Interceptor: " + authInterceptor);
-        System.out.println("Accessing: " + registry);
-        registry.addInterceptor(authInterceptor).addPathPatterns("/account", "/account/**");
+        registry.addInterceptor(authInterceptor).addPathPatterns("/account", "/account/**", "/logout");
     }
 }

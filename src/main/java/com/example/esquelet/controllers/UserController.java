@@ -97,16 +97,17 @@ public class UserController {
 
     @GetMapping("/account")
     public String account(Model model) {
-        if (model.getAttribute("user") == null) {
-            return "redirect:/login";
-        }
+        model.addAttribute("languages",languageControler.findAll() );
         model.addAttribute("pageTitle", " My Account");
+        model.addAttribute("isLogged", true);
         return "account";
     }
     
     @GetMapping("/logout")
-    public String logout(Model model) {
+    public String logout(Model model, HttpServletRequest request, HttpServletResponse response) {
         // TODO: Logout
+        HttpSession session = request.getSession();
+        session.invalidate();
         return "redirect:/";
     }
 }

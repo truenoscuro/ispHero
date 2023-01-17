@@ -18,6 +18,7 @@ class authInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         HttpSession session = request.getSession();
+        logger.info("Session: " + session.getAttribute("user"));
         if (session.getAttribute("user") == null) {
             logger.info("Unauthorized access request");
             response.sendRedirect("/login");
