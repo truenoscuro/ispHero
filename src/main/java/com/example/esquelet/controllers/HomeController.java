@@ -5,6 +5,7 @@ import com.example.esquelet.entities.NewsLetter;
 import com.example.esquelet.repositories.LanguageControler;
 import com.example.esquelet.repositories.NewsLetterRepository;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.apache.catalina.connector.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,9 +28,15 @@ public class HomeController {
     @Autowired
     LanguageConfig languageConfig;
 
+    HttpSession session;
+
     @GetMapping("/")
-    public String index(Model model) {
+    public String index(Model model, HttpSession session, HttpServletRequest request) {
         model.addAttribute("languages",languageControler.findAll() );
+        System.out.println("Session: " + session.getAttribute("user"));
+        if (session.getAttribute("user") != null) {
+            model.addAttribute("isLogged", true);
+        }
         return "index";
     }
 

@@ -54,11 +54,11 @@ meta description. This will often show up in search results.">
             <a class="nav-link" href="/contact" th:text="#{messages.header.contact}">Contact</a>
           </li>
         </ul>
-        <div th:if="${auth != null}">
+        <div th:if="${isLogged} == true">
           <a class="btn btn-outline-primary" href="/account" th:text="#{messages.header.account}">Account</a>
           <a class="btn btn-outline-primary" href="/logout">Logout</a>
         </div>
-        <div th:if="${auth == null}">
+        <div th:unless="${isLogged} == true">
           <a class="btn btn-outline-primary" href="/login">Login</a>
         </div>
         <div class="nav-item mx-3 language-picker btn btn-outline-secondary" data-target="#languageModal">
