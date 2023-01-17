@@ -5,6 +5,9 @@ import com.example.esquelet.entities.User;
 import com.example.esquelet.entities.UserData;
 import com.example.esquelet.repositories.LanguageControler;
 import com.example.esquelet.services.UserService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -66,17 +69,18 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public String login(@ModelAttribute("user") User user, Model model) {
+    public String login(@ModelAttribute("user") User user, Model model, HttpSession session) {
         // Get user and password from form
         model.addAttribute("languages",languageControler.findAll() );
         String userName = user.getUsername();
         String password = user.getPassword();
-        System.out.println("User: " + userName + " Password: " + password);
         // Check user and password
         if (userService.checkUser(userName, password)) {
-            model.addAttribute("auth", userName);
+            model.addAttribute("user", userName);
             System.out.println(userName + " logged in");
-            return "account";
+            session.setAttribute("user", userName);
+            System.out.println("Session: " + session.getAttribute("user"));
+            return "redirect:/account";
         } else {
             System.out.println("User or password incorrect");
             // Add error message
