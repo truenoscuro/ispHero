@@ -8,13 +8,13 @@
     <div class="container mt-5">
         <div class="row justify-content-center">
             <div class="col-md-6">
-                <form action="/domaincheck" method="post">
+                <form action="/domaincheck" method="post" id="domainCheck">
                     <div class="form-group">
-                        <label for="domainSearch" class="text-primary text-center">Find your perfect domain name:</label>
+                        <label for="domainSearch" class="text-primary text-center" th:text="#{messages.main.findDomain}">Find your perfect domain name:</label>
                         <div class="input-group mb-3">
-                            <input type="text" class="form-control" id="domainSearch" name="domainSearch" placeholder="Enter domain name">
+                            <input type="text" class="form-control" id="domainSearch" name="domainSearch" placeholder="Enter domain name" th:placeholder="#{messages.main.findDomainText}">
                             <div class="input-group-append">
-                                <button class="btn btn-primary" type="submit">Search</button>
+                                <button class="btn btn-primary" type="submit" th:text="#{messages.main.searchButton}">Search</button>
                             </div>
                         </div>
                     </div>
@@ -26,22 +26,22 @@
         <div class="card m-3 w-25">
             <img th:src="@{/img/people-and-technology.png}" class="card-img-top" alt="Domain Hosting">
             <div class="card-body">
-                <h5 class="card-title">Domain Hosting</h5>
-                <p class="card-text">Keep your domain name safe and secure with our reliable hosting services. Our team of experts will help you find the perfect domain and keep it running smoothly.</p>
+                <h5 class="card-title" th:text="#{messages.main.card1Title}">Domain Hosting</h5>
+                <p class="card-text" th:text="#{messages.main.card1Text}">Keep your domain name safe and secure with our reliable hosting services. Our team of experts will help you find the perfect domain and keep it running smoothly.</p>
             </div>
         </div>
         <div class="card m-3 w-25">
             <img th:src="@{/img/stressed-person-using-computer.png}" class="card-img-top" alt="Domain Hosting">
             <div class="card-body">
-                <h5 class="card-title">We've got you covered</h5>
-                <p class="card-text">Don't worry about any problems you may have. Our team of experts is here to help with any issue you may have, big or small.</p>
+                <h5 class="card-title" th:text="#{messages.main.card2Title}">We've got you covered</h5>
+                <p class="card-text" th:text="#{messages.main.card2Text}">Don't worry about any problems you may have. Our team of experts is here to help with any issue you may have, big or small.</p>
             </div>
         </div>
         <div class="card m-3 w-25">
             <img th:src="@{/img/people-raising-money.png}" class="card-img-top" alt="Domain Hosting">
             <div class="card-body">
-                <h5 class="card-title">Why Choose Us?</h5>
-                <p class="card-text">We offer the best prices and rates in the industry. Our team works hard to negotiate the best deals for our customers, ensuring that you get the best value for your money.</p>
+                <h5 class="card-title" th:text="#{messages.main.card3Title}">Why Choose Us?</h5>
+                <p class="card-text" th:text="#{messages.main.card3Text}">We offer the best prices and rates in the industry. Our team works hard to negotiate the best deals for our customers, ensuring that you get the best value for your money.</p>
             </div>
         </div>
     </div>
@@ -50,16 +50,16 @@
             <div class="row justify-content-center">
                 <div class="col-md-6">
                     <div class="p-5">
-                        <h1 class="text-center">Subscribe to our newsletter</h1>
-                        <p class="text-center">Get the latest news and updates from our team</p>
+                        <h1 class="text-center" th:text="#{messages.main.subscribe}">Subscribe to our newsletter</h1>
+                        <p class="text-center" th:text="#{messages.main.subscribeText}">Get the latest news and updates from our team</p>
                         <div class="container">
                             <form action="#" method="post" id="emailsub">
                                 <div class="form-group my-2 ">
                                     <label for="email"></label>
                                     <div class="input-group gap-1">
-                                        <input type="text" class="form-control" id="email" name="email" placeholder="Enter email">
+                                        <input type="text" class="form-control" id="email" name="email" placeholder="Enter email" th:placeholder="#{messages.main.subscribeBar}">
                                         <div class="input-group-append">
-                                            <button class="btn btn-outline-primary" type="submit">Subscribe</button>
+                                            <button class="btn btn-outline-primary" type="submit" th:text="#{messages.main.subscribeButton}">Subscribe</button>
                                         </div>
                                     </div>
                                 </div>
@@ -71,9 +71,10 @@
         </div>
     </div>
     <div class="toast d-flex justify-content-center w-100">
-        <div class="alert alert-success position-fixed bottom-0 my-5" style="z-index: 3">Your email has been registered!</div>
-        <div class="alert alert-danger position-fixed bottom-0 my-5 taken" style="z-index: 3">You are already subscribed!</div>
-        <div class="alert alert-danger position-fixed bottom-0 my-5 valid" style="z-index: 3">Please enter a valid email!</div>
+        <div class="alert alert-success position-fixed bottom-0 my-5" style="z-index: 3" th:text="#{messages.main.success}">Your email has been registered!</div>
+        <div class="alert alert-danger position-fixed bottom-0 my-5 taken" style="z-index: 3" th:text="#{messages.main.error2}">You are already subscribed!</div>
+        <div class="alert alert-danger position-fixed bottom-0 my-5 valid" style="z-index: 3" th:text="#{messages.main.error}">Please enter a valid email!</div>
+        <div class="alert alert-danger position-fixed bottom-0 my-5 valid" style="z-index: 3" th:text="#{messages.main.errorDomain}">Please enter at least 3 characters!</div>
     </div>
 </div>
 <footer th:insert="~{fragments/general.html :: footer}"></footer>
@@ -81,6 +82,16 @@
     // Function to check if email is already subscribed, if not, add to database
     $(document).ready(function () {
         $('.alert').hide();
+        $('#domainCheck').submit(function (e) {
+            const $domain = $('#domainSearch').val();
+            if ($domain.length >= 3) {
+                $('#domainCheck').submit();
+            } else {
+                e.preventDefault();
+                $('.alert').show().delay(3000).fadeOut();
+            }
+        })
+
         $('#emailsub').submit(function (e) {
             e.preventDefault();
             let email = $('#email').val();

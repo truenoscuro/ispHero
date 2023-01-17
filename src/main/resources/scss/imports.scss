@@ -34,6 +34,8 @@ $theme-colors: (
 @import "node_modules/bootstrap/scss/containers";
 @import "node_modules/bootstrap/scss/grid";
 @import "node_modules/bootstrap/scss/helpers";
+@import "node_modules/bootstrap/scss/alert";
+@import "node_modules/bootstrap/scss/transitions";
 @import "partials/login";
 @import "partials/components/header";
 @import "partials/components/buttons";

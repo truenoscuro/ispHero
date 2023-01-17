@@ -48,27 +48,27 @@ meta description. This will often show up in search results.">
             <a class="nav-link" href="#">Hosting</a>
           </li>
           <li class="nav-item mx-4">
-            <a class="nav-link" href="/about">About</a>
+            <a class="nav-link" href="/about" th:text="#{messages.header.about}">About</a>
           </li>
           <li class="nav-item mx-4">
-            <a class="nav-link" href="/contact">Contact</a>
+            <a class="nav-link" href="/contact" th:text="#{messages.header.contact}">Contact</a>
           </li>
         </ul>
         <div th:if="${auth != null}">
-          <a class="btn btn-outline-primary" href="/account">Account</a>
+          <a class="btn btn-outline-primary" href="/account" th:text="#{messages.header.account}">Account</a>
           <a class="btn btn-outline-primary" href="/logout">Logout</a>
         </div>
         <div th:if="${auth == null}">
           <a class="btn btn-outline-primary" href="/login">Login</a>
         </div>
-        <div class="nav-item mx-3 language-picker btn btn-outline-secondary">
+        <div class="nav-item mx-3 language-picker btn btn-outline-secondary" data-target="#languageModal">
           <svg class="icon" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="8.5" stroke="currentColor"></circle><path d="M13.5 10c0 2.432-.44 4.61-1.129 6.16-.344.777-.742 1.374-1.159 1.77-.414.394-.822.57-1.212.57s-.798-.176-1.212-.57c-.417-.396-.815-.993-1.16-1.77C6.94 14.61 6.5 12.433 6.5 10s.44-4.61 1.128-6.16c.345-.777.743-1.374 1.16-1.77.414-.394.822-.57 1.212-.57s.798.176 1.212.57c.417.396.815.993 1.16 1.77C13.06 5.39 13.5 7.567 13.5 10z" stroke="currentColor"></path><path fill="currentColor" d="M2 7h16v1H2zM2 12h16v1H2z"></path></svg>
           <span th:text="${languages[1].name}"></span>
         </div>
         <div class="nav-item ml-3 btn btn-outline-danger">
           <div class="cart">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16"> <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/> </svg>
-            <span>Cart</span>
+            <span th:text="#{messages.header.cart}">Cart</span>
           </div>
         </div>
       </div>
@@ -80,11 +80,11 @@ meta description. This will often show up in search results.">
     <div class="container">
       <div class="row">
         <div class="col-md-4">
-          <h3>About Us</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin molestie, ipsum a placerat pretium, nibh nibh pharetra nisl, id luctus quam elit sit amet mauris.</p>
+          <h3 th:text="#{messages.footer.aboutUs}">About Us</h3>
+          <p th:text="#{messages.footer.aboutUsText}"></p>
         </div>
         <div class="col-md-4">
-          <h3>Contact</h3>
+          <h3 th:text="#{messages.header.contact}">Contact</h3>
           <ul class="list-unstyled">
             <li>1820 NW 56th St</li>
             <li>Miami, Florida(FL), 33142</li>
@@ -96,8 +96,8 @@ meta description. This will often show up in search results.">
           <h3>Links</h3>
           <ul class="list-unstyled">
             <li><a href="#" class="text-white">Home</a></li>
-            <li><a href="#" class="text-white">About</a></li>
-            <li><a href="#" class="text-white">Contact</a></li>
+            <li><a href="#" class="text-white" th:text="#{messages.header.about}">About</a></li>
+            <li><a href="#" class="text-white" th:text="#{messages.header.contact}">Contact</a></li>
           </ul>
         </div>
       </div>
@@ -105,12 +105,32 @@ meta description. This will often show up in search results.">
     <div class="container">
       <div class="row justify-content-between">
         <div class="col-auto d-flex gap-2">
-            <a href="/privacy-policy" class="text-white text-decoration-none">Privacy Policy</a> | <a href="/terms-of-service" class="text-white text-decoration-none">Terms of Service</a> | <a href="/cookies-policy" class="text-white text-decoration-none">Cookies Policy </a> | <span>&copy; 2023 ISP Hero</span>
+            <a href="/privacy-policy" class="text-white text-decoration-none" th:text="#{messages.footer.privacyPolicy}">Privacy Policy</a> | <a href="/terms-of-service" class="text-white text-decoration-none" th:text="#{messages.footer.termsOfService}">Terms of Service</a> | <a href="/cookies-policy" class="text-white text-decoration-none" th:text="#{messages.footer.cookiePolicy}">Cookies Policy </a> | <span>&copy; 2023 ISP Hero</span>
         </div>
         <div class="col-auto d-flex gap-3">
             <a href="#"><i class="fab fa-twitter"></i></a>
             <a href="#"><i class="fab fa-facebook-f"></i></a>
             <a href="#"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="modal" tabindex="-1" role="dialog" id="languageModal">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title text-black">Language</h5>
+          </div>
+          <div class="modal-body">
+            <p class="text-dark">Select your language:</p>
+            <div class="d-flex grid gap-3 align-content-center">
+                <div th:each="language : ${languages}">
+                    <a th:href="@{''(lang=${language.code})}" class="btn btn-outline-secondary" th:text="${language.name}"></a>
+                </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
         </div>
       </div>
     </div>
@@ -140,6 +160,14 @@ meta description. This will often show up in search results.">
         }
       })
       $('#dialog').hide()
+      $('.back-to-top').click(function () {
+        $('html, body').animate({ scrollTop: 0 }, 1500, 'easeInOutExpo');
+        return false;
+      });
+      $('.language-picker').on('click', function () {
+        $('#languageModal').modal('show')
+      })
+
     });
 
     function scrollToTop() {
