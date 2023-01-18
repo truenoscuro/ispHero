@@ -27,9 +27,7 @@ public class ArticleController {
     @GetMapping(value = "/product/{category}") // can pass product?
     public String showByProduct(@PathVariable String category, Model model ){;
         List<ArticleSell> articleSellList = articleSellService.getListArticleSellList( category );
-        articleSellList.forEach(System.out::println);
         model.addAttribute("articleSellList",articleSellList);
-        model.addAttribute("domain","modeldomain");
         model.addAttribute("languages",languageControler.findAll() );
         return category;
     }

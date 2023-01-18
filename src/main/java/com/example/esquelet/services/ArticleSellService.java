@@ -33,6 +33,7 @@ public class ArticleSellService {
     }
 
     public List< ArticleSell > getListArticleSellList( String nameCategory ){
+        System.out.println(nameCategory);
         Optional< Category > categoryOptional = categoryRepository.searchByName( nameCategory );
         Category category = categoryOptional.get(); // check in Controller
         List< Product > productList = productRepository.getAllByCategory( category );

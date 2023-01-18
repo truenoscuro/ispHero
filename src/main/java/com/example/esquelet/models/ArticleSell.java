@@ -19,9 +19,10 @@ public class ArticleSell {
     //private ArticleSell copy = new ArticleSell();
     private String product; // name product Product Domini is named for IspName
     //1- NameProperty  2-{ typeProperty , value }
-    Map< String , String [] > properties;
+    private Map< String , String  > properties;
+    private Map< String , String  > typesProperties;
 
-    List< ArticleSell > childrenList;
+    private List< ArticleSell > childrenList;
 
     public ArticleSell(List< Article > articleList ){
         this.product = articleList.get( 0 ).getProduct().getName();
@@ -35,15 +36,15 @@ public class ArticleSell {
 
     private void constructMap( List< Article > articleList ){
         properties = new HashMap<>();
+        typesProperties = new HashMap<>();
         articleList.forEach( article -> {
             Property property = article.getProperty();
-            properties.put( property.getName() , new String[]{
-                    property.getType(),
-                    article.getValueProperty()});
+            properties.put( property.getName(),article.getValueProperty());
+            typesProperties.put( property.getName(),property.getType());
         });
     }
 
-    private void constructChildrenList ( List <Article> childrenList){
+    private void constructChildrenList ( List <Article> childrenList ){
         this.childrenList = new ArrayList<>();
         childrenList.stream()
                 .collect( Collectors.groupingBy( Article::getProduct ) ) // grouping by same Product
