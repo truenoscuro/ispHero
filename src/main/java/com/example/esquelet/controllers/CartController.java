@@ -23,28 +23,33 @@ public class CartController {
     public String addArticle( @RequestParam("productBuy") String productBuy ,
                               Model model){
 
-        System.out.println(model.containsAttribute("cartUser"));
         if(!model.containsAttribute("cartUser")){
             model.addAttribute("cartUser",new Cart());
         }
         ((Cart) model.getAttribute("cartUser")).add(articleSellService.getArticleSell(productBuy));
-        //System.out.println(model.getAttribute("cart"));
         model.addAttribute("languages",languageControler.findAll() );
         return "cartpage";
 
 
     }
-
-    @PostMapping("/a")
-    public String removeArticle(@ModelAttribute("ArticleSell") ArticleSell articleSell, Model model, HttpSession session){
-        Cart cart = ( Cart ) session.getAttribute("cart");
-        cart.remove(articleSell);
-        return "index";
+    @GetMapping("/cartpage")
+    public String view(Model model){
+        if(!model.containsAttribute("cartUser")){
+            model.addAttribute("cartUser",new Cart());
+        }
+        model.addAttribute("languages",languageControler.findAll() );
+        return "cartpage";
     }
-    @GetMapping("/b")
-    public String removeAll( Model model, HttpSession session){
-        session.invalidate();
-        return "index";
+
+    @PostMapping("/remove")
+    public String removeArticle(@RequestParam("productBuy") String productBuy , Model model){
+        ((Cart) model.getAttribute("cartUser")).remove(articleSellService.getArticleSell(productBuy));
+        return "redirect:/cartpage";
+    }
+    @GetMapping("/removeall")
+    public String removeAll( Model model){
+        ((Cart) model.getAttribute("cartUser")).removeAll();
+        return "redirect:/cartpage";
     }
 
 
