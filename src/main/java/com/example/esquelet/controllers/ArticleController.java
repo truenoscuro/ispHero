@@ -29,7 +29,7 @@ public class ArticleController {
         List<ArticleSell> articleSellList = articleSellService.getListArticleSellList( category );
         model.addAttribute("articleSellList",articleSellList);
         model.addAttribute("languages",languageControler.findAll() );
-        return category;
+        return "product/"+category;
     }
 
     @PostMapping("/domaincheck")
