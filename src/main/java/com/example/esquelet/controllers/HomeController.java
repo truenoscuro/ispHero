@@ -19,6 +19,7 @@ import org.springframework.web.servlet.support.RequestContextUtils;
 import java.util.Locale;
 
 @Controller
+
 public class HomeController {
 
     @Autowired

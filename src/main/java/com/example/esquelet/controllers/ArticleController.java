@@ -24,24 +24,21 @@ public class ArticleController {
     LanguageControler languageControler;
 
 
-    @GetMapping(value = "article/{idCategory}") // can pass product?
-    public String showByProduct(@PathVariable("idCategory") String id, Model model ){
-
-        //List<Article> articleList = articleRepository.findAllByProduct();
-        List<ArticleSell> articleSellList = articleSellService.getListArticleSellList( id );
-
-
-
-        return "article";
+    @GetMapping(value = "/product/{category}") // can pass product?
+    public String showByProduct(@PathVariable String category, Model model ){;
+        List<ArticleSell> articleSellList = articleSellService.getListArticleSellList( category );
+        model.addAttribute("articleSellList",articleSellList);
+        model.addAttribute("languages",languageControler.findAll() );
+        return "product/"+category;
     }
 
     @PostMapping("/domaincheck")
     public String  domainCheck(@RequestParam("domainSearch") String domainName,
                               Model model ){
-        model.addAttribute("languages",languageControler.findAll() );
         model.addAttribute("domainName" , domainName );
-        model.addAttribute("articleSellList",articleSellService.getListArticleSellList( "1" ));
-        return "domaincheck" ;
+        model.addAttribute("articleSellList",articleSellService.getListArticleSellList( "domain" ));
+        model.addAttribute("languages",languageControler.findAll() );
+        return "domaincheck";
     }
 
 }
