@@ -31,8 +31,9 @@ public class HomeController {
     HttpSession session;
 
     @GetMapping("/")
-    public String index(Model model, HttpSession session, HttpServletRequest request) {
+    public String index(Model model, HttpSession session, HttpServletRequest request, @RequestParam(name = "lang", required = false) String lang) {
         model.addAttribute("languages",languageControler.findAll() );
+        model.addAttribute("language", languageControler.findByCode(lang));
         System.out.println("Session: " + session.getAttribute("user"));
         if (session.getAttribute("user") != null) {
             model.addAttribute("isLogged", true);
@@ -43,15 +44,22 @@ public class HomeController {
 
     @GetMapping("/about")
 
-    public String about( Model model ) {
+    public String about( Model model , HttpSession session, @RequestParam(name = "lang", required = false) String lang) {
         model.addAttribute("languages",languageControler.findAll() );
-
+        model.addAttribute("language", languageControler.findByCode(lang));
+        if (session.getAttribute("user") != null) {
+            model.addAttribute("isLogged", true);
+        }
         return "about";
     }
 
     @GetMapping("/contact")
-    public String contact( Model model ) {
+    public String contact( Model model, HttpSession session , @RequestParam(name = "lang", required = false) String lang) {
         model.addAttribute("languages",languageControler.findAll() );
+        model.addAttribute("language", languageControler.findByCode(lang));
+        if (session.getAttribute("user") != null) {
+            model.addAttribute("isLogged", true);
+        }
         return "contact";
     }
 

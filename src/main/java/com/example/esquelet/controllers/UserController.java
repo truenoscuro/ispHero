@@ -4,6 +4,8 @@ import com.example.esquelet.entities.Role;
 import com.example.esquelet.entities.User;
 import com.example.esquelet.entities.UserData;
 import com.example.esquelet.repositories.LanguageControler;
+import com.example.esquelet.repositories.UserDataRepository;
+import com.example.esquelet.repositories.UserRepository;
 import com.example.esquelet.services.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -26,6 +28,10 @@ public class UserController {
 
     @Autowired
     LanguageControler languageControler;
+    @Autowired
+    UserRepository userRepository;
+    @Autowired
+    UserDataRepository userDataRepository;
 
     @PostMapping("/user") // Change name form name
     public String userAcces(@ModelAttribute("user") User user , Model model){
@@ -96,10 +102,17 @@ public class UserController {
     }
 
     @GetMapping("/account")
-    public String account(Model model) {
+    public String account(Model model, HttpSession session) {
         model.addAttribute("languages",languageControler.findAll() );
         model.addAttribute("pageTitle", " My Account");
         model.addAttribute("isLogged", true);
+        model.addAttribute("user", userRepository.findByUsername((String) session.getAttribute("user")));
+
+        System.out.println("User: " + userRepository.findByUsername((String) session.getAttribute("user")));
+        // Get the userData associated to this user id
+        UserData userData = userDataRepository.findByUser((User) userRepository.findByUsername((String) session.getAttribute("user")));
+        System.out.println("UserData: " + userData);
+        model.addAttribute("userData", userData);
         return "account";
     }
     
