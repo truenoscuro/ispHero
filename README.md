@@ -18,7 +18,7 @@ But that's not all. ISP Hero also provides useful features such as:
 
 *Getting Started*
 
-1. Sign up for an account at [our website](https://www.isphero.com/)[^1]
+1. Sign up for an account at [our website](http://dev.isphero.com:20290/register)[^1]
 2. Add your domains and hosting information.
 3. Sit back and relax while we at ISP Hero handle the rest.
 4. Support

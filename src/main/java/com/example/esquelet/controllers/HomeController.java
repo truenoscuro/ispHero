@@ -1,44 +1,59 @@
 package com.example.esquelet.controllers;
 
+import com.example.esquelet.config.LanguageConfig;
+import com.example.esquelet.entities.NewsLetter;
 import com.example.esquelet.repositories.LanguageControler;
+import com.example.esquelet.repositories.NewsLetterRepository;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
+import org.apache.catalina.connector.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.support.RequestContextUtils;
+
+import java.util.Locale;
 
 @Controller
+
 public class HomeController {
 
     @Autowired
     LanguageControler languageControler;
+    @Autowired
+    NewsLetterRepository newsLetterRepository;
+    @Autowired
+    LanguageConfig languageConfig;
 
+    HttpSession session;
 
     @GetMapping("/")
-    public String index(Model model) {
-        model.addAttribute("pageTitle", "Index");
+    public String index(Model model, HttpSession session, HttpServletRequest request) {
+        model.addAttribute("languages",languageControler.findAll() );
+        System.out.println("Session: " + session.getAttribute("user"));
+        if (session.getAttribute("user") != null) {
+            model.addAttribute("isLogged", true);
+        }
         return "index";
     }
 
 
     @GetMapping("/about")
-    public String about(Model model) {
-        model.addAttribute("pageTitle", "About Us");
+
+    public String about( Model model ) {
+        model.addAttribute("languages",languageControler.findAll() );
+
         return "about";
     }
 
     @GetMapping("/contact")
-    public String contact(Model model) {
-        model.addAttribute("pageTitle", "Contact Us");
+    public String contact( Model model ) {
+        model.addAttribute("languages",languageControler.findAll() );
         return "contact";
-    }
-
-    @PostMapping("/message")
-    public String message(Model model, @RequestParam String name, @RequestParam String email, @RequestParam String message) {
-        // TODO Send email to admin with name, message and email
-        model.addAttribute("pageTitle", "Contact Us");
-        return "messagesent";
     }
 
 }

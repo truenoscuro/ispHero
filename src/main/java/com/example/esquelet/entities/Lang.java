@@ -13,4 +13,5 @@ import lombok.NoArgsConstructor;
 public class Lang {
     @Id
     private String code;
+    private String name;
 }

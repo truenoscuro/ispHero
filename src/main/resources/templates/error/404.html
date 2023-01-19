@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:insert="~{fragments/general.html :: headerfiles}">
+</head>
+<body>
+<div th:insert="~{fragments/simplified.html :: header}"></div>
+<div class="d-flex align-items-center justify-content-center vh-100">
+  <div class="text-center">
+    <h1 class="display-1 fw-bold">404</h1>
+    <p class="fs-3"> <span class="text-danger">Oops!</span> Page not found.</p>
+    <p class="lead">
+      The page you’re looking for doesn’t exist.
+    </p>
+    <p th:text="${error}">Error Info</p>
+    <p th:text="${status}">Status</p>
+    <a href="/" class="btn btn-primary"> Return to home </a>
+  </div>
+</div>
+
+</body>
+</html>

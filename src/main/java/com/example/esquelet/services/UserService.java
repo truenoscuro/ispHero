@@ -45,7 +45,7 @@ public class UserService {
 
     public boolean checkUser(String userName, String password) {
         Optional<User> user = userRepository.searchUserByUsernameEquals(userName);
-        return user.map(value -> value.getPassword().equals(password)).orElse(false);
+        return user.map(value -> new BCryptPasswordEncoder().matches(password, value.getPassword())).orElse(false);
     }
 
     public boolean checkUser(String userName) {

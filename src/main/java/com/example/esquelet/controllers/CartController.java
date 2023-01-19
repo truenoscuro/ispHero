@@ -2,37 +2,54 @@ package com.example.esquelet.controllers;
 
 import com.example.esquelet.models.ArticleSell;
 import com.example.esquelet.models.Cart;
+import com.example.esquelet.repositories.LanguageControler;
+import com.example.esquelet.services.ArticleSellService;
 import jakarta.servlet.http.HttpSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
+@SessionAttributes("cartUser")
 public class CartController {
+    @Autowired
+    ArticleSellService articleSellService;
+    @Autowired
+    LanguageControler languageControler;
 
-    @PostMapping("/")
-    public String addArticle(@ModelAttribute("ArticleSell") ArticleSell articleSell, Model model, HttpSession session){
-        Cart cart = ( Cart ) session.getAttribute("cart");
-        Cart cartUser = new Cart();
-        if( cart != null ) { cartUser = cart; }
-        cartUser.add( articleSell );
-        session.setAttribute("cart", cartUser );
-        return "index";
+    @PostMapping("/cartpage")
+    public String addArticle( @RequestParam("productBuy") String productBuy ,
+                              Model model){
+
+        if(!model.containsAttribute("cartUser")){
+            model.addAttribute("cartUser",new Cart());
+        }
+        ((Cart) model.getAttribute("cartUser")).add(articleSellService.getArticleSell(productBuy));
+        model.addAttribute("languages",languageControler.findAll() );
+        return "cartpage";
+
+
+    }
+    @GetMapping("/cartpage")
+    public String view(Model model){
+        if(!model.containsAttribute("cartUser")){
+            model.addAttribute("cartUser",new Cart());
+        }
+        model.addAttribute("languages",languageControler.findAll() );
+        return "cartpage";
     }
 
-    @PostMapping("/")
-    public String removeArticle(@ModelAttribute("ArticleSell") ArticleSell articleSell, Model model, HttpSession session){
-        Cart cart = ( Cart ) session.getAttribute("cart");
-        cart.remove(articleSell);
-        return "index";
+    @PostMapping("/remove")
+    public String removeArticle(@RequestParam("productBuy") String productBuy , Model model){
+        ((Cart) model.getAttribute("cartUser")).remove(articleSellService.getArticleSell(productBuy));
+        return "redirect:/cartpage";
     }
-    @GetMapping("/")
-    public String removeAll( Model model, HttpSession session){
-        session.invalidate();
-        return "index";
+    @GetMapping("/removeall")
+    public String removeAll( Model model){
+        ((Cart) model.getAttribute("cartUser")).removeAll();
+        return "redirect:/cartpage";
     }
 
 

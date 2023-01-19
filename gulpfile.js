@@ -28,3 +28,4 @@ function copyjs(){
 exports.default = compilarSASS;
 exports.watch = autoCompila;
 exports.copyjs = copyjs;
+exports.build = series(compilarBootstrap,compilarSASS,copyjs);

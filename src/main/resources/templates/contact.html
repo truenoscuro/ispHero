@@ -6,8 +6,8 @@
 <body>
 <header th:insert="~{fragments/general.html :: header}"></header>
 
-<div class="container mt-5">
-  <div class="row justify-content-center">
+<div class="container mt-5 my-1 p-5">
+  <div class="d-flex gap-5 justify-content-evenly w-100">
     <div class="col-md-6">
       <h2>Contact Us</h2>
       <p>We would love to hear from you! Please use the form below to send us a message.</p>
@@ -24,7 +24,7 @@
           <label for="message">Message</label>
           <textarea class="form-control" id="message" name="message" rows="3"></textarea>
         </div>
-        <button type="submit" class="btn btn-primary">Send Message</button>
+        <button type="submit" class="btn btn-primary mt-3">Send Message</button>
       </form>
     </div>
     <div class="col-md-6 d-flex flex-column justify-content-center w-50">
@@ -39,7 +39,6 @@
                 referrerpolicy="no-referrer-when-downgrade"></iframe>
       </div>
     </div>
-
   </div>
 </div>
 <footer th:insert="~{fragments/general.html :: footer}"></footer>

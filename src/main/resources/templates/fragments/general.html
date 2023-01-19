@@ -10,13 +10,25 @@
           integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
           crossorigin="anonymous"></script>
   <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
-  <link rel="apple-touch-icon" th:href="@{/img/logo.png}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
   <link rel="stylesheet" th:href="@{/imports.css}">
-  <meta name="theme-color" content="#fafafa">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="This is an example of a
+meta description. This will often show up in search results.">
+
+  <!-- PWA -->
+  <link rel="manifest" href="/manifest.json" />
+  <link rel="apple-touch-icon" th:href="@{/icon-192x192.png}"/>
+  <link rel="apple-touch-icon" th:href="@{/icon-256x256.png}"/>
+  <link rel="apple-touch-icon" th:href="@{/icon-384x384.png}"/>
+  <link rel="apple-touch-icon" th:href="@{/icon-512x512.png}"/>
+  <meta name="apple-mobile-web-app-status-bar" content="#db4938" />
+  <meta name="theme-color" content="#db4938" />
+  <link rel="icon" type="image/x-icon" th:href="@{/favicon.ico}" />
   <title th:text="${pageTitle} ? 'ISP Hero - ' + ${pageTitle} : 'ISP Hero'"></title>
 <body>
 <div th:fragment="header">
-  <nav class="navbar navbar-expand-lg blur bg-transparent">
+  <nav class="navbar navbar-expand-lg blur bg-transparent px-5">
     <div class="container-fluid">
       <a class="navbar-brand" href="/"><img th:src="@{/img/logo.png}" alt="logo" style="width:75px"></a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -27,68 +39,98 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav d-flex me-auto mb-2 mb-lg-0 mx-3 justify-content-between">
           <li class="nav-item mx-4">
-            <a class="nav-link" href="#">Domains</a>
-          </li>
-          <li class="nav-item dropdown mx-4">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-               aria-expanded="false">
-              Mail
-            </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Professional Mail</a></li>
-              <li><a class="dropdown-item" href="#">Business Mail</a></li>
-              <li>
-                <hr class="dropdown-divider">
-              </li>
-              <li><a class="dropdown-item" href="#">Office 365</a></li>
-            </ul>
+            <a class="nav-link" href="#">Domain</a>
           </li>
           <li class="nav-item mx-4">
-            <a class="nav-link" href="#">Hosting</a>
+            <a class="nav-link" href="#">Mail</a>
           </li>
           <li class="nav-item mx-4">
-            <a class="nav-link" href="/about">About us</a>
+            <a class="nav-link" th:href="@{/product/{category}(category = 'host')}">Hosting</a>
           </li>
           <li class="nav-item mx-4">
-            <a class="nav-link" href="/contact">Contact us</a>
+            <a class="nav-link" href="/about" th:text="#{messages.header.about}">About</a>
+          </li>
+          <li class="nav-item mx-4">
+            <a class="nav-link" href="/contact" th:text="#{messages.header.contact}">Contact</a>
           </li>
         </ul>
-        <div th:if="${auth != null}">
-          <a class="btn btn-outline-primary" href="/account">Account</a>
+        <div th:if="${isLogged} == true">
+          <a class="btn btn-outline-primary" href="/account" th:text="#{messages.header.account}">Account</a>
           <a class="btn btn-outline-primary" href="/logout">Logout</a>
         </div>
-        <div th:if="${auth == null}">
+        <div th:unless="${isLogged} == true">
           <a class="btn btn-outline-primary" href="/login">Login</a>
+        </div>
+        <div class="nav-item mx-3 language-picker btn btn-outline-secondary" data-target="#languageModal">
+          <svg class="icon" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="8.5" stroke="currentColor"></circle><path d="M13.5 10c0 2.432-.44 4.61-1.129 6.16-.344.777-.742 1.374-1.159 1.77-.414.394-.822.57-1.212.57s-.798-.176-1.212-.57c-.417-.396-.815-.993-1.16-1.77C6.94 14.61 6.5 12.433 6.5 10s.44-4.61 1.128-6.16c.345-.777.743-1.374 1.16-1.77.414-.394.822-.57 1.212-.57s.798.176 1.212.57c.417.396.815.993 1.16 1.77C13.06 5.39 13.5 7.567 13.5 10z" stroke="currentColor"></path><path fill="currentColor" d="M2 7h16v1H2zM2 12h16v1H2z"></path></svg>
+          <span th:text="${languages[1].name}"></span>
+        </div>
+        <div class="nav-item ml-3 btn btn-outline-danger">
+          <div class="cart">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16"> <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/> </svg>
+            <span th:text="#{messages.header.cart}">Cart</span>
+          </div>
         </div>
       </div>
     </div>
   </nav>
 </div>
-
-<footer th:fragment="footer">
+<footer th:fragment="footer" class="position-relative align-bottom">
   <footer class="bg-dark text-white py-5">
     <div class="container">
       <div class="row">
         <div class="col-md-4">
-          <h3>About Us</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin molestie, ipsum a placerat pretium, nibh nibh pharetra nisl, id luctus quam elit sit amet mauris.</p>
+          <h3 th:text="#{messages.footer.aboutUs}">About Us</h3>
+          <p th:text="#{messages.footer.aboutUsText}"></p>
         </div>
         <div class="col-md-4">
-          <h3>Contact</h3>
+          <h3 th:text="#{messages.header.contact}">Contact</h3>
           <ul class="list-unstyled">
             <li>1820 NW 56th St</li>
             <li>Miami, Florida(FL), 33142</li>
-            <li><a href="tel:(305)635-2218">(305) 635-2218</a></li>
-            <li><a href="mailto:info@isphero.com">info@isphero.com</a></li>
+            <li><a href="tel:(305)635-2218" class="text-white">(305) 635-2218</a></li>
+            <li><a href="mailto:info@isphero.com" class="text-white">info@isphero.com</a></li>
           </ul>
         </div>
         <div class="col-md-4">
           <h3>Links</h3>
           <ul class="list-unstyled">
             <li><a href="#" class="text-white">Home</a></li>
-            <li><a href="#" class="text-white">About</a></li>
-            <li><a href="#" class="text-white">Contact</a></li>
+            <li><a href="#" class="text-white" th:text="#{messages.header.about}">About</a></li>
+            <li><a href="#" class="text-white" th:text="#{messages.header.contact}">Contact</a></li>
           </ul>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row justify-content-between">
+        <div class="col-auto d-flex gap-2">
+            <a href="/privacy-policy" class="text-white text-decoration-none" th:text="#{messages.footer.privacyPolicy}">Privacy Policy</a> | <a href="/terms-of-service" class="text-white text-decoration-none" th:text="#{messages.footer.termsOfService}">Terms of Service</a> | <a href="/cookies-policy" class="text-white text-decoration-none" th:text="#{messages.footer.cookiePolicy}">Cookies Policy </a> | <span>&copy; 2023 ISP Hero</span>
+        </div>
+        <div class="col-auto d-flex gap-3">
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="modal" tabindex="-1" role="dialog" id="languageModal">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title text-black">Language</h5>
+          </div>
+          <div class="modal-body">
+            <p class="text-dark">Select your language:</p>
+            <div class="d-flex grid gap-3 align-content-center">
+                <div th:each="language : ${languages}">
+                    <a th:href="@{''(lang=${language.code})}" class="btn btn-outline-secondary" th:text="${language.name}"></a>
+                </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
         </div>
       </div>
     </div>
@@ -116,7 +158,16 @@
         } else {
           $('.back-to-top').fadeOut('slow');
         }
+      })
+      $('#dialog').hide()
+      $('.back-to-top').click(function () {
+        $('html, body').animate({ scrollTop: 0 }, 1500, 'easeInOutExpo');
+        return false;
       });
+      $('.language-picker').on('click', function () {
+        $('#languageModal').modal('show')
+      })
+
     });
 
     function scrollToTop() {
@@ -125,6 +176,10 @@
         behavior: 'smooth'
       });
     }
+
+    $('.cart').click(function () {
+      window.location.href = '/cartpage'
+    })
   </script>
 </footer>
 </body>
