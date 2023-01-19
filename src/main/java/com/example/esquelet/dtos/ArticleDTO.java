@@ -2,7 +2,7 @@ package com.example.esquelet.dtos;
 
 import com.example.esquelet.entities.Article;
 import com.example.esquelet.entities.Property;
-import com.example.esquelet.models.ArticleSell;
+import com.google.gson.Gson;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,7 +20,7 @@ public class ArticleDTO {
     private List<ArticleDTO> bundle;
 
 
-    public  static ArticleDTO  createArticleDTO( List<Article> articles ){
+    public  static ArticleDTO  createArticleDTO(List<Article> articles ){
         //product name
         String product = articles.get(0).getProduct().getName();
         // propertyes and typePropertyes

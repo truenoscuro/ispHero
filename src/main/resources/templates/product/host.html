@@ -12,7 +12,7 @@
     <div> <span th:text="${article.property.capacity}">CAPACITY</span> </div>
     <div>
         <form action="/cartpage" method="post">
-            <input type="hidden" th:value="${article.product}" name="productBuy">
+            <input type="hidden"  th:value="${article.product}" name="product">
             <input type="submit" value="buy">
         </form>
     </div>
