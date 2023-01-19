@@ -1,5 +1,6 @@
 package com.example.esquelet.services;
 
+import com.example.esquelet.dtos.ArticleDTO;
 import com.example.esquelet.entities.Article;
 import com.example.esquelet.entities.Category;
 import com.example.esquelet.entities.Product;
@@ -16,7 +17,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ArticleSellService {
+public class ArticleService {
     // use for article we sell
     @Autowired
     CategoryRepository categoryRepository;
@@ -28,34 +29,33 @@ public class ArticleSellService {
     PropertyRepository propertyRepository;
 
 
-    public boolean existCategory( String idCategory ){
+    public boolean existCategory(String idCategory) {
         return categoryRepository.searchById(idCategory).isPresent();
     }
 
-    public List< ArticleSell > getListArticleSellList( String nameCategory ){
-        System.out.println(nameCategory);
-        Optional< Category > categoryOptional = categoryRepository.searchByName( nameCategory );
-        Category category = categoryOptional.get(); // check in Controller
-        List< Product > productList = productRepository.getAllByCategory( category );
-        return  productList.stream().map( product -> {
-            List<Article> articleList = articleRepository.getAllByProduct( product );
-            List <Article> childrenList = articleRepository.getAllByArticleChildren(articleList.get(0));
-            return new ArticleSell( articleList , childrenList ) ;
-        }).toList();
+    public List<ArticleDTO> getArticleDTOList(String categoryName) {
+        return productRepository
+                .getAllByCategory(categoryRepository.searchByName(categoryName).get())
+                .stream().map(product -> ArticleDTO.createArticleDTO(product.getArticles()))
+                .toList();
+
+
+
+
     }
 
-    public ArticleSell getArticleSell(String productName){
-        Optional<Product> productOptional = productRepository.getProductsByName(productName);
-        Product product = productOptional.get();
-        List<Article> articleList = articleRepository.getAllByProduct( product );
-        List <Article> childrenList = articleRepository.getAllByArticleChildren(articleList.get(0));
-        return new ArticleSell( articleList , childrenList );
+    public ArticleDTO getArticleDTO(String productName) {
+        return ArticleDTO.createArticleDTO(productRepository.getProductsByName(productName).get().getArticles());
     }
-
-
-
-
-
-
 
 }
+
+
+
+
+
+
+
+
+
+
