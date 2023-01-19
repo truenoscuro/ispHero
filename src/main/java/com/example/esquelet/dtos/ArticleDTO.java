@@ -19,7 +19,6 @@ public class ArticleDTO {
     private Map<String ,String> typeProperty;
     private List<ArticleDTO> bundle;
 
-
     public  static ArticleDTO  createArticleDTO(List<Article> articles ){
         //product name
         String product = articles.get(0).getProduct().getName();

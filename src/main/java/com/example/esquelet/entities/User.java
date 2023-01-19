@@ -17,6 +17,13 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    public User(@NotNull String username, @NotNull String password, @NotNull String email, @NotNull Role role) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.role = role;
+    }
+
     @NotNull
     private String username;
     @NotNull

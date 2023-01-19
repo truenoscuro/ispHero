@@ -10,16 +10,13 @@ import org.apache.catalina.connector.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
 import java.util.Locale;
 
 @Controller
-
+@SessionAttributes(value = {"user","isLogged","cartUser"})
 public class HomeController {
 
     @Autowired
@@ -32,12 +29,10 @@ public class HomeController {
     HttpSession session;
 
     @GetMapping("/")
-    public String index(Model model, HttpSession session, HttpServletRequest request) {
+    public String index(Model model) {
         model.addAttribute("languages",languageControler.findAll() );
-        System.out.println("Session: " + session.getAttribute("user"));
-        if (session.getAttribute("user") != null) {
-            model.addAttribute("isLogged", true);
-        }
+        if (model.containsAttribute("user")) {
+            model.addAttribute("isLogged", true); }
         return "index";
     }
 

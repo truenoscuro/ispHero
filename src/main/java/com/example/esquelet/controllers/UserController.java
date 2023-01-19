@@ -1,23 +1,21 @@
 package com.example.esquelet.controllers;
 
-import com.example.esquelet.entities.Role;
+import com.example.esquelet.dtos.UserDTO;
 import com.example.esquelet.entities.User;
-import com.example.esquelet.entities.UserData;
 import com.example.esquelet.repositories.LanguageControler;
 import com.example.esquelet.services.UserService;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.support.SessionStatus;
 
 import java.util.Objects;
 import java.util.Optional;
 
+@SessionAttributes(value = {"user","isLogged","cartUser"})
 @Controller
 public class UserController {
 
@@ -27,20 +25,17 @@ public class UserController {
     @Autowired
     LanguageControler languageControler;
 
-    @PostMapping("/user") // Change name form name
-    public String userAcces(@ModelAttribute("user") User user , Model model){
-        Optional<User> userOptional = userService.searchUser(user);
-        if(userOptional.isEmpty()) return "index"; // name fail
-        User userDataBase = userOptional.get(); // need passwordEncrypt
-        if(!userDataBase.getPassword().equals(user.getPassword())) return  "index"; // password fail
-        // user and password done!
-        return "account"; //create page
+    // THis is use?
+
+    @GetMapping("/register")
+    public String register(Model model) {
+        model.addAttribute("pageTitle", "Register");
+        model.addAttribute("user",new UserDTO() );
+        return "register";
     }
 
-
     @PostMapping("/register")
-    public String addUser(@ModelAttribute("user") User user , Model model, @RequestParam(defaultValue = "false") String status) {
-
+    public String addUser(@ModelAttribute UserDTO user , Model model, @RequestParam(defaultValue = "false") String status) {
         if (Objects.equals(status, "false")) {
             String username = user.getUsername();
             System.out.println("Username: " + username);
@@ -49,9 +44,10 @@ public class UserController {
                 model.addAttribute("error", "Username already exists");
                 return "register";
             }
-            user.setRole(Role.USER);
+            user.setRole("USER");
             user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
             userService.addUser(user);
+            model.addAttribute("user",user);
             model.addAttribute("status", "true");
         }
         else {
@@ -63,23 +59,22 @@ public class UserController {
 
     @GetMapping("/login")
     public String login(Model model) {
+        model.addAttribute("user",new UserDTO() );
         model.addAttribute("languages",languageControler.findAll() );
         model.addAttribute("pageTitle", "Login");
         return "login";
     }
 
     @PostMapping("/login")
-    public String login(@ModelAttribute("user") User user, Model model, HttpSession session) {
+    public String login(@ModelAttribute UserDTO user, Model model) {
         // Get user and password from form
         model.addAttribute("languages",languageControler.findAll() );
         String userName = user.getUsername();
         String password = user.getPassword();
         // Check user and password
         if (userService.checkUser(userName, password)) {
-            model.addAttribute("user", userName);
-            System.out.println(userName + " logged in");
-            session.setAttribute("user", userName);
-            System.out.println("Session: " + session.getAttribute("user"));
+            model.addAttribute("user",userService.getUser( user ) );
+            model.addAttribute("userName", userName);
             return "redirect:/account";
         } else {
             System.out.println("User or password incorrect");
@@ -89,11 +84,6 @@ public class UserController {
         }
     }
 
-    @GetMapping("/register")
-    public String register(Model model) {
-        model.addAttribute("pageTitle", "Register");
-        return "register";
-    }
 
     @GetMapping("/account")
     public String account(Model model) {
@@ -104,10 +94,9 @@ public class UserController {
     }
     
     @GetMapping("/logout")
-    public String logout(Model model, HttpServletRequest request, HttpServletResponse response) {
+    public String logout(Model model , SessionStatus status) {
         // TODO: Logout
-        HttpSession session = request.getSession();
-        session.invalidate();
+        status.setComplete();
         return "redirect:/";
     }
 }

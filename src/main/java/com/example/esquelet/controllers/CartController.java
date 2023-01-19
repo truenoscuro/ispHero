@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Objects;
 
 @Controller
-@SessionAttributes("cartUser")
+@SessionAttributes(value = {"user","isLogged","cartUser"})
 public class CartController {
     @Autowired
     ArticleService articleService;
