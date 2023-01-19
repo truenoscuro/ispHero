@@ -1,7 +1,6 @@
 package com.example.esquelet.controllers;
 
 import com.example.esquelet.dtos.UserDTO;
-import com.example.esquelet.entities.User;
 import com.example.esquelet.repositories.LanguageControler;
 import com.example.esquelet.services.UserService;
 
@@ -13,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 
 import java.util.Objects;
-import java.util.Optional;
+
 
 @SessionAttributes(value = {"user","isLogged","cartUser"})
 @Controller
