@@ -5,7 +5,7 @@
 </head>
 <body>
 <header th:insert="~{fragments/general.html :: header}"></header>
-<div th:each="article: ${articleSellList}" class="d-flex gap-lg-5">
+<div th:each="article: ${articles}" class="d-flex gap-lg-5">
     <div> <span th:text="${article.product}">HOST</span> </div>
     <div> <span th:text="${article.property.price1year}">PRICE1YEAR</span> </div>
     <div> <span th:text="${article.property.traffic}">TRAFIC</span> </div>

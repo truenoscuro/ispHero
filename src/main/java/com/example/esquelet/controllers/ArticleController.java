@@ -22,9 +22,8 @@ public class ArticleController {
 
     @GetMapping(value = "/product/{category}") // can pass product?
     public String showByProduct(@PathVariable String category, Model model ){;
-        model.addAttribute("articleSellList",articleService.getArticleDTOList( category ));
+        model.addAttribute("articles",articleService.getArticleDTOList( category ));
         model.addAttribute("languages",languageControler.findAll() );
-
         return "product/"+category;
     }
 
