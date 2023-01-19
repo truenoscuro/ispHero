@@ -109,16 +109,46 @@ public class UserController {
         model.addAttribute("user", userRepository.findByUsername((String) session.getAttribute("user")));
 
         System.out.println("User: " + userRepository.findByUsername((String) session.getAttribute("user")));
-        // Get the userData associated to this user id
         UserData userData = userDataRepository.findByUser((User) userRepository.findByUsername((String) session.getAttribute("user")));
         System.out.println("UserData: " + userData);
         model.addAttribute("userData", userData);
         return "account";
     }
+
+    @GetMapping("/account/details")
+    public String accountDetails(Model model, HttpSession session) {
+        model.addAttribute("languages",languageControler.findAll() );
+        model.addAttribute("pageTitle", " My Account");
+        model.addAttribute("isLogged", true);
+        model.addAttribute("user", userRepository.findByUsername((String) session.getAttribute("user")));
+
+        System.out.println("User: " + userRepository.findByUsername((String) session.getAttribute("user")));
+        // Get the userData associated to this user id
+        UserData userData = userDataRepository.findByUser((User) userRepository.findByUsername((String) session.getAttribute("user")));
+        System.out.println("UserData: " + userData);
+        model.addAttribute("userData", userData);
+        return "account_details";
+    }
+
+    @GetMapping("/account/settings")
+    public String accountSettings(Model model, HttpSession session) {
+        model.addAttribute("languages",languageControler.findAll() );
+        model.addAttribute("pageTitle", " My Account");
+        model.addAttribute("isLogged", true);
+        model.addAttribute("user", userRepository.findByUsername((String) session.getAttribute("user")));
+
+        System.out.println("User: " + userRepository.findByUsername((String) session.getAttribute("user")));
+        // Get the userData associated to this user id
+        UserData userData = userDataRepository.findByUser((User) userRepository.findByUsername((String) session.getAttribute("user")));
+        System.out.println("UserData: " + userData);
+        model.addAttribute("userData", userData);
+        return "account_settings";
+    }
+
+
     
     @GetMapping("/logout")
-    public String logout(Model model, HttpServletRequest request, HttpServletResponse response) {
-        // TODO: Logout
+    public String logout(HttpServletRequest request) {
         HttpSession session = request.getSession();
         session.invalidate();
         return "redirect:/";

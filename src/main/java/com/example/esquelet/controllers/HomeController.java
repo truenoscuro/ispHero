@@ -10,10 +10,7 @@ import org.apache.catalina.connector.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
 import java.util.Locale;
@@ -62,5 +59,14 @@ public class HomeController {
         }
         return "contact";
     }
+    @PostMapping("/message")
+    public String message( Model model, HttpSession session , @RequestParam(name = "lang", required = false) String lang) {
+        model.addAttribute("languages",languageControler.findAll() );
+        model.addAttribute("language", languageControler.findByCode(lang));
 
+        if (session.getAttribute("user") != null) {
+            model.addAttribute("isLogged", true);
+        }
+        return "messagesent";
+    }
 }
