@@ -2,20 +2,25 @@ package com.example.esquelet.controllers;
 
 import com.example.esquelet.config.LanguageConfig;
 
-import com.example.esquelet.repositories.LanguageControler;
+import com.example.esquelet.dtos.TranslateDTO;
+import com.example.esquelet.repositories.LanguageRepository;
 import com.example.esquelet.repositories.NewsLetterRepository;
 
+import com.example.esquelet.services.TranslateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
-@SessionAttributes(value = {"user","isLogged","cartUser"})
+@SessionAttributes(value = {"user","isLogged","cartUser","languages","langPage"})
+
 public class HomeController {
 
     @Autowired
-    LanguageControler languageControler;
+    TranslateService translateService;
     @Autowired
     NewsLetterRepository newsLetterRepository;
     @Autowired
@@ -23,9 +28,13 @@ public class HomeController {
 
     @GetMapping("/")
     public String index(Model model) {
-        model.addAttribute("languages",languageControler.findAll() );
-        if (model.containsAttribute("user")) {
-            model.addAttribute("isLogged", true); }
+        if(!model.containsAttribute("languages")){
+            List<TranslateDTO> languages =  translateService.getAll();
+            model.addAttribute("languages", translateService.getAll() );
+            model.addAttribute("langPage",languages.get(0));
+        }
+        if (model.containsAttribute("user"))
+            model.addAttribute("isLogged", true);
         return "index";
     }
 
@@ -33,14 +42,11 @@ public class HomeController {
     @GetMapping("/about")
 
     public String about( Model model ) {
-        model.addAttribute("languages",languageControler.findAll() );
-
         return "about";
     }
 
     @GetMapping("/contact")
     public String contact( Model model ) {
-        model.addAttribute("languages",languageControler.findAll() );
         return "contact";
     }
 

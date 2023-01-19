@@ -2,8 +2,9 @@ package com.example.esquelet.controllers;
 
 
 import com.example.esquelet.models.Cart;
-import com.example.esquelet.repositories.LanguageControler;
+import com.example.esquelet.repositories.LanguageRepository;
 import com.example.esquelet.services.ArticleService;
+import com.example.esquelet.services.TranslateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,12 +13,15 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Objects;
 
 @Controller
-@SessionAttributes(value = {"user","isLogged","cartUser"})
+@SessionAttributes(value = {"user","isLogged","cartUser","languages","langPage"})
+
 public class CartController {
+    @Autowired
+    TranslateService translateService;
     @Autowired
     ArticleService articleService;
     @Autowired
-    LanguageControler languageControler;
+    LanguageRepository languageRepository;
 
     @PostMapping("/cartpage")
     public String addArticle(@RequestParam( "product"  ) String product ,
@@ -26,7 +30,6 @@ public class CartController {
             model.addAttribute("cartUser",new Cart());
         }
         ((Cart) model.getAttribute("cartUser")).add(articleService.getArticleDTO(product));
-        model.addAttribute("languages",languageControler.findAll() );
         return "cartpage";
 
 
@@ -36,7 +39,6 @@ public class CartController {
         if(!model.containsAttribute("cartUser")){
             model.addAttribute("cartUser",new Cart());
         }
-        model.addAttribute("languages",languageControler.findAll() );
         return "cartpage";
     }
 

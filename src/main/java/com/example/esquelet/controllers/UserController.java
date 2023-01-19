@@ -1,7 +1,8 @@
 package com.example.esquelet.controllers;
 
 import com.example.esquelet.dtos.UserDTO;
-import com.example.esquelet.repositories.LanguageControler;
+import com.example.esquelet.repositories.LanguageRepository;
+import com.example.esquelet.services.TranslateService;
 import com.example.esquelet.services.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,8 @@ import org.springframework.web.bind.support.SessionStatus;
 import java.util.Objects;
 
 
-@SessionAttributes(value = {"user","isLogged","cartUser"})
+@SessionAttributes(value = {"user","isLogged","cartUser","languages","langPage"})
+
 @Controller
 public class UserController {
 
@@ -22,16 +24,7 @@ public class UserController {
     UserService userService;
 
     @Autowired
-    LanguageControler languageControler;
-
-    // THis is use?
-
-    @GetMapping("/register")
-    public String register(Model model) {
-        model.addAttribute("pageTitle", "Register");
-        model.addAttribute("user",new UserDTO() );
-        return "register";
-    }
+    TranslateService translateService;
 
     @PostMapping("/register")
     public String addUser(@ModelAttribute UserDTO user , Model model, @RequestParam(defaultValue = "false") String status) {
@@ -59,7 +52,6 @@ public class UserController {
     @GetMapping("/login")
     public String login(Model model) {
         model.addAttribute("user",new UserDTO() );
-        model.addAttribute("languages",languageControler.findAll() );
         model.addAttribute("pageTitle", "Login");
         return "login";
     }
@@ -67,7 +59,6 @@ public class UserController {
     @PostMapping("/login")
     public String login(@ModelAttribute UserDTO user, Model model) {
         // Get user and password from form
-        model.addAttribute("languages",languageControler.findAll() );
         String userName = user.getUsername();
         String password = user.getPassword();
         // Check user and password
@@ -86,7 +77,6 @@ public class UserController {
 
     @GetMapping("/account")
     public String account(Model model) {
-        model.addAttribute("languages",languageControler.findAll() );
         model.addAttribute("pageTitle", " My Account");
         model.addAttribute("isLogged", true);
         return "account";
