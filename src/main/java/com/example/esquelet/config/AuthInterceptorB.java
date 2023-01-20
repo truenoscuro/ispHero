@@ -1,5 +1,6 @@
 package com.example.esquelet.config;
 
+import com.example.esquelet.dtos.UserDTO;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -19,11 +20,14 @@ class authInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         HttpSession session = request.getSession();
         logger.info("Session: " + session.getAttribute("user"));
-        if (session.getAttribute("user") == null) {
-            logger.info("Unauthorized access request");
-            response.sendRedirect("/login");
-            return false;
-        }
-        return true;
+        Object o = session.getAttribute("user");
+        if(session.getAttribute("user") != null &&
+                ((UserDTO) o).getPassword() != null &&
+                ((UserDTO) o).getUsername() != null
+        ) return true;
+
+        logger.info("Unauthorized access request");
+        response.sendRedirect("/login");
+        return false;
     }
 }

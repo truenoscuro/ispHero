@@ -33,8 +33,6 @@ public class HomeController {
             model.addAttribute("languages", translateService.getAll() );
             model.addAttribute("langPage",languages.get(0));
         }
-        if (model.containsAttribute("user"))
-            model.addAttribute("isLogged", true);
         return "index";
     }
 

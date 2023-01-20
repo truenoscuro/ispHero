@@ -5,6 +5,7 @@ import com.example.esquelet.repositories.LanguageRepository;
 import com.example.esquelet.services.TranslateService;
 import com.example.esquelet.services.UserService;
 
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -23,8 +24,11 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @Autowired
-    TranslateService translateService;
+    @GetMapping("/register")
+    public String register(Model model){
+        model.addAttribute("pageTitle","Register");
+        return "register";
+    }
 
     @PostMapping("/register")
     public String addUser(@ModelAttribute UserDTO user , Model model, @RequestParam(defaultValue = "false") String status) {
@@ -83,9 +87,10 @@ public class UserController {
     }
     
     @GetMapping("/logout")
-    public String logout(Model model , SessionStatus status) {
+    public String logout(Model model) {
         // TODO: Logout
-        status.setComplete();
+        model.addAttribute("user",null);
+        model.addAttribute("isLogged",false);
         return "redirect:/";
     }
 }

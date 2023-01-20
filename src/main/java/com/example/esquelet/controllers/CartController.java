@@ -5,6 +5,7 @@ import com.example.esquelet.models.Cart;
 import com.example.esquelet.repositories.LanguageRepository;
 import com.example.esquelet.services.ArticleService;
 import com.example.esquelet.services.TranslateService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -48,8 +49,8 @@ public class CartController {
         return "redirect:/cartpage";
     }
     @GetMapping("/removeall")
-    public String removeAll( Model model){
-        ((Cart) Objects.requireNonNull(model.getAttribute("cartUser"))).removeAll();
+    public String removeAll( Model model,HttpSession session ){
+        session.setAttribute("cartUser",null);
         return "redirect:/cartpage";
     }
 
