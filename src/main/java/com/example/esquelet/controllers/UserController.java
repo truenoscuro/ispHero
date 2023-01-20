@@ -1,10 +1,7 @@
 package com.example.esquelet.controllers;
 
 import com.example.esquelet.dtos.UserDTO;
-import com.example.esquelet.entities.UserData;
 import com.example.esquelet.repositories.LanguageRepository;
-import com.example.esquelet.repositories.UserDataRepository;
-import com.example.esquelet.repositories.UserRepository;
 import com.example.esquelet.services.TranslateService;
 import com.example.esquelet.services.UserService;
 
@@ -26,10 +23,12 @@ public class UserController {
 
     @Autowired
     UserService userService;
-    @Autowired
-    UserRepository userRepository;
-    @Autowired
-    UserDataRepository userDataRepository;
+
+    @GetMapping("/register")
+    public String register(Model model){
+        model.addAttribute("pageTitle","Register");
+        return "register";
+    }
 
     @PostMapping("/register")
     public String addUser(@ModelAttribute UserDTO user , Model model, @RequestParam(defaultValue = "false") String status) {
@@ -79,28 +78,17 @@ public class UserController {
         }
     }
 
-    @GetMapping("/register")
-    public String register(Model model) {
-        model.addAttribute("pageTitle", "Register");
-        return "register";
-    }
 
-    /*@GetMapping("/account")
+    @GetMapping("/account")
     public String account(Model model) {
         model.addAttribute("pageTitle", " My Account");
         model.addAttribute("isLogged", true);
-        model.addAttribute("user", userRepository.findByUsername((String) session.getAttribute("user")));
-
-        System.out.println("User: " + userRepository.findByUsername((String) session.getAttribute("user")));
-        // Get the userData associated to this user id
-        UserData userData = userDataRepository.findByUser((User) userRepository.findByUsername((String) session.getAttribute("user")));
-        System.out.println("UserData: " + userData);
-        model.addAttribute("userData", userData);
         return "account";
-    }*/
-
+    }
+    
     @GetMapping("/logout")
     public String logout(Model model) {
+        // TODO: Logout
         model.addAttribute("user",null);
         model.addAttribute("isLogged",false);
         return "redirect:/";

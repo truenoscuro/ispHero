@@ -17,7 +17,6 @@ public class TranslateController {
     @GetMapping(value = "translate/{code}")
     public String translate(@PathVariable String code, Model model){
         List<TranslateDTO> languages = (List<TranslateDTO>) model.getAttribute("languages");
-        assert languages != null;
         model.addAttribute("langPage"
                 ,languages.stream()
                 .filter( language -> language.getCode().equals(code))
