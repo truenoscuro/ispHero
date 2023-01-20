@@ -21,6 +21,6 @@ public class TranslateController {
                 ,languages.stream()
                 .filter( language -> language.getCode().equals(code))
                 .findFirst().get());
-        return "redirect:/?lang="+code;
+        return "redirect:/";
     }
 }
