@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<!--html xmlns:th="http://www.thymeleaf.org" lang="en"-->
+<html lang="en">
+<head th:insert="~{fragments/general.html :: headerfiles}">
+</head>
+<body>
+<header th:insert="~{fragments/general.html :: header}"></header>
+
+
+<div>
+    <div th:each="article: ${cartUser.articles}" class="d-flex gap-lg-5">
+        <div> <span th:text="${article.product}">DOMAIN</span> </div>
+        <div> <span th:text="${article.property.price1year}">PRICE1YEAR</span> </div>
+        <form action="/remove" method="post">
+            <input type="hidden" th:value="${article.product}" name="product">
+            <input type="submit" value="remove">
+        </form>
+    </div>
+</div>
+
+<form action="/removeall" method="get">
+    <input type="submit" value="remove all">
+</form>
+
+<footer th:insert="~{fragments/general.html :: footer}"></footer>
+</body>
+</html>
