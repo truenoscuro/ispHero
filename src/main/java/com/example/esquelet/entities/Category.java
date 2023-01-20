@@ -1,17 +1,16 @@
 package com.example.esquelet.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Entity
-@EqualsAndHashCode(exclude = {"categoryChildren"})
+@EqualsAndHashCode(exclude = {"categoriesChildren,categoryFather,products"})
 public class Category {
 
     @Id
@@ -22,6 +21,12 @@ public class Category {
     @NotNull
     private String name;
 
+    @OneToMany
+    private List<Category> categoriesChildren;
+    @ToString.Exclude
     @ManyToOne
-    private Category categoryChildren;
+    private Category categoryFather;
+
+    @OneToMany(mappedBy = "category")
+    private List<Product> products;
 }

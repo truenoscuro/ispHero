@@ -5,6 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface LanguageControler extends JpaRepository<Lang,String> {
+public interface LanguageRepository extends JpaRepository<Lang,String> {
 
 }

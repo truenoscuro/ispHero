@@ -9,8 +9,7 @@ import java.util.Optional;
 
 public interface ArticleRepository extends JpaRepository< Article , Long > {
 
-    List< Article > getAllByProduct(Product product);
-    List< Article > getAllByArticleChildren(Article article);
+
 
 }
 

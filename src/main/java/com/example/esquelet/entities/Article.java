@@ -1,37 +1,35 @@
 package com.example.esquelet.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
 @Entity
-@EqualsAndHashCode(exclude = {"product","property","articleChildren"})
+@Data
+@EqualsAndHashCode(exclude = {"product","property","articlesChildren","articleFather"})
 public class Article {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    @ToString.Exclude
     @NotNull
     @ManyToOne
     private Product product;
     @NotNull
     @ManyToOne
     private Property property;
+    @ToString.Exclude
     @ManyToOne
-    private Article articleChildren;
+    private Article articleFather;
+    @OneToMany(mappedBy = "articleFather")
+    private List<Article> articlesChildren;
 
     private String valueProperty;
-
-
-    public int compareTo(Article article){
-        return (int) (article.getProduct().getId() - product.getId());
-    }
 
 
 }

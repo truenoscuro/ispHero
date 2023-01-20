@@ -1,10 +1,7 @@
 package com.example.esquelet.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.jetbrains.annotations.NotNull;
 
 @AllArgsConstructor
@@ -17,10 +14,11 @@ public class TranslateCategory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    @ToString.Exclude
     @NotNull
     @ManyToOne
     private Lang lang;
+
     @NotNull
     @ManyToOne
     private Category category;
