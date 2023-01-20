@@ -8,11 +8,11 @@
 
 
 
-<div th:each="article: ${articleSellList}" class="d-flex gap-lg-5">
+<div th:each="article: ${articles}" class="d-flex gap-lg-5">
     <div> <span th:text="${article.product}">DOMAIN</span> </div>
-    <div> <span th:text="${domainName + article.properties.tld}">DOMAIN</span> </div>
-    <div> <span th:text="${article.properties.price1year}">PRICE1YEAR</span> </div>
-    <div> <span th:text="${article.properties.price2year}">PRICE2YEAR</span> </div>
+    <div> <span th:text="${domainName + article.property.tld}">DOMAIN</span> </div>
+    <div> <span th:text="${article.property.price1year}">PRICE1YEAR</span> </div>
+    <div> <span th:text="${article.property.price2year}">PRICE2YEAR</span> </div>
     <div>
         <form action="/cartpage" method="post">
             <input type="hidden" th:value="${article.product}" name="productBuy">

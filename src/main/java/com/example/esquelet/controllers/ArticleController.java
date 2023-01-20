@@ -29,7 +29,7 @@ public class ArticleController {
     @PostMapping("/domaincheck")
     public String  domainCheck(@RequestParam("domainSearch") String domainName, Model model ){
         model.addAttribute("domainName" , domainName );
-        model.addAttribute("articleSellList", articleService.getArticleDTO( "domain" ));
+        model.addAttribute("articles", articleService.getArticleDTOList( "domain" ));
         return "domaincheck";
     }
 
