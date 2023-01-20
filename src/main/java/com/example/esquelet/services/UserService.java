@@ -1,5 +1,6 @@
 package com.example.esquelet.services;
 
+import com.example.esquelet.dtos.UserDTO;
 import com.example.esquelet.entities.User;
 import com.example.esquelet.entities.UserData;
 import com.example.esquelet.repositories.UserDataRepository;
@@ -21,26 +22,22 @@ public class UserService {
     @Autowired
     UserDataRepository userDataRepository;
 
-    public Optional<User> searchUser( User user ){
+    public Optional<User> searchUser( UserDTO user ){
         return userRepository.searchUserByUsernameEquals(user.getUsername());
     }
 
-    public boolean canAddUser(UserData userData){
-        return ! userDataRepository.existsByUser( userData.getUser( ) );
+    public UserDTO getUser(UserDTO userDTO){
+        User user = searchUser( userDTO ).get();
+        UserDTO userResult= new UserDTO(user);
+        userDataRepository.searchByUser(user).ifPresent(userResult::setUserData);
+        return  userResult;
     }
 
-
-    public void addUser(UserData userData){
-        User user = userData.getUser();
-        userRepository.save(user); // encript passw
-        userDataRepository.save(userData);
-    }
 
     // boolean if you want newsletter
-    public void addUser(User user) {
+    public void addUser(UserDTO user) {
         // if(wantNewsLetter) newsLetterRepository.save(user.email)
-
-        userRepository.save(user);
+        userRepository.save(user.getUserEntity());
     }
 
     public boolean checkUser(String userName, String password) {
@@ -53,7 +50,7 @@ public class UserService {
         return user.isPresent();
     }
 
-    public void sendRegisterMail(User user) {
+    public void sendRegisterMail(UserDTO user) {
         String mail = user.getEmail();
         String subject = "Register";
         String text = "Welcome to ISP Hero";

@@ -5,7 +5,7 @@
 </head>
 <body>
 <div th:fragment="header" class="header-spc">
-  <nav class="navbar navbar-expand-lg blur bg-transparent">
+  <nav class="navbar navbar-expand-lg bg-transparent">
     <div class="container-fluid">
       <a class="navbar-brand" href="/"><img th:src="@{/img/logo.png}" alt="logo" style="width:75px"></a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -28,7 +28,7 @@
             <a class="nav-link" href="/about" th:text="#{messages.header.about}">About</a>
           </li>
           <li class="nav-item mx-4">
-            <a class="nav-link" href="/contact" th:text="#{messages.header.about}">Contact</a>
+            <a class="nav-link" href="/contact" th:text="#{messages.header.contact}">Contact</a>
           </li>
         </ul>
         <div class="nav-item language-picker btn btn-outline-secondary me-5" data-target="#languageModal">

@@ -9,8 +9,8 @@ import java.util.Optional;
 public interface UserRepository extends JpaRepository<User,Long> {
 
     /*
-    Hi ha parametres especial que te deixa cercar nomes posant les anotacions
-    L'altre en hi ha empleant @Query
+    Hi ha parameters especial que et deixa cercar només posant les anotacions
+    L'altre n'hi ha emprat @Query
      */
     Optional<User> searchUserByUsernameEquals(String username);
 

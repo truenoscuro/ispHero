@@ -8,7 +8,7 @@
 <!--<header th:insert="~{fragments/simplified.html :: header}"></header>-->
 <main>
     <div th:insert="~{fragments/simplified.html :: header}"></div>
-    <div class="bubbles">
+    <div class="bubbles blur">
         <div class="bubble"></div>
         <div class="bubble"></div>
         <div class="bubble"></div>
@@ -69,22 +69,22 @@
                         <h1>Register</h1>
                     </div>
                     <div>
-                        <div>
+                        <div class="d-flex flex-column gap-3">
                             <div class="form-group">
                                 <label for="username">Username</label>
-                                <input type="text" id="username" name="username">
+                                <input type="text" id="username" th:field="*{username}">
                             </div>
                             <div class="form-group">
                                 <label for="password">Password</label>
-                                <input type="password" id="password" name="password">
+                                <input type="password" id="password" th:field="*{password}">
                             </div>
                             <div class="form-group">
                                 <label for="password2">Repeat Password</label>
-                                <input type="password" id="password2">
+                                <input type="password" id="password2"  th:field="*{password2}">
                             </div>
                             <div class="form-group">
                                 <label for="email">Email</label>
-                                <input type="email" id="email" name="email">
+                                <input type="email" id="email" th:field="*{email}">
                             </div>
                         </div>
                         <div>
@@ -92,7 +92,7 @@
                         </div>
                     </div>
                     <div class="login-form-buttons">
-                        <input type="submit" value="Register now!" class="register-form-button">
+                        <input type="submit" value="Register now!" class="register-form-button btn-format">
                         <span>Already registered? <a th:href="@{/login}">Login here</a></span>
                     </div>
                 </form>
