@@ -7,6 +7,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
@@ -28,6 +30,8 @@ public class UserDTO {
     private String lastName2;
     private String address;
     private String city;
+
+    private List<ServiceDTO> services;
 
     public UserDTO( User user ){
         this.username = user.getUsername();
@@ -56,6 +60,13 @@ public class UserDTO {
                 Role.valueOf(role)
         );
     }
+    
+    public void addService(ServiceDTO service){ services.add( service );}
+
+
+
+
+    // clean User
     public void clean(){
         this.username = null;
         this.password =  null;
@@ -67,6 +78,7 @@ public class UserDTO {
         this.lastName2 = null;
         this.address = null;
         this.city = null;
+        this.services = null;
     }
 
 
