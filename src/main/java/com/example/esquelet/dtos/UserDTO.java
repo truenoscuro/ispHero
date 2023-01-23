@@ -64,8 +64,6 @@ public class UserDTO {
     public void addService( ServiceDTO service ){ services.add( service ); }
 
 
-
-
     // clean User
     public void clean(){
         this.username = null;

@@ -79,9 +79,15 @@ public class UserController {
     public String account(Model model) {
         model.addAttribute("pageTitle", " My Account");
         model.addAttribute("isLogged", true);
-        return "account";
+        return "backendUser/account";
     }
-    
+
+    //userLogout options
+    @GetMapping("/account/services")
+    public String viewServices(Model model){
+        userService.addServices((UserDTO) Objects.requireNonNull(model.getAttribute("user")));
+        return "backendUser/services";
+    }
     @GetMapping("/logout")
     public String logout(Model model) {
         // TODO: Logout
@@ -89,10 +95,4 @@ public class UserController {
         model.addAttribute("isLogged",false);
         return "redirect:/";
     }
-    @GetMapping("/account/services")
-    public String viewServices(Model model){
-        userService.addServices((UserDTO) Objects.requireNonNull(model.getAttribute("user")));
-        return "backendUser/services";
-    }
-
 }
