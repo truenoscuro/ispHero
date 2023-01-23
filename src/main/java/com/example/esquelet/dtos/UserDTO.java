@@ -60,8 +60,8 @@ public class UserDTO {
                 Role.valueOf(role)
         );
     }
-    
-    public void addService(ServiceDTO service){ services.add( service );}
+
+    public void addService( ServiceDTO service ){ services.add( service ); }
 
 
 

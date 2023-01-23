@@ -1,17 +1,13 @@
 package com.example.esquelet.controllers;
 
 import com.example.esquelet.dtos.UserDTO;
-import com.example.esquelet.repositories.LanguageRepository;
-import com.example.esquelet.services.TranslateService;
 import com.example.esquelet.services.UserService;
 
-import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.support.SessionStatus;
 
 import java.util.Objects;
 
@@ -93,4 +89,10 @@ public class UserController {
         model.addAttribute("isLogged",false);
         return "redirect:/";
     }
+    @GetMapping("/account/services")
+    public String viewServices(Model model){
+        userService.addServices((UserDTO) Objects.requireNonNull(model.getAttribute("user")));
+        return "backendUser/services";
+    }
+
 }

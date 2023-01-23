@@ -2,16 +2,17 @@ package com.example.esquelet.entities;
 
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.List;
 
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
 @Entity
+@Data
+@EqualsAndHashCode(exclude = {"user"})
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,6 +24,10 @@ public class User {
         this.email = email;
         this.role = role;
     }
+
+
+    @OneToMany(mappedBy = "user")
+    private List<Service> services;
 
     @NotNull
     private String username;

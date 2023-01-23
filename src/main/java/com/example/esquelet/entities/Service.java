@@ -1,10 +1,7 @@
 package com.example.esquelet.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.jetbrains.annotations.NotNull;
 
 import java.sql.Timestamp;
@@ -24,6 +21,7 @@ public class Service {
     @ManyToOne
     private Article article;
 
+    @ToString.Exclude
     @NotNull
     @ManyToOne
     private User user;

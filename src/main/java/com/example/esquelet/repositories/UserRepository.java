@@ -11,7 +11,7 @@ public interface UserRepository extends JpaRepository<User,Long> {
     Hi ha parametres especial que te deixa cercar nomes posant les anotacions
     L'altre en hi ha empleant @Query
      */
-    Optional<User> searchUserByUsernameEquals(String username);
+    Optional<User> findByUsername(String username);
     //boolean searchUserByUsernameExists(String username);
 
 
