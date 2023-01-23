@@ -56,6 +56,18 @@ public class UserDTO {
                 Role.valueOf(role)
         );
     }
+    public void clean(){
+        this.username = null;
+        this.password =  null;
+        this.email =  null;
+        this.role =  null;
+
+        this.firstName = null;
+        this.lastName1 = null;
+        this.lastName2 = null;
+        this.address = null;
+        this.city = null;
+    }
 
 
 }
