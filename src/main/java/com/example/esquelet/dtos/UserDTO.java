@@ -33,17 +33,20 @@ public class UserDTO {
 
     private List<ServiceDTO> services;
 
-    public UserDTO( User user ){
+    private void setUser( User user){
         this.username = user.getUsername();
         this.password = user.getPassword();
         this.email = user.getEmail();
         this.role = user.getRole().name();
     }
-    public UserDTO( User user, UserData userData ){
-        this(user);
-        setUserData(userData);
+
+    public static UserDTO createUserDTO( User user ){
+        UserDTO userDTO = new UserDTO();
+        userDTO.setUser(user);
+        return userDTO;
     }
-    public void setUserData(UserData userData){
+
+    public void setUserData( UserData userData ){
         this.firstName = userData.getFirstName();
         this.lastName1 = userData.getLastName1();
         this.lastName2 = userData.getLastName2();

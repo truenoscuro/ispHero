@@ -18,11 +18,11 @@ import java.util.Objects;
 
 public class CartController {
     @Autowired
-    TranslateService translateService;
+    private TranslateService translateService;
     @Autowired
-    ArticleService articleService;
+    private ArticleService articleService;
     @Autowired
-    LanguageRepository languageRepository;
+    private LanguageRepository languageRepository;
 
     @PostMapping("/cartpage")
     public String addArticle(@RequestParam( "product"  ) String product ,

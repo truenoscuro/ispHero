@@ -11,7 +11,7 @@ public class MvnConfiguration implements WebMvcConfigurer {
 
     @Autowired
     @Qualifier("InterceptorB")
-    private authInterceptor authInterceptor;
+    private AuthInterceptorB authInterceptor;
 
     @Override
     public void addInterceptors(org.springframework.web.servlet.config.annotation.InterceptorRegistry registry) {

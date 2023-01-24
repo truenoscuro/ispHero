@@ -18,7 +18,7 @@ import java.util.Objects;
 public class UserController {
 
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     @GetMapping("/register")
     public String register(Model model){
@@ -74,7 +74,6 @@ public class UserController {
         }
     }
 
-
     @GetMapping("/account")
     public String account(Model model) {
         model.addAttribute("pageTitle", " My Account");
@@ -82,10 +81,10 @@ public class UserController {
         return "backendUser/account";
     }
 
-    //userLogout options
+    //userLogin options
     @GetMapping("/account/services")
     public String viewServices(Model model){
-        userService.addServices((UserDTO) Objects.requireNonNull(model.getAttribute("user")));
+        userService.getServices( ( UserDTO ) Objects.requireNonNull( model.getAttribute("user" ) ) );
         return "backendUser/services";
     }
     @GetMapping("/logout")

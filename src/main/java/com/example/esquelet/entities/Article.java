@@ -11,7 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Data
-@EqualsAndHashCode(exclude = {"product","property","articlesChildren","articleFather"})
+@EqualsAndHashCode(exclude = {"product","property","articlesChildren","articleFather","domains"})
 public class Article {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,6 +22,7 @@ public class Article {
     private Product product;
     @NotNull
     @ManyToOne
+    @ToString.Exclude
     private Property property;
     @ToString.Exclude
     @ManyToOne
@@ -29,7 +30,12 @@ public class Article {
     @OneToMany(mappedBy = "articleFather")
     private List<Article> articlesChildren;
 
+    @NotNull
     private String valueProperty;
+
+    @ToString.Exclude
+    @ManyToMany
+    private List<DomainRegistered> domains;
 
 
 }

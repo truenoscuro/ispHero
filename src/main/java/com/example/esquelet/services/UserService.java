@@ -15,10 +15,10 @@ import java.util.Optional;
 public class UserService {
 
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
     @Autowired
-    UserDataRepository userDataRepository;
+    private UserDataRepository userDataRepository;
 
     public Optional<User> searchUser( UserDTO user ){
         return userRepository.findByUsername(user.getUsername());
@@ -26,8 +26,8 @@ public class UserService {
 
     public UserDTO getUser(UserDTO userDTO){
         User user = searchUser( userDTO ).get();
-        UserDTO userResult= new UserDTO(user);
-        userDataRepository.searchByUser(user).ifPresent(userResult::setUserData);
+        UserDTO userResult = UserDTO.createUserDTO( user );
+        userDataRepository.searchByUser( user ).ifPresent(userResult::setUserData);
         return  userResult;
     }
 
@@ -48,7 +48,7 @@ public class UserService {
         return user.isPresent();
     }
 
-    public void addServices( UserDTO user ){
+    public void getServices( UserDTO user ){
         userRepository.findByUsername( user.getUsername() ).ifPresent(
                 userEntity -> userEntity.getServices()
                         .stream().map( ServiceDTO::createServiceDTO )
@@ -60,7 +60,7 @@ public class UserService {
         String mail = user.getEmail();
         String subject = "Register";
         String text = "Welcome to ISP Hero";
-        // TODO to send mail
+
     }
 
 }

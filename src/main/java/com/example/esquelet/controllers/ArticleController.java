@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.*;
 public class ArticleController {
 
     @Autowired
-    ArticleService articleService;
+    private ArticleService articleService;
     @Autowired
-    TranslateService translateService;
+    private TranslateService translateService;
 
     @GetMapping(value = "/product/{category}") // can pass product?
     public String showByProduct(@PathVariable String category, Model model ){;

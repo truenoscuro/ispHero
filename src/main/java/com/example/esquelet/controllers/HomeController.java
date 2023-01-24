@@ -20,11 +20,11 @@ import java.util.List;
 public class HomeController {
 
     @Autowired
-    TranslateService translateService;
+    private TranslateService translateService;
     @Autowired
-    NewsLetterRepository newsLetterRepository;
+    private NewsLetterRepository newsLetterRepository;
     @Autowired
-    LanguageConfig languageConfig;
+    private LanguageConfig languageConfig;
 
     @GetMapping("/")
     public String index(Model model) {

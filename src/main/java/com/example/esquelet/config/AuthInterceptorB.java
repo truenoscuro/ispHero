@@ -12,9 +12,9 @@ import org.springframework.web.servlet.HandlerInterceptor;
 
 @Configuration
 @Component("InterceptorB")
-class authInterceptor implements HandlerInterceptor {
+class AuthInterceptorB implements HandlerInterceptor {
 
-    private static final Logger logger = LoggerFactory.getLogger(authInterceptor.class);
+    private static final Logger logger = LoggerFactory.getLogger(AuthInterceptorB.class);
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
