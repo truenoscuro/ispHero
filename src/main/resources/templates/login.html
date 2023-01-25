@@ -71,13 +71,22 @@
         <i class="far fa-eye" id="togglePassword" style="margin-left: -30px; margin-top: 14px; cursor: pointer;"></i>
       </div>
       <div>
-        <p th:text="${case}" class="text-danger text-center my-2 mx-auto"></p>
+        <p th:unless="${case} == null" th:text="${case}" class="alert alert-danger text-center my-2 mx-auto"></p>
       </div>
-      <div class="login-form-buttons">
-        <button class="login-form-button login-button" type="submit" style="vertical-align:middle"><span>Login</span></button>
+      <div class="login-form-buttons my-3">
+        <button class="login-form-button login-button btn-format" type="submit" style="vertical-align:middle"><span>Login</span></button>
         <form action="/register" method="get" class="login">
-          <input type="reset" value="Register" class="register-form-button register">
+          <input type="reset" value="Register" class="register-form-button register btn-format">
         </form>
+        <hr>
+        <div class="login-form-buttons d-flex justify-content-center gap-2 mb-4">
+          <a href="/login" class="btn login-button btn-google btn-format btn-block">
+            <i class="fab fa-google fa-fw"></i> Login with Google
+          </a>
+          <a href="/login" class="btn login-button btn-facebook btn-format btn-block">
+            <i class="fab fa-facebook-f fa-fw"></i> Login with Facebook
+          </a>
+        </div>
         <div class="forgot-pw">
           <a href="#" class="forgot-pw">Forgot your password?</a>
         </div>
