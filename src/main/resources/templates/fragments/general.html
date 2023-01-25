@@ -23,12 +23,12 @@ meta description. This will often show up in search results.">
   <link rel="apple-touch-icon" th:href="@{/icon-384x384.png}"/>
   <link rel="apple-touch-icon" th:href="@{/icon-512x512.png}"/>
   <meta name="apple-mobile-web-app-status-bar" content="#db4938" />
-  <meta name="theme-color" content="#db4938" />
+  <meta name="theme-color" content="#fff"/>
   <link rel="icon" type="image/x-icon" th:href="@{/favicon.ico}" />
   <title th:text="${pageTitle} ? 'ISP Hero - ' + ${pageTitle} : 'ISP Hero'"></title>
 <body>
 <div th:fragment="header">
-  <nav class="navbar navbar-expand-lg blur bg-transparent px-5">
+  <nav class="navbar navbar-expand-lg bg-transparent px-5">
     <div class="container-fluid">
       <a class="navbar-brand" href="/"><img th:src="@{/img/logo.png}" alt="logo" style="width:75px"></a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse"

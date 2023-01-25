@@ -49,8 +49,8 @@ public class CartController {
         return "redirect:/cartpage";
     }
     @GetMapping("/removeall")
-    public String removeAll( Model model,HttpSession session ){
-        session.setAttribute("cartUser",null);
+    public String removeAll( Model model ){
+        ((Cart) model.getAttribute("cartUser")).removeAll();
         return "redirect:/cartpage";
     }
 
