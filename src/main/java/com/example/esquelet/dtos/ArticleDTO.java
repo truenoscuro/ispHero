@@ -43,4 +43,9 @@ public class ArticleDTO {
         return  new ArticleDTO(product,property,typeProperty,bundle);
     }
 
+
+    public void addProperty(String key,String value){
+        property.put(key,value);
+    }
+
 }

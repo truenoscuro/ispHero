@@ -20,12 +20,15 @@ public class ArticleService {
     @Autowired
     private ProductRepository productRepository;
 
+
+
     public List<ArticleDTO> getArticleDTOList(String categoryName) {
         return categoryRepository.searchByName(categoryName)
                 .get().getProducts()
                 .stream( ).map( this::getArticleDTO )
                 .toList( );
     }
+
     private ArticleDTO getArticleDTO(Product product){
         return ArticleDTO.createArticleDTO(product.getArticles());
     }

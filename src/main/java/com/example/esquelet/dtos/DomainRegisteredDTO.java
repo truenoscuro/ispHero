@@ -7,18 +7,16 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
-import java.util.Map;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class DomainRegisteredDTO {
 
     private String name;
-    private List<String> domainsRegistered;
+    private List<String> tlds;
 
 
-
-/*
     public static DomainRegisteredDTO createDomainRegisteredDTO(DomainRegistered domainRegistered){
         return new DomainRegisteredDTO(
                 domainRegistered.getName(),
@@ -28,6 +26,8 @@ public class DomainRegisteredDTO {
         );
     }
 
- */
+    public boolean containTld(ArticleDTO article){
+        return  tlds != null &&tlds.contains(article.getProperty().get("tld"));
+    }
 
 }

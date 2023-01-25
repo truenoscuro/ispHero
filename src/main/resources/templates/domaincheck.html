@@ -13,7 +13,8 @@
     <div> <span th:text="${domainName + article.property.tld}">DOMAIN</span> </div>
     <div> <span th:text="${article.property.price1year}">PRICE1YEAR</span> </div>
     <div> <span th:text="${article.property.price2year}">PRICE2YEAR</span> </div>
-    <div>
+    <div> <span th:text="${article.property.taken}">TAKEN</span> </div>
+    <div th:unless="${article.property.taken}">
         <form action="/cartpage" method="post">
             <input type="hidden" th:value="${article.product}" name="productBuy">
             <input type="submit" value="buy">
