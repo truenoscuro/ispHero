@@ -22,7 +22,7 @@ public class WaitingDomain {
 
     @NotNull
     @ManyToOne
-    private Article article;
+    private Article tld;
 
     @NotNull
     private String nameDomain;

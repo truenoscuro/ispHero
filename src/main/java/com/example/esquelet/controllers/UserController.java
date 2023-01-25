@@ -3,6 +3,7 @@ package com.example.esquelet.controllers;
 import com.example.esquelet.dtos.UserDTO;
 import com.example.esquelet.services.UserService;
 
+import com.example.esquelet.services.WaitingDomainService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -19,6 +20,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private WaitingDomainService waitingDomainService;
 
     @GetMapping("/register")
     public String register(Model model){
@@ -94,4 +98,12 @@ public class UserController {
         model.addAttribute("isLogged",false);
         return "redirect:/";
     }
+    @GetMapping("/account/waitingdomains")
+    public String viewWaitingDomains(Model model){
+        UserDTO user = (UserDTO) model.getAttribute("user");
+        model.addAttribute("waitingDomains",waitingDomainService.getAllByUser(user));
+        return "backendUser/waitingdomain";
+    }
+
+
 }

@@ -1,21 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head th:insert="~{fragments/general.html :: headerfiles}">
-  <title>ISP Hero - Login</title>
+    <meta charset="UTF-8">
+    <title>Title</title>
 </head>
 <body>
 <header th:insert="~{fragments/general.html :: header}"></header>
-<ul>
-  <li>
-  <a href="/account/waitingdomains"> Waiting Domain</a>
-  </li>
 
-</ul>
+<div>
+  <div th:each="waitingDomain: ${waitingDomains}" >
+    <div th:each="tld :${waitingDomain.tlds}">
+        <div  th:text="${waitingDomain.nameDomain + tld} "> </div>
+    </div>
+  </div>
+</div>
 
-
-
-
-<h1 th:text="${user}" class="text-center">USER :)</h1>
 
 
 

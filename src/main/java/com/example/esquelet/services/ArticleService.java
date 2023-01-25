@@ -21,7 +21,6 @@ public class ArticleService {
     private ProductRepository productRepository;
 
 
-
     public List<ArticleDTO> getArticleDTOList(String categoryName) {
         return categoryRepository.searchByName(categoryName)
                 .get().getProducts()
