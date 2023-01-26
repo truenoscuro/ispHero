@@ -5,7 +5,16 @@
 <body>
 <header th:insert="~{fragments/general.html :: header}"></header>
 <div>
-    <div th:insert="~{fragments/general.html :: domainSearchBar}"></div>
+    <div class="p-5 col-md-12" style="--bg-position-vertical: 40%;">
+        <div class="site-center">
+            <div class="content-md text-center color-text-dark mb-section-lg">
+                <h1 class="font-light m-0">Buscar dominios</h1>
+                <h2 class="title-1"><strong class="text-primary">Busca y compra</strong> tu dominio libre</h2>
+            </div>
+            <div th:insert="~{fragments/general.html :: domainSearchBar}"></div>
+        </div>
+        <div class="hero-bg-border mt-section-xl"></div>
+    </div>
     <div class="d-flex justify-content-center d-sm-flex justify-content-sm-evenly flex-column flex-sm-row p-5">
         <div class="card m-3 w-25">
             <img th:src="@{/img/people-and-technology.png}" class="card-img-top" alt="Domain Hosting">

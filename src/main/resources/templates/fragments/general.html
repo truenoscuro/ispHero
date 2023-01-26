@@ -39,7 +39,7 @@ meta description. This will often show up in search results.">
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav d-flex me-auto mb-2 mb-lg-0 mx-3 justify-content-evenly">
           <li class="nav-item mx-4">
-            <a class="nav-link" href="/products/domain">Domain</a>
+            <a class="nav-link" th:href="@{/product/{category}(category = 'domain')}">Domain</a>
           </li>
           <li class="nav-item mx-4">
             <a class="nav-link" href="/products/mail">Mail</a>
@@ -78,14 +78,13 @@ meta description. This will often show up in search results.">
 <div th:fragment="domainSearchBar">
   <div class="container mt-5">
     <div class="row justify-content-center">
-      <div class="col-md-6">
+      <div class="col-md-12">
         <form action="/domaincheck" method="post" id="domainCheck">
           <div class="form-group">
-            <label for="domainSearch" class="text-primary text-center" th:text="#{messages.main.findDomain}">Find your perfect domain name:</label>
             <div class="input-group mb-3">
               <input type="text" class="form-control" id="domainSearch" name="domainSearch" placeholder="Enter domain name" th:placeholder="#{messages.main.findDomainText}">
               <div class="input-group-append">
-                <button class="btn btn-primary" type="submit" th:text="#{messages.main.searchButton}">Search</button>
+                <button class="btn btn-primary domainSearchButton" type="submit" th:text="#{messages.main.searchButton}">Search</button>
               </div>
             </div>
           </div>
