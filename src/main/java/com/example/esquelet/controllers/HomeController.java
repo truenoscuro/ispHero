@@ -21,10 +21,6 @@ public class HomeController {
 
     @Autowired
     private TranslateService translateService;
-    @Autowired
-    private NewsLetterRepository newsLetterRepository;
-    @Autowired
-    private LanguageConfig languageConfig;
 
     @GetMapping("/")
     public String index(Model model) {
@@ -38,7 +34,6 @@ public class HomeController {
 
 
     @GetMapping("/about")
-
     public String about( Model model ) {
         return "about";
     }
