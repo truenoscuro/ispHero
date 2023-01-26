@@ -8,8 +8,8 @@
     <div class="p-5 col-md-12" style="--bg-position-vertical: 40%;">
         <div class="site-center">
             <div class="content-md text-center color-text-dark mb-section-lg">
-                <h1 class="font-light m-0">Buscar dominios</h1>
-                <h2 class="title-1"><strong class="text-primary">Busca y compra</strong> tu dominio libre</h2>
+                <h1 class="font-light m-0" th:text="#{messages.main.findDomain}">Buscar dominios</h1>
+                <h2 class="title-1"><strong class="text-primary" th:text="#{messages.main.searchAndBuy}">Busca y compra</strong><span th:text="#{messages.main.freeDomain}">tu dominio libre</span></h2>
             </div>
             <div th:insert="~{fragments/general.html :: domainSearchBar}"></div>
         </div>
