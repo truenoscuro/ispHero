@@ -14,5 +14,9 @@ import java.util.List;
 
 public class TranslateController {
 
-
+    @GetMapping(value = "translate/{code}")
+    public String translate(@PathVariable String code, Model model){
+        List<TranslateDTO> languages = (List<TranslateDTO>) model.getAttribute("languages");
+        return "redirect:/?lang="+code;
+    }
 }
