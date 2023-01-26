@@ -27,5 +27,8 @@ public class WaitingDomainDTO {
                         .toList()
         );
     }
+    public boolean containTld(ArticleDTO article){
+        return  tlds != null &&tlds.contains(article.getProperty().get("tld"));
+    }
 
 }

@@ -66,6 +66,12 @@ public class UserDTO {
 
     public void addService( ServiceDTO service ){ services.add( service ); }
 
+    public boolean hasData(){
+        return firstName != null &&
+                lastName1 != null &&
+                address != null &&
+                city != null;
+    }
 
     // clean User
     public void clean(){
@@ -80,6 +86,10 @@ public class UserDTO {
         this.address = null;
         this.city = null;
         this.services = null;
+    }
+
+    public boolean isValid(){
+        return username!=null && password!=null;
     }
 
 

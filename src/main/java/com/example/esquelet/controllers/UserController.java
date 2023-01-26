@@ -1,5 +1,6 @@
 package com.example.esquelet.controllers;
 
+import com.example.esquelet.dtos.ArticleDTO;
 import com.example.esquelet.dtos.UserDTO;
 import com.example.esquelet.services.UserService;
 
@@ -60,6 +61,14 @@ public class UserController {
         return "login";
     }
 
+    @GetMapping("/logout")
+    public String logout(Model model) {
+        // TODO: Logout
+        model.addAttribute("user",new UserDTO());
+        model.addAttribute("isLogged",false);
+        return "redirect:/";
+    }
+
     @PostMapping("/login")
     public String login(@ModelAttribute UserDTO user, Model model) {
         // Get user and password from form
@@ -76,33 +85,6 @@ public class UserController {
             model.addAttribute("case", "User or password incorrect");
             return "login";
         }
-    }
-
-    @GetMapping("/account")
-    public String account(Model model) {
-        model.addAttribute("pageTitle", " My Account");
-        model.addAttribute("isLogged", true);
-        return "backendUser/account";
-    }
-
-    //userLogin options
-    @GetMapping("/account/services")
-    public String viewServices(Model model){
-        userService.getServices( ( UserDTO ) Objects.requireNonNull( model.getAttribute("user" ) ) );
-        return "backendUser/services";
-    }
-    @GetMapping("/logout")
-    public String logout(Model model) {
-        // TODO: Logout
-        model.addAttribute("user",null);
-        model.addAttribute("isLogged",false);
-        return "redirect:/";
-    }
-    @GetMapping("/account/waitingdomains")
-    public String viewWaitingDomains(Model model){
-        UserDTO user = (UserDTO) model.getAttribute("user");
-        model.addAttribute("waitingDomains",waitingDomainService.getAllByUser(user));
-        return "backendUser/waitingdomain";
     }
 
 

@@ -21,11 +21,7 @@ class AuthInterceptorB implements HandlerInterceptor {
         HttpSession session = request.getSession();
         logger.info("Session: " + session.getAttribute("user"));
         Object o = session.getAttribute("user");
-        if(session.getAttribute("user") != null &&
-                ((UserDTO) o).getPassword() != null &&
-                ((UserDTO) o).getUsername() != null
-        ) return true;
-
+        if(session.getAttribute("user") != null && ((UserDTO) o).isValid()) return true;
         logger.info("Unauthorized access request");
         response.sendRedirect("/login");
         return false;

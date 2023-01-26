@@ -9,8 +9,6 @@ import java.util.List;
 import java.util.Optional;
 @Repository
 public interface ArticleRepository extends JpaRepository< Article , Long > {
-
-
-
+    Optional<Article> searchArticleByValueProperty(String value);
 }
 

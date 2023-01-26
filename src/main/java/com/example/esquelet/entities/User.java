@@ -38,4 +38,7 @@ public class User {
     @NotNull
     @Enumerated( EnumType.STRING )
     private Role role;
+
+    @OneToMany(mappedBy = "user")
+    private List<WaitingDomain> waitingDomains;
 }
