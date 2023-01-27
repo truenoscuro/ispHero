@@ -20,7 +20,6 @@ import java.util.Map;
 
 @Configuration
 @Component("Translate")
-
 class TranslateInterceptor implements HandlerInterceptor {
 
     @Override
