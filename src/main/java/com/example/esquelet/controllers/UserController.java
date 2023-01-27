@@ -63,7 +63,6 @@ public class UserController {
 
     @GetMapping("/logout")
     public String logout(Model model) {
-        // TODO: Logout
         model.addAttribute("user",new UserDTO());
         model.addAttribute("isLogged",false);
         return "redirect:/";
