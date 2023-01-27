@@ -13,8 +13,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
   <link rel="stylesheet" th:href="@{/imports.css}">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="This is an example of a
-meta description. This will often show up in search results.">
+  <meta name="description" content="ISP Hero is an aspiring new hosting service with the best prices and offers the newest technology!">
 
   <!-- PWA -->
   <link rel="manifest" href="/manifest.json" />
@@ -199,6 +198,20 @@ meta description. This will often show up in search results.">
     $('.cart').click(function () {
       window.location.href = '/cartpage'
     })
+  </script>
+  <script th:src="@{/service-worker.js}"></script>
+  <script>
+      console.log('hola')
+    window.addEventListener('load', () => {
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/service-worker.js').then(() => {
+          console.log('Service worker registered!');
+        }).catch((error) => {
+          console.warn('Error registering service worker:');
+          console.warn(error);
+        });
+      }
+    });
   </script>
 </footer>
 </body>

@@ -18,6 +18,14 @@
         <java.version>17</java.version>
         <start-class>com.example.esquelet.EsqueletApplication</start-class>
     </properties>
+    <profiles>
+        <profile>
+            <id>prod</id>
+            <properties>
+                <spring.profiles.active>prod</spring.profiles.active>
+            </properties>
+        </profile>
+    </profiles>
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>

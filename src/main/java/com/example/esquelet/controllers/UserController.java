@@ -87,5 +87,10 @@ public class UserController {
         }
     }
 
+    @PostMapping("/message")
+    public String messageSent() {
+        return "messagesent";
+    }
+
 
 }
