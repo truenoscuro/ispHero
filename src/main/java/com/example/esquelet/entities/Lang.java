@@ -15,7 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 @Entity
-@EqualsAndHashCode(exclude = {"properties",""})
+@EqualsAndHashCode(exclude = {"properties"})
 public class Lang {
     @Id
     private String code;

@@ -20,11 +20,7 @@ import java.util.List;
 public class HomeController {
 
     @Autowired
-    TranslateService translateService;
-    @Autowired
-    NewsLetterRepository newsLetterRepository;
-    @Autowired
-    LanguageConfig languageConfig;
+    private TranslateService translateService;
 
     @GetMapping("/")
     public String index(Model model) {
@@ -38,7 +34,6 @@ public class HomeController {
 
 
     @GetMapping("/about")
-
     public String about( Model model ) {
         return "about";
     }

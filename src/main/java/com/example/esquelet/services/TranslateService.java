@@ -11,7 +11,7 @@ import java.util.List;
 public class TranslateService {
 
     @Autowired
-    LanguageRepository languageRepository;
+    private LanguageRepository languageRepository;
 
     public List<TranslateDTO> getAll(){
         return languageRepository.findAll().stream().map(TranslateDTO::createTranslateDTO).toList();

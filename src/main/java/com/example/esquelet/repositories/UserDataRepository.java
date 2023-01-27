@@ -7,10 +7,11 @@ import org.springframework.data.jpa.repository.Query;
 
 import javax.swing.text.html.Option;
 import java.util.Optional;
+import org.springframework.stereotype.Repository;
 
 import javax.swing.text.html.Option;
 import java.util.Optional;
-
+@Repository
 public interface UserDataRepository extends JpaRepository<UserData,Long> {
 
     Optional<UserData> searchByUser(User user);

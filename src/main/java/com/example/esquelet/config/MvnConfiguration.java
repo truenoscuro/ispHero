@@ -11,10 +11,15 @@ public class MvnConfiguration implements WebMvcConfigurer {
 
     @Autowired
     @Qualifier("InterceptorB")
-    private authInterceptor authInterceptor;
+    private AuthInterceptorB authInterceptor;
+
+    @Autowired
+    @Qualifier("Translate")
+    private TranslateInterceptor translateInterceptor;
 
     @Override
     public void addInterceptors(org.springframework.web.servlet.config.annotation.InterceptorRegistry registry) {
         registry.addInterceptor(authInterceptor).addPathPatterns("/account", "/account/**", "/logout");
+        registry.addInterceptor(translateInterceptor);
     }
 }

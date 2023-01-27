@@ -13,10 +13,18 @@
     <div> <span th:text="${domainName + article.property.tld}">DOMAIN</span> </div>
     <div> <span th:text="${article.property.price1year}">PRICE1YEAR</span> </div>
     <div> <span th:text="${article.property.price2year}">PRICE2YEAR</span> </div>
-    <div>
+    <div th:unless="${article.property.taken}">
         <form action="/cartpage" method="post">
             <input type="hidden" th:value="${article.product}" name="productBuy">
             <input type="submit" value="buy">
+        </form>
+    </div>
+    <div th:if="${hasUser}">
+        <form  action="/account/waitingdomains" method="post">
+            <input type="hidden" th:value="${domainName}" name="domainName">
+            <input type="hidden" th:value="${article.product}" name="productWaiting">
+            <input th:unless="${article.property.waiting}" type="submit" value="Waiting add">
+            <input th:if="${article.property.waiting}" type="submit" value="Waiting delete">
         </form>
     </div>
 </div>
