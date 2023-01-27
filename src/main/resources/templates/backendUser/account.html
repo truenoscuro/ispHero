@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:insert="~{fragments/general.html :: headerfiles}">
+  <title>ISP Hero - Login</title>
+</head>
+<body>
+<header th:insert="~{fragments/general.html :: header}"></header>
+<ul>
+  <li>
+  <a href="/account/waitingdomains"> Waiting Domain</a>
+  <a href="/account/userdata"> Add user add </a>
+  </li>
+
+</ul>
+
+
+
+
+<h1 th:text="${user}" class="text-center">USER :)</h1>
+
+
+
+<footer th:insert="~{fragments/general.html :: footer}"></footer>
+</body>
+</html>

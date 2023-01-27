@@ -15,10 +15,11 @@ import java.util.List;
 public class ArticleService {
     // use for article we sell
     @Autowired
-    CategoryRepository categoryRepository;
+    private CategoryRepository categoryRepository;
 
     @Autowired
-    ProductRepository productRepository;
+    private ProductRepository productRepository;
+
 
     public List<ArticleDTO> getArticleDTOList(String categoryName) {
         return categoryRepository.searchByName(categoryName)
@@ -26,6 +27,7 @@ public class ArticleService {
                 .stream( ).map( this::getArticleDTO )
                 .toList( );
     }
+
     private ArticleDTO getArticleDTO(Product product){
         return ArticleDTO.createArticleDTO(product.getArticles());
     }

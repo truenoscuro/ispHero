@@ -7,6 +7,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
@@ -29,17 +31,22 @@ public class UserDTO {
     private String address;
     private String city;
 
-    public UserDTO( User user ){
+    private List<ServiceDTO> services;
+
+    private void setUser( User user){
         this.username = user.getUsername();
         this.password = user.getPassword();
         this.email = user.getEmail();
         this.role = user.getRole().name();
     }
-    public UserDTO( User user, UserData userData ){
-        this(user);
-        setUserData(userData);
+
+    public static UserDTO createUserDTO( User user ){
+        UserDTO userDTO = new UserDTO();
+        userDTO.setUser(user);
+        return userDTO;
     }
-    public void setUserData(UserData userData){
+
+    public void setUserData( UserData userData ){
         this.firstName = userData.getFirstName();
         this.lastName1 = userData.getLastName1();
         this.lastName2 = userData.getLastName2();
@@ -56,6 +63,17 @@ public class UserDTO {
                 Role.valueOf(role)
         );
     }
+
+    public void addService( ServiceDTO service ){ services.add( service ); }
+
+    public boolean hasData(){
+        return firstName != null &&
+                lastName1 != null &&
+                address != null &&
+                city != null;
+    }
+
+    // clean User
     public void clean(){
         this.username = null;
         this.password =  null;
@@ -67,6 +85,11 @@ public class UserDTO {
         this.lastName2 = null;
         this.address = null;
         this.city = null;
+        this.services = null;
+    }
+
+    public boolean isValid(){
+        return username!=null && password!=null;
     }
 
 

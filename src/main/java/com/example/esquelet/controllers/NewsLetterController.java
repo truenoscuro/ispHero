@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class NewsLetterController {
 
     @Autowired
-    NewsLetterRepository newsLetterRepository;
+    private NewsLetterRepository newsLetterRepository;
 
     @PostMapping("/subscribe")
     public String newsletter(@RequestParam String email) {

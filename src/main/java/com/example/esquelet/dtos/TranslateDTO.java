@@ -20,6 +20,11 @@ public class TranslateDTO {
     private Map<String,String> property;
     private Map<String,String> category;
 
+    public TranslateDTO(String code, String name){
+        this.code = code;
+        this.name = name;
+    }
+
 
     public static TranslateDTO createTranslateDTO(Lang lang){
         String code = lang.getCode();

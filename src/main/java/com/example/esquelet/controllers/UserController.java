@@ -1,17 +1,15 @@
 package com.example.esquelet.controllers;
 
+import com.example.esquelet.dtos.ArticleDTO;
 import com.example.esquelet.dtos.UserDTO;
-import com.example.esquelet.repositories.LanguageRepository;
-import com.example.esquelet.services.TranslateService;
 import com.example.esquelet.services.UserService;
 
-import jakarta.servlet.http.HttpSession;
+import com.example.esquelet.services.WaitingDomainService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.support.SessionStatus;
 
 import java.util.Objects;
 
@@ -22,7 +20,10 @@ import java.util.Objects;
 public class UserController {
 
     @Autowired
-    UserService userService;
+    private UserService userService;
+
+    @Autowired
+    private WaitingDomainService waitingDomainService;
 
     @GetMapping("/register")
     public String register(Model model){
@@ -60,6 +61,14 @@ public class UserController {
         return "login";
     }
 
+    @GetMapping("/logout")
+    public String logout(Model model) {
+        // TODO: Logout
+        model.addAttribute("user",new UserDTO());
+        model.addAttribute("isLogged",false);
+        return "redirect:/";
+    }
+
     @PostMapping("/login")
     public String login(@ModelAttribute UserDTO user, Model model) {
         // Get user and password from form
@@ -80,18 +89,4 @@ public class UserController {
     }
 
 
-    @GetMapping("/account")
-    public String account(Model model) {
-        model.addAttribute("pageTitle", " My Account");
-        model.addAttribute("isLogged", true);
-        return "account";
-    }
-    
-    @GetMapping("/logout")
-    public String logout(Model model) {
-        // TODO: Logout
-        model.addAttribute("user",null);
-        model.addAttribute("isLogged",false);
-        return "redirect:/";
-    }
 }

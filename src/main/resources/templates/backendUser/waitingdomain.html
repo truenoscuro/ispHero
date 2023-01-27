@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:insert="~{fragments/general.html :: headerfiles}">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<header th:insert="~{fragments/general.html :: header}"></header>
+
+<div>
+  <div th:each="waitingDomain: ${waitingDomains}" >
+    <div th:each="tld :${waitingDomain.tlds}">
+        <div  th:text="${waitingDomain.nameDomain + tld} "> </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<footer th:insert="~{fragments/general.html :: footer}"></footer>
+</body>
+</html>

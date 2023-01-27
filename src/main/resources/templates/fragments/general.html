@@ -63,7 +63,7 @@ meta description. This will often show up in search results.">
         </div>
         <div class="nav-item mx-3 language-picker btn btn-outline-secondary" data-target="#languageModal">
           <svg class="icon" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="8.5" stroke="currentColor"></circle><path d="M13.5 10c0 2.432-.44 4.61-1.129 6.16-.344.777-.742 1.374-1.159 1.77-.414.394-.822.57-1.212.57s-.798-.176-1.212-.57c-.417-.396-.815-.993-1.16-1.77C6.94 14.61 6.5 12.433 6.5 10s.44-4.61 1.128-6.16c.345-.777.743-1.374 1.16-1.77.414-.394.822-.57 1.212-.57s.798.176 1.212.57c.417.396.815.993 1.16 1.77C13.06 5.39 13.5 7.567 13.5 10z" stroke="currentColor"></path><path fill="currentColor" d="M2 7h16v1H2zM2 12h16v1H2z"></path></svg>
-          <span th:text="${langPage.name}"></span>
+          <span th:text="#{messages.header.language}"></span>
         </div>
         <div class="nav-item ml-3 btn btn-outline-danger">
           <div class="cart">
@@ -144,7 +144,7 @@ meta description. This will often show up in search results.">
             <div class="d-flex grid gap-3 align-content-center">
                 <div th:each="language : ${languages}">
                   <!--  -->
-                    <a th:href="@{/translate/{code}(code = ${language.code})}" class="btn btn-outline-secondary" th:text="${language.name}"></a>
+                    <a th:href="${' ?lang='+language.code}" class="btn btn-outline-secondary" th:text="${language.name}"></a>
                 </div>
             </div>
           </div>
