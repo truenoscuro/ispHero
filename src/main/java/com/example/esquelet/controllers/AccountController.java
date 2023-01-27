@@ -10,10 +10,7 @@ import com.example.esquelet.services.WaitingDomainService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Objects;
 
@@ -66,10 +63,20 @@ public class AccountController {
     }
 
 
+    @GetMapping("/account/userdata")
+    public String formUSerData(Model model){
+        model.addAttribute("userData",new UserDTO());
+        return "backendUser/userdata";
+    }
 
-
-
-
+    @PostMapping("/account/update")
+    public String updateUserData(@ModelAttribute UserDTO userData , Model model){
+        UserDTO user = (UserDTO) model.getAttribute("user");
+        user.setUserData(userData);
+        userService.addUserData(user);
+        model.addAttribute("user",userService.getUser(user) );
+        return "redirect:/account";
+    }
 
 
 }

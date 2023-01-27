@@ -15,6 +15,7 @@ import java.util.List;
 public class UserDTO {
 
     //User
+    private Long id;
     private String username;
 
     private String password;
@@ -25,6 +26,7 @@ public class UserDTO {
     private String role;
 
     //Personal Data
+    private Long idData;
     private String firstName;
     private String lastName1;
     private String lastName2;
@@ -34,6 +36,7 @@ public class UserDTO {
     private List<ServiceDTO> services;
 
     private void setUser( User user){
+        this.id = user.getId();
         this.username = user.getUsername();
         this.password = user.getPassword();
         this.email = user.getEmail();
@@ -47,6 +50,15 @@ public class UserDTO {
     }
 
     public void setUserData( UserData userData ){
+        this.idData = userData.getId();
+        this.firstName = userData.getFirstName();
+        this.lastName1 = userData.getLastName1();
+        this.lastName2 = userData.getLastName2();
+        this.address = userData.getAddress();
+        this.city = userData.getCity();
+    }
+    public void setUserData( UserDTO userData ){
+        this.idData = userData.getId();
         this.firstName = userData.getFirstName();
         this.lastName1 = userData.getLastName1();
         this.lastName2 = userData.getLastName2();
@@ -56,18 +68,34 @@ public class UserDTO {
 
 
     public User getUserEntity(){
-        return new User(
+        User user =  new User(
                 username,
                 password,
                 email,
                 Role.valueOf(role)
         );
+        if(id !=null) user.setId(id);
+        return user;
+    }
+    public UserData getUserDataEntity(){
+        UserData userData = new UserData(
+                firstName,
+                lastName1,
+                lastName2,
+                address,
+                city,
+                getUserEntity()
+        );
+        if( idData != null ) userData.setId(idData);
+        return userData;
+
     }
 
     public void addService( ServiceDTO service ){ services.add( service ); }
 
     public boolean hasData(){
-        return firstName != null &&
+        return idData != null &&
+                firstName != null &&
                 lastName1 != null &&
                 address != null &&
                 city != null;

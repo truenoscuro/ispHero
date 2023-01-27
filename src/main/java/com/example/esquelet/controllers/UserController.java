@@ -35,7 +35,6 @@ public class UserController {
     public String addUser(@ModelAttribute UserDTO user , Model model, @RequestParam(defaultValue = "false") String status) {
         if (Objects.equals(status, "false")) {
             String username = user.getUsername();
-            System.out.println("Username: " + username);
             // Check if any user has the same username
             if (userService.checkUser(username)) {
                 model.addAttribute("error", "Username already exists");
@@ -44,7 +43,8 @@ public class UserController {
             user.setRole("USER");
             user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
             userService.addUser(user);
-            model.addAttribute("user",user);
+            model.addAttribute("user",userService.getUser(user));
+            model.addAttribute("isLogged",true);
             model.addAttribute("status", "true");
         }
         else {
@@ -76,6 +76,7 @@ public class UserController {
         String password = user.getPassword();
         // Check user and password
         if (userService.checkUser(userName, password)) {
+            model.addAttribute("isLogged",true);
             model.addAttribute("user",userService.getUser( user ) );
             model.addAttribute("userName", userName);
             return "redirect:/account";

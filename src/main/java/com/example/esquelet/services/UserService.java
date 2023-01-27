@@ -5,6 +5,7 @@ import com.example.esquelet.dtos.UserDTO;
 import com.example.esquelet.entities.User;
 import com.example.esquelet.repositories.UserDataRepository;
 import com.example.esquelet.repositories.UserRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -33,6 +34,7 @@ public class UserService {
 
 
     // boolean if you want newsletter
+    @Transactional
     public void addUser(UserDTO user) {
         // if(wantNewsLetter) newsLetterRepository.save(user.email)
         userRepository.save(user.getUserEntity());
@@ -61,6 +63,11 @@ public class UserService {
         String subject = "Register";
         String text = "Welcome to ISP Hero";
 
+    }
+
+
+    public void addUserData(UserDTO user){
+        userDataRepository.save(user.getUserDataEntity());
     }
 
 }
