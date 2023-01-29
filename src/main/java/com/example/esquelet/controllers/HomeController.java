@@ -43,4 +43,18 @@ public class HomeController {
         return "contact";
     }
 
+    @GetMapping("/terms-of-service")
+    public String termsOfService( Model model ) {
+        return "terms_of_service";
+    }
+
+    @GetMapping("/privacy-policy")
+    public String privacyPolicy( Model model ) {
+        return "privacy_policy";
+    }
+
+    @GetMapping("/cookies-policy")
+    public String cookiesPolicy( Model model ) {
+        return "cookies";
+    }
 }

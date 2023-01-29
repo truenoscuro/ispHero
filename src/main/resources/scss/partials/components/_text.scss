@@ -1,0 +1,46 @@
+.title-1 {
+  font-size: 5.375rem;
+  font-weight: 900;
+}
+
+.site-center {
+  margin: 0 auto;
+  max-width: 1400px;
+  width: 90%;
+}
+
+
+#domainSearch {
+  max-width: 1440px;
+  max-height: 55px;
+  font-size: 2rem;
+  text-align: center;
+}
+
+.scroll-container {
+  overflow: hidden;
+}
+
+.scroll-left {
+  border-radius: 5px;
+  overflow: hidden;
+  transform: translateX(100%);
+  animation: scroll-left 35s linear infinite;
+  -webkit-box-reflect: below -1px linear-gradient(rgba(255,255,255,0.0), rgba(255,255,255,0.4));
+}
+
+@keyframes scroll-left {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+// Media query for mobile devices
+@media only screen and (max-width: 768px) {
+  .scroll-container {
+    display: none;
+  }
+}

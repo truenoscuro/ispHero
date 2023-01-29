@@ -65,8 +65,6 @@ public class ArticleController {
                         .toList()
         );
 
-
-
         return "domaincheck";
     }
 

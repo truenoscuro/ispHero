@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<!--html xmlns:th="http://www.thymeleaf.org" lang="en"-->
+<html lang="en">
+<head th:insert="~{fragments/general.html :: headerfiles}">
+</head>
+
+<body>
+<header th:insert="~{fragments/general.html :: header}"></header>
+
+<div class="p-5 col-md-12" style="--bg-position-vertical: 40%;">
+    <div class="site-center">
+        <div class="content-md text-center color-text-dark mb-section-lg">
+            <h1 class="font-light m-0" th:text="#{messages.main.findDomain}">Buscar dominios</h1>
+            <h2 class="title-1"><strong class="text-primary" th:text="#{messages.main.searchAndBuy}">Busca y compra</strong><span th:text="#{messages.main.freeDomain}">tu dominio libre</span></h2>
+        </div>
+        <div th:insert="~{fragments/general.html :: domainSearchBar}"></div>
+    </div>
+    <div class="hero-bg-border mt-section-xl"></div>
+</div>
+<div class="container">
+    <div class="card-deck d-flex my-3 gap-5 d-flex justify-content-center d-sm-flex justify-content-sm-evenly flex-column flex-sm-row col-12">
+        <div class="card p-3">
+            <img class="card-img-top tld-img" th:src="@{/img/com-tld.png}" alt="com TLD">
+            <div class="card-body m-3">
+                <h5 class="card-title">.com</h5>
+                <p class="card-text">The .com TLD is the most widely used and recognized TLD in the world. It is often
+                    used for commercial websites and is considered the most professional choice for businesses.</p>
+            </div>
+        </div>
+        <div class="card p-3">
+            <img class="card-img-top tld-img" th:src="@{/img/org-tld.png}" alt="org TLD">
+            <div class="card-body m-3">
+                <h5 class="card-title">.org</h5>
+                <p class="card-text">The .org TLD is typically used by non-profit organizations and educational
+                    institutions. It is often considered a more trustworthy and credible choice for these types of
+                    websites.</p>
+            </div>
+        </div>
+        <div class="card p-3">
+            <img class="card-img-top tld-img" th:src="@{/img/info-tld.png}" alt="info TLD">
+            <div class="card-body m-3">
+                <h5 class="card-title">.info</h5>
+                <p class="card-text">The .info TLD is a generic TLD that can be used for any type of website. It is
+                    often used for informational websites, such as blogs and news sites.</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="col-md-12">
+
+    </div>
+</div>
+<div class="container">
+    <div class="row my-5">
+        <div class="col-md-6">
+            <h3>Technical specifications</h3>
+            <p>Our domain servers are built on state-of-the-art technology to provide a fast and reliable service for our customers. Our servers are powered by Intel Xeon processors and use DDR4 memory to ensure high performance and low latency. The servers are connected to a high-speed network with redundant connections to multiple Tier-1 providers, ensuring a fast and stable connection for our customers.</p>
+            <p><a href="#">Learn more</a></p>
+        </div>
+        <div class="col-md-6 text-center">
+            <img th:src="@{/img/server.svg}" alt="Server" class="info-img">
+        </div>
+    </div>
+    <hr>
+    <div class="row my-5">
+        <div class="col-md-6 text-center">
+            <img th:src="@{/img/control-panel.svg}" alt="cPanel" class="info-img">
+        </div>
+        <div class="col-md-6">
+            <h3>Control panel</h3>
+            <p>Our domain servers are running the latest version of the industry-standard control panel, cPanel (modified by us), which allows customers to easily manage their domains, email accounts, and web hosting services. The servers are also equipped with the latest version of the Apache web server, PHP, and MySQL to support a wide range of web applications and frameworks.</p>
+        </div>
+    </div>
+    <hr>
+    <div class="row my-5">
+        <div class="col-md-6">
+            <h3>Support</h3>
+            <p>We have a team of experienced system administrators who are available 24/7 to monitor the servers and ensure that they are running smoothly. In case of any issues, our team will take the necessary actions to resolve them as quickly as possible.</p>
+            <p><a href="/contact">Contact us</a></p>
+        </div>
+        <div class="col-md-6 text-center">
+            <img th:src="@{/img/support.svg}" alt="Support" class="info-img">
+        </div>
+    </div>
+
+</div>
+
+<footer th:insert="~{fragments/general.html :: footer}"></footer>
+
+<script>
+
+    const card = $('.card');
+    card.tilt({
+        transition: true,
+        speed: 800,
+        glare: true,
+        maxGlare: .3,
+        easing: "cubic-bezier(.03,.98,.52,.99)",
+    })
+
+    if (window.matchMedia('(max-width: 768px)').matches) {
+        card.tilt({
+            glare: false,
+            maxGlare: 0,
+            transition: false,
+            speed: 0,
+            reset: false,
+        })
+    }
+</script>
+</body>
+</html>
