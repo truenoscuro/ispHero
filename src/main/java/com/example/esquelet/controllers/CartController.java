@@ -27,6 +27,7 @@ public class CartController {
     @PostMapping("/cartpage")
     public String addArticle(@RequestParam( "product"  ) String product ,
                              Model model){
+        System.out.println("product: " + product);
         if(!model.containsAttribute("cartUser")){
             model.addAttribute("cartUser",new Cart());
         }

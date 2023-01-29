@@ -18,11 +18,11 @@
     <div class="hero-bg-border mt-section-xl"></div>
 </div>
 <div class="container">
-    <div class="card-deck d-flex my-3 gap-5 d-flex justify-content-center d-sm-flex justify-content-sm-evenly flex-column flex-sm-row col-12">
+    <div class="card-deck d-flex my-3 gap-5 justify-content-center justify-content-sm-evenly flex-column flex-md-row col-12">
         <div class="card p-3">
             <img class="card-img-top tld-img" th:src="@{/img/com-tld.png}" alt="com TLD">
             <div class="card-body m-3">
-                <h5 class="card-title">.com</h5>
+                <h5 class="card-title"><b>.com</b></h5>
                 <p class="card-text">The .com TLD is the most widely used and recognized TLD in the world. It is often
                     used for commercial websites and is considered the most professional choice for businesses.</p>
             </div>
@@ -30,7 +30,7 @@
         <div class="card p-3">
             <img class="card-img-top tld-img" th:src="@{/img/org-tld.png}" alt="org TLD">
             <div class="card-body m-3">
-                <h5 class="card-title">.org</h5>
+                <h5 class="card-title"><b>.org</b></h5>
                 <p class="card-text">The .org TLD is typically used by non-profit organizations and educational
                     institutions. It is often considered a more trustworthy and credible choice for these types of
                     websites.</p>
@@ -39,7 +39,7 @@
         <div class="card p-3">
             <img class="card-img-top tld-img" th:src="@{/img/info-tld.png}" alt="info TLD">
             <div class="card-body m-3">
-                <h5 class="card-title">.info</h5>
+                <h5 class="card-title"><b>.info</b></h5>
                 <p class="card-text">The .info TLD is a generic TLD that can be used for any type of website. It is
                     often used for informational websites, such as blogs and news sites.</p>
             </div>
@@ -63,7 +63,7 @@
         </div>
     </div>
     <hr>
-    <div class="row my-5">
+    <div class="row my-5 second-row">
         <div class="col-md-6 text-center">
             <img th:src="@{/img/control-panel.svg}" alt="cPanel" class="info-img">
         </div>
@@ -99,14 +99,8 @@
         easing: "cubic-bezier(.03,.98,.52,.99)",
     })
 
-    if (window.matchMedia('(max-width: 768px)').matches) {
-        card.tilt({
-            glare: false,
-            maxGlare: 0,
-            transition: false,
-            speed: 0,
-            reset: false,
-        })
+    if ($(window).width() < 768) {
+        card.tilt.destroy.call(card);
     }
 </script>
 </body>

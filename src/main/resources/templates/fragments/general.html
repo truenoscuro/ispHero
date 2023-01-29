@@ -81,7 +81,7 @@
         <form action="/domaincheck" method="post" id="domainCheck">
           <div class="form-group">
             <div class="input-group">
-              <input type="text" class="form-control" id="domainSearch" name="domainSearch" placeholder="Enter domain name" th:placeholder="#{messages.main.findDomainText}">
+              <input type="text" class="form-control search-text" id="domainSearch" name="domainSearch" placeholder="Enter domain name" th:placeholder="#{messages.main.findDomainText}">
               <div class="input-group-append">
                 <button class="btn btn-primary domainSearchButton" type="submit" th:text="#{messages.main.searchButton}">Search</button>
               </div>
@@ -200,7 +200,7 @@
       window.location.href = '/cartpage'
     })
   </script>
-  <script th:src="@{/service-worker.js}"></script>
+  <!--<script th:src="@{/service-worker.js}"></script>
   <script>
     window.addEventListener('load', () => {
       if ('serviceWorker' in navigator) {
@@ -212,7 +212,7 @@
         });
       }
     });
-  </script>
+  </script>-->
 </footer>
 </body>
 </html>

@@ -9,105 +9,189 @@
         <div class="site-center">
             <div class="content-md text-center color-text-dark mb-section-lg">
                 <h1 class="font-light m-0" th:text="#{messages.main.findDomain}">Buscar dominios</h1>
-                <h2 class="title-1"><strong class="text-primary" th:text="#{messages.main.searchAndBuy}">Busca y compra</strong><span th:text="#{messages.main.freeDomain}">tu dominio libre</span></h2>
+                <h2 class="title-1"><strong class="text-primary" th:text="#{messages.main.searchAndBuy}">Busca y
+                    compra</strong><span th:text="#{messages.main.freeDomain}">tu dominio libre</span></h2>
             </div>
             <div th:insert="~{fragments/general.html :: domainSearchBar}"></div>
         </div>
-        <div class="hero-bg-border mt-section-xl"></div>
+    </div>
+    <div class="container">
+        <div class="card-deck d-flex my-3 gap-5 justify-content-center justify-content-sm-evenly flex-column flex-md-row col-12">
+            <div class="card card-tld p-3">
+                <img class="card-img-top tld-img" th:src="@{/img/es-tld.png}" alt="com TLD">
+                <div class="card-body m-3">
+                    <h5 class="card-title"><b>.es</b></h5>
+                    <p class="card-text">The .es is a well-known TLD, it is a good option for Spanish companies, websites and individuals as it
+                        gives them a sense of location, identity and trust. It is a stable and reliable TLD, with good support and security measures.</p>
+                </div>
+            </div>
+            <div class="card card-tld p-3">
+                <img class="card-img-top tld-img" th:src="@{/img/cat-tld.png}" alt="info TLD">
+                <div class="card-body m-3">
+                    <h5 class="card-title"><b>.cat</b></h5>
+                    <p class="card-text">The .cat TLD is administered by the Fundació puntCAT,
+                        a non-profit organization created by the Government of Catalonia and the Catalan Internet community.
+                        It is a stable and reliable TLD, and it is a good option for Catalan companies, websites and individuals as i
+                        t gives them a sense of location, identity and trust.</p>
+                </div>
+            </div>
+            <div class="card card-tld p-3">
+                <img class="card-img-top tld-img" th:src="@{/img/tv-tld.png}" alt="org TLD">
+                <div class="card-body m-3">
+                    <h5 class="card-title"><b>.tv</b></h5>
+                    <p class="card-text">The .tv is a TLD that is intended for use with television-related websites. .tv is the
+                        country code TLD for Tuvalu, a small island nation in the Pacific Ocean. However,
+                        it is marketed to be used for creating video-based websites, streaming platforms, and other media-related websites.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="my-5 digital-solutions bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-md-6 col-lg-4 p-3 justify-content-center">
+                    <h2 class="heading-3 fs-36 lh-44 mb-24" th:text="#{messages.main.flexText}">Your digital
+                        solution</h2>
+                    <ul class="checkmark-list">
+                        <li class="clearfix"><span class="ov-hidden" th:text="#{messages.main.flexp1}">Sustainable and scalable</span>
+                        </li>
+                        <li class="clearfix"><span class="ov-hidden"
+                                                   th:text="#{messages.main.flexp2}">Safe and secure</span></li>
+                        <li class="clearfix"><span class="ov-hidden" th:text="#{messages.main.flexp3}">Competent and customizable</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-12 col-md-6 col-lg-8 px-0">
+                    <div class="about-top-grid-background-wrapper">
+                        <div xmlns:exsl="http://exslt.org/common" class="about-image w-full h-md-full h-lg-full"
+                             data-anchor-image="d52e105" data-lavender-background="null" aria-label="Sobre IONOS"
+                             role="img"
+                             style="background-image: url(https://ce1.uicdn.net/e30/d12b164a870e68857b43e51c48f64/webapp/34946-vi-about-facelift.jpg)"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row text-center border">
+                <div class="col-12 col-md-6 col-lg-3 py-4 about-grid">
+                    <img class="icon-img" data-lavender-original="null"
+                         src="https://ce1.uicdn.net/820/3e55b752a7cbb2486da98a2175512/webapp/34947-x-ic-domains.svg"
+                         alt="Dominios">
+                    <noscript>"<img
+                            src="https://ce1.uicdn.net/820/3e55b752a7cbb2486da98a2175512/webapp/34947-x-ic-domains.svg"
+                            alt="Dominios" class="icon-img">"
+                    </noscript>
+                    <h3 class="d-block ff-opb fs-24">22 000</h3><span class="d-block ff-opr fs-18 mt-12"
+                                                                      th:text="#{messages.main.domainsRegistered}">dominios registrados</span>
+                </div>
+                <div class="col-12 col-md-6 col-lg-3 py-4 about-grid"><img class="icon-img"
+                                                                           data-lavender-original="null"
+                                                                           src="https://ce1.uicdn.net/2aa/c9b5211227422ce8cd4ef5e1092e2/webapp/34949-around-the-world.svg"
+                                                                           alt="Icon with a globe and circulating arrows">
+                    <noscript>"<img
+                            src="https://ce1.uicdn.net/2aa/c9b5211227422ce8cd4ef5e1092e2/webapp/34949-around-the-world.svg"
+                            alt="Icon with a globe and circulating arrows" class="icon-img">"
+                    </noscript>
+                    <h3 class="d-block ff-opb fs-24">8 000</h3><span class="d-block ff-opr fs-18 mt-12"
+                                                                     th:text="#{messages.main.clientsServed}">clientes</span>
+                </div>
+                <div class="col-12 col-md-6 col-lg-3 py-4 about-grid"><img class="icon-img"
+                                                                           data-lavender-original="null"
+                                                                           src="https://ce1.uicdn.net/71a/81388a125169f78e0e6418bd458ac/webapp/34634-dedicated-server-pro.svg"
+                                                                           alt="Servidores">
+                    <noscript>"<img
+                            src="https://ce1.uicdn.net/71a/81388a125169f78e0e6418bd458ac/webapp/34634-dedicated-server-pro.svg"
+                            alt="Servidores" class="icon-img">"
+                    </noscript>
+                    <h3 class="d-block ff-opb fs-24">1 000</h3><span class="d-block ff-opr fs-18 mt-12"
+                                                                     th:text="#{messages.main.serversOnline}">servidores</span>
+                </div>
+                <div class="col-12 col-md-6 col-lg-3 py-4 about-grid"><img class="icon-img"
+                                                                           data-lavender-original="null"
+                                                                           src="https://ce1.uicdn.net/5d7/f257a7e2c8014fba4c022321b1cf2/webapp/34948-employees.svg"
+                                                                           alt="Ícono de colaboradores">
+                    <noscript>"<img
+                            src="https://ce1.uicdn.net/5d7/f257a7e2c8014fba4c022321b1cf2/webapp/34948-employees.svg"
+                            alt="Icono de colaboradores" class="icon-img">"
+                    </noscript>
+                    <h3 class="d-block ff-opb fs-24">400</h3><span class="d-block ff-opr fs-18 mt-12"
+                                                                   th:text="#{messages.main.collaborators}">colaboradores</span>
+                </div>
+            </div>
+
+            <div class="text-right text-primary p-3">ISP Hero, March 2023</div>
+        </div>
     </div>
     <div class="d-flex justify-content-center d-sm-flex justify-content-sm-evenly flex-column flex-sm-row p-3 col-12">
         <div class="card col-12 col-md-3 my-3">
             <img th:src="@{/img/people-and-technology.png}" class="card-img-top" alt="Domain Hosting">
             <div class="card-body mx-3 mb-3">
                 <h3 class="card-title" th:text="#{messages.main.card1Title}">Domain Hosting</h3>
-                <p class="card-text" th:text="#{messages.main.card1Text}">Keep your domain name safe and secure with our reliable hosting services. Our team of experts will help you find the perfect domain and keep it running smoothly.</p>
+                <p class="card-text" th:text="#{messages.main.card1Text}">Keep your domain name safe and secure with our
+                    reliable hosting services. Our team of experts will help you find the perfect domain and keep it
+                    running smoothly.</p>
             </div>
         </div>
         <div class="card col-12 col-md-3 my-3">
             <img th:src="@{/img/stressed-person-using-computer.png}" class="card-img-top" alt="Domain Hosting">
             <div class="card-body mx-3 mb-3">
                 <h3 class="card-title" th:text="#{messages.main.card2Title}">We've got you covered</h3>
-                <p class="card-text" th:text="#{messages.main.card2Text}">Don't worry about any problems you may have. Our team of experts is here to help with any issue you may have, big or small.</p>
+                <p class="card-text" th:text="#{messages.main.card2Text}">Don't worry about any problems you may have.
+                    Our team of experts is here to help with any issue you may have, big or small.</p>
             </div>
         </div>
         <div class="card col-12 col-md-3 my-3">
             <img th:src="@{/img/people-raising-money.png}" class="card-img-top" alt="Domain Hosting">
             <div class="card-body mx-3 mb-3">
                 <h3 class="card-title" th:text="#{messages.main.card3Title}">Why Choose Us?</h3>
-                <p class="card-text" th:text="#{messages.main.card3Text}">We offer the best prices and rates in the industry. Our team works hard to negotiate the best deals for our customers, ensuring that you get the best value for your money.</p>
+                <p class="card-text" th:text="#{messages.main.card3Text}">We offer the best prices and rates in the
+                    industry. Our team works hard to negotiate the best deals for our customers, ensuring that you get
+                    the best value for your money.</p>
             </div>
         </div>
     </div>
-    <div>
-        <hr>
-    </div>
-    <div class="p-lg-5">
-        <div class="container"><div class="row">
-            <div class="col-12 col-md-6 col-lg-4 p-3 justify-content-center">
-                <h2 class="heading-3 fs-36 lh-44 mb-24" th:text="#{messages.main.flexText}">Your digital solution</h2>
-                <ul class="checkmark-list">
-                    <li class="clearfix"><span class="ov-hidden" th:text="#{messages.main.flexp1}">Sustainable and scalable</span></li>
-                    <li class="clearfix"><span class="ov-hidden" th:text="#{messages.main.flexp2}">Safe and secure</span></li>
-                    <li class="clearfix"><span class="ov-hidden" th:text="#{messages.main.flexp3}">Competent and customizable</span></li>
-                </ul>
-            </div>
-            <div class="col-12 col-md-6 col-lg-8 px-0">
-                <div class="about-top-grid-background-wrapper">
-                    <div xmlns:exsl="http://exslt.org/common" class="about-image w-full h-md-full h-lg-full" data-anchor-image="d52e105" data-lavender-background="null" aria-label="Sobre IONOS" role="img" style="background-image: url(https://ce1.uicdn.net/e30/d12b164a870e68857b43e51c48f64/webapp/34946-vi-about-facelift.jpg)"></div>
-                </div>
-            </div>
-        </div>
-            <div class="row text-center border">
-                <div class="col-12 col-md-6 col-lg-3 py-4 about-grid">
-                    <img class="icon-img" data-lavender-original="null" src="https://ce1.uicdn.net/820/3e55b752a7cbb2486da98a2175512/webapp/34947-x-ic-domains.svg" alt="Dominios">
-                    <noscript>"<img src="https://ce1.uicdn.net/820/3e55b752a7cbb2486da98a2175512/webapp/34947-x-ic-domains.svg" alt="Dominios" class="icon-img">"</noscript>
-                    <h3 class="d-block ff-opb fs-24">22 000</h3><span class="d-block ff-opr fs-18 mt-12" th:text="#{messages.main.domainsRegistered}">dominios registrados</span></div>
-                <div class="col-12 col-md-6 col-lg-3 py-4 about-grid"><img class="icon-img" data-lavender-original="null" src="https://ce1.uicdn.net/2aa/c9b5211227422ce8cd4ef5e1092e2/webapp/34949-around-the-world.svg" alt="Icon with a globe and circulating arrows">
-                    <noscript>"<img src="https://ce1.uicdn.net/2aa/c9b5211227422ce8cd4ef5e1092e2/webapp/34949-around-the-world.svg" alt="Icon with a globe and circulating arrows" class="icon-img">"</noscript>
-                    <h3 class="d-block ff-opb fs-24">8 000</h3><span class="d-block ff-opr fs-18 mt-12" th:text="#{messages.main.clientsServed}">clientes</span></div>
-                <div class="col-12 col-md-6 col-lg-3 py-4 about-grid"><img class="icon-img" data-lavender-original="null" src="https://ce1.uicdn.net/71a/81388a125169f78e0e6418bd458ac/webapp/34634-dedicated-server-pro.svg" alt="Servidores">
-                    <noscript>"<img src="https://ce1.uicdn.net/71a/81388a125169f78e0e6418bd458ac/webapp/34634-dedicated-server-pro.svg" alt="Servidores" class="icon-img">"</noscript>
-                    <h3 class="d-block ff-opb fs-24">1 000</h3><span class="d-block ff-opr fs-18 mt-12" th:text="#{messages.main.serversOnline}">servidores</span></div>
-                <div class="col-12 col-md-6 col-lg-3 py-4 about-grid"><img class="icon-img" data-lavender-original="null" src="https://ce1.uicdn.net/5d7/f257a7e2c8014fba4c022321b1cf2/webapp/34948-employees.svg" alt="Ícono de colaboradores">
-                    <noscript>"<img src="https://ce1.uicdn.net/5d7/f257a7e2c8014fba4c022321b1cf2/webapp/34948-employees.svg" alt="Icono de colaboradores" class="icon-img">"</noscript>
-                    <h3 class="d-block ff-opb fs-24">400</h3><span class="d-block ff-opr fs-18 mt-12" th:text="#{messages.main.collaborators}">colaboradores</span></div>
-            </div>
-
-            <div class="text-right text-primary p-3">ISP Hero, March 2023</div>
-        </div>
-    </div>
-    </div>
-    <div>
-        <div class="container-fluid bg-light text-dark p-5">
-            <div class="row justify-content-center">
-                <div class="col-md-6">
-                    <div class="p-5">
-                        <h1 class="text-center" th:text="#{messages.main.subscribe}">Subscribe to our newsletter</h1>
-                        <p class="text-center" th:text="#{messages.main.subscribeText}">Get the latest news and updates from our team</p>
-                        <div class="container">
-                            <form action="#" method="post" id="emailsub">
-                                <div class="form-group my-2 ">
-                                    <label for="email"></label>
-                                    <div class="input-group gap-1">
-                                        <input type="text" class="form-control" id="email" name="email" placeholder="Enter email" th:placeholder="#{messages.main.subscribeBar}">
-                                        <div class="input-group-append">
-                                            <button class="btn btn-primary" type="submit" th:text="#{messages.main.subscribeButton}">Subscribe</button>
-                                        </div>
+</div>
+<div>
+    <div class="container-fluid bg-light text-dark p-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="p-5">
+                    <h1 class="text-center" th:text="#{messages.main.subscribe}">Subscribe to our newsletter</h1>
+                    <p class="text-center" th:text="#{messages.main.subscribeText}">Get the latest news and updates from
+                        our team</p>
+                    <div class="container">
+                        <form action="#" method="post" id="emailsub">
+                            <div class="form-group my-2 ">
+                                <label for="email"></label>
+                                <div class="input-group gap-1">
+                                    <input type="text" class="form-control" id="email" name="email"
+                                           placeholder="Enter email" th:placeholder="#{messages.main.subscribeBar}">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-primary" type="submit"
+                                                th:text="#{messages.main.subscribeButton}">Subscribe
+                                        </button>
                                     </div>
                                 </div>
-                            </form>
-                        </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="toast d-flex justify-content-center w-100">
-        <div class="alert alert-success position-fixed bottom-0 my-5" style="z-index: 3" th:text="#{messages.main.success}">Your email has been registered!</div>
-        <div class="alert alert-danger position-fixed bottom-0 my-5 taken" style="z-index: 3" th:text="#{messages.main.error2}">You are already subscribed!</div>
-        <div class="alert alert-danger position-fixed bottom-0 my-5 valid" style="z-index: 3" th:text="#{messages.main.error}">Please enter a valid email!</div>
-        <div class="alert alert-danger position-fixed bottom-0 my-5 valid" style="z-index: 3" th:text="#{messages.main.errorDomain}">Please enter at least 3 characters!</div>
+</div>
+<div class="toast d-flex justify-content-center w-100">
+    <div class="alert alert-success position-fixed bottom-0 my-5" style="z-index: 3" th:text="#{messages.main.success}">
+        Your email has been registered!
     </div>
+    <div class="alert alert-danger position-fixed bottom-0 my-5 taken" style="z-index: 3"
+         th:text="#{messages.main.error2}">You are already subscribed!
+    </div>
+    <div class="alert alert-danger position-fixed bottom-0 my-5 valid" style="z-index: 3"
+         th:text="#{messages.main.error}">Please enter a valid email!
+    </div>
+    <div class="alert alert-danger position-fixed bottom-0 my-5 valid" style="z-index: 3"
+         th:text="#{messages.main.errorDomain}">Please enter at least 3 characters!
+    </div>
+</div>
 <footer th:insert="~{fragments/general.html :: footer}"></footer>
 <script>
     // Function to check if email is already subscribed, if not, add to database
@@ -122,6 +206,19 @@
                 $('.alert').show().delay(3000).fadeOut();
             }
         })
+
+        const card = $('.card-tld');
+        card.tilt({
+            transition: true,
+            speed: 800,
+            glare: true,
+            maxGlare: .3,
+            easing: "cubic-bezier(.03,.98,.52,.99)",
+        })
+
+        if ($(window).width() < 768) {
+            card.tilt.destroy.call(card);
+        }
 
         $('#emailsub').submit(function (e) {
             e.preventDefault();
