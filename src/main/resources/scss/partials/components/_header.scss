@@ -45,3 +45,14 @@ header {
         transform: rotate(360deg);
     }
 }
+
+@media only screen and (max-width: 768px) {
+    header {
+        top: 0;
+        position: sticky;
+        z-index: 100;
+        background: rgba(255, 255, 255, 0.75);
+        backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(5px);
+    }
+}

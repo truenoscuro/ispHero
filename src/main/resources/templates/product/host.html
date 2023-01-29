@@ -5,21 +5,98 @@
 </head>
 <body>
 <header th:insert="~{fragments/general.html :: header}"></header>
-<div th:each="article: ${articles}" class="d-flex gap-lg-5">
-    <div> <span th:text="${article.product}">HOST</span> </div>
-    <div> <span th:text="${article.property.price1year}">PRICE1YEAR</span> </div>
-    <div> <span th:text="${article.property.traffic}">TRAFIC</span> </div>
-    <div> <span th:text="${article.property.capacity}">CAPACITY</span> </div>
-    <div>
-        <form action="/cartpage" method="post">
-            <input type="hidden"  th:value="${article.product}" name="product">
-            <input type="submit" value="buy">
-        </form>
+
+<div class="container my-5">
+    <h2 class="text-center title-1">Select the <span class="text-primary">hosting service</span> which most suits you!</h2>
+    <div class="card-deck d-flex gap-3 my-3 justify-content-between flex-column flex-md-row">
+        <div class="card host-box">
+            <div class="card-body">
+                <h5 class="card-title">Basic Service</h5>
+                <p>Our Basic Service is perfect for those who are just starting out and need a simple and reliable solution for their domain and hosting needs.</p>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Affordable pricing</li>
+                    <li class="list-group-item">Easy to use control panel</li>
+                    <li class="list-group-item">24/7 customer support</li>
+                    <li class="list-group-item"><span th:text="${articles[0].property.price1year}"></span>€ / year</li>
+                    <li class="list-group-item"><span th:text="${articles[0].property.traffic}"></span>GB free traffic </li>
+                    <li class="list-group-item"><span th:text="${articles[0].property.capacity}"></span>GB capacity</li>
+                </ul>
+                <div class="text-center mt-5">
+                    <form action="/cartpage" method="post">
+                        <input type="hidden"  th:value="${articles[0].product}" name="product">
+                        <input type="submit" value="Add to cart" class="buy-button">
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="card host-box">
+            <div class="card-body">
+                <h5 class="card-title">Advanced Service</h5>
+                <p>Our Advanced Service is perfect for those who have more complex needs and require more advanced features and resources.</p>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Customizable resources and settings</li>
+                    <li class="list-group-item">Advanced security features</li>
+                    <li class="list-group-item">Dedicated IP and SSL options</li>
+                    <li class="list-group-item"><span th:text="${articles[1].property.price1year}"></span>€ / year</li>
+                    <li class="list-group-item"><span th:text="${articles[1].property.traffic}"></span>GB free traffic </li>
+                    <li class="list-group-item"><span th:text="${articles[1].property.capacity}"></span>GB capacity</li>
+                </ul>
+                <div class="text-center mt-5">
+                    <form action="/cartpage" method="post">
+                        <input type="hidden"  th:value="${articles[1].product}" name="product">
+                        <input type="submit" value="Add to cart" class="buy-button">
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
+    <div class="container">
+        <div class="row my-5">
+            <div class="col-md-6">
+                <h3>Technical specifications</h3>
+                <p>Our domain servers are built on state-of-the-art technology to provide a fast and reliable service for our customers. Our servers are powered by Intel Xeon processors and use DDR4 memory to ensure high performance and low latency. The servers are connected to a high-speed network with redundant connections to multiple Tier-1 providers, ensuring a fast and stable connection for our customers.</p>
+                <p><a href="#">Learn more</a></p>
+            </div>
+            <div class="col-md-6 text-center">
+                <img th:src="@{/img/server.svg}" alt="Server" class="info-img">
+            </div>
+        </div>
+        <hr>
+        <div class="row my-5 second-row">
+            <div class="col-md-6 text-center">
+                <img th:src="@{/img/control-panel.svg}" alt="cPanel" class="info-img">
+            </div>
+            <div class="col-md-6">
+                <h3>Control panel</h3>
+                <p>Our domain servers are running the latest version of the industry-standard control panel, cPanel (modified by us), which allows customers to easily manage their domains, email accounts, and web hosting services. The servers are also equipped with the latest version of the Apache web server, PHP, and MySQL to support a wide range of web applications and frameworks.</p>
+            </div>
+        </div>
+        <hr>
+        <div class="row my-5">
+            <div class="col-md-6">
+                <h3>Support</h3>
+                <p>We have a team of experienced system administrators who are available 24/7 to monitor the servers and ensure that they are running smoothly. In case of any issues, our team will take the necessary actions to resolve them as quickly as possible.</p>
+                <p><a href="/contact">Contact us</a></p>
+            </div>
+            <div class="col-md-6 text-center">
+                <img th:src="@{/img/support.svg}" alt="Support" class="info-img">
+            </div>
+        </div>
+
+    </div>
+
 </div>
 
 
-
 <footer th:insert="~{fragments/general.html :: footer}"></footer>
+<script>
+    $(document).ready(function () {
+
+        $('.host-box').hover(function () {
+            $('.host-box').removeClass('selected');
+            $(this).addClass('selected');
+        });
+    });
+</script>
 </body>
 </html>
