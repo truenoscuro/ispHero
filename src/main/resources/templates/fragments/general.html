@@ -29,7 +29,7 @@
 <div th:fragment="header">
   <nav class="navbar navbar-expand-lg bg-transparent px-5">
     <div class="container-fluid">
-      <a class="navbar-brand" href="/"><img th:src="@{/img/logo.png}" alt="logo" style="width:75px"></a>
+      <a class="navbar-brand" href="/"><img th:src="@{/img/logo.png}" alt="logo" class="main-logo"></a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
               data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
               aria-expanded="false" aria-label="Toggle navigation">
@@ -37,19 +37,19 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav d-flex me-auto mb-2 mb-lg-0 mx-3 justify-content-evenly">
-          <li class="nav-item mx-4">
+          <li class="nav-item mx-4 nav-hover">
             <a class="nav-link" th:href="@{/product/{category}(category = 'domain')}">Domain</a>
           </li>
-          <li class="nav-item mx-4">
+          <li class="nav-item mx-4 nav-hover">
             <a class="nav-link" href="/products/mail">Mail</a>
           </li>
-          <li class="nav-item mx-4">
+          <li class="nav-item mx-4 nav-hover">
             <a class="nav-link" th:href="@{/product/{category}(category = 'host')}">Hosting</a>
           </li>
-          <li class="nav-item mx-4">
+          <li class="nav-item mx-4 nav-hover">
             <a class="nav-link" href="/about" th:text="#{messages.header.about}">About</a>
           </li>
-          <li class="nav-item mx-4">
+          <li class="nav-item mx-4 nav-hover">
             <a class="nav-link" href="/contact" th:text="#{messages.header.contact}">Contact</a>
           </li>
         </ul>
