@@ -31,3 +31,14 @@
     border-right: 2px solid #ebedef;
     z-index: 2;
 }
+
+.tld-img {
+    max-height: 150px;
+    margin: 0 auto;
+    max-width: 300px;
+    transform: translateZ(20px);
+}
+
+.card {
+    transform-style: preserve-3d;
+}

@@ -18,11 +18,91 @@
     <div class="hero-bg-border mt-section-xl"></div>
 </div>
 <div class="container">
-    <div class="col-md-12">
-        
+    <div class="card-deck d-flex my-3 gap-5 d-flex justify-content-center d-sm-flex justify-content-sm-evenly flex-column flex-sm-row col-12">
+        <div class="card p-3">
+            <img class="card-img-top tld-img" th:src="@{/img/com-tld.png}" alt="com TLD">
+            <div class="card-body m-3">
+                <h5 class="card-title">.com</h5>
+                <p class="card-text">The .com TLD is the most widely used and recognized TLD in the world. It is often
+                    used for commercial websites and is considered the most professional choice for businesses.</p>
+            </div>
+        </div>
+        <div class="card p-3">
+            <img class="card-img-top tld-img" th:src="@{/img/org-tld.png}" alt="org TLD">
+            <div class="card-body m-3">
+                <h5 class="card-title">.org</h5>
+                <p class="card-text">The .org TLD is typically used by non-profit organizations and educational
+                    institutions. It is often considered a more trustworthy and credible choice for these types of
+                    websites.</p>
+            </div>
+        </div>
+        <div class="card p-3">
+            <img class="card-img-top tld-img" th:src="@{/img/info-tld.png}" alt="info TLD">
+            <div class="card-body m-3">
+                <h5 class="card-title">.info</h5>
+                <p class="card-text">The .info TLD is a generic TLD that can be used for any type of website. It is
+                    often used for informational websites, such as blogs and news sites.</p>
+            </div>
+        </div>
     </div>
+</div>
+<div class="container">
+    <div class="col-md-12">
+
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <h3>Technical specifications</h3>
+            <p>Our servers are powered by the latest Intel processors and use SSD storage for fast performance.</p>
+        </div>
+        <div class="col-md-6">
+            <img src="server.jpg" alt="Server">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <h3>Control panel</h3>
+            <p>We use cPanel, the industry-standard control panel, for easy account management.</p>
+        </div>
+        <div class="col-md-6">
+            <img src="cpanel.jpg" alt="cPanel">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <h3>Support</h3>
+            <p>Our team of experts is available 24/7 via live chat, email, and phone to assist with any issues.</p>
+        </div>
+        <div class="col-md-6">
+            <img src="support.jpg" alt="Support">
+        </div>
+    </div>
+
 </div>
 
 <footer th:insert="~{fragments/general.html :: footer}"></footer>
+
+<script>
+    $('.card').tilt({
+        transition: true,
+        speed: 800,
+        glare: true,
+        maxGlare: .3,
+        easing: "cubic-bezier(.03,.98,.52,.99)",
+        reset: true,
+    })
+
+    if (window.matchMedia('(max-width: 768px)').matches) {
+        $('.card').tilt({
+            glare: false,
+            maxGlare: 0,
+            transition: false,
+            speed: 0,
+            reset: false,
+        })
+    }
+</script>
 </body>
 </html>
