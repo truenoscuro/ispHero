@@ -1,75 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
 <head th:insert="~{fragments/general.html :: headerfiles}">
-  <title>ISP Hero - Login</title>
+    <title>ISP Hero - Login</title>
 </head>
 <body>
 <header th:insert="~{fragments/general.html :: header}"></header>
 <div class="container">
-  <div class="row">
-    <div class="col-12">
-      <h1 class="text-center mt-3">Welcome back <span class="text-primary" th:text="${user.firstName}"></span></h1>
+    <div class="row">
+        <div class="col-12">
+            <h1 class="text-center mt-3">Welcome back <span class="text-primary" th:text="${user.firstName}"></span>
+            </h1>
+        </div>
     </div>
-  </div>
 </div>
 
 <div class="d-flex flex-md-row flex-column align-items-start mx-3 mx-md-5 my-3">
-  <div class="nav flex-column nav-pills mx-auto mx-md-0 me-md-3 my-3 gap-3 bg-light" id="v-pills-tab" role="tablist" aria-orientation="vertical" style="border-radius: 5px">
-    <button class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">Home</button>
-    <button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">Profile</button>
-    <button class="nav-link" id="v-pills-payment-tab" data-bs-toggle="pill" data-bs-target="#v-pills-payment" type="button" role="tab" aria-controls="v-pills-payment" aria-selected="false">Payment</button>
-    <button class="nav-link" id="v-pills-waiting-tab" data-bs-toggle="pill" data-bs-target="#v-pills-waiting" type="button" role="tab" aria-controls="v-pills-waiting" aria-selected="false">Waiting</button>
-  </div>
-  <div class="tab-content mx-auto my-3" id="v-pills-tabContent">
-    <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">...</div>
-    <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
-      <div class="container">
-        <form action="/account/update" method="post" th:object="${userData}" class="form">
-            <input type="hidden" th:value="${user.idData}" name="idData">
-            <div class="row">
-                <h3>Personal data</h3>
-                <div class="col-12 col-md-6">
-                  <div class="mb-3">
-                      <label for="name" class="form-label">Name</label>
-                      <input type="text" class="form-control" id="name" placeholder="Name" th:value="${user.firstName}" name="firstName" readonly>
-                  </div>
-                  <div class="mb-3">
-                      <label for="surname1" class="form-label">Surname</label>
-                      <input type="text" class="form-control" id="surname1" placeholder="Surname" th:value="${user.lastName1}" name="lastName1" readonly>
-                  </div>
-                  <div class="mb-3">
-                      <label for="surname2" class="form-label">Surname</label>
-                      <input type="text" class="form-control" id="surname2" placeholder="Surname" th:value="${user.lastName2}" name="lastName2" readonly>
-                  </div>
-                  <div class="mb-3">
-                      <label for="email" class="form-label">Email</label>
-                      <input type="email" class="form-control" id="email" placeholder="Email" th:value="${user.email}" name="email" readonly>
-                  </div>
-                </div>
-                <div class="col-12 col-md-6">
-                    <div class="mb-3">
-                        <label for="country" class="form-label">Country</label>
-                        <select class="form-select" id="country" th:value="${user.country}" name="country" readonly>
-                            <option selected value="none">Choose...</option>
-                        </select>
+    <div class="nav flex-column nav-pills mx-auto mx-md-0 me-md-3 my-3 gap-3 bg-light" id="v-pills-tab" role="tablist"
+         aria-orientation="vertical" style="border-radius: 5px">
+        <button class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home"
+                type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">Home
+        </button>
+        <button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile"
+                type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">Profile
+        </button>
+        <button class="nav-link" id="v-pills-payment-tab" data-bs-toggle="pill" data-bs-target="#v-pills-payment"
+                type="button" role="tab" aria-controls="v-pills-payment" aria-selected="false">Payment
+        </button>
+        <button class="nav-link" id="v-pills-waiting-tab" data-bs-toggle="pill" data-bs-target="#v-pills-waiting"
+                type="button" role="tab" aria-controls="v-pills-waiting" aria-selected="false">Waiting
+        </button>
+    </div>
+    <div class="tab-content mx-auto my-3" id="v-pills-tabContent">
+        <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+            <div class="container">
+                <form action="/account/update" method="post" th:object="${userData}" class="form">
+                    <input type="hidden" th:value="${user.idData}" name="idData">
+                    <div class="row">
+                        <h3>Personal data</h3>
+                        <div class="col-12 col-md-6">
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Name</label>
+                                <input type="text" class="form-control" id="name" placeholder="Name"
+                                       th:value="${user.firstName}" name="firstName" readonly>
+                            </div>
+                            <div class="mb-3">
+                                <label for="surname1" class="form-label">Surname</label>
+                                <input type="text" class="form-control" id="surname1" placeholder="Surname"
+                                       th:value="${user.lastName1}" name="lastName1" readonly>
+                            </div>
+                            <div class="mb-3">
+                                <label for="surname2" class="form-label">Surname</label>
+                                <input type="text" class="form-control" id="surname2" placeholder="Surname"
+                                       th:value="${user.lastName2}" name="lastName2" readonly>
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="email" placeholder="Email"
+                                       th:value="${user.email}" name="email" disabled>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <div class="mb-3">
+                                <label for="country" class="form-label">Country</label>
+                                <select class="form-select" id="country" th:value="${user.country}" name="country"
+                                        readonly>
+                                    <option selected value="none">Choose...</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="address" class="form-label">Address</label>
+                                <input type="text" class="form-control" id="address" placeholder="Address"
+                                       th:value="${user.address}" name="address" readonly>
+                            </div>
+                            <div class="mb-3">
+                                <label for="city" class="form-label">City</label>
+                                <input type="text" class="form-control" id="city" placeholder="City"
+                                       th:value="${user.city}" name="city" readonly>
+                            </div>
+                            <div class="my-5 d-flex mx-3 justify-content-between">
+                                <button class="btn btn-success edit">Edit</button>
+                                <button class="btn btn-outline-danger cancel">Cancel</button>
+                                <button class="btn btn-primary save" type="submit">Save</button>
+                            </div>
+                        </div>
                     </div>
-                    <div class="mb-3">
-                        <label for="address" class="form-label">Address</label>
-                        <input type="text" class="form-control" id="address" placeholder="Address" th:value="${user.address}" name="address" readonly>
-                    </div>
-                    <div class="mb-3">
-                        <label for="city" class="form-label">City</label>
-                        <input type="text" class="form-control" id="city" placeholder="City" th:value="${user.city}" name="city" readonly>
-                    </div>
-                    <div class="my-5 d-flex mx-3 justify-content-between">
-                        <button class="btn btn-success edit">Edit</button>
-                        <button class="btn btn-outline-danger cancel">Cancel</button>
-                        <button class="btn btn-primary save" type="submit">Save</button>
-                    </div>
-                </div>
-            </div>
-        </form>
-          <div class="col-12">
+                </form>
+                <div class="col-12">
                     <hr>
                     <h4>Change password</h4>
                     <form action="">
@@ -83,7 +99,8 @@
                         </div>
                         <div class="mb-3">
                             <label for="repeatNewPassword" class="form-label">Repeat new password</label>
-                            <input type="password" class="form-control" id="repeatNewPassword" placeholder="Repeat new password">
+                            <input type="password" class="form-control" id="repeatNewPassword"
+                                   placeholder="Repeat new password">
                         </div>
                         <div class="container my-2">
                             <button class="btn btn-success">Change password</button>
@@ -91,13 +108,11 @@
                     </form>
                 </div>
             </div>
-      </div>
-    </div>
-    <div class="tab-pane fade" id="v-pills-payment" role="tabpanel" aria-labelledby="v-pills-payment-tab">...</div>
-    <div class="tab-pane fade" id="v-pills-waiting" role="tabpanel" aria-labelledby="v-pills-waiting-tab">
-        <div class="container">
+        </div>
+        <div class="tab-pane fade" id="v-pills-payment" role="tabpanel" aria-labelledby="v-pills-payment-tab">...</div>
+        <div class="tab-pane fade" id="v-pills-waiting" role="tabpanel" aria-labelledby="v-pills-waiting-tab"><div class="container">
             <div th:unless="${waitingDomains.isEmpty()}">
-                <div th:each="waitingDomain: ${waitingDomains}" >
+                <div th:each="waitingDomain: ${waitingDomains}">
                     <div th:each="tld :${waitingDomain.tlds}">
                         <div>
                             <form action="">
@@ -111,9 +126,8 @@
             <div th:if="${waitingDomains.isEmpty()}" class="container">
                 <h3>You don't have any domain names you're waiting for.</h3>
             </div>
-        </div>
+        </div></div>
     </div>
-  </div>
 </div>
 
 <footer th:insert="~{fragments/general.html :: footer}"></footer>
@@ -132,8 +146,22 @@
         $('.cancel').hide();
         $('.save').hide();
 
+        var inputs = document.querySelectorAll('input[readonly]');
+
+        for (var i = 0; i < inputs.length; i++) {
+            inputs[i].style.backgroundColor = '#e9ecef';
+        }
+
         $("#repeatNewPassword").keyup(checkPasswordMatch);
         $("#newPassword").keyup(checkPasswordMatch);
+
+        var idData = $('#name').val();
+        if (idData === null || idData === '') {
+            for (var i = 0; i < inputs.length; i++) {
+                inputs[i].removeAttribute('readonly');
+                inputs[i].style.backgroundColor = 'white';
+            }
+        }
 
         $.ajax({
             url: 'https://restcountries.com/v3.1/all',
@@ -151,7 +179,7 @@
                     return 0;
                 });
                 for (var i = 0; i < countries.length; i++) {
-                    $('#country').append('<option value="'+ countries[i].name.common +'">' + countries[i].name.common + '</option>');
+                    $('#country').append('<option value="' + countries[i].name.common + '">' + countries[i].name.common + '</option>');
                 }
             }
         })
@@ -167,8 +195,9 @@
 
     $('.edit').click(function (e) {
         e.preventDefault()
-        for (var i = 4; i < 7; i++) {
+        for (var i = 5; i < 7; i++) {
             inputs[i].removeAttribute('readonly');
+            inputs[i].style.backgroundColor = 'white';
         }
         $('select').removeAttr('readonly')
         $('.save').show();
@@ -178,11 +207,12 @@
 
     $('.cancel').click(function (e) {
         e.preventDefault();
-        for (var i = 3; i < 7; i++) {
-            inputs[i].value = tmpvalues[i-3];
+        for (var i = 5; i < 7; i++) {
+            inputs[i].value = tmpvalues[i - 3];
+            inputs[i].style.backgroundColor = '#e9ecef';
         }
         $('#country').val(tmpcountry);
-        for (var i = 4; i < 7; i++) {
+        for (var i = 5; i < 7; i++) {
             inputs[i].setAttribute('readonly', 'readonly');
         }
         $('select').attr('readonly', 'readonly')

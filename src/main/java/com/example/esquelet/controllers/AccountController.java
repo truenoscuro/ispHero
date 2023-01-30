@@ -79,11 +79,10 @@ public class AccountController {
         UserDTO user = (UserDTO) model.getAttribute("user");
         user.setUserData(userData);
         userService.addUserData(user);
-        model.addAttribute("user",userService.getUser(user) );*/
+        model.addAttribute("user",userService.getUser(user) );
 
         System.out.println(user);
         return "redirect:/account";
     }
-
 
 }
