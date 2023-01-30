@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ServiceDTO {
+    private Long id;
 
     private String product;
 
@@ -21,16 +22,13 @@ public class ServiceDTO {
     private boolean isCancelled;
 
 
-
-
-
     public static ServiceDTO createServiceDTO( Service service ){
-        String product = service.getArticle().getProduct().getName();
-        String nameDomain = service.getNameDomain();
-        LocalDateTime dateExpired = service.getDateExpired();
-        boolean isCancelled = service.isCancelled();
-        return new ServiceDTO(product,nameDomain,dateExpired,isCancelled);
+        return new ServiceDTO(
+                service.getId(),
+                service.getArticle().getProduct().getName(),
+                service.getNameDomain(),
+                service.getDateExpired(),
+                service.isCancelled()
+        );
     }
-
-
 }

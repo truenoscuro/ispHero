@@ -51,11 +51,13 @@ public class UserService {
     }
 
     public void getServices( UserDTO user ){
+
         userRepository.findByUsername( user.getUsername() ).ifPresent(
                 userEntity -> userEntity.getServices()
                         .stream().map( ServiceDTO::createServiceDTO )
                         .forEach(user::addService)
         );
+        System.out.println(user);
     }
 
     public void sendRegisterMail(UserDTO user) {

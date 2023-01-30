@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @AllArgsConstructor
@@ -91,7 +92,10 @@ public class UserDTO {
 
     }
 
-    public void addService( ServiceDTO service ){ services.add( service ); }
+    public void addService( ServiceDTO service ){
+        if(services == null) services = new ArrayList<>();
+        services.add( service );
+    }
 
     public boolean hasData(){
         return idData != null &&
