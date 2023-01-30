@@ -76,11 +76,8 @@ public class AccountController {
     public String updateUserData(@ModelAttribute UserDTO userData , Model model){
         UserDTO user = (UserDTO) model.getAttribute("user");
         user.setUserData(userData);
-        /*
         userService.addUserData(user);
-        model.addAttribute("user",userService.getUser(user) );*/
-
-        System.out.println(user);
+        model.addAttribute("user",userService.getUser(user) );
         return "redirect:/account";
     }
 
