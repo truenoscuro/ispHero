@@ -62,7 +62,7 @@ public class UserDTO {
         this.country = userData.getCountry();
     }
     public void setUserData( UserDTO userData ){
-        this.idData = userData.getId();
+        this.idData = userData.getIdData();
         this.firstName = userData.getFirstName();
         this.lastName1 = userData.getLastName1();
         this.lastName2 = userData.getLastName2();

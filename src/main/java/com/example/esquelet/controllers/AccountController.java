@@ -32,7 +32,7 @@ public class AccountController {
     public String account(Model model) {
         model.addAttribute("pageTitle", " My Account");
         model.addAttribute("isLogged", true);
-
+        model.addAttribute("waitingDomains",waitingDomainService.getAllByUser( (UserDTO) model.getAttribute("user") ) );
         model.addAttribute("userData",new UserDTO());
 
         UserDTO userDTO = (UserDTO) Objects.requireNonNull( model.getAttribute("user" ) );
@@ -40,9 +40,6 @@ public class AccountController {
         userService.getServices( userDTO );
         userService.getInvoices( userDTO );
 
-        UserDTO user = (UserDTO) model.getAttribute("user");
-        model.addAttribute("userData",new UserDTO());
-        model.addAttribute("waitingDomains",waitingDomainService.getAllByUser(user));
         return "backendUser/account";
     }
 
@@ -82,7 +79,9 @@ public class AccountController {
         UserDTO user = (UserDTO) model.getAttribute("user");
         user.setUserData(userData);
         userService.addUserData(user);
-        model.addAttribute("user",userService.getUser(user) );
+        model.addAttribute("user",userService.getUser(user) );*/
+
+        System.out.println(user);
         return "redirect:/account";
     }
 
