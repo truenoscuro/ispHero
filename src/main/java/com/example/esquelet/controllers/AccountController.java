@@ -32,6 +32,8 @@ public class AccountController {
     public String account(Model model) {
         model.addAttribute("pageTitle", " My Account");
         model.addAttribute("isLogged", true);
+        UserDTO user = (UserDTO) model.getAttribute("user");
+        model.addAttribute("waitingDomains",waitingDomainService.getAllByUser(user));
         return "backendUser/account";
     }
 

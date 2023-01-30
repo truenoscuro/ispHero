@@ -32,6 +32,7 @@ public class UserDTO {
     private String lastName2;
     private String address;
     private String city;
+    private String country;
 
     private List<ServiceDTO> services;
 
@@ -56,6 +57,7 @@ public class UserDTO {
         this.lastName2 = userData.getLastName2();
         this.address = userData.getAddress();
         this.city = userData.getCity();
+        this.country = userData.getCountry();
     }
     public void setUserData( UserDTO userData ){
         this.idData = userData.getId();
@@ -64,6 +66,7 @@ public class UserDTO {
         this.lastName2 = userData.getLastName2();
         this.address = userData.getAddress();
         this.city = userData.getCity();
+        this.country = userData.getCountry();
     }
 
 
@@ -114,6 +117,7 @@ public class UserDTO {
         this.address = null;
         this.city = null;
         this.services = null;
+        this.country = null;
     }
 
     public boolean isValid(){

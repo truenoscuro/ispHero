@@ -5,18 +5,186 @@
 </head>
 <body>
 <header th:insert="~{fragments/general.html :: header}"></header>
-<ul>
-  <li> <a href="/account/waitingdomains"> Waiting Domain</a> </li>
-  <li th:unless="${user.hasData()}"> <a href="/account/userdata" > Add userData </a> </li>
-</ul>
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <h1 class="text-center">Welcome back <span class="text-primary" th:text="${user.firstName}"></span></h1>
+    </div>
+  </div>
+</div>
 
-
-
-
-<h1 th:text="${user}" class="text-center">USER :)</h1>
-
-
+<div class="d-flex align-items-start mx-5 my-5">
+  <div class="nav flex-column nav-pills me-3 my-3 gap-3 bg-light" id="v-pills-tab" role="tablist" aria-orientation="vertical" style="border-radius: 5px">
+    <button class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">Home</button>
+    <button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">Profile</button>
+    <button class="nav-link" id="v-pills-payment-tab" data-bs-toggle="pill" data-bs-target="#v-pills-payment" type="button" role="tab" aria-controls="v-pills-payment" aria-selected="false">Payment</button>
+    <button class="nav-link" id="v-pills-waiting-tab" data-bs-toggle="pill" data-bs-target="#v-pills-waiting" type="button" role="tab" aria-controls="v-pills-waiting" aria-selected="false">Waiting</button>
+  </div>
+  <div class="tab-content" id="v-pills-tabContent">
+    <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">...</div>
+    <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+      <div class="container">
+        <form action="/account/update" method="post" th:object="${userDTO}" class="form">
+            <div class="row">
+                <h3>Personal data</h3>
+                <div class="col-6">
+                  <div class="mb-3">
+                      <label for="name" class="form-label">Name</label>
+                      <input type="text" class="form-control" id="name" placeholder="Name" th:value="${user.firstName}" disabled>
+                  </div>
+                  <div class="mb-3">
+                      <label for="surname1" class="form-label">Surname</label>
+                      <input type="text" class="form-control" id="surname1" placeholder="Surname" th:value="${user.lastName1}" disabled>
+                  </div>
+                  <div class="mb-3">
+                      <label for="surname2" class="form-label">Surname</label>
+                      <input type="text" class="form-control" id="surname2" placeholder="Surname" th:value="${user.lastName2}" disabled>
+                  </div>
+                  <div class="mb-3">
+                      <label for="email" class="form-label">Email</label>
+                      <input type="email" class="form-control" id="email" placeholder="Email" th:value="${user.email}" disabled>
+                  </div>
+                </div>
+                <div class="col-6">
+                    <div class="mb-3">
+                        <label for="country" class="form-label">Country</label>
+                        <select class="form-select" id="country" th:value="${user.country}" disabled>
+                            <option selected>Choose...</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="address" class="form-label">Address</label>
+                        <input type="text" class="form-control" id="address" placeholder="Address" th:value="${user.address}" disabled>
+                    </div>
+                    <div class="mb-3">
+                        <label for="city" class="form-label">City</label>
+                        <input type="text" class="form-control" id="city" placeholder="City" th:value="${user.city}" disabled>
+                    </div>
+                    <div class="container my-5">
+                        <button class="btn btn-success edit">Edit</button>
+                        <button class="btn btn-outline-danger cancel">Cancel</button>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <hr>
+                    <h4>Change password</h4>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Old password</label>
+                        <input type="password" class="form-control" id="password" placeholder="Password">
+                    </div>
+                    <div class="mb-3">
+                        <label for="newPassword" class="form-label">New password</label>
+                        <input type="password" class="form-control" id="newPassword" placeholder="New password">
+                    </div>
+                    <div class="mb-3">
+                        <label for="repeatNewPassword" class="form-label">Repeat new password</label>
+                        <input type="password" class="form-control" id="repeatNewPassword" placeholder="Repeat new password">
+                    </div>
+                </div>
+                <div class="container my-2">
+                    <button class="btn btn-success">Change password</button>
+                </div>
+            </div>
+        </form>
+      </div>
+    </div>
+    <div class="tab-pane fade" id="v-pills-payment" role="tabpanel" aria-labelledby="v-pills-payment-tab">...</div>
+    <div class="tab-pane fade" id="v-pills-waiting" role="tabpanel" aria-labelledby="v-pills-waiting-tab">
+        <div class="container">
+            <div th:unless="${waitingDomains.isEmpty()}">
+                <div th:each="waitingDomain: ${waitingDomains}" >
+                    <div th:each="tld :${waitingDomain.tlds}">
+                        <div>
+                            <form action="">
+                                <span th:text="${waitingDomain.nameDomain + tld} "></span>
+                                <a href="#" class="btn btn-outline-danger">Delete</a>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div th:if="${waitingDomains.isEmpty()}" class="container">
+                <h3>You don't have any domain names you're waiting for.</h3>
+            </div>
+        </div>
+    </div>
+  </div>
+</div>
 
 <footer th:insert="~{fragments/general.html :: footer}"></footer>
+
+<script>
+
+    $(document).ready(function () {
+        $('.cancel').hide();
+        $("#repeatNewPassword").keyup(checkPasswordMatch);
+        $("#newPassword").keyup(checkPasswordMatch);
+
+        $.ajax({
+            url: 'https://restcountries.com/v3.1/all',
+            type: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                var countries = data;
+                countries.sort(function (a, b) {
+                    if (a.name.common < b.name.common) {
+                        return -1;
+                    }
+                    if (a.name.common > b.name.common) {
+                        return 1;
+                    }
+                    return 0;
+                });
+                for (var i = 0; i < countries.length; i++) {
+                    $('#country').append('<option value="'+ countries[i].name.common +'">' + countries[i].name.common + '</option>');
+                }
+            }
+        })
+    })
+    var inputs = document.querySelectorAll('input');
+
+    var tmpvalues = []
+    var tmpcountry = $('#country').val();
+
+    for (var j = 3; j < 7; j++) {
+        tmpvalues.push(inputs[j].value);
+    }
+
+    $('.edit').click(function (e) {
+        e.preventDefault()
+        for (var i = 4; i < 6; i++) {
+            inputs[i].removeAttribute('disabled');
+        }
+        $('select').removeAttr('disabled')
+        $(this).text('Save');
+        $('.cancel').show();
+    })
+
+    $('.cancel').click(function (e) {
+        e.preventDefault();
+        for (var i = 3; i < 6; i++) {
+            inputs[i].value = tmpvalues[i-3];
+        }
+        $('#country').val(tmpcountry);
+        for (var i = 4; i < 6; i++) {
+            inputs[i].setAttribute('disabled', 'disabled');
+        }
+        $('select').attr('disabled', 'disabled')
+        $('.edit').text('Edit');
+        $(this).hide();
+    })
+
+    function checkPasswordMatch() {
+        let password = $("#newPassword").val();
+        let confirmPassword = $("#repeatNewPassword").val();
+
+        if (password !== confirmPassword)
+            $("#repeatNewPassword").css("border-color", "red");
+        else
+            $("#repeatNewPassword").css("border-color", "green");
+    }
+
+
+</script>
 </body>
 </html>

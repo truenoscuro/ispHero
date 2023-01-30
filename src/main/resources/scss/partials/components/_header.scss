@@ -30,6 +30,7 @@ header {
 .main-logo {
     width: 75px;
     transition: all 0.3s ease-in-out;
+    filter: saturate(2.5);
 }
 
 .main-logo:hover {
@@ -51,8 +52,12 @@ header {
         top: 0;
         position: sticky;
         z-index: 100;
-        background: rgba(255, 255, 255, 0.75);
+        background: rgba(222, 237, 255, 0.75);
         backdrop-filter: blur(5px);
         -webkit-backdrop-filter: blur(5px);
+
+        * {
+            z-index: 100;
+        }
     }
 }
