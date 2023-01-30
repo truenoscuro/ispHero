@@ -30,35 +30,35 @@
                 <div class="col-12 col-md-6">
                   <div class="mb-3">
                       <label for="name" class="form-label">Name</label>
-                      <input type="text" class="form-control" id="name" placeholder="Name" th:value="${user.firstName}" disabled>
+                      <input type="text" class="form-control" id="name" placeholder="Name" th:value="${user.firstName}" name="firstName" disabled>
                   </div>
                   <div class="mb-3">
                       <label for="surname1" class="form-label">Surname</label>
-                      <input type="text" class="form-control" id="surname1" placeholder="Surname" th:value="${user.lastName1}" disabled>
+                      <input type="text" class="form-control" id="surname1" placeholder="Surname" th:value="${user.lastName1}" name="lastName1" disabled>
                   </div>
                   <div class="mb-3">
                       <label for="surname2" class="form-label">Surname</label>
-                      <input type="text" class="form-control" id="surname2" placeholder="Surname" th:value="${user.lastName2}" disabled>
+                      <input type="text" class="form-control" id="surname2" placeholder="Surname" th:value="${user.lastName2}" name="lastName2" disabled>
                   </div>
                   <div class="mb-3">
                       <label for="email" class="form-label">Email</label>
-                      <input type="email" class="form-control" id="email" placeholder="Email" th:value="${user.email}" disabled>
+                      <input type="email" class="form-control" id="email" placeholder="Email" th:value="${user.email}" name="email" disabled>
                   </div>
                 </div>
                 <div class="col-12 col-md-6">
                     <div class="mb-3">
                         <label for="country" class="form-label">Country</label>
-                        <select class="form-select" id="country" th:value="${user.country}" disabled>
+                        <select class="form-select" id="country" th:value="${user.country}" name="country" disabled>
                             <option selected value="none">Choose...</option>
                         </select>
                     </div>
                     <div class="mb-3">
                         <label for="address" class="form-label">Address</label>
-                        <input type="text" class="form-control" id="address" placeholder="Address" th:value="${user.address}" disabled>
+                        <input type="text" class="form-control" id="address" placeholder="Address" th:value="${user.address}" name="address" disabled>
                     </div>
                     <div class="mb-3">
                         <label for="city" class="form-label">City</label>
-                        <input type="text" class="form-control" id="city" placeholder="City" th:value="${user.city}" disabled>
+                        <input type="text" class="form-control" id="city" placeholder="City" th:value="${user.city}" name="city" disabled>
                     </div>
                     <div class="my-5 d-flex mx-3 justify-content-between">
                         <button class="btn btn-success edit">Edit</button>
@@ -66,27 +66,30 @@
                         <button class="btn btn-primary save" type="submit">Save</button>
                     </div>
                 </div>
-                <div class="col-12">
-                    <hr>
-                    <h4>Change password</h4>
-                    <div class="mb-3">
-                        <label for="password" class="form-label">Old password</label>
-                        <input type="password" class="form-control" id="password" placeholder="Password">
-                    </div>
-                    <div class="mb-3">
-                        <label for="newPassword" class="form-label">New password</label>
-                        <input type="password" class="form-control" id="newPassword" placeholder="New password">
-                    </div>
-                    <div class="mb-3">
-                        <label for="repeatNewPassword" class="form-label">Repeat new password</label>
-                        <input type="password" class="form-control" id="repeatNewPassword" placeholder="Repeat new password">
-                    </div>
-                </div>
-                <div class="container my-2">
-                    <button class="btn btn-success">Change password</button>
-                </div>
             </div>
         </form>
+          <div class="col-12">
+                    <hr>
+                    <h4>Change password</h4>
+                    <form action="">
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Old password</label>
+                            <input type="password" class="form-control" id="password" placeholder="Password">
+                        </div>
+                        <div class="mb-3">
+                            <label for="newPassword" class="form-label">New password</label>
+                            <input type="password" class="form-control" id="newPassword" placeholder="New password">
+                        </div>
+                        <div class="mb-3">
+                            <label for="repeatNewPassword" class="form-label">Repeat new password</label>
+                            <input type="password" class="form-control" id="repeatNewPassword" placeholder="Repeat new password">
+                        </div>
+                        <div class="container my-2">
+                            <button class="btn btn-success">Change password</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
       </div>
     </div>
     <div class="tab-pane fade" id="v-pills-payment" role="tabpanel" aria-labelledby="v-pills-payment-tab">...</div>

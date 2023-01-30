@@ -33,7 +33,7 @@ public class AccountController {
         model.addAttribute("pageTitle", " My Account");
         model.addAttribute("isLogged", true);
         UserDTO user = (UserDTO) model.getAttribute("user");
-        model.addAttribute("userData",user);
+        model.addAttribute("userData",new UserDTO());
         model.addAttribute("waitingDomains",waitingDomainService.getAllByUser(user));
         return "backendUser/account";
     }
@@ -76,8 +76,11 @@ public class AccountController {
     public String updateUserData(@ModelAttribute UserDTO userData , Model model){
         UserDTO user = (UserDTO) model.getAttribute("user");
         user.setUserData(userData);
+        /*
         userService.addUserData(user);
-        model.addAttribute("user",userService.getUser(user) );
+        model.addAttribute("user",userService.getUser(user) );*/
+
+        System.out.println(user);
         return "redirect:/account";
     }
 
