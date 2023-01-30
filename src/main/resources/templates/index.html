@@ -5,23 +5,7 @@
 <body>
 <header th:insert="~{fragments/general.html :: header}"></header>
 <div>
-    <div class="container mt-5">
-        <div class="row justify-content-center">
-            <div class="col-md-6">
-                <form action="/domaincheck" method="post" id="domainCheck">
-                    <div class="form-group">
-                        <label for="domainSearch" class="text-primary text-center" th:text="#{messages.main.findDomain}">Find your perfect domain name:</label>
-                        <div class="input-group mb-3">
-                            <input type="text" class="form-control" id="domainSearch" name="domainSearch" placeholder="Enter domain name" th:placeholder="#{messages.main.findDomainText}">
-                            <div class="input-group-append">
-                                <button class="btn btn-primary" type="submit" th:text="#{messages.main.searchButton}">Search</button>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
+    <div th:insert="~{fragments/general.html :: domainSearchBar}"></div>
     <div class="d-flex justify-content-center d-sm-flex justify-content-sm-evenly flex-column flex-sm-row p-5">
         <div class="card m-3 w-25">
             <img th:src="@{/img/people-and-technology.png}" class="card-img-top" alt="Domain Hosting">
@@ -44,6 +28,45 @@
                 <p class="card-text" th:text="#{messages.main.card3Text}">We offer the best prices and rates in the industry. Our team works hard to negotiate the best deals for our customers, ensuring that you get the best value for your money.</p>
             </div>
         </div>
+    </div>
+    <div>
+        <hr>
+    </div>
+    <div class="p-lg-5">
+        <div class="container"><div class="row">
+            <div class="col-12 col-md-6 col-lg-4 p-3">
+                <h2 class="heading-3 fs-36 lh-44 mb-24" th:text="#{messages.main.flexText}">Your digital solution</h2>
+                <ul class="checkmark-list">
+                    <li class="clearfix"><span class="ov-hidden" th:text="#{messages.main.flexp1}">Sustainable and scalable</span></li>
+                    <li class="clearfix"><span class="ov-hidden" th:text="#{messages.main.flexp2}">Safe and secure</span></li>
+                    <li class="clearfix"><span class="ov-hidden" th:text="#{messages.main.flexp3}">Competent and customizable</span></li>
+                </ul>
+            </div>
+            <div class="col-12 col-md-6 col-lg-8 px-0">
+                <div class="about-top-grid-background-wrapper">
+                    <div xmlns:exsl="http://exslt.org/common" class="about-image w-full h-md-full h-lg-full" data-anchor-image="d52e105" data-lavender-background="null" aria-label="Sobre IONOS" role="img" style="background-image: url(https://ce1.uicdn.net/e30/d12b164a870e68857b43e51c48f64/webapp/34946-vi-about-facelift.jpg)"></div>
+                </div>
+            </div>
+        </div>
+            <div class="row text-center border">
+                <div class="col-12 col-md-6 col-lg-3 py-4 about-grid">
+                    <img class="icon-img" data-lavender-original="null" src="https://ce1.uicdn.net/820/3e55b752a7cbb2486da98a2175512/webapp/34947-x-ic-domains.svg" alt="Dominios">
+                    <noscript>"<img src="https://ce1.uicdn.net/820/3e55b752a7cbb2486da98a2175512/webapp/34947-x-ic-domains.svg" alt="Dominios" class="icon-img">"</noscript>
+                    <h3 class="d-block ff-opb fs-24">22 000</h3><span class="d-block ff-opr fs-18 mt-12" th:text="#{messages.main.domainsRegistered}">dominios registrados</span></div>
+                <div class="col-12 col-md-6 col-lg-3 py-4 about-grid"><img class="icon-img" data-lavender-original="null" src="https://ce1.uicdn.net/2aa/c9b5211227422ce8cd4ef5e1092e2/webapp/34949-around-the-world.svg" alt="Icon with a globe and circulating arrows">
+                    <noscript>"<img src="https://ce1.uicdn.net/2aa/c9b5211227422ce8cd4ef5e1092e2/webapp/34949-around-the-world.svg" alt="Icon with a globe and circulating arrows" class="icon-img">"</noscript>
+                    <h3 class="d-block ff-opb fs-24">8 000</h3><span class="d-block ff-opr fs-18 mt-12" th:text="#{messages.main.clientsServed}">clientes</span></div>
+                <div class="col-12 col-md-6 col-lg-3 py-4 about-grid"><img class="icon-img" data-lavender-original="null" src="https://ce1.uicdn.net/71a/81388a125169f78e0e6418bd458ac/webapp/34634-dedicated-server-pro.svg" alt="Servidores">
+                    <noscript>"<img src="https://ce1.uicdn.net/71a/81388a125169f78e0e6418bd458ac/webapp/34634-dedicated-server-pro.svg" alt="Servidores" class="icon-img">"</noscript>
+                    <h3 class="d-block ff-opb fs-24">1 000</h3><span class="d-block ff-opr fs-18 mt-12" th:text="#{messages.main.serversOnline}">servidores</span></div>
+                <div class="col-12 col-md-6 col-lg-3 py-4 about-grid"><img class="icon-img" data-lavender-original="null" src="https://ce1.uicdn.net/5d7/f257a7e2c8014fba4c022321b1cf2/webapp/34948-employees.svg" alt="Ícono de colaboradores">
+                    <noscript>"<img src="https://ce1.uicdn.net/5d7/f257a7e2c8014fba4c022321b1cf2/webapp/34948-employees.svg" alt="Icono de colaboradores" class="icon-img">"</noscript>
+                    <h3 class="d-block ff-opb fs-24">400</h3><span class="d-block ff-opr fs-18 mt-12" th:text="#{messages.main.collaborators}">colaboradores</span></div>
+            </div>
+
+            <div class="text-right text-primary p-3">ISP Hero, March 2023</div>
+        </div>
+    </div>
     </div>
     <div>
         <div class="container-fluid bg-light text-dark p-5">
@@ -76,7 +99,6 @@
         <div class="alert alert-danger position-fixed bottom-0 my-5 valid" style="z-index: 3" th:text="#{messages.main.error}">Please enter a valid email!</div>
         <div class="alert alert-danger position-fixed bottom-0 my-5 valid" style="z-index: 3" th:text="#{messages.main.errorDomain}">Please enter at least 3 characters!</div>
     </div>
-</div>
 <footer th:insert="~{fragments/general.html :: footer}"></footer>
 <script>
     // Function to check if email is already subscribed, if not, add to database

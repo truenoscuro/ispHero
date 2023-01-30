@@ -23,12 +23,12 @@ meta description. This will often show up in search results.">
   <link rel="apple-touch-icon" th:href="@{/icon-384x384.png}"/>
   <link rel="apple-touch-icon" th:href="@{/icon-512x512.png}"/>
   <meta name="apple-mobile-web-app-status-bar" content="#db4938" />
-  <meta name="theme-color" content="#db4938" />
+  <meta name="theme-color" content="#fff"/>
   <link rel="icon" type="image/x-icon" th:href="@{/favicon.ico}" />
   <title th:text="${pageTitle} ? 'ISP Hero - ' + ${pageTitle} : 'ISP Hero'"></title>
 <body>
 <div th:fragment="header">
-  <nav class="navbar navbar-expand-lg blur bg-transparent px-5">
+  <nav class="navbar navbar-expand-lg bg-transparent px-5">
     <div class="container-fluid">
       <a class="navbar-brand" href="/"><img th:src="@{/img/logo.png}" alt="logo" style="width:75px"></a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -37,12 +37,12 @@ meta description. This will often show up in search results.">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav d-flex me-auto mb-2 mb-lg-0 mx-3 justify-content-between">
+        <ul class="navbar-nav d-flex me-auto mb-2 mb-lg-0 mx-3 justify-content-evenly">
           <li class="nav-item mx-4">
-            <a class="nav-link" href="#">Domain</a>
+            <a class="nav-link" href="/products/domain">Domain</a>
           </li>
           <li class="nav-item mx-4">
-            <a class="nav-link" href="#">Mail</a>
+            <a class="nav-link" href="/products/mail">Mail</a>
           </li>
           <li class="nav-item mx-4">
             <a class="nav-link" th:href="@{/product/{category}(category = 'host')}">Hosting</a>
@@ -56,9 +56,9 @@ meta description. This will often show up in search results.">
         </ul>
         <div th:if="${isLogged} == true">
           <a class="btn btn-outline-primary" href="/account" th:text="#{messages.header.account}">Account</a>
-          <a class="btn btn-outline-primary" href="/logout">Logout</a>
+          <a class="btn btn-outline-danger" href="/logout">Logout</a>
         </div>
-        <div th:unless="${isLogged} == true">
+        <div th:unless="${isLogged} == true" class="mx-3">
           <a class="btn btn-outline-primary" href="/login">Login</a>
         </div>
         <div class="nav-item mx-3 language-picker btn btn-outline-secondary" data-target="#languageModal">
@@ -72,8 +72,27 @@ meta description. This will often show up in search results.">
           </div>
         </div>
       </div>
-    </div>
+      </div>
   </nav>
+</div>
+<div th:fragment="domainSearchBar">
+  <div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <form action="/domaincheck" method="post" id="domainCheck">
+          <div class="form-group">
+            <label for="domainSearch" class="text-primary text-center" th:text="#{messages.main.findDomain}">Find your perfect domain name:</label>
+            <div class="input-group mb-3">
+              <input type="text" class="form-control" id="domainSearch" name="domainSearch" placeholder="Enter domain name" th:placeholder="#{messages.main.findDomainText}">
+              <div class="input-group-append">
+                <button class="btn btn-primary" type="submit" th:text="#{messages.main.searchButton}">Search</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
 </div>
 <footer th:fragment="footer" class="position-relative align-bottom">
   <footer class="bg-dark text-white py-5">

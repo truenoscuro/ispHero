@@ -79,7 +79,8 @@ public class UserController {
             model.addAttribute("isLogged",true);
             model.addAttribute("user",userService.getUser( user ) );
             model.addAttribute("userName", userName);
-            return "redirect:/account";
+            model.addAttribute("isLogged", true);
+            return "redirect:/";
         } else {
             System.out.println("User or password incorrect");
             // Add error message
