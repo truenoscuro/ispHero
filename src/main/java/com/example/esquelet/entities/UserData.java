@@ -26,6 +26,8 @@ public class UserData {
     @NotNull
     private String city;
 
+    private String country;
+
     @NotNull
     @OneToOne
     private User user;
