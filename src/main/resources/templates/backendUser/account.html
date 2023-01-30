@@ -24,7 +24,7 @@
     <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">...</div>
     <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
       <div class="container">
-        <form action="/account/update" method="post" th:object="${userDTO}" class="form">
+        <form action="/account/update" method="post" th:object="${userData}" class="form">
             <div class="row">
                 <h3>Personal data</h3>
                 <div class="col-12 col-md-6">
@@ -49,7 +49,7 @@
                     <div class="mb-3">
                         <label for="country" class="form-label">Country</label>
                         <select class="form-select" id="country" th:value="${user.country}" disabled>
-                            <option selected>Choose...</option>
+                            <option selected value="none">Choose...</option>
                         </select>
                     </div>
                     <div class="mb-3">
@@ -60,9 +60,10 @@
                         <label for="city" class="form-label">City</label>
                         <input type="text" class="form-control" id="city" placeholder="City" th:value="${user.city}" disabled>
                     </div>
-                    <div class="container my-5">
+                    <div class="my-5 d-flex mx-3 justify-content-between">
                         <button class="btn btn-success edit">Edit</button>
                         <button class="btn btn-outline-danger cancel">Cancel</button>
+                        <button class="btn btn-primary save" type="submit">Save</button>
                     </div>
                 </div>
                 <div class="col-12">
@@ -125,6 +126,8 @@
         });
 
         $('.cancel').hide();
+        $('.save').hide();
+
         $("#repeatNewPassword").keyup(checkPasswordMatch);
         $("#newPassword").keyup(checkPasswordMatch);
 
@@ -164,8 +167,9 @@
             inputs[i].removeAttribute('disabled');
         }
         $('select').removeAttr('disabled')
-        $(this).text('Save');
+        $('.save').show();
         $('.cancel').show();
+        $(this).hide();
     })
 
     $('.cancel').click(function (e) {
@@ -178,8 +182,9 @@
             inputs[i].setAttribute('disabled', 'disabled');
         }
         $('select').attr('disabled', 'disabled')
-        $('.edit').text('Edit');
+        $('.save').hide();
         $(this).hide();
+        $('.edit').show();
     })
 
     function checkPasswordMatch() {
