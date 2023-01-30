@@ -1,30 +1,35 @@
 package com.example.esquelet.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Entity
-@EqualsAndHashCode(exclude = {"line","user"})
+@EqualsAndHashCode(exclude = {"lines","user"})
 public class Invoice {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotNull
-    @ManyToOne
-    private InvoiceLine line;
+    @OneToMany(mappedBy = "invoice")
+    private List<InvoiceLine> lines;
 
+
+
+    @ToString.Exclude
+    @NotNull
     @ManyToOne
     private User user;
 
     @NotNull
     private String fullName;
+
+
 
 }

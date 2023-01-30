@@ -32,9 +32,14 @@ public class AccountController {
     public String account(Model model) {
         model.addAttribute("pageTitle", " My Account");
         model.addAttribute("isLogged", true);
-        UserDTO user = (UserDTO) model.getAttribute("user");
+
         model.addAttribute("userData",new UserDTO());
-        model.addAttribute("waitingDomains",waitingDomainService.getAllByUser(user));
+
+        UserDTO userDTO = (UserDTO) Objects.requireNonNull( model.getAttribute("user" ) );
+
+        userService.getServices( userDTO );
+        userService.getInvoices( userDTO );
+
         return "backendUser/account";
     }
 
@@ -53,15 +58,12 @@ public class AccountController {
     }
 
     @PostMapping("/account/waitingdomains")
-    public String modifyWaitingDomain(
-            @RequestParam("domainName") String domainName,
-            @RequestParam("productWaiting") String productName,
-            Model model){
-
-        UserDTO userDTO = (UserDTO) model.getAttribute("user");
-
-        waitingDomainService.update(domainName,userDTO,productName);
-
+    public String modifyWaitingDomain( @ModelAttribute ArticleDTO articleWaiting, Model model){
+        waitingDomainService.update(
+                articleWaiting.getDomainName(),
+                ( ( UserDTO ) model.getAttribute("user") ),
+                articleWaiting.getProduct()
+        );
         return "redirect:/account/waitingdomains";
     }
 

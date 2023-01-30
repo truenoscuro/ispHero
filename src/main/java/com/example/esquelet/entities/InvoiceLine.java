@@ -1,18 +1,14 @@
 package com.example.esquelet.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.persistence.*;
+import lombok.*;
 import org.jetbrains.annotations.NotNull;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Entity
+@EqualsAndHashCode(exclude = {"invoice"})
 public class InvoiceLine {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,6 +23,10 @@ public class InvoiceLine {
     private String quantity;
     @NotNull
     private String vat;
+    @ToString.Exclude
+    @NotNull
+    @ManyToOne
+    private Invoice invoice;
 
 
 }
