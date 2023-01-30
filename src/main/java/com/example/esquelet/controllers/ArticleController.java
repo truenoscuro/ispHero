@@ -45,14 +45,13 @@ public class ArticleController {
         model.addAttribute("hasUser",hasUser(model));
         Optional<WaitingDomainDTO> waitingDomain = Optional.of(new WaitingDomainDTO());
         if( hasUser(model) ){
-            waitingDomain =  waitingDomainService.getAllByUser((UserDTO) model.getAttribute("user"))
-                    .stream().filter(waitingDomainDTO -> waitingDomainDTO.getNameDomain().equals(domainName))
-                    .findAny();
-
+            waitingDomain = ((UserDTO) model.getAttribute("user")).getWaitingDomains()
+                    .stream().filter( w -> w.getNameDomain().equals(domainName))
+                    .findFirst();
         }
-        WaitingDomainDTO finalWaitingDomain = new WaitingDomainDTO();
-        if(waitingDomain.isPresent()) finalWaitingDomain = waitingDomain.get();
-        WaitingDomainDTO finalWaitingDomain1 = finalWaitingDomain;
+        WaitingDomainDTO finalW = new WaitingDomainDTO();
+        if(waitingDomain.isPresent()) finalW = waitingDomain.get();
+        WaitingDomainDTO finalW1 = finalW;
         model.addAttribute(
                 "articles",
                 articles.stream()
@@ -60,7 +59,7 @@ public class ArticleController {
                             if (domainRegistered.containTld(article)) article.addProperty("taken", "true");
                             else article.addProperty("taken", "false");})
                         .peek(article ->{
-                            if(finalWaitingDomain1.containTld(article) ) article.addProperty("waiting","true");
+                            if(finalW1.containTld(article) ) article.addProperty("waiting","true");
                             else article.addProperty("waiting", "false");})
                         .toList()
         );
