@@ -35,6 +35,7 @@ public class UserDTO {
     private String city;
 
     private List<ServiceDTO> services;
+    private List<InvoiceDTO> invoices;
 
     private void setUser( User user){
         this.id = user.getId();
@@ -96,6 +97,11 @@ public class UserDTO {
         if(services == null) services = new ArrayList<>();
         services.add( service );
     }
+    public void addInvoice( InvoiceDTO invoice ){
+        if(invoices == null) invoices = new ArrayList<>();
+        invoices.add( invoice );
+    }
+
 
     public boolean hasData(){
         return idData != null &&

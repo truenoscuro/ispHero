@@ -32,6 +32,9 @@ public class AccountController {
     public String account(Model model) {
         model.addAttribute("pageTitle", " My Account");
         model.addAttribute("isLogged", true);
+        UserDTO userDTO = (UserDTO) Objects.requireNonNull( model.getAttribute("user" ) );
+        userService.getServices( userDTO );
+        userService.getInvoices( userDTO );
         return "backendUser/account";
     }
 
