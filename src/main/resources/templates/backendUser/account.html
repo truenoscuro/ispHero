@@ -6,11 +6,8 @@
 <body>
 <header th:insert="~{fragments/general.html :: header}"></header>
 <ul>
-  <li>
-  <a href="/account/waitingdomains"> Waiting Domain</a>
-  <a href="/account/userdata"> Add user add </a>
-  </li>
-
+  <li> <a href="/account/waitingdomains"> Waiting Domain</a> </li>
+  <li th:unless="${user.hasData()}"> <a href="/account/userdata" > Add userData </a> </li>
 </ul>
 
 
