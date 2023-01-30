@@ -35,9 +35,10 @@ public class UserDTO {
     private String city;
     private String country;
 
-    private List<ServiceDTO> services;
-    private List<InvoiceDTO> invoices;
+    private List<ServiceDTO> services = new ArrayList<>();
+    private List<InvoiceDTO> invoices = new ArrayList<>();
 
+    private List<WaitingDomainDTO> waitingDomains = new ArrayList<>();
     private void setUser( User user){
         this.id = user.getId();
         this.username = user.getUsername();
@@ -103,6 +104,10 @@ public class UserDTO {
     public void addInvoice( InvoiceDTO invoice ){
         if(invoices == null) invoices = new ArrayList<>();
         invoices.add( invoice );
+    }
+    public void addWaitingDomain(WaitingDomainDTO waitingDomain){
+        if(waitingDomains == null) waitingDomains = new ArrayList<>();
+        waitingDomains.add( waitingDomain );
     }
 
 

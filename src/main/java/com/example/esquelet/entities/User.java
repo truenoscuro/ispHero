@@ -46,4 +46,6 @@ public class User {
 
     @OneToMany(mappedBy = "user",fetch = FetchType.LAZY)
     private List<Invoice> invoices;
+
+
 }

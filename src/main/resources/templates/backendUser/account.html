@@ -96,8 +96,8 @@
     <div class="tab-pane fade" id="v-pills-payment" role="tabpanel" aria-labelledby="v-pills-payment-tab">...</div>
     <div class="tab-pane fade" id="v-pills-waiting" role="tabpanel" aria-labelledby="v-pills-waiting-tab">
         <div class="container">
-            <div th:unless="${waitingDomains.isEmpty()}">
-                <div th:each="waitingDomain: ${waitingDomains}" >
+            <div th:unless="${user.waitingDomains.isEmpty()}">
+                <div th:each="waitingDomain: ${user.waitingDomains}" >
                     <div th:each="tld :${waitingDomain.tlds}">
                         <div>
                             <form action="">
@@ -108,7 +108,7 @@
                     </div>
                 </div>
             </div>
-            <div th:if="${waitingDomains.isEmpty()}" class="container">
+            <div th:if="${user.waitingDomains.isEmpty()}" class="container">
                 <h3>You don't have any domain names you're waiting for.</h3>
             </div>
         </div>

@@ -3,15 +3,19 @@ package com.example.esquelet.services;
 import com.example.esquelet.dtos.InvoiceDTO;
 import com.example.esquelet.dtos.ServiceDTO;
 import com.example.esquelet.dtos.UserDTO;
+import com.example.esquelet.dtos.WaitingDomainDTO;
 import com.example.esquelet.entities.User;
+import com.example.esquelet.entities.WaitingDomain;
 import com.example.esquelet.repositories.UserDataRepository;
 import com.example.esquelet.repositories.UserRepository;
+import com.example.esquelet.repositories.WaitingDomainRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -21,6 +25,11 @@ public class UserService {
 
     @Autowired
     private UserDataRepository userDataRepository;
+
+    @Autowired
+    private WaitingDomainRepository waitingDomainRepository;
+
+
 
     public Optional<User> searchUser( UserDTO user ){
         return userRepository.findByUsername(user.getUsername());
@@ -66,6 +75,17 @@ public class UserService {
                         .forEach( user::addInvoice )
                 );
     }
+    public void getWaitingDomains(UserDTO user){
+        User userEntity = userRepository.findByUsername(user.getUsername()).get();
+        waitingDomainRepository.findAllByUser(userEntity)
+                .stream().collect(Collectors.groupingBy(WaitingDomain::getNameDomain))
+                .values()
+                .stream().map(WaitingDomainDTO::createWaitingDomainDTO)
+                .forEach(user::addWaitingDomain);
+    }
+
+
+
 
     public void sendRegisterMail( UserDTO user ) {
         String mail = user.getEmail();
