@@ -15,6 +15,8 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 public class ArticleDTO {
     private String product;
+
+    private String domainName;
     private Map<String,String> property;
     private Map<String ,String> typeProperty;
     private List<ArticleDTO> bundle;
@@ -40,7 +42,7 @@ public class ArticleDTO {
                         .stream().map( ArticleDTO::createArticleDTO )
                         .forEach( bundle::add ) );
 
-        return  new ArticleDTO(product,property,typeProperty,bundle);
+        return  new ArticleDTO(product,"",property,typeProperty,bundle);
     }
 
 
