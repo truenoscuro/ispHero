@@ -32,7 +32,7 @@ public class AccountController {
     public String account(Model model) {
         model.addAttribute("pageTitle", " My Account");
         model.addAttribute("isLogged", true);
-
+        model.addAttribute("waitingDomains",waitingDomainService.getAllByUser( (UserDTO) model.getAttribute("user") ) );
         model.addAttribute("userData",new UserDTO());
 
         UserDTO userDTO = (UserDTO) Objects.requireNonNull( model.getAttribute("user" ) );

@@ -167,7 +167,7 @@
 
     $('.edit').click(function (e) {
         e.preventDefault()
-        for (var i = 4; i < 6; i++) {
+        for (var i = 4; i < 7; i++) {
             inputs[i].removeAttribute('readonly');
         }
         $('select').removeAttr('readonly')
@@ -178,11 +178,11 @@
 
     $('.cancel').click(function (e) {
         e.preventDefault();
-        for (var i = 3; i < 6; i++) {
+        for (var i = 3; i < 7; i++) {
             inputs[i].value = tmpvalues[i-3];
         }
         $('#country').val(tmpcountry);
-        for (var i = 4; i < 6; i++) {
+        for (var i = 4; i < 7; i++) {
             inputs[i].setAttribute('readonly', 'readonly');
         }
         $('select').attr('readonly', 'readonly')

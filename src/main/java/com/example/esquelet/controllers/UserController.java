@@ -93,5 +93,19 @@ public class UserController {
         return "messagesent";
     }
 
+    @GetMapping("/password-recovery")
+    public String passwordRecovery(Model model) {
+        return "password-recovery";
+    }
 
+    @PostMapping("/password-recovery")
+    public String passwordRecovery(@ModelAttribute UserDTO user, Model model) {
+        if (userService.checkUser(user.getUsername())) {
+            // TODO: userService.sendPasswordRecoveryMail(user);
+            model.addAttribute("status", "true");
+        } else {
+            model.addAttribute("status", "false");
+        }
+        return "messagesent";
+    }
 }
