@@ -64,7 +64,8 @@ public class ArticleController {
                             else article.addProperty("waiting", "false");})
                         .toList()
         );
-
+        model.addAttribute("articleBuy", new ArticleDTO());
+        model.addAttribute("articleWaiting", new ArticleDTO());
         return "domaincheck";
     }
 

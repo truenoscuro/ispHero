@@ -50,15 +50,12 @@ public class AccountController {
     }
 
     @PostMapping("/account/waitingdomains")
-    public String modifyWaitingDomain(
-            @RequestParam("domainName") String domainName,
-            @RequestParam("productWaiting") String productName,
-            Model model){
-
-        UserDTO userDTO = (UserDTO) model.getAttribute("user");
-
-        waitingDomainService.update(domainName,userDTO,productName);
-
+    public String modifyWaitingDomain( @ModelAttribute ArticleDTO articleWaiting, Model model){
+        waitingDomainService.update(
+                articleWaiting.getDomainName(),
+                ( ( UserDTO ) model.getAttribute("user") ),
+                articleWaiting.getProduct()
+        );
         return "redirect:/account/waitingdomains";
     }
 
