@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @AllArgsConstructor
@@ -35,6 +36,7 @@ public class UserDTO {
     private String country;
 
     private List<ServiceDTO> services;
+    private List<InvoiceDTO> invoices;
 
     private void setUser( User user){
         this.id = user.getId();
@@ -94,7 +96,15 @@ public class UserDTO {
 
     }
 
-    public void addService( ServiceDTO service ){ services.add( service ); }
+    public void addService( ServiceDTO service ){
+        if(services == null) services = new ArrayList<>();
+        services.add( service );
+    }
+    public void addInvoice( InvoiceDTO invoice ){
+        if(invoices == null) invoices = new ArrayList<>();
+        invoices.add( invoice );
+    }
+
 
     public boolean hasData(){
         return idData != null &&

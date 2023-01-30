@@ -32,6 +32,14 @@ public class AccountController {
     public String account(Model model) {
         model.addAttribute("pageTitle", " My Account");
         model.addAttribute("isLogged", true);
+
+        model.addAttribute("userData",new UserDTO());
+
+        UserDTO userDTO = (UserDTO) Objects.requireNonNull( model.getAttribute("user" ) );
+
+        userService.getServices( userDTO );
+        userService.getInvoices( userDTO );
+
         UserDTO user = (UserDTO) model.getAttribute("user");
         model.addAttribute("userData",new UserDTO());
         model.addAttribute("waitingDomains",waitingDomainService.getAllByUser(user));
@@ -53,15 +61,12 @@ public class AccountController {
     }
 
     @PostMapping("/account/waitingdomains")
-    public String modifyWaitingDomain(
-            @RequestParam("domainName") String domainName,
-            @RequestParam("productWaiting") String productName,
-            Model model){
-
-        UserDTO userDTO = (UserDTO) model.getAttribute("user");
-
-        waitingDomainService.update(domainName,userDTO,productName);
-
+    public String modifyWaitingDomain( @ModelAttribute ArticleDTO articleWaiting, Model model){
+        waitingDomainService.update(
+                articleWaiting.getDomainName(),
+                ( ( UserDTO ) model.getAttribute("user") ),
+                articleWaiting.getProduct()
+        );
         return "redirect:/account/waitingdomains";
     }
 
@@ -76,11 +81,8 @@ public class AccountController {
     public String updateUserData(@ModelAttribute UserDTO userData , Model model){
         UserDTO user = (UserDTO) model.getAttribute("user");
         user.setUserData(userData);
-        /*
         userService.addUserData(user);
-        model.addAttribute("user",userService.getUser(user) );*/
-
-        System.out.println(user);
+        model.addAttribute("user",userService.getUser(user) );
         return "redirect:/account";
     }
 

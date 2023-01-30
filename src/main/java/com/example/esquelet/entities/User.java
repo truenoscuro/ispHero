@@ -41,6 +41,9 @@ public class User {
     @Enumerated( EnumType.STRING )
     private Role role;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user",fetch = FetchType.LAZY)
     private List<WaitingDomain> waitingDomains;
+
+    @OneToMany(mappedBy = "user",fetch = FetchType.LAZY)
+    private List<Invoice> invoices;
 }

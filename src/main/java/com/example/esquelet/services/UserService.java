@@ -1,5 +1,6 @@
 package com.example.esquelet.services;
 
+import com.example.esquelet.dtos.InvoiceDTO;
 import com.example.esquelet.dtos.ServiceDTO;
 import com.example.esquelet.dtos.UserDTO;
 import com.example.esquelet.entities.User;
@@ -25,7 +26,7 @@ public class UserService {
         return userRepository.findByUsername(user.getUsername());
     }
 
-    public UserDTO getUser(UserDTO userDTO){
+    public UserDTO getUser( UserDTO userDTO ){
         User user = searchUser( userDTO ).get();
         UserDTO userResult = UserDTO.createUserDTO( user );
         userDataRepository.searchByUser( user ).ifPresent(userResult::setUserData);
@@ -40,25 +41,33 @@ public class UserService {
         userRepository.save(user.getUserEntity());
     }
 
-    public boolean checkUser(String userName, String password) {
+    public boolean checkUser( String userName , String password ) {
         Optional<User> user = userRepository.findByUsername(userName);
         return user.map(value -> new BCryptPasswordEncoder().matches(password, value.getPassword())).orElse(false);
     }
 
-    public boolean checkUser(String userName) {
+    public boolean checkUser( String userName ) {
         Optional<User> user = userRepository.findByUsername(userName);
         return user.isPresent();
     }
 
     public void getServices( UserDTO user ){
-        userRepository.findByUsername( user.getUsername() ).ifPresent(
-                userEntity -> userEntity.getServices()
-                        .stream().map( ServiceDTO::createServiceDTO )
-                        .forEach(user::addService)
-        );
+        userRepository.findByUsername( user.getUsername() )
+                .ifPresent( userEntity -> userEntity.getServices().stream()
+                        .map( ServiceDTO::createServiceDTO )
+                        .forEach( user::addService )
+                );
     }
 
-    public void sendRegisterMail(UserDTO user) {
+    public void getInvoices( UserDTO user ){
+        userRepository.findByUsername( user.getUsername() )
+                .ifPresent( u -> u.getInvoices().stream()
+                        .map( InvoiceDTO::createInvoiceDTO )
+                        .forEach( user::addInvoice )
+                );
+    }
+
+    public void sendRegisterMail( UserDTO user ) {
         String mail = user.getEmail();
         String subject = "Register";
         String text = "Welcome to ISP Hero";
