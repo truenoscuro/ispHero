@@ -2,8 +2,7 @@ package com.example.esquelet.controllers;
 
 import com.example.esquelet.dtos.ArticleDTO;
 import com.example.esquelet.dtos.UserDTO;
-import com.example.esquelet.entities.Article;
-import com.example.esquelet.entities.User;
+
 import com.example.esquelet.services.ArticleService;
 import com.example.esquelet.services.UserService;
 import com.example.esquelet.services.WaitingDomainService;
@@ -38,7 +37,7 @@ public class AccountController {
         return "backendUser/account";
     }
 
-    public void chargeUser( Model model ){
+    private void chargeUser( Model model ){
         UserDTO userDTO =  userService.getUser((UserDTO) model.getAttribute("user"));
         userService.getServices( userDTO );
         userService.getInvoices( userDTO );
@@ -75,7 +74,6 @@ public class AccountController {
         UserDTO user = (UserDTO) model.getAttribute("user");
         user.setUserData(userData);
         userService.addUserData(user);
-        model.addAttribute("user",userService.getUser(user) );
         return "redirect:/account";
     }
 

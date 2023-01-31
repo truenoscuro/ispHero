@@ -14,7 +14,7 @@
     <div> <span th:text="${article.property.price1year}">PRICE1YEAR</span> </div>
     <div> <span th:text="${article.property.price2year}">PRICE2YEAR</span> </div>
     <div th:unless="${article.property.taken}">
-        <form action="/cartpage" method="post" th:object="${productBuy}">
+        <form action="/cart/add" method="post" th:object="${productBuy}">
             <input type="hidden" th:value="${article.product}" name="product">
             <input type="hidden" th:value="${domainName}" name="domainName">
             <input type="submit" value="buy">

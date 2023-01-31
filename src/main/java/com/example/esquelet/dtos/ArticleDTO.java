@@ -32,6 +32,9 @@ public class ArticleDTO {
             property.put( propertyArticle.getName(),article.getValueProperty() );
             typeProperty.put( propertyArticle.getName(),propertyArticle.getType() );
         });
+        property.put("priceBuy","default");
+        property.put("quantity","default");
+        property.put("vat","default");
         //bundle
         List<ArticleDTO> bundle = new ArrayList<>();
         articles.stream().filter( article ->  article.getProperty().getName().equals( "isBundle" ) )
