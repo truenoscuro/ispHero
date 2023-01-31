@@ -32,15 +32,18 @@ public class AccountController {
     public String account(Model model) {
         model.addAttribute("pageTitle", " My Account");
         model.addAttribute("isLogged", true);
-        model.addAttribute("waitingDomains",waitingDomainService.getAllByUser( (UserDTO) model.getAttribute("user") ) );
+       // model.addAttribute("waitingDomains",waitingDomainService.getAllByUser( (UserDTO) model.getAttribute("user") ) );
         model.addAttribute("userData",new UserDTO());
+        chargeUser( model );
+        return "backendUser/account";
+    }
 
-        UserDTO userDTO = (UserDTO) Objects.requireNonNull( model.getAttribute("user" ) );
-
+    public void chargeUser( Model model ){
+        UserDTO userDTO =  userService.getUser((UserDTO) model.getAttribute("user"));
         userService.getServices( userDTO );
         userService.getInvoices( userDTO );
-
-        return "backendUser/account";
+        userService.getWaitingDomains( userDTO );
+        model.addAttribute("user",userDTO);
     }
 
 
@@ -48,13 +51,6 @@ public class AccountController {
     public String viewServices(Model model){
         userService.getServices( (UserDTO) Objects.requireNonNull( model.getAttribute("user" ) ) );
         return "backendUser/services";
-    }
-
-    @GetMapping("/account/waitingdomains")
-    public String viewWaitingDomains(Model model){
-        UserDTO user = (UserDTO) model.getAttribute("user");
-        model.addAttribute("waitingDomains",waitingDomainService.getAllByUser(user));
-        return "backendUser/waitingdomain";
     }
 
     @PostMapping("/account/waitingdomains")
