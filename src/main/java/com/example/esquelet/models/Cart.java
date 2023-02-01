@@ -12,9 +12,15 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Cart {
-    private List<ArticleDTO> articles = new ArrayList<>();
-    public void add( ArticleDTO article ){ articles.add( article ); }
-    public void remove( ArticleDTO article ){ articles.remove( article ); }
+    private List<ArticleDTO> articles ;
+    public void add( ArticleDTO article ){
+        if(articles == null) articles = new ArrayList<>();
+        articles.add( article );
+    }
+    public void remove( String product){
+        articles = articles.stream().filter(article -> !article.getProduct().equals(product)).toList();
+        if(articles.isEmpty()) articles = new ArrayList<>();
+    }
     public void removeAll( ){ articles = new ArrayList<>( ); }
 
 }

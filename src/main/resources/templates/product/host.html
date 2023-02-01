@@ -24,7 +24,7 @@
                     <p><span th:text="${articles[0].property.price1year}" class="text-euro"></span>€ / year</p>
                 </div>
                 <div class="text-center mt-5">
-                    <form action="/cartpage" method="post" th:object="${productBuy}">
+                    <form action="/cart/add" method="post" th:object="${productBuy}">
                         <input type="hidden"  th:value="${articles[0].product}" name="product">
                         <input type="submit" value="Add to cart" class="buy-button">
                     </form>
@@ -46,7 +46,7 @@
                     <p><span th:text="${articles[1].property.price1year}" class="text-euro"></span>€ / year</p>
                 </div>
                 <div class="text-center mt-5">
-                    <form action="/cartpage" method="post" th:object="${productBuy}">
+                    <form action="/cart/add" method="post" th:object="${productBuy}">
                         <input type="hidden"  th:value="${articles[1].product}" name="product">
                         <input type="submit" value="Add to cart" class="buy-button">
                     </form>
@@ -95,7 +95,6 @@
 <footer th:insert="~{fragments/general.html :: footer}"></footer>
 <script>
     $(document).ready(function () {
-
         $('.host-box').hover(function () {
             $('.host-box').removeClass('selected');
             $(this).addClass('selected');
