@@ -1,10 +1,6 @@
 package com.example.esquelet.controllers;
 
-import com.example.esquelet.config.LanguageConfig;
-
 import com.example.esquelet.dtos.TranslateDTO;
-import com.example.esquelet.repositories.LanguageRepository;
-import com.example.esquelet.repositories.NewsLetterRepository;
 
 import com.example.esquelet.services.TranslateService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,32 +25,32 @@ public class HomeController {
             model.addAttribute("languages", translateService.getAll() );
             model.addAttribute("langPage",languages.get(0));
         }
-        return "index";
+        return "home/index";
     }
 
 
     @GetMapping("/about")
     public String about( Model model ) {
-        return "about";
+        return "home/about";
     }
 
     @GetMapping("/contact")
     public String contact( Model model ) {
-        return "contact";
+        return "home/contact";
     }
 
     @GetMapping("/terms-of-service")
     public String termsOfService( Model model ) {
-        return "terms_of_service";
+        return "home/terms_of_service";
     }
 
     @GetMapping("/privacy-policy")
     public String privacyPolicy( Model model ) {
-        return "privacy_policy";
+        return "home/privacy_policy";
     }
 
     @GetMapping("/cookies-policy")
     public String cookiesPolicy( Model model ) {
-        return "cookies";
+        return "home/cookies";
     }
 }

@@ -1,6 +1,5 @@
 package com.example.esquelet.controllers;
 
-import com.example.esquelet.dtos.ArticleDTO;
 import com.example.esquelet.dtos.UserDTO;
 import com.example.esquelet.services.UserService;
 
@@ -28,7 +27,7 @@ public class UserController {
     @GetMapping("/register")
     public String register(Model model){
         model.addAttribute("pageTitle","Register");
-        return "register";
+        return "backendUser/register";
     }
 
     @PostMapping("/register")
@@ -38,7 +37,7 @@ public class UserController {
             // Check if any user has the same username
             if (userService.checkUser(username)) {
                 model.addAttribute("error", "Username already exists");
-                return "register";
+                return "backendUser/register";
             }
             user.setRole("USER");
             user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
@@ -51,14 +50,14 @@ public class UserController {
             userService.sendRegisterMail(user);
             model.addAttribute("status", "false");
         }
-        return "register";
+        return "backendUser/register";
     }
 
     @GetMapping("/login")
     public String login(Model model) {
         model.addAttribute("user",new UserDTO() );
         model.addAttribute("pageTitle", "Login");
-        return "login";
+        return "backendUser/login";
     }
 
     @GetMapping("/logout")
@@ -84,7 +83,7 @@ public class UserController {
             System.out.println("User or password incorrect");
             // Add error message
             model.addAttribute("case", "User or password incorrect");
-            return "login";
+            return "backendUser/login";
         }
     }
 
@@ -95,7 +94,7 @@ public class UserController {
 
     @GetMapping("/password-recovery")
     public String passwordRecovery(Model model) {
-        return "password-recovery";
+        return "backendUser/password-recovery";
     }
 
     @PostMapping("/password-recovery")
@@ -106,6 +105,6 @@ public class UserController {
         } else {
             model.addAttribute("status", "false");
         }
-        return "messagesent";
+        return "backendUser/messagesent";
     }
 }

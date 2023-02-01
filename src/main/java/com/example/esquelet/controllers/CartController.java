@@ -3,10 +3,7 @@ package com.example.esquelet.controllers;
 
 import com.example.esquelet.dtos.ArticleDTO;
 import com.example.esquelet.models.Cart;
-import com.example.esquelet.repositories.LanguageRepository;
 import com.example.esquelet.services.ArticleService;
-import com.example.esquelet.services.TranslateService;
-import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,7 +27,7 @@ public class CartController {
         ArticleDTO article = articleService.getArticleDTO(articleBuy.getProduct());
         article.setDomainName(articleBuy.getDomainName());
         ((Cart) model.getAttribute("cartUser")).add(article);
-        return "cartpage";
+        return "backendUser/cartpage";
 
 
     }
@@ -39,7 +36,7 @@ public class CartController {
         if(!model.containsAttribute("cartUser")){
             model.addAttribute("cartUser",new Cart());
         }
-        return "cartpage";
+        return "backendUser/cartpage";
     }
 
     @PostMapping("/remove")
