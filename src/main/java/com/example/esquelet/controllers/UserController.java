@@ -97,7 +97,7 @@ public class UserController {
     @PostMapping("/message")
     public String messageSent(@RequestParam(name = "name") String name, @RequestParam(name = "email") String email, @RequestParam(name = "message") String message, Model model) {
         Email emailMessage = new Email();
-        emailMessage.setFrom("Contact from ISP Hero", email);
+        emailMessage.setFrom("Contact from ISP Hero", "info@isphero.com");
         emailMessage.addRecipient("ISP Hero", "info@isphero.com");
         emailMessage.setSubject("Contact from: " + name);
         emailMessage.setHtml(message);
