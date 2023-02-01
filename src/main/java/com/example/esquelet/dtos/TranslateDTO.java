@@ -20,6 +20,8 @@ public class TranslateDTO {
     private Map<String,String> property;
     private Map<String,String> category;
 
+    private Map<String,String> valueCategory;
+
     public TranslateDTO(String code, String name){
         this.code = code;
         this.name = name;
@@ -42,7 +44,11 @@ public class TranslateDTO {
         lang.getTranslateCategories().forEach(translate ->
                 category.put(translate.getCategory().getName(),translate.getTranslation()));
         //------------
-        return  new TranslateDTO(code,name,product,property,category);
+        Map<String,String> valueCategory = new HashMap<>();
+        lang.getTranslateValueProperties().forEach(translate ->
+                valueCategory.put(translate.getArticle().getProperty().getName(),translate.getTranslation()));
+
+        return  new TranslateDTO(code,name,product,property,category,valueCategory);
 
 
     }

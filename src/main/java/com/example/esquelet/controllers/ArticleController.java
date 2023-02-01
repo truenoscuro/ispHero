@@ -76,5 +76,4 @@ public class ArticleController {
                 ((UserDTO) model.getAttribute("user")).isValid();
     }
 
-
 }
