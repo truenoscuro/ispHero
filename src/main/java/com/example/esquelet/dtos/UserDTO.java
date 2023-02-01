@@ -25,6 +25,7 @@ public class UserDTO {
     private String email;
 
     private String role;
+    private boolean verified;
 
     //Personal Data
     private Long idData;
@@ -45,6 +46,7 @@ public class UserDTO {
         this.password = user.getPassword();
         this.email = user.getEmail();
         this.role = user.getRole().name();
+        this.verified = user.isVerified();
     }
 
     public static UserDTO createUserDTO( User user ){
@@ -78,7 +80,8 @@ public class UserDTO {
                 username,
                 password,
                 email,
-                Role.valueOf(role)
+                Role.valueOf(role),
+                verified
         );
         if(id !=null) user.setId(id);
         return user;
@@ -125,6 +128,7 @@ public class UserDTO {
         this.password =  null;
         this.email =  null;
         this.role =  null;
+        this.verified = false;
 
         this.firstName = null;
         this.lastName1 = null;

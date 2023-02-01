@@ -20,11 +20,12 @@ public class User {
 
 
 
-    public User(@NotNull String username, @NotNull String password, @NotNull String email, @NotNull Role role) {
+    public User(@NotNull String username, @NotNull String password, @NotNull String email, @NotNull Role role, boolean verified) {
         this.username = username;
         this.password = password;
         this.email = email;
         this.role = role;
+        this.verified = verified;
     }
 
 
@@ -41,11 +42,11 @@ public class User {
     @Enumerated( EnumType.STRING )
     private Role role;
 
+    private boolean verified;
     @OneToMany(mappedBy = "user",fetch = FetchType.LAZY)
     private List<WaitingDomain> waitingDomains;
 
     @OneToMany(mappedBy = "user",fetch = FetchType.LAZY)
     private List<Invoice> invoices;
-
 
 }

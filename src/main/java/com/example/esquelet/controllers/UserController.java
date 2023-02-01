@@ -45,17 +45,16 @@ public class UserController {
                 return "backendUser/register";
             }
             user.setRole("USER");
+            user.setVerified(false);
             user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
             userService.addUser(user);
             model.addAttribute("user",userService.getUser(user));
             model.addAttribute("isLogged",true);
             model.addAttribute("status", "true");
 
-            // TODO: Send register mail with token
             userService.sendRegisterMail(user);
         }
         else {
-            userService.sendRegisterMail(user);
             model.addAttribute("status", "false");
         }
         return "backendUser/register";
