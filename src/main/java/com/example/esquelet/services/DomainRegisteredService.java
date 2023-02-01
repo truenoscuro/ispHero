@@ -12,11 +12,8 @@ import java.util.Optional;
 @Service
 public class DomainRegisteredService {
 
-
     @Autowired
     private DomainRegisteredRepository domainRegisteredRepository;
-    @Autowired
-    private PropertyRepository propertyRepository;
 
     public DomainRegisteredDTO getDomainRegisteredDTO(String nameDomain) {
         return domainRegisteredRepository.searchByName(nameDomain)

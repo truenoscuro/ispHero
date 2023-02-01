@@ -32,6 +32,10 @@ public class Lang {
     private List<TranslateCategory> translateCategories;
 
 
+    @OneToMany(mappedBy = "lang")
+    private List<TranslateValueProperty> translateValueProperties;
+
+
 
 
 
