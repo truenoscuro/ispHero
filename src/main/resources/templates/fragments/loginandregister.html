@@ -7,7 +7,7 @@
 <div th:fragment="header" class="header-spc px-5">
   <nav class="navbar navbar-expand-lg bg-transparent">
     <div class="container-fluid">
-      <a class="navbar-brand" href="/"><img th:src="@{/img/logo.png}" alt="logo" style="width:75px"></a>
+      <a class="navbar-brand" href="/"><img th:src="@{/img/logo.png}" alt="logo" class="main-logo"></a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
               data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
               aria-expanded="false" aria-label="Toggle navigation">
@@ -16,13 +16,13 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav d-flex me-auto mb-2 mb-lg-0 mx-3 justify-content-between">
           <li class="nav-item mx-4">
-            <a class="nav-link" href="#">Domains</a>
+            <a class="nav-link" th:href="@{/product/{category}(category = 'domain')}">Domain</a>
           </li>
           <li class="nav-item mx-4">
-            <a class="nav-link" href="#">Mail</a>
+            <a class="nav-link" href="/products/mail">Mail</a>
           </li>
           <li class="nav-item mx-4">
-            <a class="nav-link" href="#">Hosting</a>
+            <a class="nav-link" th:href="@{/product/{category}(category = 'host')}">Hosting</a>
           </li>
           <li class="nav-item mx-4">
             <a class="nav-link" href="/about" th:text="#{messages.header.about}">About</a>
@@ -31,10 +31,9 @@
             <a class="nav-link" href="/contact" th:text="#{messages.header.contact}">Contact</a>
           </li>
         </ul>
-        <div class="nav-item language-picker btn btn-outline-secondary me-5" data-target="#languageModal">
+        <div class="nav-item mx-3 language-picker btn btn-outline-secondary" data-target="#languageModal">
           <svg class="icon" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="8.5" stroke="currentColor"></circle><path d="M13.5 10c0 2.432-.44 4.61-1.129 6.16-.344.777-.742 1.374-1.159 1.77-.414.394-.822.57-1.212.57s-.798-.176-1.212-.57c-.417-.396-.815-.993-1.16-1.77C6.94 14.61 6.5 12.433 6.5 10s.44-4.61 1.128-6.16c.345-.777.743-1.374 1.16-1.77.414-.394.822-.57 1.212-.57s.798.176 1.212.57c.417.396.815.993 1.16 1.77C13.06 5.39 13.5 7.567 13.5 10z" stroke="currentColor"></path><path fill="currentColor" d="M2 7h16v1H2zM2 12h16v1H2z"></path></svg>
-          <span th:if="${language}" th:text="${language.name}"></span>
-          <span th:unless="${language}" th:text="${languages[1].name}">English</span>
+          <span th:text="#{messages.header.language}"></span>
         </div>
         </div>
         <div th:if="${isLogged} == true" class="mx-3">

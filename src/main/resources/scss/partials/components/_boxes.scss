@@ -4,6 +4,11 @@
   background: rgb(215, 215, 215);
   transition: 300ms;
 
+  .text-euro{
+    color: #151515;
+    transition: 300ms;
+  }
+
   ul {
     padding: 0;
     margin: 0;
@@ -15,10 +20,15 @@
   }
 }
 
-.selected {
+.host-box:hover {
   transition: 300ms;
   background: rgb(37, 70, 134);
   color: white;
+
+  .text-euro{
+    transition: 300ms;
+    color: #e8d129;
+  }
 }
 
 .buy-button {

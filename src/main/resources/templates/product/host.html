@@ -17,10 +17,12 @@
                     <li class="list-group-item">Affordable pricing</li>
                     <li class="list-group-item">Easy to use control panel</li>
                     <li class="list-group-item">24/7 customer support</li>
-                    <li class="list-group-item"><span th:text="${articles[0].property.price1year}"></span>€ / year</li>
                     <li class="list-group-item"><span th:text="${articles[0].property.traffic}"></span>GB free traffic </li>
                     <li class="list-group-item"><span th:text="${articles[0].property.capacity}"></span>GB capacity</li>
                 </ul>
+                <div class="container text-center title-1">
+                    <p><span th:text="${articles[0].property.price1year}" class="text-euro"></span>€ / year</p>
+                </div>
                 <div class="text-center mt-5">
                     <form action="/cart/add" method="post" th:object="${productBuy}">
                         <input type="hidden"  th:value="${articles[0].product}" name="product">
@@ -37,10 +39,12 @@
                     <li class="list-group-item">Customizable resources and settings</li>
                     <li class="list-group-item">Advanced security features</li>
                     <li class="list-group-item">Dedicated IP and SSL options</li>
-                    <li class="list-group-item"><span th:text="${articles[1].property.price1year}"></span>€ / year</li>
                     <li class="list-group-item"><span th:text="${articles[1].property.traffic}"></span>GB free traffic </li>
                     <li class="list-group-item"><span th:text="${articles[1].property.capacity}"></span>GB capacity</li>
                 </ul>
+                <div class="container text-center title-1">
+                    <p><span th:text="${articles[1].property.price1year}" class="text-euro"></span>€ / year</p>
+                </div>
                 <div class="text-center mt-5">
                     <form action="/cart/add" method="post" th:object="${productBuy}">
                         <input type="hidden"  th:value="${articles[1].product}" name="product">

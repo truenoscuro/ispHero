@@ -142,7 +142,6 @@
             <p class="text-dark">Select your language:</p>
             <div class="d-flex grid gap-3 align-content-center">
                 <div th:each="language : ${languages}">
-                  <!--  -->
                     <a th:href="${' ?lang='+language.code}" class="btn btn-outline-secondary" th:text="${language.name}"></a>
                 </div>
             </div>
@@ -200,19 +199,6 @@
       window.location.href = '/cart'
     })
   </script>
-  <!--<script th:src="@{/service-worker.js}"></script>
-  <script>
-    window.addEventListener('load', () => {
-      if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/service-worker.js').then((reg) => {
-          console.log('Service worker registered at scope: ', reg.scope);
-        }).catch((error) => {
-          console.warn('Error registering service worker:');
-          console.warn(error);
-        });
-      }
-    });
-  </script>-->
 </footer>
 </body>
 </html>

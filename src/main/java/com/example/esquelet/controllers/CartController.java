@@ -48,7 +48,7 @@ public class CartController {
         if(!model.containsAttribute("cartUser")){
             model.addAttribute("cartUser",new Cart());
         }
-        return "cartpage";
+        return "backendUser/cartpage";
     }
 
     @PostMapping("/cart/remove")
