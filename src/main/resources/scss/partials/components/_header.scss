@@ -51,7 +51,7 @@ header {
     header {
         top: 0;
         position: sticky;
-        z-index: 100;
+        z-index: 999;
         background: rgba(222, 237, 255, 0.75);
         backdrop-filter: blur(5px);
         -webkit-backdrop-filter: blur(5px);
