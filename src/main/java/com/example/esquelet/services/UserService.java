@@ -18,6 +18,7 @@ import com.mailersend.sdk.exceptions.MailerSendException;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -40,6 +41,10 @@ public class UserService {
     private InvoiceLineRepository invoiceLineRepository;
     @Autowired
     private ServiceRepository serviceRepository;
+    @Autowired
+    private DomainRegisteredRepository domainRegisteredRepository;
+    @Autowired
+    private ArticleRepository articleRepository;
 
 
     public Optional<User> searchUser( UserDTO user ){
@@ -126,14 +131,7 @@ public class UserService {
 
     @Transactional
     public void buy(UserDTO userDTO, Cart cart){
-        /*
-        1- Agaf el articleDTO --> transform a article
-        1,1 --> Miro si te nameDomain i el guard
-        2- article --> guard a Service  amb nameDomain si en te
-        3- article --> guard la factura
 
-        4- article --> MIro si està en wite list?
-         */
         User user = userRepository.findByUsername(userDTO.getUsername()).get();
         List<ArticleDTO> articles = cart.getArticles();
 
@@ -147,7 +145,7 @@ public class UserService {
 
         for( int i = 0 ; i < articlesEntity.size() ; i++ )
             serviceRepository.save(
-                    addService( articles.get(i).getDomainName(),
+                    addService( articles.get(i).getName(),
                             articlesEntity.get(i),
                             user
                     )
@@ -166,6 +164,23 @@ public class UserService {
             setInvoiceLine( invoiceLine , article );
             return invoiceLine;
         }).forEach( invoiceLine -> invoiceLineRepository.save(invoiceLine));
+        //DomainRegisteredSave
+        //<hola , es, com , tv>  <hola>
+        articles.stream()
+                .filter( article -> !Objects.equals(article.getDomainName(), ""))
+                .forEach( article ->{
+                    DomainRegistered domain = new DomainRegistered(article.getName());
+                    Optional<DomainRegistered> domainOptional = domainRegisteredRepository.searchByName(domain.getName());
+                    if(domainOptional.isPresent()){
+                        domain =  domainOptional.get();
+                    } else {
+                        domain = domainRegisteredRepository.save(domain);
+                        domainRegisteredRepository.flush();
+                    }
+                    Article a = articleRepository.searchArticleByValueProperty( article.getProperty().get("tld") ).get();
+                    a.getDomains().add(domain);
+                    articleRepository.save(a);
+                });
 
     }
     private  void setInvoiceLine(InvoiceLine invoiceLine, ArticleDTO articleDTO){

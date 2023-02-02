@@ -16,6 +16,8 @@ public class DomainRegistered {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+
+
     @NotNull
     private String name;
 
@@ -25,4 +27,7 @@ public class DomainRegistered {
     private List<Article> tlds;
 
 
+    public DomainRegistered(@NotNull String name) {
+        this.name = name;
+    }
 }
