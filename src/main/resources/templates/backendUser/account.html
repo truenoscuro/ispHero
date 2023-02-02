@@ -1,15 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head th:insert="~{fragments/general.html :: headerfiles}">
-    <title>ISP Hero - Login</title>
 </head>
 <body>
 <header th:insert="~{fragments/general.html :: header}"></header>
 <div class="container">
     <div class="row">
         <div class="col-12">
-            <h1 class="text-center mt-3">Welcome back <span class="text-primary" th:text="${user.firstName}"></span>
-            </h1>
+            <h1 class="text-center mt-3"><span th:text="#{messages.account.welcomeBack}"></span><span class="text-primary" th:if="${user.firstName != null}" th:text="' ' + ${user.firstName}"></span></h1>
         </div>
     </div>
 </div>
@@ -18,29 +16,29 @@
     <div class="nav flex-row flex-md-column nav-pills mx-auto mx-md-0 me-md-3 my-3 gap-1 bg-light" id="v-pills-tab" role="tablist"
          aria-orientation="vertical" style="border-radius: 5px">
         <button class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home"
-                type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">Home
+                type="button" role="tab" aria-controls="v-pills-home" aria-selected="true" th:text="#{messages.account.home}">
         </button>
         <button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile"
-                type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">Profile
+                type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false" th:text="#{messages.account.account}">
         </button>
         <button class="nav-link" id="v-pills-payment-tab" data-bs-toggle="pill" data-bs-target="#v-pills-payment"
-                type="button" role="tab" aria-controls="v-pills-payment" aria-selected="false">Payment
+                type="button" role="tab" aria-controls="v-pills-payment" aria-selected="false" th:text="#{messages.account.payment}">
         </button>
         <button class="nav-link" id="v-pills-waiting-tab" data-bs-toggle="pill" data-bs-target="#v-pills-waiting"
-                type="button" role="tab" aria-controls="v-pills-waiting" aria-selected="false">Waiting
+                type="button" role="tab" aria-controls="v-pills-waiting" aria-selected="false" th:text="#{messages.account.waiting}">
         </button>
     </div>
     <div class="tab-content mx-auto my-3" id="v-pills-tabContent">
         <div class="tab-pane fade active show" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
-            <h2>Your services:</h2>
+            <h2 th:text="#{messages.account.yourServices}"></h2>
             <table class="table text-center mw-100">
                 <thead class="table-primary">
                 <tr>
                     <th scope="col">ID</th>
                     <th scope="col">Domain</th>
                     <th scope="col">TLD</th>
-                    <th scope="col">Expiry Date</th>
-                    <th scope="col">Active</th>
+                    <th scope="col" th:text="#{messages.account.expiryDate}"></th>
+                    <th scope="col" th:text="#{messages.account.active}"></th>
                     <th scope="col"></th>
                 </tr>
                 </thead>
@@ -50,12 +48,12 @@
                     <td class="text-primary" th:text="${service.nameDomain}"></td>
                     <td th:text="${service.product}"></td>
                     <td th:text="${service.dateExpired}"></td>
-                    <td th:if="${service.isCancelled}">No</td>
-                    <td th:if="${!service.isCancelled}">Yes</td>
+                    <td th:if="${service.isCancelled}" th:text="#{messages.account.no}"></td>
+                    <td th:if="${!service.isCancelled}" th:text="#{messages.account.yes}"></td>
                     <td>
                         <form action="/account/delete" method="post">
                             <input type="hidden" th:value="${service.id}" name="idService">
-                            <button type="submit" class="btn btn-danger">Delete</button>
+                            <button type="submit" class="btn btn-danger" th:text="#{messages.account.deleteBtn}"></button>
                         </form>
                     </td>
                 </tr>
@@ -67,74 +65,74 @@
                 <form action="/account/update" method="post" th:object="${userData}" class="form">
                     <input type="hidden" th:value="${user.idData}" name="idData">
                     <div class="row">
-                        <h3>Personal data</h3>
+                        <h3 th:text="#{messages.account.personalInfo}"></h3>
                         <div class="col-12 col-md-6">
                             <div class="mb-3">
-                                <label for="name" class="form-label">Name</label>
+                                <label for="name" class="form-label" th:text="#{messages.account.firstName}"></label>
                                 <input type="text" class="form-control" id="name" placeholder="Name"
                                        th:value="${user.firstName}" name="firstName" readonly>
                             </div>
                             <div class="mb-3">
-                                <label for="surname1" class="form-label">Surname</label>
+                                <label for="surname1" class="form-label" th:text="#{messages.account.lastName}"></label>
                                 <input type="text" class="form-control" id="surname1" placeholder="Surname"
                                        th:value="${user.lastName1}" name="lastName1" readonly>
                             </div>
                             <div class="mb-3">
-                                <label for="surname2" class="form-label">Surname</label>
+                                <label for="surname2" class="form-label" th:text="#{messages.account.lastName2}"></label>
                                 <input type="text" class="form-control" id="surname2" placeholder="Surname"
                                        th:value="${user.lastName2}" name="lastName2" readonly>
                             </div>
                             <div class="mb-3">
-                                <label for="email" class="form-label">Email</label>
+                                <label for="email" class="form-label" th:text="#{messages.account.email}"></label>
                                 <input type="email" class="form-control" id="email" placeholder="Email"
                                        th:value="${user.email}" name="email" disabled>
                             </div>
                         </div>
                         <div class="col-12 col-md-6">
                             <div class="mb-3">
-                                <label for="country" class="form-label">Country</label>
+                                <label for="country" class="form-label" th:text="#{messages.account.country}"></label>
                                 <select class="form-select" id="country" th:value="${user.country}" name="country"
                                         readonly>
-                                    <option selected value="none">Choose...</option>
+                                    <option selected value="none" th:text="#{messages.account.chooseCountry}"></option>
                                 </select>
                             </div>
                             <div class="mb-3">
-                                <label for="address" class="form-label">Address</label>
+                                <label for="address" class="form-label" th:text="#{messages.account.address}"></label>
                                 <input type="text" class="form-control" id="address" placeholder="Address"
                                        th:value="${user.address}" name="address" readonly>
                             </div>
                             <div class="mb-3">
-                                <label for="city" class="form-label">City</label>
+                                <label for="city" class="form-label" th:text="#{messages.account.city}"></label>
                                 <input type="text" class="form-control" id="city" placeholder="City"
                                        th:value="${user.city}" name="city" readonly>
                             </div>
                             <div class="my-5 d-flex mx-3 justify-content-between">
-                                <button class="btn btn-success edit">Edit</button>
-                                <button class="btn btn-outline-danger cancel">Cancel</button>
-                                <button class="btn btn-primary save" type="submit">Save</button>
+                                <button class="btn btn-success edit" th:text="#{messages.account.editBtn}"></button>
+                                <button class="btn btn-outline-danger cancel" th:text="#{messages.account.cancelBtn}"></button>
+                                <button class="btn btn-primary save" type="submit" th:text="#{messages.account.saveBtn}"></button>
                             </div>
                         </div>
                     </div>
                 </form>
                 <div class="col-12">
                     <hr>
-                    <h4>Change password</h4>
+                    <h4 th:text="#{messages.account.changePassword}"></h4>
                     <form action="">
                         <div class="mb-3">
-                            <label for="password" class="form-label">Old password</label>
+                            <label for="password" class="form-label" th:text="#{messages.account.oldPassword}"></label>
                             <input type="password" class="form-control" id="password" placeholder="Password">
                         </div>
                         <div class="mb-3">
-                            <label for="newPassword" class="form-label">New password</label>
+                            <label for="newPassword" class="form-label" th:text="#{messages.account.newPassword}"></label>
                             <input type="password" class="form-control" id="newPassword" placeholder="New password">
                         </div>
                         <div class="mb-3">
-                            <label for="repeatNewPassword" class="form-label">Repeat new password</label>
+                            <label for="repeatNewPassword" class="form-label" th:text="#{messages.account.confirmPassword}"></label>
                             <input type="password" class="form-control" id="repeatNewPassword"
                                    placeholder="Repeat new password">
                         </div>
                         <div class="container my-2">
-                            <button class="btn btn-success">Change password</button>
+                            <button class="btn btn-success" th:text="#{messages.account.changePasswordBtn}"></button>
                         </div>
                     </form>
                 </div>
@@ -149,14 +147,14 @@
                         <div>
                             <form action="">
                                 <span th:text="${waitingDomain.nameDomain + tld} "></span>
-                                <a href="#" class="btn btn-outline-danger">Delete</a>
+                                <a href="#" class="btn btn-outline-danger" th:text="#{messages.account.deleteBtn}"></a>
                             </form>
                         </div>
                     </div>
                 </div>
             </div>
             <div th:if="${user.waitingDomains.isEmpty()}" class="container">
-                <h3>You don't have any domain names you're waiting for.</h3>
+                <h3 th:text="#{messages.account.noWaitingList}"></h3>
             </div>
         </div>
     </div>
