@@ -1,5 +1,6 @@
 package com.example.esquelet.dtos;
 
+import com.example.esquelet.entities.Article;
 import com.example.esquelet.entities.Lang;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -19,6 +21,8 @@ public class TranslateDTO {
     private Map<String,String> product;
     private Map<String,String> property;
     private Map<String,String> category;
+
+    private Map<String,Map<String,String>> valueCategory;
 
     public TranslateDTO(String code, String name){
         this.code = code;
@@ -41,8 +45,20 @@ public class TranslateDTO {
         Map<String,String> category = new HashMap<>();
         lang.getTranslateCategories().forEach(translate ->
                 category.put(translate.getCategory().getName(),translate.getTranslation()));
-        //------------
-        return  new TranslateDTO(code,name,product,property,category);
+        //------------ product1.tld
+        Map<String,Map<String,String>> valueCategory = new HashMap<>();
+        lang.getTranslateValueProperties().forEach( translate -> {
+            if( !valueCategory.containsKey( translate.getArticle().getProduct().getName() ) ){
+                valueCategory.put(translate.getArticle().getProduct().getName(),new HashMap<>());
+            }
+        });
+        lang.getTranslateValueProperties().forEach( translate ->{
+            valueCategory.get(translate.getArticle().getProduct().getName()).put(
+                    translate.getArticle().getProperty().getName(), translate.getTranslation()
+            );
+        });
+        return  new TranslateDTO(code,name,product,property,category,valueCategory);
+
 
 
     }
