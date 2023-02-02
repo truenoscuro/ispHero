@@ -35,8 +35,11 @@ public class CartController {
 
         ArticleDTO article = articleService.getArticleDTO(articleBuy.getProduct());
 
-        if(article.getDomainName() != null)
+        if(article.getDomainName() != null){
             article.setDomainName( articleBuy.getDomainName() + article.getProperty().get("tld") );
+            article.setName( articleBuy.getDomainName());
+        }
+
         System.out.println(article);
         ((Cart) model.getAttribute("cartUser")).add(article);
         return "redirect:/cart";
@@ -68,7 +71,7 @@ public class CartController {
                 (UserDTO) model.getAttribute("user"),
                 (Cart) model.getAttribute("cartUser")
         );
-
+        model.addAttribute("cartUser",new Cart());
         return "redirect:/cart";
     }
 
