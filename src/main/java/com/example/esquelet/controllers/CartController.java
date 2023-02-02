@@ -69,10 +69,18 @@ public class CartController {
                 (Cart) model.getAttribute("cartUser")
         );
 
-        return "redirect:/cart";
+        return "redirect:/cart/payment";
     }
 
-
+    @GetMapping("/cart/payment")
+    public String payment(Model model){
+        if(!model.containsAttribute("cartUser")){
+            model.addAttribute("cartUser",new Cart());
+        }
+        model.addAttribute("cartUser",(Cart) model.getAttribute("cartUser"));
+        model.addAttribute("pageTitle","Payment");
+        return "backendUser/payment";
+    }
 
 }
 

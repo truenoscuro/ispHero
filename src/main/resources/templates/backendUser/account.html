@@ -7,7 +7,7 @@
 <div class="container">
     <div class="row">
         <div class="col-12">
-            <h1 class="text-center mt-3"><span th:text="#{messages.account.welcomeBack}"></span><span class="text-primary" th:text="' ' + ${user.firstName}"></span></h1>
+            <h1 class="text-center mt-3"><span th:text="#{messages.account.welcomeBack}"></span><span class="text-primary" th:if="${user.firstName != null}" th:text="' ' + ${user.firstName}"></span></h1>
         </div>
     </div>
 </div>
