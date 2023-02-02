@@ -6,31 +6,101 @@
 <body>
 <header th:insert="~{fragments/general.html :: header}"></header>
 
-
-
-<div th:each="article: ${articles}" class="d-flex gap-lg-5">
-    <div> <span th:text="${article.product}">DOMAIN</span> </div>
-    <div> <span th:text="${domainName + article.property.tld}">DOMAIN</span> </div>
-    <div> <span th:text="${article.property.price1year}">PRICE1YEAR</span> </div>
-    <div> <span th:text="${article.property.price2year}">PRICE2YEAR</span> </div>
-    <div th:unless="${article.property.taken}">
-        <form action="/cart/add" method="post" th:object="${productBuy}">
-            <input type="hidden" th:value="${article.product}" name="product">
-            <input type="hidden" th:value="${domainName}" name="domainName">
-            <input type="submit" value="buy">
-        </form>
-    </div>
-    <div th:if="${hasUser}">
-        <form  action="/account/waitingdomains" method="post" ${productWaiting}>
-            <input type="hidden" th:value="${domainName}" name="domainName">
-            <input type="hidden" th:value="${article.product}" name="product">
-            <input th:unless="${article.property.waiting}" type="submit" value="Waiting add">
-            <input th:if="${article.property.waiting}" type="submit" value="Waiting delete">
-        </form>
+<div class="container">
+    <h2 class="title-1">Choose your <span class="text-primary">domain: </span></h2>
+    <div th:each="article: ${articles}" class="d-flex my-3 justify-content-evenly alert alert-light align-items-center">
+        <div> <span class="domain-name" th:classappend="${article.property.taken}" th:text="${domainName + article.property.tld}"></span> </div>
+        <div>
+            <label for="years">Duration:
+                <select name="years" id="years">
+                <option th:value="${article.property.price1year}">1 Year</option>
+                <option th:value="${article.property.price2year}">2 Years</option>
+                </select>
+            </label>
+        </div>
+        <div>
+            <div th:unless="${article.property.taken}" class="hidden" th:classappend="'action-' + ${domainName + article.property.tld}">
+                <form action="/cart/add" method="post" th:object="${productBuy}">
+                    <input type="hidden" th:value="${article.product}" name="product">
+                    <input type="hidden" th:value="${domainName}" name="domainName">
+                    <input type="submit" value="buy" class="btn btn-success">
+                </form>
+            </div>
+            <div th:if="${article.property.taken}" class="hidden" th:classappend="'action-' + ${domainName + article.property.tld}">
+                <form  action="/account/waitingdomains" method="post">
+                    <input type="hidden" th:value="${domainName}" name="domainName">
+                    <input type="hidden" th:value="${article.product}" name="product">
+                    <input th:unless="${article.property.waiting}" type="submit" value="Waiting add" class="btn btn-light">
+                    <input th:if="${article.property.waiting}" type="submit" value="Waiting delete" class="btn btn-delete">
+                </form>
+            </div>
+            <div>
+                <div class="spinner-border" th:classappend="'spinner-' + ${domainName + article.property.tld}" style="width: 3rem; height: 3rem;" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
-
 <footer th:insert="~{fragments/general.html :: footer}"></footer>
+
+<script>
+
+    let domains = document.getElementsByClassName("domain-name");
+    // For each domain name, make a fetch request to the domain. If 200, then the domain is taken. If other status, then the domain is not taken.
+
+    for (let i = 0; i < domains.length; i++) {
+        if (domains[i].classList.contains("true")) {
+            console.log("Domain " + domains[i].innerText + " is taken");
+            document.getElementsByClassName("action-" + domains[i].innerText)[0].classList.remove("hidden");
+            document.getElementsByClassName("spinner-" + domains[i].innerText)[0].classList.add("hidden");
+            domains[i].parentElement.parentElement.classList.remove("alert-light");
+            domains[i].parentElement.parentElement.classList.add("alert-danger");
+            continue;
+        }
+        let domain = domains[i].innerText;
+
+        fetch("http://www." + domain, {
+            method: "GET",
+            mode: "no-cors",
+            cache: "no-cache",
+            headers: {
+                "Content-Type": "application/text"
+                }
+            })
+            .then(function (res) {
+                return res.text()
+            })
+            .then(function (html) {
+                var parser = new DOMParser();
+                var doc = parser.parseFromString(html, "text/html");
+                return doc.querySelectorAll("html")[0].innerHTML;
+            })
+            .then(function (res) {
+                if (res.startsWith("<head")) {
+                    console.log("Domain " + domain + " is taken");
+                    document.getElementsByClassName("action-" + domain)[0].classList.remove("hidden");
+                    document.getElementsByClassName("spinner-" + domain)[0].classList.add("hidden");
+                    domains[i].parentElement.parentElement.classList.remove("alert-light");
+                    domains[i].parentElement.parentElement.classList.add("alert-danger");
+                } else {
+                    console.log("Domain " + domain + " is not taken");
+                    document.getElementsByClassName("action-" + domain)[0].classList.remove("hidden");
+                    document.getElementsByClassName("spinner-" + domain)[0].classList.add("hidden");
+                    domains[i].parentElement.parentElement.classList.remove("alert-light");
+                    domains[i].parentElement.parentElement.classList.add("alert-success");
+                }
+            })
+            .catch(function (err) {
+                console.log("Domain " + domain + " is not taken");
+                document.getElementsByClassName("action-" + domain)[0].classList.remove("hidden");
+                document.getElementsByClassName("spinner-" + domain)[0].classList.add("hidden");
+                domains[i].parentElement.parentElement.classList.remove("alert-light");
+                domains[i].parentElement.parentElement.classList.add("alert-success");
+            });
+
+    }
+</script>
 </body>
 </html>
