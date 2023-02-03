@@ -120,8 +120,15 @@
             <div class="text-right text-primary p-3">ISP Hero, March 2023</div>
         </div>
     </div>
-    <div class="d-flex justify-content-center d-sm-flex justify-content-sm-evenly flex-column flex-md-row p-3 col-12">
-        <div class="card col-12 col-md-3 my-3">
+    <div class="d-flex justify-content-center d-sm-flex justify-content-sm-evenly flex-column flex-md-row p-3 col-12 scrollme">
+        <div class="card col-12 col-md-3 my-3 animateme"
+                data-when="enter"
+                data-from="0.5"
+                data-to="0"
+                data-opacity="0"
+                data-translatey="100"
+                data-translatex="0"
+        >
             <img th:src="@{/img/people-and-technology.png}" class="card-img-top" alt="Domain Hosting">
             <div class="card-body mx-3 mb-3">
                 <h3 class="card-title" th:text="#{messages.main.card1Title}">Domain Hosting</h3>
@@ -178,6 +185,12 @@
         </div>
     </div>
 </div>
+<div class="wanker" data-wanker>
+    <div class="wanker-content">
+        <h1>The web was meant to be read, not squished.</h1>
+        <p>Prevent excessive browser resizing and get people back to reading.</p>
+    </div>
+</div>
 <div class="toast d-flex justify-content-center w-100">
     <div class="alert alert-success position-fixed bottom-0 my-5" style="z-index: 3" th:text="#{messages.main.success}">
         Your email has been registered!
@@ -206,6 +219,10 @@
                 $('.alert').show().delay(3000).fadeOut();
             }
         })
+
+        $(function() {
+            $('[data-wanker]').wanker({delay: 0, duration: 500});
+        });
 
         const card = $('.card-tld');
         card.tilt({

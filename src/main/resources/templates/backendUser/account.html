@@ -98,12 +98,12 @@
                             </div>
                             <div class="mb-3">
                                 <label for="address" class="form-label" th:text="#{messages.account.address}"></label>
-                                <input type="text" class="form-control" id="address" placeholder="Address"
+                                <input type="text" class="form-control editable" id="address" placeholder="Address"
                                        th:value="${user.address}" name="address" readonly>
                             </div>
                             <div class="mb-3">
                                 <label for="city" class="form-label" th:text="#{messages.account.city}"></label>
-                                <input type="text" class="form-control" id="city" placeholder="City"
+                                <input type="text" class="form-control editable" id="city" placeholder="City"
                                        th:value="${user.city}" name="city" readonly>
                             </div>
                             <div class="my-5 d-flex mx-3 justify-content-between">
@@ -114,7 +114,7 @@
                         </div>
                     </div>
                 </form>
-                <div class="col-12">
+                <div class="col-12" th:if="${user.username}">
                     <hr>
                     <h4 th:text="#{messages.account.changePassword}"></h4>
                     <form action="">
@@ -162,7 +162,6 @@
 </div>
 
 <footer th:insert="~{fragments/general.html :: footer}"></footer>
-
 <script>
 
     $(document).ready(function () {
@@ -208,20 +207,20 @@
             }
         })
     })
-    var inputs = document.querySelectorAll('input');
+    var inputsEditable = document.querySelectorAll('.editable');
 
     var tmpvalues = []
     var tmpcountry = $('#country').val();
 
-    for (var j = 3; j < 7; j++) {
-        tmpvalues.push(inputs[j].value);
+    for (var j = 0; j < inputsEditable.length; j++) {
+        tmpvalues.push(inputsEditable[j].value);
     }
 
     $('.edit').click(function (e) {
         e.preventDefault()
-        for (var i = 5; i < 7; i++) {
-            inputs[i].removeAttribute('readonly');
-            inputs[i].style.backgroundColor = 'white';
+        for (var i = 0; i < inputsEditable.length; i++) {
+            inputsEditable[i].removeAttribute('readonly');
+            inputsEditable[i].style.backgroundColor = 'white';
         }
         $('select').removeAttr('readonly')
         $('.save').show();
@@ -231,18 +230,16 @@
 
     $('.cancel').click(function (e) {
         e.preventDefault();
-        for (var i = 5; i < 7; i++) {
-            inputs[i].value = tmpvalues[i - 3];
-            inputs[i].style.backgroundColor = '#e9ecef';
-        }
-        $('#country').val(tmpcountry);
-        for (var i = 5; i < 7; i++) {
-            inputs[i].setAttribute('readonly', 'readonly');
+        for (var i = 0; i < inputsEditable.length ; i++) {
+            inputsEditable[i].value = tmpvalues[i];
+            inputsEditable[i].style.backgroundColor = '#e9ecef';
+            inputsEditable[i].setAttribute('readonly', 'readonly');
         }
         $('select').attr('readonly', 'readonly')
         $('.save').hide();
         $(this).hide();
         $('.edit').show();
+
     })
 
     function checkPasswordMatch() {
