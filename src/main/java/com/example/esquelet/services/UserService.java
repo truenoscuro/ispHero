@@ -2,7 +2,6 @@ package com.example.esquelet.services;
 
 import com.example.esquelet.dtos.*;
 import com.example.esquelet.entities.*;
-import com.example.esquelet.models.Cart;
 import com.example.esquelet.repositories.*;
 import com.mailersend.sdk.Recipient;
 import jakarta.transaction.Transactional;
@@ -15,12 +14,9 @@ import com.mailersend.sdk.MailerSend;
 import com.mailersend.sdk.MailerSendResponse;
 import com.mailersend.sdk.exceptions.MailerSendException;
 
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+
 import java.util.Optional;
-import java.util.stream.Collectors;
+
 
 @Service
 public class UserService {
@@ -30,21 +26,6 @@ public class UserService {
 
     @Autowired
     private UserDataRepository userDataRepository;
-
-    @Autowired
-    private WaitingDomainRepository waitingDomainRepository;
-    @Autowired
-    private ProductRepository productRepository;
-    @Autowired
-    private InvoiceRepository invoiceRepository;
-    @Autowired
-    private InvoiceLineRepository invoiceLineRepository;
-    @Autowired
-    private ServiceRepository serviceRepository;
-    @Autowired
-    private DomainRegisteredRepository domainRegisteredRepository;
-    @Autowired
-    private ArticleRepository articleRepository;
 
 
     public Optional<User> searchUser( UserDTO user ){
@@ -76,29 +57,9 @@ public class UserService {
         return user.isPresent();
     }
 
-    public void getServices( UserDTO user ){
-        userRepository.findByUsername( user.getUsername() )
-                .ifPresent( userEntity -> userEntity.getServices().stream()
-                        .map( ServiceDTO::createServiceDTO )
-                        .forEach( user::addService )
-                );
-    }
 
-    public void getInvoices( UserDTO user ){
-        userRepository.findByUsername( user.getUsername() )
-                .ifPresent( u -> u.getInvoices().stream()
-                        .map( InvoiceDTO::createInvoiceDTO )
-                        .forEach( user::addInvoice )
-                );
-    }
-    public void getWaitingDomains(UserDTO user){
-        User userEntity = userRepository.findByUsername(user.getUsername()).get();
-        waitingDomainRepository.findAllByUser(userEntity)
-                .stream().collect(Collectors.groupingBy(WaitingDomain::getNameDomain))
-                .values()
-                .stream().map(WaitingDomainDTO::createWaitingDomainDTO)
-                .forEach(user::addWaitingDomain);
-    }
+
+
 
     public void sendRegisterMail( UserDTO user ) {
         Email registerMail = new Email();
@@ -129,80 +90,10 @@ public class UserService {
 
 
 
-    @Transactional
-    public void buy(UserDTO userDTO, Cart cart){
-
-        User user = userRepository.findByUsername(userDTO.getUsername()).get();
-        List<ArticleDTO> articles = cart.getArticles();
-
-        // Service Save
-        List<Article> articlesEntity = articles.stream()
-                .map( a -> productRepository.getProductsByName(a.getProduct())
-                        .get().getArticles()
-                        .stream().findFirst()
-                        .get()
-                ).toList();
-
-        for( int i = 0 ; i < articlesEntity.size() ; i++ )
-            serviceRepository.save(
-                    addService( articles.get(i).getName(),
-                            articlesEntity.get(i),
-                            user
-                    )
-            );
-
-        // Invoice save
-        Invoice invoice = new Invoice();
-        invoice.setUser(user);
-        invoice.setFullName("factura "+ user.getUsername());
-        invoiceRepository.save(invoice);
-        invoiceRepository.flush();
-        //InvoiceLine Save
-        articles.stream().map( article -> {
-            InvoiceLine invoiceLine = new InvoiceLine();
-            invoiceLine.setInvoice( invoice );
-            setInvoiceLine( invoiceLine , article );
-            return invoiceLine;
-        }).forEach( invoiceLine -> invoiceLineRepository.save(invoiceLine));
-        //DomainRegisteredSave
-        //<hola , es, com , tv>  <hola>
-        articles.stream()
-                .filter( article -> !Objects.equals(article.getDomainName(), ""))
-                .forEach( article ->{
-                    DomainRegistered domain = new DomainRegistered(article.getName());
-                    Optional<DomainRegistered> domainOptional = domainRegisteredRepository.searchByName(domain.getName());
-                    if(domainOptional.isPresent()){
-                        domain =  domainOptional.get();
-                    } else {
-                        domain = domainRegisteredRepository.save(domain);
-                        domainRegisteredRepository.flush();
-                    }
-                    Article a = articleRepository.searchArticleByValueProperty( article.getProperty().get("tld") ).get();
-                    a.getDomains().add(domain);
-                    articleRepository.save(a);
-                });
-
-    }
-    private  void setInvoiceLine(InvoiceLine invoiceLine, ArticleDTO articleDTO){
-        Map<String,String> properties = articleDTO.getProperty();
-        invoiceLine.setNameArticle( articleDTO.getProduct( ) );
-        if( articleDTO.getDomainName() != null ) invoiceLine.setNameArticle(articleDTO.getDomainName() + properties.get("tld"));
-        invoiceLine.setPrice( properties.get( "priceBuy" ) );
-        if( properties.get("priceBuy") == null ) invoiceLine.setPrice("Free");
-        invoiceLine.setQuantity( properties.get( "quantity" ) );
-        if( properties.get("quantity") == null) invoiceLine.setQuantity("1");
-        invoiceLine.setVat( properties.get("vat") );
-    }
 
 
-    private com.example.esquelet.entities.Service addService(String nameDomain , Article article, User user){
-        com.example.esquelet.entities.Service service = new com.example.esquelet.entities.Service();
-        service.setArticle(article);
-        service.setUser( user );
-        service.setDateExpired(LocalDateTime.now().plusYears(1));
-        service.setCancelled( false );
-        if(nameDomain != null) service.setNameDomain(nameDomain);
-        return  service;
-    }
+
+
+
 
 }
