@@ -131,9 +131,4 @@ public class UserController {
         return "backendUser/messagesent";
     }
 
-    @PostMapping("/auth/google")
-    public String googleAuth(Model model, @RequestParam(name = "token") String token) {
-
-        return "redirect:/account";
-    }
 }
