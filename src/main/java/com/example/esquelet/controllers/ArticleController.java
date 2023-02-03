@@ -37,8 +37,14 @@ public class ArticleController {
         return "product/"+category;
     }
 
+    // Pass ARTICLE ( Host or Email )
     @PostMapping("/domaincheck")
-    public String  domainCheck(@RequestParam("domainSearch") String domainName, Model model ){
+    public String  domainCheck(
+            @RequestParam("domainSearch") String domainName,
+            @RequestParam(name = "productName",required = false)  String productName,
+            Model model ){
+
+
         List<ArticleDTO> articles = articleService.getArticleDTOList( "domain" );
         DomainRegisteredDTO domainRegistered = domainRegisteredService.getDomainRegisteredDTO(domainName);
         model.addAttribute("domainName" , domainName );

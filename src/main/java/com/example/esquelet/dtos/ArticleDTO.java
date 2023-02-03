@@ -16,6 +16,8 @@ import java.util.stream.Collectors;
 public class ArticleDTO {
     private String product;
 
+    private String category;
+
     private String domainName;
 
     private String name;
@@ -25,6 +27,7 @@ public class ArticleDTO {
 
     public  static ArticleDTO  createArticleDTO(List<Article> articles ){
         //product name
+        String category = articles.get(0).getProduct().getCategory().getName();
         String product = articles.get(0).getProduct().getName();
         // propertyes and typePropertyes
         Map<String,String> property  = new HashMap<>();
@@ -47,7 +50,7 @@ public class ArticleDTO {
                         .stream().map( ArticleDTO::createArticleDTO )
                         .forEach( bundle::add ) );
 
-        return  new ArticleDTO(product,"","",property,typeProperty,bundle);
+        return  new ArticleDTO(category,product,"","",property,typeProperty,bundle);
     }
 
 

@@ -33,34 +33,43 @@ public class CartController {
     @Autowired
     private DomainRegisteredService domainRegisteredService;
 
+    private void initCart(Model model){
+        if(model.containsAttribute("cartUser")) return;
+        model.addAttribute("cartUser",new Cart());
+    }
+
+    @GetMapping("/cart")
+    public String view(Model model){
+        initCart( model );
+        return "backendUser/cartpage";
+    }
 
     @PostMapping("/cart/add")
     public String addArticle(@ModelAttribute ArticleDTO articleBuy ,
                              Model model){
-        if(!model.containsAttribute("cartUser")){
-            model.addAttribute("cartUser",new Cart());
-        }
-
+        initCart( model );
         ArticleDTO article = articleService.getArticleDTO(articleBuy.getProduct());
-
-        if(article.getDomainName() != null){
+        if( article.getDomainName() != null ){
             article.setDomainName( articleBuy.getDomainName() + article.getProperty().get("tld") );
             article.setName( articleBuy.getDomainName());
-        }
+        } else {
+            // ARTICLE
+            // is host or email
+            // if not user --> return account
+            /*
 
-        System.out.println(article);
+            // ARTICLE save
+            // page
+            // charge domainsServiceUser --> return domainNAme for buy
+            // search domainCheck but need ARTICLE
+
+            */
+        }
         ((Cart) model.getAttribute("cartUser")).add(article);
         return "redirect:/cart";
 
+    }
 
-    }
-    @GetMapping("/cart")
-    public String view(Model model){
-        if(!model.containsAttribute("cartUser")){
-            model.addAttribute("cartUser",new Cart());
-        }
-        return "backendUser/cartpage";
-    }
 
     @PostMapping("/cart/remove")
     public String removeArticle(@RequestParam("product") String product , Model model){
@@ -89,10 +98,8 @@ public class CartController {
 
     @GetMapping("/cart/payment")
     public String payment(Model model){
-        if(!model.containsAttribute("cartUser")){
-            model.addAttribute("cartUser",new Cart());
-        }
-        model.addAttribute("cartUser",(Cart) model.getAttribute("cartUser"));
+        initCart( model );
+        model.addAttribute("cartUser",model.getAttribute("cartUser") );
         model.addAttribute("pageTitle","Payment");
         return "backendUser/payment";
     }
