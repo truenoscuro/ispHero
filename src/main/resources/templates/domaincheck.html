@@ -20,14 +20,14 @@
                 </label>
                 </div>
                 <div>
-                    <div class="hidden buy" th:classappend="'action-' + ${domainName + article.property.tld}">
+                    <div class="hidden buy" th:classappend="'action-' + ${domainName + article.property.tld} + ' ' + ${article.property.taken}">
                         <form action="/cart/add" method="post" th:object="${productBuy}">
                             <input type="hidden" th:value="${article.product}" name="product">
                             <input type="hidden" th:value="${domainName}" name="domainName">
                             <input type="submit" value="Add to cart" class="btn btn-success m-0">
                         </form>
                     </div>
-                    <div class="hidden wait" th:classappend="'action-' + ${domainName + article.property.tld}">
+                    <div class="hidden wait" th:classappend="'action-' + ${domainName + article.property.tld} + ' ' + ${article.property.taken}">
                         <form  action="/account/waitingdomains" method="post">
                             <input type="hidden" th:value="${domainName}" name="domainName">
                             <input type="hidden" th:value="${article.product}" name="product">
@@ -55,7 +55,7 @@
     for (let i = 0; i < domains.length; i++) {
         if (domains[i].classList.contains("true")) {
             console.log("Domain " + domains[i].innerText + " is taken");
-            document.getElementsByClassName("action-" + domains[i].innerText)[0].classList.remove("hidden");
+            document.getElementsByClassName("wait action-" + domains[i].innerText)[0].classList.remove("hidden");
             document.getElementsByClassName("spinner-" + domains[i].innerText)[0].classList.add("hidden");
             domains[i].parentElement.parentElement.classList.remove("alert-light");
             domains[i].parentElement.parentElement.classList.add("alert-danger");
