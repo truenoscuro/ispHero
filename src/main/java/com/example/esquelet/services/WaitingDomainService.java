@@ -1,6 +1,5 @@
 package com.example.esquelet.services;
 
-import com.example.esquelet.dtos.ArticleDTO;
 import com.example.esquelet.dtos.UserDTO;
 import com.example.esquelet.dtos.WaitingDomainDTO;
 import com.example.esquelet.entities.Article;
@@ -62,4 +61,17 @@ public class WaitingDomainService {
 
     }
 
+    @Transactional
+    public void delete(String domainName, UserDTO userDTO, String productName) {
+        User user = userRepository.findByUsername(userDTO.getUsername()).get();
+
+        Article tld = productRepository.getProductsByName(productName).get()
+                .getArticles()
+                .stream().filter(a -> a.getProperty().getName().equals("tld"))
+                .findFirst()
+                .get();
+
+        Optional<WaitingDomain> waitingDomain = waitingDomainRepository.findWaitingDomainByUserAndTld(user,tld);
+        waitingDomain.ifPresent(domain -> waitingDomainRepository.delete(domain));
+    }
 }
