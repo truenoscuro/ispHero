@@ -7,12 +7,10 @@ import com.example.esquelet.entities.DomainRegistered;
 import com.example.esquelet.models.Cart;
 import com.example.esquelet.repositories.ArticleRepository;
 import com.example.esquelet.repositories.DomainRegisteredRepository;
-import com.example.esquelet.repositories.PropertyRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -32,11 +30,11 @@ public class DomainRegisteredService {
     }
 
     @Transactional
-    public void updateDomainRegisteredWitchCart(Cart cart){
+    public void updateDomainRegisteredWithCart(Cart cart){
         cart.getArticles().stream()
                 .filter( article -> !Objects.equals(article.getDomainName(), ""))
                 .forEach( article ->{
-                    DomainRegistered domain = new DomainRegistered(article.getName());
+                    DomainRegistered domain = new DomainRegistered(article.getDomainName());
                     Optional<DomainRegistered> domainOptional = domainRegisteredRepository.searchByName(domain.getName());
                     if(domainOptional.isPresent()){
                         domain =  domainOptional.get();

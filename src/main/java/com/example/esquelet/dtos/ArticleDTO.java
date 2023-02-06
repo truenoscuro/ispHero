@@ -2,7 +2,6 @@ package com.example.esquelet.dtos;
 
 import com.example.esquelet.entities.Article;
 import com.example.esquelet.entities.Property;
-import com.google.gson.Gson;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,6 +21,9 @@ public class ArticleDTO {
 
     private String name;
     private Map<String,String> property;
+
+    private List<String> years;
+    private Map<String,String> priceYear;
     private Map<String ,String> typeProperty;
     private List<ArticleDTO> bundle;
 
@@ -32,11 +34,26 @@ public class ArticleDTO {
         // propertyes and typePropertyes
         Map<String,String> property  = new HashMap<>();
         Map<String,String> typeProperty  = new HashMap<>();
-        articles.forEach( article -> {
-            Property propertyArticle = article.getProperty( );
-            property.put( propertyArticle.getName(),article.getValueProperty() );
-            typeProperty.put( propertyArticle.getName(),propertyArticle.getType() );
-        });
+
+        articles.stream()
+                .filter( article -> !article.getProperty().getName().contains("price"))
+                .forEach( article -> {
+                    Property propertyArticle = article.getProperty( );
+                    property.put( propertyArticle.getName(),article.getValueProperty() );
+                    typeProperty.put( propertyArticle.getName(),propertyArticle.getType() );
+                });
+
+        Map<String,String> priceYear = new HashMap<>();
+        List<String> years = new ArrayList<>();
+        articles.stream()
+                .filter(article -> article.getProperty().getName().contains("price"))
+                .forEach( article ->{
+                    String year = article.getProperty().getName().replaceAll("[^0-9]", "");
+                    if(year.equals("")) year = "0";
+                    years.add( year );
+                    priceYear.put( year , article.getValueProperty( ) );
+                });
+        // DEFAULT PROVES
         property.put("priceBuy","default");
         property.put("quantity","default");
         property.put("vat","default");
@@ -49,8 +66,15 @@ public class ArticleDTO {
                         .values()
                         .stream().map( ArticleDTO::createArticleDTO )
                         .forEach( bundle::add ) );
-
-        return  new ArticleDTO(category,product,"","",property,typeProperty,bundle);
+        return  new ArticleDTO( category,
+                product,
+                "",
+                "",
+                property,
+                years,
+                priceYear,
+                typeProperty,
+                bundle);
     }
 
 

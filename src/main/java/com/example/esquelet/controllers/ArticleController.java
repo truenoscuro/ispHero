@@ -31,10 +31,13 @@ public class ArticleController {
     private WaitingDomainService waitingDomainService;
 
     @GetMapping(value = "/product/{category}") // can pass product?
-    public String showByProduct(@PathVariable String category, Model model ){;
+    public String showByProduct(@PathVariable String category, Model model ){
+
         model.addAttribute("articles",articleService.getArticleDTOList( category ));
         model.addAttribute("articleBuy",new ArticleDTO() );
-        return "product/"+category;
+
+        return "redirect:/";
+        //return "product/"+category;
     }
 
     // Pass ARTICLE ( Host or Email )
@@ -44,8 +47,8 @@ public class ArticleController {
             @RequestParam(name = "productName",required = false)  String productName,
             Model model ){
 
-
         List<ArticleDTO> articles = articleService.getArticleDTOList( "domain" );
+        articles.forEach( System.out::println );
         DomainRegisteredDTO domainRegistered = domainRegisteredService.getDomainRegisteredDTO(domainName);
         model.addAttribute("domainName" , domainName );
         model.addAttribute("hasUser",hasUser(model));
@@ -71,7 +74,8 @@ public class ArticleController {
         );
         model.addAttribute("articleBuy", new ArticleDTO());
         model.addAttribute("articleWaiting", new ArticleDTO());
-        return "domaincheck";
+        return "redirect:/";
+        //return "domaincheck";
     }
 
 

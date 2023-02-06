@@ -11,8 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Objects;
-
 @Controller
 @SessionAttributes(value = {"user","isLogged","cartUser","languages","langPage"})
 
@@ -53,23 +51,20 @@ public class CartController {
             article.setDomainName( articleBuy.getDomainName() + article.getProperty().get("tld") );
             article.setName( articleBuy.getDomainName());
         } else {
+
             // ARTICLE
             // is host or email
             // if not user --> return account
             /*
-
             // ARTICLE save
             // page
             // charge domainsServiceUser --> return domainNAme for buy
             // search domainCheck but need ARTICLE
-
             */
         }
         ((Cart) model.getAttribute("cartUser")).add(article);
         return "redirect:/cart";
-
     }
-
 
     @PostMapping("/cart/remove")
     public String removeArticle(@RequestParam("product") String product , Model model){
@@ -91,7 +86,7 @@ public class CartController {
         // add Invoice
         invoiceService.addInvoiceByUser( user , cart );
         //update DomainRegistered
-        domainRegisteredService.updateDomainRegisteredWitchCart(cart);
+        domainRegisteredService.updateDomainRegisteredWithCart(cart);
 
         return "redirect:/cart/payment";
     }
