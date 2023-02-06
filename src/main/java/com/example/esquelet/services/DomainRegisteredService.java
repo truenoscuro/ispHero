@@ -34,12 +34,12 @@ public class DomainRegisteredService {
         cart.getArticles().stream()
                 .filter( article -> !Objects.equals(article.getDomainName(), ""))
                 .forEach( article ->{
-                    DomainRegistered domain = new DomainRegistered(article.getDomainName());
+                    DomainRegistered domain = new DomainRegistered(article.getName());
                     Optional<DomainRegistered> domainOptional = domainRegisteredRepository.searchByName(domain.getName());
-                    if(domainOptional.isPresent()){
+                    if( domainOptional.isPresent() ){
                         domain =  domainOptional.get();
                     } else {
-                        domain = domainRegisteredRepository.save(domain);
+                        domain = domainRegisteredRepository.save( domain );
                         domainRegisteredRepository.flush();
                     }
                     Article a = articleRepository.searchArticleByValueProperty( article.getProperty().get("tld") ).get();

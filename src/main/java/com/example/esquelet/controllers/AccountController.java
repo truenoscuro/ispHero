@@ -61,7 +61,7 @@ public class AccountController {
 
     @PostMapping("/account/waitingdomains")
     public String modifyWaitingDomain( @ModelAttribute ArticleDTO articleWaiting, Model model){
-        waitingDomainService.update(
+        waitingDomainService.addByUser(
                 articleWaiting.getDomainName(),
                 ( ( UserDTO ) model.getAttribute("user") ),
                 articleWaiting.getProduct()
