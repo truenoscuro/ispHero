@@ -26,6 +26,7 @@ public class UserData {
     @NotNull
     private String city;
 
+    private String postalCode;
     private String country;
 
     @NotNull
@@ -39,6 +40,7 @@ public class UserData {
         this.lastName2 = lastName2;
         this.address = address;
         this.city = city;
+        this.postalCode = postalCode;
         this.user = user;
     }
 }
