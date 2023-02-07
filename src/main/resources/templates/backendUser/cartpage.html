@@ -66,7 +66,8 @@
                                             <h5 class="mb-3">Order summary</h5>
                                             <h6>Total: 2005,- €</h6>
                                         </div>
-                                        <div id="paypal-button-container"></div>
+                                        <div th:if="${isLogged}" id="paypal-button-container"></div>
+                                        <div th:unless="${isLogged}"><h2>Log in first please</h2></div>
                                     </div>
                                 </div>
                             </div>
@@ -83,9 +84,30 @@
 </div>
 <div th:unless="${!#lists.isEmpty(cartUser.articles)}" th:insert="~{fragments/cart.html :: emptycart}" class="mt-auto">
 </div>
+<div th:if="${isLogged}">
+    <input type="text" id="userMail" th:value="${user.email}" class="user-data" hidden>
+    <input type="text" id="userFirstName" th:value="${user.firstName}" class="user-data" hidden>
+    <input type="text" id="userLastName" th:value="${user.lastName1}" class="user-data" hidden>
+    <input type="text" id="userLastName2" th:value="${user.lastName2}" class="user-data" hidden>
+    <input type="text" id="userAddress" th:value="${user.address}" class="user-data" hidden>
+    <input type="text" id="userCity" th:value="${user.city}" class="user-data" hidden>
+</div>
 <footer th:insert="~{fragments/general.html :: footer}"></footer>
-<script src="https://www.paypal.com/sdk/js?client-id=ATt4ApVEm6jyBVmrQI_7qsMiarX3nUyvomPnwOTu7Yxhn9KoseXcK3RLInFxI5VzWbdHY5anVVMYhtUI&currency=USD&intent=capture&enable-funding=venmo" data-sdk-integration-source="integrationbuilder"></script>
+<script src="https://www.paypal.com/sdk/js?client-id=ATt4ApVEm6jyBVmrQI_7qsMiarX3nUyvomPnwOTu7Yxhn9KoseXcK3RLInFxI5VzWbdHY5anVVMYhtUI&currency=EUR&intent=capture&enable-funding=venmo" data-sdk-integration-source="integrationbuilder"></script>
 <script>
+
+    let userMail = document.getElementById("userMail").value;
+    let userFirstName = document.getElementById("userFirstName").value;
+    let userLastName = document.getElementById("userLastName").value + " " + document.getElementById("userLastName2").value
+    let userAddress = document.getElementById("userAddress").value;
+    let userCity = document.getElementById("userCity").value;
+    let user = {
+        email: userMail,
+        firstName: userFirstName,
+        lastName: userLastName,
+        address: userAddress,
+        city: userCity,
+    }
     const paypalButtonsComponent = paypal.Buttons({
         // optional styling for buttons
         // https://developer.paypal.com/docs/checkout/standard/customize/buttons-style-guide/
@@ -103,24 +125,22 @@
                 purchase_units: [
                     {
                         amount: {
-                            currency_code: "USD",
+                            currency_code: "EUR",
                             value: "59.99"
                         }
                     }
                 ],
                 payer: {
                     name: {
-                        given_name: "Alexander",
-                        surname: "Witt"
+                        given_name: userFirstName,
+                        surname: userLastName
                     },
-                    email_address: "info@isphero.com",
+                    email_address: userMail,
                     address: {
-                        address_line_1: "1234 Main St.",
-                        address_line_2: "Unit 1",
-                        admin_area_2: "Portland",
-                        admin_area_1: "OR",
-                        postal_code: "97217",
-                        country_code: "US"
+                        address_line_1: userAddress,
+                        admin_area_2: userCity,
+                        postal_code: "00000",
+                        country_code: "ES"
                     }
                 }
             };
