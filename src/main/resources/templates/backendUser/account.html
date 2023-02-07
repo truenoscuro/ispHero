@@ -145,9 +145,11 @@
                 <div th:each="waitingDomain: ${user.waitingDomains}">
                     <div th:each="tld :${waitingDomain.tlds}">
                         <div>
-                            <form action="">
-                                <span th:text="${waitingDomain.nameDomain + tld} "></span>
-                                <a href="#" class="btn btn-outline-danger" th:text="#{messages.account.deleteBtn}"></a>
+                            <form action="/account/delete-waiting" method="POST">
+                                <input type="hidden" th:value="${waitingDomain.nameDomain}" name="domainName">
+                                <input type="hidden" th:value="${tld}" name="product">
+                                <span th:text="${waitingDomain.nameDomain + tld}"></span>
+                                <input class="btn btn-outline-danger delete-waiting" th:id="${waitingDomain.nameDomain + tld}" th:value="#{messages.account.deleteBtn}" type="submit"/>
                             </form>
                         </div>
                     </div>

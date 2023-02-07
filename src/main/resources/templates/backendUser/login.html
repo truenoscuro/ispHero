@@ -58,8 +58,8 @@
     <div class="bubble"></div>
     <div class="bubble"></div>
   </div>
-  <div class="p-5" style="min-height: 75vh">
-    <form action="/login" method="post" th:object="${user}" class="login" style="margin-top: 100px;">
+  <div class="p-md-5 p-0" style="min-height: 75vh">
+    <form action="/login" method="post" th:object="${user}" class="login">
       <div class="login-form-title">
         <h1>Login</h1>
       </div>
@@ -80,7 +80,7 @@
         </form>
         <hr>
         <div class="login-form-buttons d-flex justify-content-center gap-2 mb-4">
-          <a href="/login" class="btn login-button btn-google btn-format btn-block">
+          <a href="#" class="btn login-button btn-google btn-format btn-block">
             <i class="fab fa-google fa-fw"></i> Login with Google
           </a>
           <a href="/login" class="btn login-button btn-facebook btn-format btn-block">
@@ -96,19 +96,45 @@
 <footer th:insert="~{fragments/general.html :: footer}"></footer>
 </main>
 
+<script async defer src="https://accounts.google.com/gsi/client"></script>
 <script>
+
+  // Google OAuth
+  document.querySelector('.btn-google').addEventListener('click', function () {
+    google.accounts.id.initialize({
+      client_id: '578391080478-tld06kdi3jv6guggqbuj5vrua8cq15vh.apps.googleusercontent.com',
+      callback: async (responseGoogle) => {
+
+        console.log(responseGoogle);
+
+        const tokenGoogle = responseGoogle.credential;
+
+        const responseFetch = await fetch('http://localhost:8080/auth/google', {
+          method: 'POST',
+          body: tokenGoogle,
+        })
+        const token = await responseFetch.text();
+        console.log(token);
+        localStorage.setItem('token', token);
+      }
+    });
+    google.accounts.id.prompt();
+  });
+
+
+
   document.querySelector(".register").addEventListener("click", function (e) {
     e.preventDefault();
     window.location.href = "/register";
   });
 
-    const togglePassword = document.querySelector('#togglePassword');
-    const password = document.querySelector('#password');
-    togglePassword.addEventListener('click', function (e) {
-      const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
-      password.setAttribute('type', type);
-      this.classList.toggle('fa-eye-slash');
-    });
+  const togglePassword = document.querySelector('#togglePassword');
+  const password = document.querySelector('#password');
+  togglePassword.addEventListener('click', function (e) {
+    const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+    password.setAttribute('type', type);
+    this.classList.toggle('fa-eye-slash');
+  });
 
     /*$(document).ready(function() {
         $('.login-form-button').click(function() {
