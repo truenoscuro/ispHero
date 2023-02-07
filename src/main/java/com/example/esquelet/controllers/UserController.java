@@ -130,5 +130,4 @@ public class UserController {
         }
         return "backendUser/messagesent";
     }
-
 }

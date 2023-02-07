@@ -38,7 +38,7 @@ public class AccountController {
     public String account(Model model) {
         model.addAttribute("pageTitle", " My Account");
         model.addAttribute("isLogged", true);
-        model.addAttribute("waitingDomains",waitingDomainService.getAllByUser( (UserDTO) model.getAttribute("user") ) );
+       // model.addAttribute("waitingDomains",waitingDomainService.getAllByUser( (UserDTO) model.getAttribute("user") ) );
         model.addAttribute("userData",new UserDTO());
         chargeUser( model );
         return "backendUser/account";
@@ -66,16 +66,23 @@ public class AccountController {
                 ( ( UserDTO ) model.getAttribute("user") ),
                 articleWaiting.getProduct()
         );
+        return "redirect:/account/waitingdomains";
+    }
+
+
+    @GetMapping("/account/userdata")
+    public String formUSerData(Model model){
+        model.addAttribute("userData",new UserDTO());
+        return "backendUser/userdata";
+    }
+
+    @PostMapping("/account/update")
+    public String updateUserData(@ModelAttribute UserDTO userData , Model model){
+        UserDTO user = (UserDTO) model.getAttribute("user");
+        user.setUserData(userData);
+        userService.addUserData(user);
         return "redirect:/account";
     }
 
-    @PostMapping("/account/delete-waiting")
-    public String deleteWaitingDomain( @ModelAttribute ArticleDTO articleWaiting, Model model){
-        waitingDomainService.delete(
-                articleWaiting.getDomainName(),
-                ( ( UserDTO ) model.getAttribute("user") ),
-                articleWaiting.getProduct()
-        );
-        return "redirect:/account";
-    }
+
 }

@@ -36,6 +36,13 @@
           <span th:text="#{messages.header.language}"></span>
         </div>
         </div>
+        <div th:if="${isLogged} == true" class="mx-3">
+          <a class="btn btn-outline-primary" href="/account" th:text="#{messages.header.account}">Account</a>
+          <a class="btn btn-outline-danger" href="/logout">Logout</a>
+        </div>
+        <div th:unless="${isLogged} == true" class="mx-3">
+          <a class="btn btn-outline-primary" href="/login">Login</a>
+        </div>
     </div>
   </nav>
 </div>

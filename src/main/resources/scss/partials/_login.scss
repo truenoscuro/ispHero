@@ -8,7 +8,6 @@
   padding: 26px 24px 46px;
   width: 100%;
   max-width: 400px;
-  margin-top: 100px;
 }
 
 .login-form {
@@ -183,10 +182,4 @@ $sway-type: "sway-left-to-right", "sway-right-to-left";
   background: transparent;
   width: 100%;
   margin: -5px auto 20px;
-}
-
-@media only screen and (max-width: 768px) {
-  .login {
-    margin-top: 50px;
-  }
 }
