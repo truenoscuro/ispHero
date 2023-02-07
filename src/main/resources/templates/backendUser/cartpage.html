@@ -6,23 +6,149 @@
 <body>
 <header th:insert="~{fragments/general.html :: header}"></header>
 
-
-<div>
-    <div th:each="article: ${cartUser.articles}" class="d-flex gap-lg-5">
-        <div> <span th:text="${article.product}">DOMAIN</span> </div>
-        <div> <span th:text="${article.property.price1year}">PRICE1YEAR</span> </div>
-        <form action="/cart/remove" method="post">
-            <input type="hidden" th:value="${article.product}" name="product">
-            <input type="submit" value="remove">
+<div th:unless="${#lists.isEmpty(cartUser.articles)}">
+    <section class="w-100 p-4" style="border-radius: .5rem .5rem 0 0;">
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-body p-4">
+                        <div class="row">
+                            <div class="col-lg-7">
+                                <h5 class="mb-3"><a href="/" class="text-body"><i class="fas fa-long-arrow-alt-left me-2"></i>Continue shopping</a></h5>
+                                <hr>
+                                <div class="d-flex justify-content-between align-items-center mb-4">
+                                    <div>
+                                        <p class="mb-1">Shopping cart</p>
+                                        <p class="mb-0">You have <span th:text="${#lists.size(cartUser.articles)}"></span> items in your cart</p>
+                                    </div>
+                                    <div>
+                                        <p class="mb-0"><span class="text-muted">Sort by:</span> <a href="#" class="text-body">price <i class="fas fa-angle-down mt-1"></i></a></p>
+                                    </div>
+                                </div>
+                                <div th:each="article: ${cartUser.articles}">
+                                    <div class="card mb-3">
+                                        <div class="card-body">
+                                            <div class="d-flex justify-content-between">
+                                                <div class="d-flex flex-row align-items-center">
+                                                    <div>
+                                                        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-shopping-carts/img1.webp"
+                                                             class="img-fluid rounded-3"
+                                                             alt="Shopping item"
+                                                             style="width: 65px;">
+                                                    </div>
+                                                    <div class="ms-3">
+                                                        <h5 th:if="${#strings.contains(article.product,'.')}" th:text="${article.domainName}"></h5>
+                                                        <h5 th:if="${!#strings.contains(article.product,'.')}" th:text="${'Hosting ' + article.product}"></h5>
+                                                        <p class="small mb-0" th:text="${article.property.price1year}"></p>
+                                                    </div>
+                                                </div>
+                                                <div class="d-flex flex-row align-items-center">
+                                                    <div style="width: 50px;">
+                                                        <h5 class="fw-normal mb-0"></h5>
+                                                    </div>
+                                                    <div style="width: 80px;">
+                                                        <h5 class="mb-0" th:text="${article.property.price1year} + ' €'"></h5>
+                                                    </div>
+                                                    <form action="/cart/remove" method="post">
+                                                        <input type="hidden" th:value="${article.product}" name="product">
+                                                        <button type="submit" class="bg-white border-0"><i class="fas fa-trash-alt btn btn-outline-danger"></i></button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-5">
+                                <div class="card rounded-3">
+                                    <div class="card-body">
+                                        <div class="card-header">
+                                            <h5 class="mb-3">Order summary</h5>
+                                            <h6>Total: 2005,- €</h6>
+                                        </div>
+                                        <div id="paypal-button-container"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+        </div>
+        <form action="/cart/removeall" method="get">
+            <input type="submit" value="remove all">
         </form>
-    </div>
+        <a href="/cart/buy"> Buy ! </a>
+    </section>
 </div>
-
-<form action="/cart/removeall" method="get">
-    <input type="submit" value="remove all">
-</form>
-<a href="/cart/buy"> Buy ! </a>
-
+<div th:unless="${!#lists.isEmpty(cartUser.articles)}" th:insert="~{fragments/cart.html :: emptycart}" class="mt-auto">
+</div>
 <footer th:insert="~{fragments/general.html :: footer}"></footer>
+<script src="https://www.paypal.com/sdk/js?client-id=ATt4ApVEm6jyBVmrQI_7qsMiarX3nUyvomPnwOTu7Yxhn9KoseXcK3RLInFxI5VzWbdHY5anVVMYhtUI&currency=USD&intent=capture&enable-funding=venmo" data-sdk-integration-source="integrationbuilder"></script>
+<script>
+    const paypalButtonsComponent = paypal.Buttons({
+        // optional styling for buttons
+        // https://developer.paypal.com/docs/checkout/standard/customize/buttons-style-guide/
+        style: {
+            color: "gold",
+            shape: "rect",
+            layout: "vertical"
+        },
+
+        // set up the transaction
+        createOrder: (data, actions) => {
+            // pass in any options from the v2 orders create call:
+            // https://developer.paypal.com/api/orders/v2/#orders-create-request-body
+            const createOrderPayload = {
+                purchase_units: [
+                    {
+                        amount: {
+                            currency_code: "USD",
+                            value: "59.99"
+                        }
+                    }
+                ],
+                payer: {
+                    name: {
+                        given_name: "Alexander",
+                        surname: "Witt"
+                    },
+                    email_address: "info@isphero.com",
+                    address: {
+                        address_line_1: "1234 Main St.",
+                        address_line_2: "Unit 1",
+                        admin_area_2: "Portland",
+                        admin_area_1: "OR",
+                        postal_code: "97217",
+                        country_code: "US"
+                    }
+                }
+            };
+
+            return actions.order.create(createOrderPayload);
+        },
+
+        // finalize the transaction
+        onApprove: (data, actions) => {
+            const captureOrderHandler = (details) => {
+                const payerName = details.payer.name.given_name;
+                console.log('Transaction completed');
+            };
+
+            return actions.order.capture().then(captureOrderHandler);
+        },
+
+        // handle unrecoverable errors
+        onError: (err) => {
+            console.error('An error prevented the buyer from checking out with PayPal');
+        }
+    });
+
+    paypalButtonsComponent
+        .render("#paypal-button-container")
+        .catch((err) => {
+            console.error('PayPal Buttons failed to render');
+        });
+</script>
 </body>
 </html>
