@@ -13,9 +13,9 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ArticleDTO {
+    private String category;
     private String product;
 
-    private String category;
 
     private String domainName = "";
 
@@ -31,14 +31,14 @@ public class ArticleDTO {
     private String quantity = null;
     private String vat = null;
 
-    public ArticleDTO(String product,
-                      String category,
+    public ArticleDTO(String category,
+                      String product,
                       Map<String, String> property,
                       List<String> years,
                       Map<String, String> priceYear,
                       List<ArticleDTO> bundle) {
-        this.product = product;
         this.category = category;
+        this.product = product;
         this.property = property;
         this.years = years;
         this.priceYear = priceYear;

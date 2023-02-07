@@ -5,16 +5,16 @@ import com.example.esquelet.dtos.ArticleDTO;
 import com.example.esquelet.dtos.DomainRegisteredDTO;
 import com.example.esquelet.dtos.UserDTO;
 import com.example.esquelet.dtos.WaitingDomainDTO;
-import com.example.esquelet.entities.WaitingDomain;
+
 import com.example.esquelet.services.ArticleService;
 import com.example.esquelet.services.DomainRegisteredService;
-import com.example.esquelet.services.WaitingDomainService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -27,16 +27,12 @@ public class ArticleController {
     @Autowired
     private DomainRegisteredService domainRegisteredService;
 
-    @Autowired
-    private WaitingDomainService waitingDomainService;
-
     @GetMapping(value = "/product/{category}") // can pass product?
     public String showByProduct(@PathVariable String category, Model model ){
 
         model.addAttribute("articles",articleService.getArticleDTOList( category ));
         model.addAttribute("articleBuy",new ArticleDTO() );
 
-        //return "redirect:/";
         return "product/"+category;
     }
 
@@ -48,6 +44,8 @@ public class ArticleController {
             Model model ){
 
         if( productName!= null ) System.out.println( productName );
+
+
         List<ArticleDTO> articles = articleService.getArticleDTOList( "domain" );
 
         addHasTaken(articles,domainName);
@@ -56,7 +54,8 @@ public class ArticleController {
         model.addAttribute("articles", articles);
         model.addAttribute("articleBuy", new ArticleDTO());
         model.addAttribute("articleWaiting", new ArticleDTO());
-        //return "redirect:/";
+
+
         return "domaincheck";
     }
 

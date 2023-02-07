@@ -55,12 +55,12 @@ public class CartController {
             // ARTICLE
             // is host or email
             // if not user --> return account
-            /*
+
             // ARTICLE save
             // page
             // charge domainsServiceUser --> return domainNAme for buy
             // search domainCheck but need ARTICLE
-            */
+
         }
         ((Cart) model.getAttribute("cartUser")).add(article);
         return "redirect:/cart";
