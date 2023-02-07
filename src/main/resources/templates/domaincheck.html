@@ -13,8 +13,17 @@
         <div>
             <label for="years">Duration:
                 <select name="years" id="years">
-                <option th:value="${article.property.price1year}">1 Year</option>
-                <option th:value="${article.property.price2year}">2 Years</option>
+                    <span th:each="year: ${article.years}">
+                        <option th:if="${year.equals('1')}"
+                                th:value="${article.priceYear.get(year)}"
+                                th:text="${year + ' year'}">
+                        </option>
+                        <option th:unless="${year.equals('1')}"
+                                th:value="${article.priceYear.get(year)}"
+                                th:text="${year + ' years'}">
+                        </option>
+                    </span>
+
                 </select>
             </label>
         </div>

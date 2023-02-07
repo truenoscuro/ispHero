@@ -21,7 +21,7 @@
                     <li class="list-group-item"><span th:text="${articles[0].property.capacity}"></span>GB capacity</li>
                 </ul>
                 <div class="container text-center title-1">
-                    <p><span th:text="${articles[0].property.price1year}" class="text-euro"></span>€ / year</p>
+                    <p><span th:text="${articles[0].priceYear.get(articles[0].years[0])}" class="text-euro"></span>€ / year</p>
                 </div>
                 <div class="text-center mt-5">
                     <form action="/cart/add" method="post" th:object="${productBuy}">
@@ -43,7 +43,7 @@
                     <li class="list-group-item"><span th:text="${articles[1].property.capacity}"></span>GB capacity</li>
                 </ul>
                 <div class="container text-center title-1">
-                    <p><span th:text="${articles[1].property.price1year}" class="text-euro"></span>€ / year</p>
+                    <p><span th:text="${articles[1].priceYear.get(articles[1].years[0])}" class="text-euro"></span>€ / year</p>
                 </div>
                 <div class="text-center mt-5">
                     <form action="/cart/add" method="post" th:object="${productBuy}">

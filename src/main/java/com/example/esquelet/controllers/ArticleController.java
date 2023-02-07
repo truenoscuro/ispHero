@@ -36,8 +36,8 @@ public class ArticleController {
         model.addAttribute("articles",articleService.getArticleDTOList( category ));
         model.addAttribute("articleBuy",new ArticleDTO() );
 
-        return "redirect:/";
-        //return "product/"+category;
+        //return "redirect:/";
+        return "product/"+category;
     }
 
     // Pass ARTICLE ( Host or Email )
@@ -74,8 +74,8 @@ public class ArticleController {
         );
         model.addAttribute("articleBuy", new ArticleDTO());
         model.addAttribute("articleWaiting", new ArticleDTO());
-        return "redirect:/";
-        //return "domaincheck";
+        //return "redirect:/";
+        return "domaincheck";
     }
 
 
