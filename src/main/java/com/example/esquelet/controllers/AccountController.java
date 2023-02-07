@@ -36,10 +36,6 @@ public class AccountController {
 
     @GetMapping("/account")
     public String account(Model model) {
-        model.addAttribute("pageTitle", " My Account");
-        model.addAttribute("isLogged", true);
-        model.addAttribute("waitingDomains",waitingDomainService.getAllByUser( (UserDTO) model.getAttribute("user") ) );
-        model.addAttribute("userData",new UserDTO());
         chargeUser( model );
         return "backendUser/account";
     }

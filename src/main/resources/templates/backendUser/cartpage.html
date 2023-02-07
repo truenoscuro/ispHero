@@ -39,7 +39,7 @@
                                                     <div class="ms-3">
                                                         <h5 th:if="${#strings.contains(article.product,'.')}" th:text="${article.domainName}"></h5>
                                                         <h5 th:if="${!#strings.contains(article.product,'.')}" th:text="${'Hosting ' + article.product}"></h5>
-                                                        <p class="small mb-0" th:text="${article.property.price1year}"></p>
+                                                        <p class="small mb-0" th:text="${article.priceBuy}"></p>
                                                     </div>
                                                 </div>
                                                 <div class="d-flex flex-row align-items-center">
@@ -47,7 +47,7 @@
                                                         <h5 class="fw-normal mb-0"></h5>
                                                     </div>
                                                     <div style="width: 80px;">
-                                                        <h5 class="mb-0" th:text="${article.property.price1year} + ' €'"></h5>
+                                                        <h5 class="mb-0" th:text="${article.priceBuy} + ' €'"></h5>
                                                     </div>
                                                     <form action="/cart/remove" method="post">
                                                         <input type="hidden" th:value="${article.product}" name="product">
