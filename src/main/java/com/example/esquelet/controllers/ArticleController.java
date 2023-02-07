@@ -47,35 +47,42 @@ public class ArticleController {
             @RequestParam(name = "productName",required = false)  String productName,
             Model model ){
 
+        if( productName!= null ) System.out.println( productName );
         List<ArticleDTO> articles = articleService.getArticleDTOList( "domain" );
-        articles.forEach( System.out::println );
-        DomainRegisteredDTO domainRegistered = domainRegisteredService.getDomainRegisteredDTO(domainName);
-        model.addAttribute("domainName" , domainName );
-        model.addAttribute("hasUser",hasUser(model));
-        Optional<WaitingDomainDTO> waitingDomain = Optional.of(new WaitingDomainDTO());
-        if( hasUser(model) ){
-            waitingDomain = ((UserDTO) model.getAttribute("user")).getWaitingDomains()
-                    .stream().filter( w -> w.getNameDomain().equals(domainName))
-                    .findFirst();
-        }
-        WaitingDomainDTO finalW = new WaitingDomainDTO();
-        if(waitingDomain.isPresent()) finalW = waitingDomain.get();
-        WaitingDomainDTO finalW1 = finalW;
-        model.addAttribute(
-                "articles",
-                articles.stream()
-                        .peek(article ->{
-                            if (domainRegistered.containTld(article)) article.addProperty("taken", "true");
-                            else article.addProperty("taken", "false");})
-                        .peek(article ->{
-                            if(finalW1.containTld(article) ) article.addProperty("waiting","true");
-                            else article.addProperty("waiting", "false");})
-                        .toList()
-        );
+
+        addHasTaken(articles,domainName);
+        addHasWaiting(articles,model,domainName);
+
+        model.addAttribute("articles", articles);
         model.addAttribute("articleBuy", new ArticleDTO());
         model.addAttribute("articleWaiting", new ArticleDTO());
         //return "redirect:/";
         return "domaincheck";
+    }
+
+    private void addHasTaken( List<ArticleDTO> articles , String domainName ){
+        DomainRegisteredDTO domainRegistered = domainRegisteredService.getDomainRegisteredDTO( domainName );
+        articles.forEach(article ->{
+                    if (domainRegistered.containTld(article)) article.addProperty("taken", "true");
+                    else article.addProperty("taken", "false");}
+                );
+    }
+    private void addHasWaiting( List<ArticleDTO> articles, Model model, String domainName ){
+        Optional<WaitingDomainDTO> waitingDomainOptional = Optional.of(new WaitingDomainDTO());
+        if( hasUser(model) ){
+            waitingDomainOptional = ((UserDTO) model.getAttribute("user"))
+                    .getWaitingDomains()
+                    .stream().filter( w -> w.getNameDomain().equals(domainName))
+                    .findFirst();
+        }
+        WaitingDomainDTO waitingDomain = new WaitingDomainDTO();
+        if(waitingDomainOptional.isPresent()) waitingDomain = waitingDomainOptional.get();
+        WaitingDomainDTO finalWaitingDomain = waitingDomain;
+        articles.forEach(article ->{
+            if(finalWaitingDomain.containTld( article ) ) article.addProperty("waiting","true");
+            else article.addProperty("waiting", "false");
+        });
+
     }
 
 

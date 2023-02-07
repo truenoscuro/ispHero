@@ -17,32 +17,36 @@ public class ArticleDTO {
 
     private String category;
 
-    private String domainName;
+    private String domainName = "";
 
-    private String name;
+    private String name = "";
     private Map<String,String> property;
 
     private List<String> years;
     private Map<String,String> priceYear;
-    private Map<String ,String> typeProperty;
     private List<ArticleDTO> bundle;
 
+    // dates cartBuy
+    private String priceBuy = null;
+    private String quantity = null;
+    private String vat = null;
+
+    public ArticleDTO(String product,
+                      String category,
+                      Map<String, String> property,
+                      List<String> years,
+                      Map<String, String> priceYear,
+                      List<ArticleDTO> bundle) {
+        this.product = product;
+        this.category = category;
+        this.property = property;
+        this.years = years;
+        this.priceYear = priceYear;
+        this.bundle = bundle;
+    }
+
     public  static ArticleDTO  createArticleDTO(List<Article> articles ){
-        //product name
-        String category = articles.get(0).getProduct().getCategory().getName();
-        String product = articles.get(0).getProduct().getName();
-        // propertyes and typePropertyes
-        Map<String,String> property  = new HashMap<>();
-        Map<String,String> typeProperty  = new HashMap<>();
-
-        articles.stream()
-                .filter( article -> !article.getProperty().getName().contains("price"))
-                .forEach( article -> {
-                    Property propertyArticle = article.getProperty( );
-                    property.put( propertyArticle.getName(),article.getValueProperty() );
-                    typeProperty.put( propertyArticle.getName(),propertyArticle.getType() );
-                });
-
+        //price
         Map<String,String> priceYear = new HashMap<>();
         List<String> years = new ArrayList<>();
         articles.stream()
@@ -53,28 +57,35 @@ public class ArticleDTO {
                     years.add( year );
                     priceYear.put( year , article.getValueProperty( ) );
                 });
-        // DEFAULT PROVES
-        property.put("priceBuy","default");
-        property.put("quantity","default");
-        property.put("vat","default");
-        //bundle
+        return  new ArticleDTO(
+                articles.get(0).getProduct().getCategory().getName(),
+                articles.get(0).getProduct().getName(),
+                generateProperty( articles ),
+                years,
+                priceYear,
+                generateBundle(articles)
+                );
+    }
+    private static Map<String,String> generateProperty(List<Article> articles ){
+        Map<String,String> property  = new HashMap<>();
+        articles.stream()
+                .filter( article -> !article.getProperty().getName().contains("price"))
+                .forEach( article ->
+                    property.put( article.getProperty( ).getName(),article.getValueProperty() )
+                );
+        return property;
+    }
+    private static List<ArticleDTO> generateBundle(List<Article> articles){
         List<ArticleDTO> bundle = new ArrayList<>();
-        articles.stream().filter( article ->  article.getProperty().getName().equals( "isBundle" ) )
+        articles.stream()
+                .filter( article ->  article.getProperty().getName().equals( "isBundle" ) )
                 .findAny()
                 .ifPresent( article -> article.getArticlesChildren()
                         .stream().collect(Collectors.groupingBy( Article::getProduct ) )
                         .values()
                         .stream().map( ArticleDTO::createArticleDTO )
                         .forEach( bundle::add ) );
-        return  new ArticleDTO( category,
-                product,
-                "",
-                "",
-                property,
-                years,
-                priceYear,
-                typeProperty,
-                bundle);
+        return bundle;
     }
 
 
