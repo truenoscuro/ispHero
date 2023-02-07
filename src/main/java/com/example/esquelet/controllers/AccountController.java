@@ -3,9 +3,8 @@ package com.example.esquelet.controllers;
 import com.example.esquelet.dtos.ArticleDTO;
 import com.example.esquelet.dtos.UserDTO;
 
-import com.example.esquelet.services.ArticleService;
-import com.example.esquelet.services.UserService;
-import com.example.esquelet.services.WaitingDomainService;
+import com.example.esquelet.repositories.WaitingDomainRepository;
+import com.example.esquelet.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,6 +25,14 @@ public class AccountController {
     @Autowired
     WaitingDomainService waitingDomainService;
 
+    @Autowired
+    InvoiceService invoiceService;
+
+    @Autowired
+    ServService servService;
+    @Autowired
+    private WaitingDomainRepository waitingDomainRepository;
+
 
     @GetMapping("/account")
     public String account(Model model) {
@@ -39,16 +46,16 @@ public class AccountController {
 
     private void chargeUser( Model model ){
         UserDTO userDTO =  userService.getUser((UserDTO) model.getAttribute("user"));
-        userService.getServices( userDTO );
-        userService.getInvoices( userDTO );
-        userService.getWaitingDomains( userDTO );
+        servService.getServices( userDTO );
+        invoiceService.getInvoices( userDTO );
+        waitingDomainService.getWaitingDomainsByUser( userDTO );
         model.addAttribute("user",userDTO);
     }
 
 
     @GetMapping("/account/services")
     public String viewServices(Model model){
-        userService.getServices( (UserDTO) Objects.requireNonNull( model.getAttribute("user" ) ) );
+        servService.getServices( (UserDTO) Objects.requireNonNull( model.getAttribute("user" ) ) );
         return "backendUser/services";
     }
 

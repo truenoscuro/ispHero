@@ -10,6 +10,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import com.mailersend.sdk.emails.Email;
+import com.mailersend.sdk.MailerSend;
+import com.mailersend.sdk.MailerSendResponse;
+import com.mailersend.sdk.exceptions.MailerSendException;
+
 import java.util.Objects;
 
 
@@ -40,14 +45,16 @@ public class UserController {
                 return "backendUser/register";
             }
             user.setRole("USER");
+            user.setVerified(false);
             user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
             userService.addUser(user);
             model.addAttribute("user",userService.getUser(user));
             model.addAttribute("isLogged",true);
             model.addAttribute("status", "true");
+
+            userService.sendRegisterMail(user);
         }
         else {
-            userService.sendRegisterMail(user);
             model.addAttribute("status", "false");
         }
         return "backendUser/register";
@@ -88,8 +95,24 @@ public class UserController {
     }
 
     @PostMapping("/message")
-    public String messageSent() {
-        return "messagesent";
+    public String messageSent(@RequestParam(name = "name") String name, @RequestParam(name = "email") String email, @RequestParam(name = "message") String message, Model model) {
+        Email emailMessage = new Email();
+        emailMessage.setFrom("Contact from ISP Hero", "info@isphero.com");
+        emailMessage.addRecipient("ISP Hero", "info@isphero.com");
+        emailMessage.setSubject("Contact from: " + name);
+        emailMessage.setHtml(message);
+
+        MailerSend mailerSend = new MailerSend();
+        mailerSend.setToken("eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiOGZhMzlmZTdlMmVkZTM0ODJkZDYyMDRkNzQxMmE1MDJlMmM4YWFlNWJkNmZjNmY0ZWQzY2E4NTY3YTFhYTk2ZmEyOGNjY2FiNTNkYjdjOWUiLCJpYXQiOjE2NzUyNDQ0MTguOTIzMSwibmJmIjoxNjc1MjQ0NDE4LjkyMzEwMywiZXhwIjo0ODMwOTE4MDE4LjkxNjc2Nywic3ViIjoiNTYwOTIiLCJzY29wZXMiOlsiZW1haWxfZnVsbCIsImRvbWFpbnNfZnVsbCIsImFjdGl2aXR5X2Z1bGwiLCJhbmFseXRpY3NfZnVsbCIsInRva2Vuc19mdWxsIiwid2ViaG9va3NfZnVsbCIsInRlbXBsYXRlc19mdWxsIiwic3VwcHJlc3Npb25zX2Z1bGwiLCJzbXNfZnVsbCIsImVtYWlsX3ZlcmlmaWNhdGlvbl9mdWxsIiwiaW5ib3VuZHNfZnVsbCIsInJlY2lwaWVudHNfZnVsbCIsInNlbmRlcl9pZGVudGl0eV9mdWxsIl19.fFXonujENY0bK7HoMPrTHWnH-eWBXwuTePS_DFp75ay010aus_zlony_FXhnB01KGx4XSI-GCEG9iJjuzIaPFivOMv62htYniRsZmKFyDFGLSGJmriC4Fzsl4K9MFO9TF_0m69DocCAGlwkE0SD3NWJS0VyQjqJh1oYZLdif4BzMQQYOy41WFMPSqu665IN120C0ZJU4dZdCW78nhbiM3D-lJl2sdDITflqiSyHcMscmg0R-sr8YD_vZsZ0ju81nH24i7Zx2iT7BtDHkfN9aduB7kO0YlTofT_zFGY6FntHs1Ub1axy6Tlg0Bg_UpoPL3Baf8qIuMlsXnvmPleRP3GKPNUJdRd-SkT4JD8voEtEO6eoNf6Xbz5R6_aSlkIFdNfXYDWfVRR-KzOtuAtQAZZ7JxzC_a1wSAFm9cYndl1C83ZkSrONio8m-uab3cgqmpZ-51ZtxgEfxoJyAMZeoxkNQPjONvGNXgDsmR2ktGeDrTzXgwUpUvEn9tHQkWuwUTzgQRBKGt1rkDiNhzQ9l0D4f0ZVROY6lCEP4yMQq6KWKBf32H3VovE9O3TFBJY9OYx17tnUykWCw81NYx0Z8sx68gZhE_GzBjZKi42aOifcy3k11JhKIF_svcl4dxQDvaUcqUblwlWpcZXSYM-hnyeSlShPqZUQS2W11_zDbw4I");
+
+        try {
+            MailerSendResponse response = mailerSend.emails().send(emailMessage);
+            System.out.println(response.messageId);
+        } catch (MailerSendException e) {
+            e.printStackTrace();
+        }
+
+        return "backendUser/messagesent";
     }
 
     @GetMapping("/password-recovery")

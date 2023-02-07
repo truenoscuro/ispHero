@@ -35,13 +35,14 @@ public class WaitingDomainService {
     @Autowired
     private ProductRepository productRepository;
 
-    public List<WaitingDomainDTO> getAllByUser(UserDTO user){
+
+    public void getWaitingDomainsByUser(UserDTO user){
         User userEntity = userRepository.findByUsername(user.getUsername()).get();
-        return  waitingDomainRepository.findAllByUser(userEntity)
+        waitingDomainRepository.findAllByUser(userEntity)
                 .stream().collect(Collectors.groupingBy(WaitingDomain::getNameDomain))
                 .values()
                 .stream().map(WaitingDomainDTO::createWaitingDomainDTO)
-                .toList();
+                .forEach(user::addWaitingDomain);
     }
 
     @Transactional
