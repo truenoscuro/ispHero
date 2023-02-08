@@ -27,14 +27,14 @@
             </label>
         </div>
         <div>
-            <div th:unless="${article.property.taken}" class="hidden" th:classappend="'action-' + ${domainName + article.property.tld}">
+            <div th:unless="${article.property.taken}" class="hidden" th:classappend="'action-' + ${article.name}">
                 <form action="/cart/add" method="post" th:object="${productBuy}">
                     <input type="hidden" th:value="${article.product}" name="product">
                     <input type="hidden" th:value="${article.domainName}" name="domainName">
                     <input type="submit" value="buy" class="btn btn-success">
                 </form>
             </div>
-            <div th:if="${article.property.taken}" class="hidden" th:classappend="'action-' + ${domainName + article.property.tld}">
+            <div th:if="${article.property.taken}" class="hidden" th:classappend="'action-' + ${article.name}">
                 <form  action="/account/waitingdomains" method="post">
                     <input type="hidden" th:value="${article.domainName}" name="domainName">
                     <input type="hidden" th:value="${article.product}" name="product">
