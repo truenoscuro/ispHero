@@ -57,8 +57,10 @@ public class UserService {
         return user.isPresent();
     }
 
-
-
+    public boolean isAdmin( String userName ) {
+        Optional<User> user = userRepository.findByUsername(userName);
+        return user.map(value -> value.getRole().equals(Role.ADMIN)).orElse(false);
+    }
 
 
     public void sendRegisterMail( UserDTO user ) {
@@ -87,13 +89,5 @@ public class UserService {
     public void addUserData(UserDTO user){
         userDataRepository.save(user.getUserDataEntity());
     }
-
-
-
-
-
-
-
-
 
 }

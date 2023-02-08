@@ -22,4 +22,13 @@ public class MvnConfiguration implements WebMvcConfigurer {
         registry.addInterceptor(authInterceptor).addPathPatterns("/account", "/account/**", "/logout");
         registry.addInterceptor(translateInterceptor);
     }
+
+    @Override
+    public void addCorsMappings(org.springframework.web.servlet.config.annotation.CorsRegistry registry) {
+        registry.addMapping("/**")
+                .allowedOrigins("*")
+                .allowedMethods("GET", "POST", "PUT", "DELETE", "HEAD", "OPTIONS")
+                .allowedHeaders("*");
+    }
+
 }
