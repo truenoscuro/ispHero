@@ -153,8 +153,7 @@
           </div>
           <div class="modal-body">
             <p class="text-dark">Select your language:</p>
-            <                <div th:replace="fragments/cart.html :: addcart(${articles[1]},${articles[1].years[0]},${productBuy})"> </div>
-div class="d-flex grid gap-3 align-content-center">
+            <div class="d-flex grid gap-3 align-content-center">
                 <div th:each="language : ${languages}">
                     <a th:href="${' ?lang='+language.code}" class="btn btn-outline-secondary" th:text="${language.name}"></a>
                 </div>
