@@ -9,7 +9,7 @@
 <div class="container">
     <h2 class="title-1 text-center">Choose your <span class="text-primary">domain: </span></h2>
     <div th:each="article: ${articles}" class="d-flex my-3 justify-content-evenly alert alert-light align-items-center">
-        <div> <span class="domain-name" th:classappend="${article.property.taken}" th:text="${domainName + article.property.tld}"></span> </div>
+        <div> <span class="domain-name" th:classappend="${article.property.taken}" th:text="${article.name}"></span> </div>
         <div>
             <label for="years">Duration:
                 <select name="years" id="years">
@@ -31,44 +31,38 @@
             <div th:unless="${article.property.taken}" class="hidden" th:classappend="'action-' + ${domainName + article.property.tld}">
                 <form action="/cart/add" method="post" th:object="${productBuy}">
                     <input type="hidden" th:value="${article.product}" name="product">
-                    <input type="hidden" th:value="${domainName}" name="domainName">
+                    <input type="hidden" th:value="${article.domainName}" name="domainName">
                     <input type="submit" value="buy" class="btn btn-success">
                 </form>
             </div>
             <div th:if="${article.property.taken}" class="hidden" th:classappend="'action-' + ${domainName + article.property.tld}">
                 <form  action="/account/waitingdomains" method="post">
-                    <input type="hidden" th:value="${domainName}" name="domainName">
+                    <input type="hidden" th:value="${article.domainName}" name="domainName">
                     <input type="hidden" th:value="${article.product}" name="product">
                     <input th:unless="${article.property.waiting}" type="submit" value="Waiting add" class="btn btn-light">
                     <input th:if="${article.property.waiting}" type="submit" value="Waiting delete" class="btn btn-delete">
                 </form>
             </div>
-            <div>
-                <label for="years">
-                    <select name="years" id="years" class="form-select">
-                    <option th:value="${article.property.price1year}" selected>1 Year</option>
-                    <option th:value="${article.property.price2year}">2 Years</option>
-                    </select>
-                </label>
-                </div>
+
                 <div>
                     <div class="hidden buy" th:classappend="'action-' + ${domainName + article.property.tld} + ' ' + ${article.property.taken}">
                         <form action="/cart/add" method="post" th:object="${productBuy}">
                             <input type="hidden" th:value="${article.product}" name="product">
-                            <input type="hidden" th:value="${domainName}" name="domainName">
+                            <input type="hidden" th:value="${article.domainName}" name="domainName">
                             <input type="submit" value="Add to cart" class="btn btn-success m-0">
                         </form>
                     </div>
-                    <div class="hidden wait" th:classappend="'action-' + ${domainName + article.property.tld} + ' ' + ${article.property.taken}">
+                    <div class="hidden wait" th:classappend="'action-' + ${article.name} + ' ' + ${article.property.taken}">
                         <form  action="/account/waitingdomains" method="post">
-                            <input type="hidden" th:value="${domainName}" name="domainName">
+                            <input type="hidden" th:value="${article.domainName}" name="domainName">
                             <input type="hidden" th:value="${article.product}" name="product">
+                            <!--  Pasar es tld es un segon -->
                             <input th:unless="${article.property.waiting}" type="submit" value="Add to list" class="btn btn-light m-0">
                             <input th:if="${article.property.waiting}" type="submit" value="Delete from list" class="btn btn-delete m-0">
                         </form>
                     </div>
                     <div>
-                        <div class="spinner-border m-0" th:classappend="'spinner-' + ${domainName + article.property.tld}" style="width: 3rem; height: 3rem;" role="status">
+                        <div class="spinner-border m-0" th:classappend="'spinner-' + ${article.name}" style="width: 3rem; height: 3rem;" role="status">
                             <span class="sr-only">Loading...</span>
                         </div>
                     </div>

@@ -16,4 +16,18 @@
   </div>
 </div>
 
+<div th:fragment="addcart(article,year,productBuy)">
+    <form action="/cart/add" method="post" th:object="${productBuy}">
+      <input type="hidden"  th:value="${article.product}" name="product">
+      <input type="hidden" th:value="${year}" name="year">
+      <input type="hidden" th:value="${article.priceYear.get(year)}" name="priceBuy">
+      <input type="hidden" value="1" name="quantity">
+      <input type="hidden" th:value="${article.property.vat}">
+      <input type="submit" value="Add to cart" class="buy-button">
+  </form>
+</div>
+
+
+
+
 </html>

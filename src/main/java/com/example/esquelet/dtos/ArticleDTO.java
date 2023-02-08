@@ -27,9 +27,10 @@ public class ArticleDTO {
     private List<ArticleDTO> bundle;
 
     // dates cartBuy
-    private String priceBuy = null;
-    private String quantity = null;
-    private String vat = null;
+    private String year;
+    private String priceBuy;
+    private String quantity;
+    private String vat;
 
     public ArticleDTO(String category,
                       String product,
@@ -73,6 +74,7 @@ public class ArticleDTO {
                 .forEach( article ->
                     property.put( article.getProperty( ).getName(),article.getValueProperty() )
                 );
+        property.put("vat","" + 21); // <-- put in ddbb
         return property;
     }
     private static List<ArticleDTO> generateBundle(List<Article> articles){

@@ -47,16 +47,23 @@ public class ArticleController {
 
 
         List<ArticleDTO> articles = articleService.getArticleDTOList( "domain" );
-
+        //----
+        addDomainName(articles,domainName);
         addHasTaken(articles,domainName);
         addHasWaiting(articles,model,domainName);
-
+        articles.forEach(System.out::println);
+        //----
         model.addAttribute("articles", articles);
         model.addAttribute("articleBuy", new ArticleDTO());
         model.addAttribute("articleWaiting", new ArticleDTO());
 
-
         return "domaincheck";
+        //return "redirect:/";
+    }
+
+    private void addDomainName(List<ArticleDTO> articles,String domainName){
+        articles.forEach(article -> article.setDomainName(domainName));
+        articles.forEach(article -> article.setName( domainName + article.getProperty().get("tld") ) );
     }
 
     private void addHasTaken( List<ArticleDTO> articles , String domainName ){

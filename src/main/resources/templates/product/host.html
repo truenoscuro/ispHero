@@ -24,10 +24,7 @@
                     <p><span th:text="${articles[0].priceYear.get(articles[0].years[0])}" class="text-euro"></span>€ / year</p>
                 </div>
                 <div class="text-center mt-5">
-                    <form action="/cart/add" method="post" th:object="${productBuy}">
-                        <input type="hidden"  th:value="${articles[0].product}" name="product">
-                        <input type="submit" value="Add to cart" class="buy-button">
-                    </form>
+                    <div th:replace="fragments/cart.html :: addcart(${articles[0]},${articles[0].years[0]},${productBuy})"> </div>
                 </div>
             </div>
         </div>
@@ -45,12 +42,7 @@
                 <div class="container text-center title-1">
                     <p><span th:text="${articles[1].priceYear.get(articles[1].years[0])}" class="text-euro"></span>€ / year</p>
                 </div>
-                <div class="text-center mt-5">
-                    <form action="/cart/add" method="post" th:object="${productBuy}">
-                        <input type="hidden"  th:value="${articles[1].product}" name="product">
-                        <input type="submit" value="Add to cart" class="buy-button">
-                    </form>
-                </div>
+                <div th:replace="fragments/cart.html :: addcart(${articles[1]},${articles[1].years[0]},${productBuy})"> </div>
             </div>
         </div>
     </div>
