@@ -31,6 +31,5 @@ public class RESTAuthController {
         } else {
             return ResponseEntity.badRequest().body("Invalid username or password");
         }
-
     }
 }
