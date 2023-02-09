@@ -38,6 +38,8 @@ public class ArticleDTO {
     // Service user
     private ServiceDTO service ;
 
+    //articleBuy
+    private ArticleDTO domainAppend;
     public ArticleDTO(String category,
                       String product,
                       Map<String, String> property,

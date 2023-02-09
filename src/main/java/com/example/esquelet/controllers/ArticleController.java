@@ -40,11 +40,7 @@ public class ArticleController {
     @PostMapping("/domaincheck")
     public String  domainCheck(
             @RequestParam( "domainSearch" ) String domainName,
-            @RequestParam( name = "productName",required = false )  String productName, // Use session
             Model model ){
-
-        if( productName!= null ) System.out.println( productName );
-
 
         List<ArticleDTO> articles = articleService.getArticleDTOList( "domain" );
         //----

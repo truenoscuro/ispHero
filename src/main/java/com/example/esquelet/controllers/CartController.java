@@ -11,6 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Objects;
+
 @Controller
 @SessionAttributes(value = {"user","isLogged","cartUser","languages","langPage","articleComplete"})
 
@@ -67,8 +69,18 @@ public class CartController {
             article.setDomainName(articleBuy.getDomainName() + article.getProperty().get("tld"));
             article.setName(articleBuy.getDomainName());
             article.addProperty( "needDomain" , "false" );
+
         } else {
             article.addProperty( "needDomain" , "true" );
+        }
+        if( model.containsAttribute("articleComplete")
+                &&  model.getAttribute("articleComplete") != null){
+            Long idCart = (Long) model.getAttribute("articleComplete");
+            ((Cart) model.getAttribute("cartUser"))
+                    .getArticles().stream().
+                    filter( a -> Objects.equals(a.getIdCart(), idCart))
+                    .findFirst()
+                    .get().setDomainAppend(article);
         }
         ((Cart) model.getAttribute("cartUser")).add(article);
         return "redirect:/cart";
