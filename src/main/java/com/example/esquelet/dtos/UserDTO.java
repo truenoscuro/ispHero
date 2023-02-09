@@ -34,6 +34,8 @@ public class UserDTO {
     private String lastName2;
     private String address;
     private String city;
+
+    private String postalCode;
     private String country;
 
     private List<ServiceDTO> services = new ArrayList<>();
@@ -62,6 +64,7 @@ public class UserDTO {
         this.lastName2 = userData.getLastName2();
         this.address = userData.getAddress();
         this.city = userData.getCity();
+        this.postalCode = userData.getPostalCode();
         this.country = userData.getCountry();
     }
     public void setUserData( UserDTO userData ){
@@ -71,6 +74,7 @@ public class UserDTO {
         this.lastName2 = userData.getLastName2();
         this.address = userData.getAddress();
         this.city = userData.getCity();
+        this.postalCode = userData.getPostalCode();
         this.country = userData.getCountry();
     }
 
@@ -93,6 +97,7 @@ public class UserDTO {
                 lastName2,
                 address,
                 city,
+                postalCode,
                 getUserEntity()
         );
         if( idData != null ) userData.setId(idData);
@@ -119,7 +124,8 @@ public class UserDTO {
                 firstName != null &&
                 lastName1 != null &&
                 address != null &&
-                city != null;
+                city != null &&
+                postalCode != null;
     }
 
     // clean User
@@ -135,6 +141,7 @@ public class UserDTO {
         this.lastName2 = null;
         this.address = null;
         this.city = null;
+        this.postalCode = null;
         this.services = null;
         this.country = null;
     }

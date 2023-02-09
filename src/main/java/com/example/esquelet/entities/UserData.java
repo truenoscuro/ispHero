@@ -26,6 +26,7 @@ public class UserData {
     @NotNull
     private String city;
 
+    private String postalCode;
     private String country;
 
     @NotNull
@@ -33,12 +34,13 @@ public class UserData {
     private User user;
 
 
-    public UserData(@NotNull String firstName, @NotNull String lastName1, String lastName2, @NotNull String address, @NotNull String city, @NotNull User user) {
+    public UserData(@NotNull String firstName, @NotNull String lastName1, String lastName2, @NotNull String address, @NotNull String city, String postalCode, @NotNull User user) {
         this.firstName = firstName;
         this.lastName1 = lastName1;
         this.lastName2 = lastName2;
         this.address = address;
         this.city = city;
+        this.postalCode = postalCode;
         this.user = user;
     }
 }

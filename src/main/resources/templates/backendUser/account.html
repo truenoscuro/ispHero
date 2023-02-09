@@ -98,20 +98,25 @@
                             </div>
                             <div class="mb-3">
                                 <label for="address" class="form-label" th:text="#{messages.account.address}"></label>
-                                <input type="text" class="form-control" id="address" placeholder="Address"
+                                <input type="text" class="form-control editable" id="address" placeholder="Address"
                                        th:value="${user.address}" name="address" readonly>
                             </div>
                             <div class="mb-3">
                                 <label for="city" class="form-label" th:text="#{messages.account.city}"></label>
-                                <input type="text" class="form-control" id="city" placeholder="City"
+                                <input type="text" class="form-control editable" id="city" placeholder="City"
                                        th:value="${user.city}" name="city" readonly>
                             </div>
-                            <div class="my-5 d-flex mx-3 justify-content-between">
-                                <button class="btn btn-success edit" th:text="#{messages.account.editBtn}"></button>
-                                <button class="btn btn-outline-danger cancel" th:text="#{messages.account.cancelBtn}"></button>
-                                <button class="btn btn-primary save" type="submit" th:text="#{messages.account.saveBtn}"></button>
+                            <div class="mb-3">
+                                <label for="postalCode" class="form-label" th:text="#{messages.account.firstName}"></label>
+                                <input type="text" class="form-control editable" id="postalCode" placeholder="Postal Code"
+                                       th:value="${user.postalCode}" name="postalCode" readonly>
                             </div>
                         </div>
+                    </div>
+                    <div class="my-5 d-flex justify-content-between">
+                        <button class="btn btn-success edit" th:text="#{messages.account.editBtn}"></button>
+                        <button class="btn btn-outline-danger cancel" th:text="#{messages.account.cancelBtn}"></button>
+                        <button class="btn btn-primary save" type="submit" th:text="#{messages.account.saveBtn}"></button>
                     </div>
                 </form>
                 <div class="col-12">
@@ -169,8 +174,8 @@
 
     $(document).ready(function () {
 
-        $('.cancel').hide();
-        $('.save').hide();
+        $('.cancel').hide()
+        $('.save').hide()
 
         var inputs = document.querySelectorAll('input[readonly]');
 
@@ -210,22 +215,20 @@
             }
         })
     })
-    var inputs = document.querySelectorAll('input');
+    var inputs = document.querySelectorAll('.editable');
 
     var tmpvalues = []
-    var tmpcountry = $('#country').val();
 
-    for (var j = 3; j < 7; j++) {
+    for (var j = 0; j < inputs.length; j++) {
         tmpvalues.push(inputs[j].value);
     }
 
     $('.edit').click(function (e) {
         e.preventDefault()
-        for (var i = 5; i < 7; i++) {
+        for (var i = 0; i < inputs.length; i++) {
             inputs[i].removeAttribute('readonly');
             inputs[i].style.backgroundColor = 'white';
         }
-        $('select').removeAttr('readonly')
         $('.save').show();
         $('.cancel').show();
         $(this).hide();
@@ -233,15 +236,13 @@
 
     $('.cancel').click(function (e) {
         e.preventDefault();
-        for (var i = 5; i < 7; i++) {
-            inputs[i].value = tmpvalues[i - 3];
+        for (var i = 0; i < inputs.length; i++) {
+            inputs[i].value = tmpvalues[i];
             inputs[i].style.backgroundColor = '#e9ecef';
         }
-        $('#country').val(tmpcountry);
-        for (var i = 5; i < 7; i++) {
+        for (var i = 0; i < inputs.length; i++) {
             inputs[i].setAttribute('readonly', 'readonly');
         }
-        $('select').attr('readonly', 'readonly')
         $('.save').hide();
         $(this).hide();
         $('.edit').show();
