@@ -41,8 +41,7 @@ public class OAuthController {
         String mail = payload.getEmail();
 
         // TODO: From here, you can get the user's email address, name, etc. and CREATE local token
-        String localToken = "LOCALTOKEN OF "+ firstName + " WITH EMAIL " + mail;
-        return new ResponseEntity<>(localToken, null, 200);
+        return new ResponseEntity<>(mail, null, 200);
     }
 
 
