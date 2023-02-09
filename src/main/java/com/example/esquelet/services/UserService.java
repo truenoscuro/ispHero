@@ -39,6 +39,10 @@ public class UserService {
         return  userResult;
     }
 
+    public User getUser( String username ){
+        return userRepository.findByUsername( username ).get();
+    }
+
 
     // boolean if you want newsletter
     @Transactional
