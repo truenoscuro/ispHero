@@ -12,7 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@SessionAttributes(value = {"user","isLogged","cartUser","languages","langPage"})
+@SessionAttributes(value = {"user","isLogged","cartUser","languages","langPage","articleComplete"})
 
 public class CartController {
 
@@ -32,8 +32,15 @@ public class CartController {
     private DomainRegisteredService domainRegisteredService;
 
     private void initCart(Model model){
-        if(model.containsAttribute("cartUser")) return;
-        model.addAttribute("cartUser",new Cart());
+        if(!model.containsAttribute("cartUser"))
+            model.addAttribute("cartUser",new Cart());
+
+    }
+
+    private ArticleDTO chargeArticleBuy(ArticleDTO articleBuy){
+        ArticleDTO article = articleService.getArticleDTO(articleBuy.getProduct());
+        article.setDatesBuy(articleBuy);
+        return article;
     }
 
     @GetMapping("/cart")
@@ -41,26 +48,27 @@ public class CartController {
         initCart( model );
         return "backendUser/cartpage";
     }
+    @PostMapping("/cart/addDomain")
+    public String addDomain( @RequestParam("idCart") Long articleComplete , Model model ){
+        model.addAttribute("articleComplete" , articleComplete );
+        if(!model.containsAttribute("user") ) return "redirect:/login";
+        UserDTO user = (UserDTO) model.getAttribute("user");
+        if(!user.isValid()) return "redirect:/login";
+        return "redirect:/account/services/add";
+    }
+
 
     @PostMapping("/cart/add")
     public String addArticle(@ModelAttribute ArticleDTO articleBuy ,
                              Model model){
         initCart( model );
-        ArticleDTO article = articleService.getArticleDTO(articleBuy.getProduct());
-        if( article.getDomainName() != null ){
-            article.setDomainName( articleBuy.getDomainName() + article.getProperty().get("tld") );
-            article.setName( articleBuy.getDomainName());
+        ArticleDTO article = chargeArticleBuy( articleBuy );
+        if( article.isDomain() ) {
+            article.setDomainName(articleBuy.getDomainName() + article.getProperty().get("tld"));
+            article.setName(articleBuy.getDomainName());
+            article.addProperty( "needDomain" , "false" );
         } else {
-
-            // ARTICLE
-            // is host or email
-            // if not user --> return account
-
-            // ARTICLE save
-            // page
-            // charge domainsServiceUser --> return domainNAme for buy
-            // search domainCheck but need ARTICLE
-
+            article.addProperty( "needDomain" , "true" );
         }
         ((Cart) model.getAttribute("cartUser")).add(article);
         return "redirect:/cart";
@@ -82,11 +90,11 @@ public class CartController {
         UserDTO user = (UserDTO) model.getAttribute("user");
         Cart cart = (Cart) model.getAttribute("cartUser");
         //add Service
-        servService.addServicesByUser(user,cart);
+        servService.addServicesByUser ( user , cart );
         // add Invoice
         invoiceService.addInvoiceByUser( user , cart );
         //update DomainRegistered
-        domainRegisteredService.updateDomainRegisteredWithCart(cart);
+        domainRegisteredService.updateDomainRegisteredWithCart( cart );
 
         return "redirect:/cart/payment";
     }

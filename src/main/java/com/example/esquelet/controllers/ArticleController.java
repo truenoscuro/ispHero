@@ -30,8 +30,8 @@ public class ArticleController {
     @GetMapping(value = "/product/{category}") // can pass product?
     public String showByProduct(@PathVariable String category, Model model ){
 
-        model.addAttribute("articles",articleService.getArticleDTOList( category ));
-        model.addAttribute("articleBuy",new ArticleDTO() );
+        model.addAttribute("articles" , articleService.getArticleDTOList( category ) );
+        model.addAttribute("articleBuy", new ArticleDTO() );
 
         return "product/"+category;
     }
@@ -39,8 +39,8 @@ public class ArticleController {
     // Pass ARTICLE ( Host or Email )
     @PostMapping("/domaincheck")
     public String  domainCheck(
-            @RequestParam("domainSearch") String domainName,
-            @RequestParam(name = "productName",required = false)  String productName,
+            @RequestParam( "domainSearch" ) String domainName,
+            @RequestParam( name = "productName",required = false )  String productName, // Use session
             Model model ){
 
         if( productName!= null ) System.out.println( productName );
@@ -48,22 +48,21 @@ public class ArticleController {
 
         List<ArticleDTO> articles = articleService.getArticleDTOList( "domain" );
         //----
-        addDomainName(articles,domainName);
-        addHasTaken(articles,domainName);
-        addHasWaiting(articles,model,domainName);
-        articles.forEach(System.out::println);
+        addDomainNameAndName( articles , domainName );
+        addHasTaken( articles , domainName );
+        addHasWaiting( articles , model , domainName );
         //----
         model.addAttribute("articles", articles);
-        model.addAttribute("articleBuy", new ArticleDTO());
-        model.addAttribute("articleWaiting", new ArticleDTO());
+        // Only need pas 1 new ArticleDTO
+        model.addAttribute("articleBuy", new ArticleDTO() );
+        model.addAttribute("articleWaiting", new ArticleDTO() );
 
         return "domaincheck";
         //return "redirect:/";
     }
 
-    private void addDomainName(List<ArticleDTO> articles,String domainName){
-        articles.forEach(article -> article.setDomainName(domainName));
-        articles.forEach(article -> article.setName( domainName + article.getProperty().get("tld") ) );
+    private void addDomainNameAndName( List<ArticleDTO> articles , String domainName ){
+        articles.forEach( article ->  article.setDomainNameAndName(domainName) );
     }
 
     private void addHasTaken( List<ArticleDTO> articles , String domainName ){

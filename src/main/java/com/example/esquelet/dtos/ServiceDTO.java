@@ -13,6 +13,8 @@ import java.time.LocalDateTime;
 public class ServiceDTO {
     private Long id;
 
+    private String category;
+
     private String product;
 
     private String nameDomain;
@@ -25,10 +27,15 @@ public class ServiceDTO {
     public static ServiceDTO createServiceDTO( Service service ){
         return new ServiceDTO(
                 service.getId(),
+                service.getArticle().getProduct().getCategory().getName(),
                 service.getArticle().getProduct().getName(),
                 service.getNameDomain(),
                 service.getDateExpired(),
                 service.isCancelled()
         );
+    }
+
+    public boolean isDomain(){
+        return category.equals("domain");
     }
 }

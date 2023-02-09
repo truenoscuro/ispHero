@@ -10,47 +10,29 @@
     <h2 class="title-1 text-center">Choose your <span class="text-primary">domain: </span></h2>
     <div th:each="article: ${articles}" class="d-flex my-3 justify-content-evenly alert alert-light align-items-center">
         <div> <span class="domain-name" th:classappend="${article.property.taken}" th:text="${article.name}"></span> </div>
-        <div>
-            <label for="years">Duration:
-                <select name="years" id="years">
-                    <span th:each="year: ${article.years}">
-                        <option th:if="${year.equals('1')}"
-                                th:value="${article.priceYear.get(year)}"
-                                th:text="${year + ' year'}">
-                        </option>
-                        <option th:unless="${year.equals('1')}"
-                                th:value="${article.priceYear.get(year)}"
-                                th:text="${year + ' years'}">
-                        </option>
-                    </span>
-                </select>
-            </label>
-        </div>
-        <div>
-            <div th:unless="${article.property.taken}" class="hidden" th:classappend="'action-' + ${article.name}">
-                <form action="/cart/add" method="post" th:object="${productBuy}">
-                    <input type="hidden" th:value="${article.product}" name="product">
-                    <input type="hidden" th:value="${article.domainName}" name="domainName">
-                    <input type="submit" value="buy" class="btn btn-success">
-                </form>
+            <div>
+                <div class="hidden buy" th:classappend="'action-' + ${article.name} + ' ' + ${article.property.taken}">
+                    <form action="/cart/add" method="post" th:object="${productBuy}">
+                        <label for="years">Duration:
+                            <select name="year" id="years">
+                                <span th:each="year: ${article.years}">
+                                    <option th:if="${year.equals('1')}"
+                                            th:value="${year}"
+                                            th:text="${year + ' year'}">
+                                    </option>
+                                    <option th:unless="${year.equals('1')}"
+                                            th:value="${year}"
+                                            th:text="${year + ' years'}">
+                                    </option>
+                                </span>
+                            </select>
+                        </label>
+                        <input type="hidden" th:value="${article.product}" name="product">
+                        <input type="hidden" th:value="${article.domainName}" name="domainName">
+                        <input type="submit" value="Add to cart" class="btn btn-success m-0">
+                    </form>
+                </div>
             </div>
-            <div th:if="${article.property.taken}" class="hidden" th:classappend="'action-' + ${article.name}">
-                <form  action="/account/waitingdomains" method="post">
-                    <input type="hidden" th:value="${article.domainName}" name="domainName">
-                    <input type="hidden" th:value="${article.product}" name="product">
-                    <input th:unless="${article.property.waiting}" type="submit" value="Waiting add" class="btn btn-light">
-                    <input th:if="${article.property.waiting}" type="submit" value="Waiting delete" class="btn btn-delete">
-                </form>
-            </div>
-
-                <div>
-                    <div class="hidden buy" th:classappend="'action-' + ${domainName + article.property.tld} + ' ' + ${article.property.taken}">
-                        <form action="/cart/add" method="post" th:object="${productBuy}">
-                            <input type="hidden" th:value="${article.product}" name="product">
-                            <input type="hidden" th:value="${article.domainName}" name="domainName">
-                            <input type="submit" value="Add to cart" class="btn btn-success m-0">
-                        </form>
-                    </div>
                     <div class="hidden wait" th:classappend="'action-' + ${article.name} + ' ' + ${article.property.taken}">
                         <form  action="/account/waitingdomains" method="post">
                             <input type="hidden" th:value="${article.domainName}" name="domainName">

@@ -39,7 +39,8 @@
                                                     <div class="ms-3">
                                                         <h5 th:if="${#strings.contains(article.product,'.')}" th:text="${article.domainName}"></h5>
                                                         <h5 th:if="${!#strings.contains(article.product,'.')}" th:text="${'Hosting ' + article.product}"></h5>
-                                                        <p class="small mb-0" th:text="${article.priceBuy}"></p>
+                                                        <p th:if="${article.isDomain()}" class="small mb-0" th:text="${article.year}"></p>
+                                                        <p th:if="${!article.isDomain()&&article.service != null}" class="small mb-0" th:text="${article.service.nameDomain}"></p>
                                                     </div>
                                                 </div>
                                                 <div class="d-flex flex-row align-items-center">
@@ -52,6 +53,13 @@
                                                     <form action="/cart/remove" method="post">
                                                         <input type="hidden" th:value="${article.product}" name="product">
                                                         <button type="submit" class="bg-white border-0"><i class="fas fa-trash-alt btn btn-outline-danger"></i></button>
+                                                    </form>
+
+                                                    <form th:if="${article.property.needDomain}"
+                                                          action="/cart/addDomain"
+                                                          method="post">
+                                                        <input type="hidden" th:value="${article.idCart}" name="idCart">
+                                                        <button type="submit" class="bg-white border-0"> Need Domain!  </button>
                                                     </form>
                                                 </div>
                                             </div>

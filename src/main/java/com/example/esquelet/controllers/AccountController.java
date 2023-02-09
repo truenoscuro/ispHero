@@ -1,8 +1,11 @@
 package com.example.esquelet.controllers;
 
 import com.example.esquelet.dtos.ArticleDTO;
+import com.example.esquelet.dtos.ServiceDTO;
 import com.example.esquelet.dtos.UserDTO;
 
+import com.example.esquelet.entities.Service;
+import com.example.esquelet.models.Cart;
 import com.example.esquelet.repositories.WaitingDomainRepository;
 import com.example.esquelet.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Objects;
 
 @Controller
-@SessionAttributes(value = {"user","isLogged","cartUser","languages","langPage"})
+@SessionAttributes(value = {"user","isLogged","cartUser","languages","langPage","articleComplete"})
 public class AccountController {
 
     @Autowired
@@ -40,6 +43,36 @@ public class AccountController {
         return "backendUser/account";
     }
 
+    @PostMapping("/account/vincule")
+    public String vincule( @RequestParam("idService") Long idService, Model model ){
+        UserDTO user = (UserDTO) model.getAttribute("user");
+
+        ServiceDTO service = user.getServices()
+                .stream()
+                .filter(serviceDTO-> Objects.equals(serviceDTO.getId(), idService) )
+                .findFirst()
+                .get();
+
+        Long idCart = (Long) model.getAttribute("articleComplete");
+
+        ArticleDTO article = ((Cart) model.getAttribute("cartUser")).getArticles()
+                .stream().filter(articleDTO -> Objects.equals(articleDTO.getIdCart(), idCart))
+                .findFirst()
+                .get();
+
+        // article <-- ServiceDTO
+        article.getProperty().replace("needDomain","false");
+        article.setService( service );
+
+        model.addAttribute("articleComplete",null);
+        return "redirect:/cart";
+    }
+
+    @GetMapping("/account/services/add")
+    public String addService(Model model){
+        chargeUser( model );
+        return "backendUser/services";
+    }
     private void chargeUser( Model model ){
         UserDTO userDTO =  userService.getUser((UserDTO) model.getAttribute("user"));
         servService.getServices( userDTO );

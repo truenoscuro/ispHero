@@ -32,6 +32,12 @@ public class ArticleDTO {
     private String quantity;
     private String vat;
 
+    //Cart id
+    private Long idCart;
+
+    // Service user
+    private ServiceDTO service ;
+
     public ArticleDTO(String category,
                       String product,
                       Map<String, String> property,
@@ -44,6 +50,20 @@ public class ArticleDTO {
         this.years = years;
         this.priceYear = priceYear;
         this.bundle = bundle;
+    }
+
+    public void  setDatesBuy(ArticleDTO article){
+        year = article.getYear( );
+        priceBuy = priceYear.get( year );
+        quantity = 1 +  " ";
+        vat = 21 + " " ;
+        // vat = property.get("vat");
+
+    }
+
+    public void setDomainNameAndName( String domainName ){
+        this.domainName = domainName;
+        this.name = domainName + property.get("tld");
     }
 
     public  static ArticleDTO  createArticleDTO(List<Article> articles ){
@@ -90,9 +110,10 @@ public class ArticleDTO {
         return bundle;
     }
 
-
     public void addProperty(String key,String value){
         property.put(key,value);
     }
 
+
+    public boolean isDomain(){ return category.equals( "domain" ); }
 }
