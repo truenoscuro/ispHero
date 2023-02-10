@@ -30,7 +30,19 @@
     </div>
     <div class="tab-content mx-auto my-3" id="v-pills-tabContent">
         <div class="tab-pane fade active show" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+
             <h2 th:text="#{messages.account.yourServices}"></h2>
+            <div th:each="user.getservicesAgroup()">
+
+               <!--  NOM DOMINI TLD-->
+
+                <!-- LLISTA DE PRODUCTES -->
+                <ul>
+
+                </ul>
+            </div>
+
+            <!--
             <table class="table text-center mw-100">
                 <thead class="table-primary">
                 <tr>
@@ -51,7 +63,7 @@
                     <td th:if="${service.isCancelled}" th:text="#{messages.account.no}"></td>
                     <td th:if="${!service.isCancelled}" th:text="#{messages.account.yes}"></td>
                     <td>
-                        <form action="/account/delete" method="post">
+                        <form action="/service/expire" method="post">
                             <input type="hidden" th:value="${service.id}" name="idService">
                             <button type="submit" class="btn btn-danger" th:text="#{messages.account.deleteBtn}"></button>
                         </form>
@@ -59,6 +71,7 @@
                 </tr>
                 </tbody>
             </table>
+            -->
         </div>
         <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
             <div class="container">

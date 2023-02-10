@@ -130,6 +130,7 @@ public class CartController {
         //update DomainRegistered
         domainRegisteredService.updateDomainRegisteredWithCart( cart );
 
+        cart.removeAll();
         return "redirect:/cart/payment";
     }
 
