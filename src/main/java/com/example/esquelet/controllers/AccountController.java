@@ -6,8 +6,10 @@ import com.example.esquelet.dtos.UserDTO;
 
 import com.example.esquelet.entities.Service;
 import com.example.esquelet.models.Cart;
+import com.example.esquelet.models.IdCart;
 import com.example.esquelet.repositories.WaitingDomainRepository;
 import com.example.esquelet.services.*;
+import jakarta.persistence.Id;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -53,18 +55,14 @@ public class AccountController {
                 .findFirst()
                 .get();
 
-        Long idCart = (Long) model.getAttribute("articleComplete");
+        Long idCart = ((IdCart) model.getAttribute("articleComplete")).getId();
 
-        ArticleDTO article = ((Cart) model.getAttribute("cartUser")).getArticles()
-                .stream().filter(articleDTO -> Objects.equals(articleDTO.getIdCart(), idCart))
-                .findFirst()
-                .get();
+        ArticleDTO article = ((Cart) model.getAttribute("cartUser")).getArticle( idCart );
 
         // article <-- ServiceDTO
         article.getProperty().replace("needDomain","false");
         article.setService( service );
 
-        model.addAttribute("articleComplete",null);
         return "redirect:/cart";
     }
 

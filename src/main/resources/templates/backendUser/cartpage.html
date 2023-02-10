@@ -4,6 +4,7 @@
 <head th:insert="~{fragments/general.html :: headerfiles}">
 </head>
 <body>
+
 <header th:insert="~{fragments/general.html :: header}"></header>
 
 <div th:unless="${#lists.isEmpty(cartUser.articles)}">
@@ -37,11 +38,11 @@
                                                              style="width: 65px;">
                                                     </div>
                                                     <div class="ms-3">
-                                                        <h5 th:if="${#strings.contains(article.product,'.')}" th:text="${article.domainName}"></h5>
+                                                        <h5 th:if="${#strings.contains(article.product,'.')}" th:text="${article.name}"></h5>
                                                         <h5 th:if="${!#strings.contains(article.product,'.')}" th:text="${'Hosting ' + article.product}"></h5>
                                                         <p th:if="${article.isDomain()}" class="small mb-0" th:text="${article.year}"></p>
                                                         <p th:if="${!article.isDomain()&&article.service != null}" class="small mb-0" th:text="${article.service.nameDomain}"></p>
-                                                        <p th:if="${!article.isDomain()&&article.domainAppend != null}" class="small mb-0" th:text="${article.domainAppend.domainName}"></p>
+                                                        <p th:if="${!article.isDomain()&&article.domainAppend != null}" class="small mb-0" th:text="${article.domainAppend.name}"></p>
                                                     </div>
                                                 </div>
                                                 <div class="d-flex flex-row align-items-center">
@@ -52,7 +53,7 @@
                                                         <h5 class="mb-0" th:text="${article.priceBuy} + ' €'"></h5>
                                                     </div>
                                                     <form action="/cart/remove" method="post">
-                                                        <input type="hidden" th:value="${article.product}" name="product">
+                                                        <input type="hidden" th:value="${article.idCart}" name="idCart">
                                                         <button type="submit" class="bg-white border-0"><i class="fas fa-trash-alt btn btn-outline-danger"></i></button>
                                                     </form>
 
@@ -92,6 +93,7 @@
 </div>
 <div th:unless="${!#lists.isEmpty(cartUser.articles)}" th:insert="~{fragments/cart.html :: emptycart}" class="mt-auto">
 </div>
+
 <footer th:insert="~{fragments/general.html :: footer}"></footer>
 <script src="https://www.paypal.com/sdk/js?client-id=ATt4ApVEm6jyBVmrQI_7qsMiarX3nUyvomPnwOTu7Yxhn9KoseXcK3RLInFxI5VzWbdHY5anVVMYhtUI&currency=USD&intent=capture&enable-funding=venmo" data-sdk-integration-source="integrationbuilder"></script>
 <script>

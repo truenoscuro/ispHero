@@ -42,6 +42,7 @@ public class ArticleController {
             @RequestParam( "domainSearch" ) String domainName,
             Model model ){
 
+
         List<ArticleDTO> articles = articleService.getArticleDTOList( "domain" );
         //----
         addDomainNameAndName( articles , domainName );
