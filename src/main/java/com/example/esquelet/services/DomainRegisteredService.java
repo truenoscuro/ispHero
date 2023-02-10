@@ -32,9 +32,10 @@ public class DomainRegisteredService {
     @Transactional
     public void updateDomainRegisteredWithCart(Cart cart){
         cart.getArticles().stream()
-                .filter( article -> !Objects.equals(article.getDomainName(), ""))
+                .filter(ArticleDTO::isDomain)
                 .forEach( article ->{
-                    DomainRegistered domain = new DomainRegistered(article.getName());
+                    System.out.println(article.getDomainName());
+                    DomainRegistered domain = new DomainRegistered(article.getDomainName());
                     Optional<DomainRegistered> domainOptional = domainRegisteredRepository.searchByName(domain.getName());
                     if( domainOptional.isPresent() ){
                         domain =  domainOptional.get();
@@ -43,7 +44,7 @@ public class DomainRegisteredService {
                         domainRegisteredRepository.flush();
                     }
                     Article a = articleRepository.searchArticleByValueProperty( article.getProperty().get("tld") ).get();
-                    a.getDomains().add(domain);
+                    a.getDomains().add( domain );
                     articleRepository.save(a);
                 });
 
