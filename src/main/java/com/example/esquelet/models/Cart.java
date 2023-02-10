@@ -7,20 +7,35 @@ import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
 public class Cart {
     private List<ArticleDTO> articles ;
+
+    private Long idCart; ;
+
+    public Cart (){
+        removeAll();
+    }
     public void add( ArticleDTO article ){
-        if(articles == null) articles = new ArrayList<>();
+        article.setIdCart(idCart++);
         articles.add( article );
     }
-    public void remove( String product){
-        articles = articles.stream().filter(article -> !article.getProduct().equals(product)).toList();
-        if(articles.isEmpty()) articles = new ArrayList<>();
+    public void remove( Long  id ){
+        articles.remove(getArticle(id));
     }
-    public void removeAll( ){ articles = new ArrayList<>( ); }
+
+    public ArticleDTO getArticle( Long  id ){
+        //System.out.println(articles.stream().filter(article -> Objects.equals(article.getIdCart(), id)).findFirst().get());
+        return articles.stream().filter(article -> Objects.equals(article.getIdCart(), id)).findFirst().get();
+
+
+    }
+    public void removeAll( ){
+        idCart = 0L;
+        articles = new ArrayList<>();
+    }
 
 }

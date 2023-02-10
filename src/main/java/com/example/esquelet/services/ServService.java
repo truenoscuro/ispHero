@@ -52,20 +52,22 @@ public class ServService {
 
         for( int i = 0 ; i < articlesEntity.size() ; i++ )
             serviceRepository.save(
-                    addService( articles.get(i).getName(),
+                    addService( articles.get(i),
                             articlesEntity.get(i),
                             user
                     )
             );
 
     }
-    private com.example.esquelet.entities.Service addService(String nameDomain , Article article, User user){
+    private com.example.esquelet.entities.Service addService(ArticleDTO articleDTO , Article article, User user){
         com.example.esquelet.entities.Service service = new com.example.esquelet.entities.Service();
         service.setArticle(article);
         service.setUser( user );
         service.setDateExpired(LocalDateTime.now().plusYears(1));
         service.setCancelled( false );
-        if(nameDomain != null) service.setNameDomain(nameDomain);
+        if(articleDTO.isDomain()) service.setNameDomain(articleDTO.getDomainName());
+        else if(articleDTO.getDomainAppend() != null) service.setNameDomain(articleDTO.getDomainAppend().getDomainName());
+        else service.setNameDomain(articleDTO.getService().getNameDomain());
         return  service;
     }
 

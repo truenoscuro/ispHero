@@ -9,34 +9,41 @@
 <div class="container">
     <h2 class="title-1 text-center">Choose your <span class="text-primary">domain: </span></h2>
     <div th:each="article: ${articles}" class="d-flex my-3 justify-content-evenly alert alert-light align-items-center">
-        <div class="mx-5"> <span class="domain-name" th:classappend="${article.property.taken}" th:text="${domainName + article.property.tld}"></span> </div>
-        <div class="d-flex gap-5 align-items-center ms-auto">
+        <div> <span class="domain-name" th:classappend="${article.property.taken}" th:text="${article.name}"></span> </div>
             <div>
-                <label for="years">
-                    <select name="years" id="years" class="form-select">
-                    <option th:value="${article.property.price1year}" selected>1 Year</option>
-                    <option th:value="${article.property.price2year}">2 Years</option>
-                    </select>
-                </label>
+                <div class="hidden buy" th:classappend="'action-' + ${article.name} + ' ' + ${article.property.taken}">
+                    <form action="/cart/add" method="post" th:object="${productBuy}">
+                        <label for="years">Duration:
+                            <select name="year" id="years">
+                                <span th:each="year: ${article.years}">
+                                    <option th:if="${year.equals('1')}"
+                                            th:value="${year}"
+                                            th:text="${year + ' year'}">
+                                    </option>
+                                    <option th:unless="${year.equals('1')}"
+                                            th:value="${year}"
+                                            th:text="${year + ' years'}">
+                                    </option>
+                                </span>
+                            </select>
+                        </label>
+                        <input type="hidden" th:value="${article.product}" name="product">
+                        <input type="hidden" th:value="${article.domainName}" name="domainName">
+                        <input type="submit" value="Add to cart" class="btn btn-success m-0">
+                    </form>
                 </div>
-                <div>
-                    <div class="hidden buy" th:classappend="'action-' + ${domainName + article.property.tld} + ' ' + ${article.property.taken}">
-                        <form action="/cart/add" method="post" th:object="${productBuy}">
-                            <input type="hidden" th:value="${article.product}" name="product">
-                            <input type="hidden" th:value="${domainName}" name="domainName">
-                            <input type="submit" value="Add to cart" class="btn btn-success m-0">
-                        </form>
-                    </div>
-                    <div class="hidden wait" th:classappend="'action-' + ${domainName + article.property.tld} + ' ' + ${article.property.taken}">
+            </div>
+                    <div class="hidden wait" th:classappend="'action-' + ${article.name} + ' ' + ${article.property.taken}">
                         <form  action="/account/waitingdomains" method="post">
-                            <input type="hidden" th:value="${domainName}" name="domainName">
+                            <input type="hidden" th:value="${article.domainName}" name="domainName">
                             <input type="hidden" th:value="${article.product}" name="product">
+                            <!--  Pasar es tld es un segon -->
                             <input th:unless="${article.property.waiting}" type="submit" value="Add to list" class="btn btn-light m-0">
                             <input th:if="${article.property.waiting}" type="submit" value="Delete from list" class="btn btn-delete m-0">
                         </form>
                     </div>
                     <div>
-                        <div class="spinner-border m-0" th:classappend="'spinner-' + ${domainName + article.property.tld}" style="width: 3rem; height: 3rem;" role="status">
+                        <div class="spinner-border m-0" th:classappend="'spinner-' + ${article.name}" style="width: 3rem; height: 3rem;" role="status">
                             <span class="sr-only">Loading...</span>
                         </div>
                     </div>
@@ -63,7 +70,7 @@
         }
         let domain = domains[i].innerText;
 
-        fetch("http://www." + domain, {
+        fetch("https://www." + domain, {
             method: "GET",
             mode: "no-cors",
             cache: "no-cache",
