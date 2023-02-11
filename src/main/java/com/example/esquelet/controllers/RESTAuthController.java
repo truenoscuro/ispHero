@@ -1,6 +1,5 @@
 package com.example.esquelet.controllers;
 
-import com.example.esquelet.dtos.UserDTO;
 import com.example.esquelet.entities.User;
 import com.example.esquelet.services.TokenService;
 import com.example.esquelet.services.UserService;
@@ -8,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;

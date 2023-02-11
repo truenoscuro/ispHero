@@ -11,10 +11,8 @@ import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.gson.GsonFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,7 +32,7 @@ public class OAuthController {
     UserService userService;
 
     @PostMapping("/auth/google")
-    public ResponseEntity<String> googleAuth(Model model, @RequestBody String token) throws GeneralSecurityException, IOException {
+    public ResponseEntity<String> googleAuth( @RequestBody String token ) throws GeneralSecurityException, IOException {
         final NetHttpTransport TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
         GoogleIdTokenVerifier tokenVerifier = new GoogleIdTokenVerifier.Builder(
                 TRANSPORT,
