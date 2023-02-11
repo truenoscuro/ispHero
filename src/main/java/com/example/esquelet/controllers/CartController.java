@@ -59,11 +59,7 @@ public class CartController {
     @PostMapping("/cart/addDomain")
     public String addDomain( @RequestParam("idCart") Long articleComplete , Model model ){
         ((IdCart) model.getAttribute("articleComplete")).setId(articleComplete);
-
-        if(!model.containsAttribute("user") ) return "redirect:/login";
-        UserDTO user = (UserDTO) model.getAttribute("user");
-        if(!user.isValid()) return "redirect:/login";
-        return "redirect:/account/services/add";
+        return "redirect:/account/services";
     }
 
 

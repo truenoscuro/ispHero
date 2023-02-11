@@ -4,12 +4,11 @@ import com.example.esquelet.dtos.ArticleDTO;
 import com.example.esquelet.dtos.ServiceDTO;
 import com.example.esquelet.dtos.UserDTO;
 
-import com.example.esquelet.entities.Service;
 import com.example.esquelet.models.Cart;
 import com.example.esquelet.models.IdCart;
 import com.example.esquelet.repositories.WaitingDomainRepository;
 import com.example.esquelet.services.*;
-import jakarta.persistence.Id;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,14 +34,26 @@ public class AccountController {
 
     @Autowired
     ServService servService;
-    @Autowired
-    private WaitingDomainRepository waitingDomainRepository;
+
+    private void chargeUser( Model model ){
+        UserDTO userDTO =  userService.getUser((UserDTO) model.getAttribute("user"));
+        servService.getServices( userDTO );
+        invoiceService.getInvoices( userDTO );
+        waitingDomainService.getWaitingDomainsByUser( userDTO );
+        model.addAttribute("user",userDTO);
+    }
 
 
     @GetMapping("/account")
     public String account(Model model) {
         chargeUser( model );
         return "backendUser/account";
+    }
+
+    @GetMapping("/account/{page}")
+    public String redirect(@PathVariable String page){
+        if(page.equals("services")) return "redirect:/account/services";
+        return "redirect:/account";
     }
 
     @PostMapping("/account/vincule")
@@ -59,32 +70,23 @@ public class AccountController {
 
         ArticleDTO article = ((Cart) model.getAttribute("cartUser")).getArticle( idCart );
 
-        // article <-- ServiceDTO
         article.getProperty().replace("needDomain","false");
         article.setService( service );
 
         return "redirect:/cart";
     }
 
-    @GetMapping("/account/services/add")
-    public String addService(Model model){
-        chargeUser( model );
-        return "backendUser/services";
-    }
-    private void chargeUser( Model model ){
-        UserDTO userDTO =  userService.getUser((UserDTO) model.getAttribute("user"));
-        servService.getServices( userDTO );
-        invoiceService.getInvoices( userDTO );
-        waitingDomainService.getWaitingDomainsByUser( userDTO );
-        model.addAttribute("user",userDTO);
-    }
-
-
     @GetMapping("/account/services")
-    public String viewServices(Model model){
-        servService.getServices( (UserDTO) Objects.requireNonNull( model.getAttribute("user" ) ) );
-        return "backendUser/services";
+    public String addService(Model model){
+        if(model.containsAttribute("articleComplete")
+                && ((IdCart) model.getAttribute("articleComplete")).getId() != null
+        ) {
+            chargeUser(model);
+            return "backendUser/services";
+        }
+        return "redirect:/account";
     }
+
 
     @PostMapping("/account/waitingdomains")
     public String modifyWaitingDomain( @ModelAttribute ArticleDTO articleWaiting, Model model){
