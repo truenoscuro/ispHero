@@ -56,11 +56,11 @@
           </li>
         </ul>
         <div class="d-flex">
-          <div th:if="${isLogged} == true">
+          <div th:if="${isLogged}">
             <a class="btn btn-outline-primary" href="/account" th:text="#{messages.header.account}">Account</a>
             <a class="btn btn-outline-danger" href="/logout">Logout</a>
           </div>
-          <div th:unless="${isLogged} == true" class="mx-3">
+          <div th:unless="${isLogged}" class="mx-3">
             <a class="btn btn-primary" href="/login">Login</a>
           </div>
           <div class="nav-item mx-3 language-picker btn btn-outline-secondary" data-target="#languageModal">

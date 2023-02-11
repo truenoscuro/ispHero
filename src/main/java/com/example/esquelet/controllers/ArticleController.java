@@ -27,36 +27,6 @@ public class ArticleController {
     @Autowired
     private DomainRegisteredService domainRegisteredService;
 
-    @GetMapping(value = "/product/{category}") // can pass product?
-    public String showByProduct(@PathVariable String category, Model model ){
-
-        model.addAttribute("articles" , articleService.getArticleDTOList( category ) );
-        model.addAttribute("articleBuy", new ArticleDTO() );
-
-        return "product/"+category;
-    }
-
-    // Pass ARTICLE ( Host or Email )
-    @PostMapping("/domaincheck")
-    public String  domainCheck(
-            @RequestParam( "domainSearch" ) String domainName,
-            Model model ){
-
-
-        List<ArticleDTO> articles = articleService.getArticleDTOList( "domain" );
-        //----
-        addDomainNameAndName( articles , domainName );
-        addHasTaken( articles , domainName );
-        addHasWaiting( articles , model , domainName );
-        //----
-        model.addAttribute("articles", articles);
-        // Only need pas 1 new ArticleDTO
-        model.addAttribute("articleBuy", new ArticleDTO() );
-        model.addAttribute("articleWaiting", new ArticleDTO() );
-
-        return "domaincheck";
-        //return "redirect:/";
-    }
 
     private void addDomainNameAndName( List<ArticleDTO> articles , String domainName ){
         articles.forEach( article ->  article.setDomainNameAndName(domainName) );
@@ -93,6 +63,41 @@ public class ArticleController {
     private boolean hasUser(Model model){
         return model.containsAttribute("user") &&
                 ((UserDTO) model.getAttribute("user")).isValid();
+    }
+
+
+    @GetMapping(value = "/product")
+    public String redirect(){
+        return "redirect:/product/domain";
+    }
+
+    @GetMapping(value = "/product/{category}")
+    public String showByProduct(@PathVariable String category, Model model ){
+
+        model.addAttribute("articles" , articleService.getArticleDTOList( category ) );
+        model.addAttribute("articleBuy", new ArticleDTO() );
+
+        return "product/"+category;
+    }
+
+    @PostMapping("/domain")
+    public String  domainCheck(
+            @RequestParam( "domainSearch" ) String domainName,
+            Model model ){
+
+
+        List<ArticleDTO> articles = articleService.getArticleDTOList( "domain" );
+        //----
+        addDomainNameAndName( articles , domainName );
+        addHasTaken( articles , domainName );
+        addHasWaiting( articles , model , domainName );
+        //----
+        model.addAttribute("articles", articles);
+        // Only need pas 1 new ArticleDTO
+        model.addAttribute("articleBuy", new ArticleDTO() );
+        model.addAttribute("articleWaiting", new ArticleDTO() );
+
+        return "domaincheck";
     }
 
 }
