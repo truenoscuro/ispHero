@@ -115,8 +115,8 @@
         })
         const token = await responseFetch.text();
         console.log(token);
-        localStorage.setItem('token', token);
-        window.location.href = '/';
+        localStorage.setItem('token', `Bearer ${token}`);
+        window.location.href = '/token/' + token;
       }
     });
     google.accounts.id.prompt();
