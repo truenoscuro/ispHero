@@ -6,6 +6,7 @@ import com.example.esquelet.repositories.*;
 import com.mailersend.sdk.Recipient;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -26,6 +27,12 @@ public class UserService {
 
     @Autowired
     private UserDataRepository userDataRepository;
+
+    @Autowired
+    private TokenService tokenService;
+
+    @Value("${MAIL_API_KEY}")
+    private String MAIL_API_KEY;
 
 
     public Optional<User> searchUser( UserDTO user ){
@@ -61,6 +68,11 @@ public class UserService {
         return user.isPresent();
     }
 
+    public boolean checkEmail(String email) {
+        Optional<User> user = userRepository.findByEmail(email);
+        return user.isPresent();
+    }
+
     public boolean isAdmin( String userName ) {
         Optional<User> user = userRepository.findByUsername(userName);
         return user.map(value -> value.getRole().equals(Role.ADMIN)).orElse(false);
@@ -75,11 +87,11 @@ public class UserService {
         Recipient recipient = new Recipient(user.getFirstName(), user.getEmail());
 
         registerMail.AddRecipient(recipient);
-
-        registerMail.setHtml("<h1>ISP Hero</h1><p>Hi "+user.getUsername()+"</p><p>Thank you for registering with ISP Hero. Please click the link below to verify your email address.</p><p><a href=\"https://bitly.com/98K8eH"+"\">Verify your email address</a></p><br><hr><br><p>This link will expire in 24 hours.</p><p>If you did not register with ISP Hero, please ignore this email.</p><p>Thanks for your interest in us,</p><p>ISP Hero</p>");
+        String tokenValidation = tokenService.createValidationToken(user.getEmail());
+        registerMail.setHtml("<h1>ISP Hero</h1><p>Hi "+user.getUsername()+"</p><p>Thank you for registering with ISP Hero. Please click the link below to verify your email address.</p><p><a href=\"http://localhost:8080/validate/" + tokenValidation +  "\">Verify your email address</a></p><br><hr><br><p>This link will expire in 24 hours.</p><p>If you did not register with ISP Hero, please ignore this email.</p><p>Thanks for your interest in us,</p><p>ISP Hero</p>");
 
         MailerSend mailerSend = new MailerSend();
-        mailerSend.setToken("eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiOGZhMzlmZTdlMmVkZTM0ODJkZDYyMDRkNzQxMmE1MDJlMmM4YWFlNWJkNmZjNmY0ZWQzY2E4NTY3YTFhYTk2ZmEyOGNjY2FiNTNkYjdjOWUiLCJpYXQiOjE2NzUyNDQ0MTguOTIzMSwibmJmIjoxNjc1MjQ0NDE4LjkyMzEwMywiZXhwIjo0ODMwOTE4MDE4LjkxNjc2Nywic3ViIjoiNTYwOTIiLCJzY29wZXMiOlsiZW1haWxfZnVsbCIsImRvbWFpbnNfZnVsbCIsImFjdGl2aXR5X2Z1bGwiLCJhbmFseXRpY3NfZnVsbCIsInRva2Vuc19mdWxsIiwid2ViaG9va3NfZnVsbCIsInRlbXBsYXRlc19mdWxsIiwic3VwcHJlc3Npb25zX2Z1bGwiLCJzbXNfZnVsbCIsImVtYWlsX3ZlcmlmaWNhdGlvbl9mdWxsIiwiaW5ib3VuZHNfZnVsbCIsInJlY2lwaWVudHNfZnVsbCIsInNlbmRlcl9pZGVudGl0eV9mdWxsIl19.fFXonujENY0bK7HoMPrTHWnH-eWBXwuTePS_DFp75ay010aus_zlony_FXhnB01KGx4XSI-GCEG9iJjuzIaPFivOMv62htYniRsZmKFyDFGLSGJmriC4Fzsl4K9MFO9TF_0m69DocCAGlwkE0SD3NWJS0VyQjqJh1oYZLdif4BzMQQYOy41WFMPSqu665IN120C0ZJU4dZdCW78nhbiM3D-lJl2sdDITflqiSyHcMscmg0R-sr8YD_vZsZ0ju81nH24i7Zx2iT7BtDHkfN9aduB7kO0YlTofT_zFGY6FntHs1Ub1axy6Tlg0Bg_UpoPL3Baf8qIuMlsXnvmPleRP3GKPNUJdRd-SkT4JD8voEtEO6eoNf6Xbz5R6_aSlkIFdNfXYDWfVRR-KzOtuAtQAZZ7JxzC_a1wSAFm9cYndl1C83ZkSrONio8m-uab3cgqmpZ-51ZtxgEfxoJyAMZeoxkNQPjONvGNXgDsmR2ktGeDrTzXgwUpUvEn9tHQkWuwUTzgQRBKGt1rkDiNhzQ9l0D4f0ZVROY6lCEP4yMQq6KWKBf32H3VovE9O3TFBJY9OYx17tnUykWCw81NYx0Z8sx68gZhE_GzBjZKi42aOifcy3k11JhKIF_svcl4dxQDvaUcqUblwlWpcZXSYM-hnyeSlShPqZUQS2W11_zDbw4I");
+        mailerSend.setToken(MAIL_API_KEY);
 
         try {
             MailerSendResponse response = mailerSend.emails().send(registerMail);
@@ -98,4 +110,9 @@ public class UserService {
         Optional<User> user = userRepository.findByEmail(mail);
         return user.orElse(null);
     }
+
+    public void updateUser(User user) {
+        userRepository.save(user);
+    }
+
 }

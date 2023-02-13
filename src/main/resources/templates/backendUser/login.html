@@ -109,13 +109,14 @@
 
         const tokenGoogle = responseGoogle.credential;
 
-        const responseFetch = await fetch('http://localhost:8080/auth/google', {
+        const responseFetch = await fetch('http://localhost:8080/auth/login/google', {
           method: 'POST',
           body: tokenGoogle,
         })
         const token = await responseFetch.text();
         console.log(token);
-        localStorage.setItem('token', token);
+        localStorage.setItem('token', `Bearer ${token}`);
+        window.location.href = '/token/' + token;
       }
     });
     google.accounts.id.prompt();

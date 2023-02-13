@@ -27,6 +27,15 @@ public class TokenService {
                 .compact();
     }
 
+    public String createValidationToken(String email) {
+        return Jwts.builder()
+                .claim("email", email)
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 24))
+                .signWith(SignatureAlgorithm.HS512, Base64.getEncoder().encodeToString(jwtSecret.getBytes()))
+                .compact();
+    }
+
     public int validateToken(String token) {
         try {
             Jwts.parser()

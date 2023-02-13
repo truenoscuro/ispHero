@@ -149,7 +149,7 @@ public class UserDTO {
     }
 
     public boolean isValid(){
-        return username!=null && password!=null;
+        return email!=null;
     }
 
     public Map<ServiceDTO, List<ServiceDTO>> getGroupServices(){
