@@ -87,7 +87,7 @@
                                 <input type="email" id="email" th:field="*{email}">
                             </div>
                         </div>
-                        <div>
+                        <div class="alert alert-danger" th:if="${error}">
                             <p th:text="${error}" class="text-danger text-center my-2 mx-auto"></p>
                         </div>
                     </div>
@@ -103,6 +103,16 @@
                 <div class="text-center my-5">
                     <a href="/" class="btn btn-primary btn-block">Go to homepage</a>
                 </div>
+            </div>
+            <div class="col-md-12 my-5" th:if='${status == "verified"}'>
+                <h1 class="text-center">You have been verified!</h1>
+                <p class="text-center">Your mail has been verified. Welcome to <span class="text-primary">ISP Hero!</span></p>
+                <div class="text-center my-5">
+                    <a href="/" class="btn btn-primary btn-block">Go to homepage</a>
+                </div>
+            </div>
+            <div class="alert alert-danger" th:if="${error}">
+                <p th:text="${error}" class="text-danger text-center my-2 mx-auto"></p>
             </div>
         </div>
     </div>
