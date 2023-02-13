@@ -43,6 +43,13 @@ public class AccountController {
         model.addAttribute("user",userDTO);
     }
 
+    private void chargeUser( Model model ){
+        UserDTO userDTO =  userService.getUser((UserDTO) model.getAttribute("user"));
+        servService.getServices( userDTO );
+        invoiceService.getInvoices( userDTO );
+        waitingDomainService.getWaitingDomainsByUser( userDTO );
+        model.addAttribute("user",userDTO);
+    }
 
     @GetMapping("/account")
     public String account(Model model) {
