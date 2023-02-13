@@ -1,11 +1,16 @@
 package com.example.esquelet.controllers;
 
 
+import com.example.esquelet.entities.Role;
+import com.example.esquelet.entities.User;
+import com.example.esquelet.services.TokenService;
+import com.example.esquelet.services.UserService;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.gson.GsonFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
@@ -23,6 +28,10 @@ import java.util.Objects;
 @RestController
 public class OAuthController {
 
+    @Autowired
+    TokenService tokenService;
+    @Autowired
+    UserService userService;
 
     @PostMapping("/auth/google")
     public ResponseEntity<String> googleAuth(Model model, @RequestBody String token) throws GeneralSecurityException, IOException {
@@ -37,12 +46,32 @@ public class OAuthController {
             return new ResponseEntity<>("Unauthorized", null, 401);
         }
         GoogleIdToken.Payload payload = idToken.getPayload();
-        String firstName = (String) payload.get("given_name");
         String mail = payload.getEmail();
+        System.out.println(mail);
 
-        // TODO: From here, you can get the user's email address, name, etc. and CREATE local token
-        String localToken = "LOCALTOKEN OF "+ firstName + " WITH EMAIL " + mail;
-        return new ResponseEntity<>(localToken, null, 200);
+        User user = userService.getUserByEmail(mail);
+
+        if (user == null) {
+            return new ResponseEntity<>("Wrong credentials", null, 401);
+        }
+        if (user.getRole() != Role.ADMIN) {
+            return new ResponseEntity<>("Unauthorized", null, 401);
+        }
+
+        String tokenResponse = tokenService.createToken(user.getEmail());
+
+        return new ResponseEntity<>(tokenResponse, null, 200);
+    }
+
+    @PostMapping("/auth/verify")
+    public ResponseEntity<String> verifyToken(@RequestBody String token) {
+        String tokenToValidate;
+        tokenToValidate = token.substring(10, token.length() - 2);
+        if (tokenService.validateToken(tokenToValidate) == 0) {
+            return new ResponseEntity<>("valid", null, 200);
+        } else {
+            return new ResponseEntity<>("false", null, 401);
+        }
     }
 
 

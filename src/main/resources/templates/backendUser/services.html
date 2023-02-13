@@ -5,6 +5,35 @@
 </head>
 <body>
 <header th:insert="~{fragments/general.html :: header}"></header>
+<h1> SEARCH BY BUY </h1>
+<div th:insert="~{fragments/general.html :: domainSearchBar}"></div>
+<h1> USE ONE  DOMAIN YOU ?</h1>
+<table class="table text-center mw-100">
+  <thead class="table-primary">
+  <tr>
+    <th scope="col">Domain</th>
+    <th scope="col">TLD</th>
+    <th scope="col"></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="service: ${user.services}">
+    <span th:if="${service.isDomain() && !service.isCancelled()}">
+      <td class="text-primary" th:text="${service.nameDomain}"></td>
+      <td th:text="${service.product}"></td>
+      <td>
+        <form action="/account/vincule" method="post">
+          <input type="hidden" th:value="${service.id}" name="idService">
+          <button type="submit" class="btn btn-danger" th:text="Vincule"></button>
+        </form>
+      </td>
+    </span>
+  </tr>
+  </tbody>
+</table>
+
+
+
 
 <footer th:insert="~{fragments/general.html :: footer}"></footer>
 </body>

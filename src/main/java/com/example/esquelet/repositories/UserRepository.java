@@ -14,6 +14,8 @@ public interface UserRepository extends JpaRepository<User,Long> {
     L'altre n'hi ha emprat @Query
      */
     Optional<User> findByUsername(String username);
+
+    Optional<User> findByEmail(String mail);
     //boolean searchUserByUsernameExists(String username);
 
 

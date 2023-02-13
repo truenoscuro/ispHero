@@ -8,7 +8,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -148,6 +150,21 @@ public class UserDTO {
 
     public boolean isValid(){
         return username!=null && password!=null;
+    }
+
+    public Map<ServiceDTO, List<ServiceDTO>> getGroupServices(){
+        Map<ServiceDTO,List<ServiceDTO>> groupServices = new HashMap<>();
+
+        List<ServiceDTO> domainsServices = services.stream().filter(ServiceDTO::isDomain).toList();
+        domainsServices.forEach( domainService -> groupServices.put(domainService,new ArrayList<>()));
+        services.stream().filter(serviceDTO ->  !serviceDTO.isDomain())
+                .forEach(service -> {
+                    ServiceDTO sKey = groupServices.keySet().stream()
+                            .filter( key -> key.getNameDomain().equals(service.getNameDomain()))
+                            .findFirst().get();
+                    groupServices.get(sKey).add(service);
+                });
+        return groupServices;
     }
 
 

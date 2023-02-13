@@ -13,7 +13,6 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -44,8 +43,9 @@ public class WaitingDomainService {
                 .forEach(user::addWaitingDomain);
     }
 
+
     @Transactional
-    public void update(String domainName,UserDTO userDTO, String productName){
+    public void addByUser(String domainName, UserDTO userDTO, String productName){
 
         User user = userRepository.findByUsername(userDTO.getUsername()).get();
 
@@ -54,11 +54,8 @@ public class WaitingDomainService {
                 .stream().filter(a -> a.getProperty().getName().equals("tld"))
                 .findFirst()
                 .get();
-        //save
 
-        Optional<WaitingDomain> waitingDomain = waitingDomainRepository.findWaitingDomainByUserAndTld(user,tld);
-        if(waitingDomain.isPresent()) waitingDomainRepository.delete( waitingDomain.get() );
-        else waitingDomainRepository.save( new WaitingDomain(domainName,user,tld) );
+        waitingDomainRepository.save( new WaitingDomain( domainName , user , tld ) );
 
     }
 

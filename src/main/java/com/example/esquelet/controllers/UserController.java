@@ -18,7 +18,7 @@ import com.mailersend.sdk.exceptions.MailerSendException;
 import java.util.Objects;
 
 
-@SessionAttributes(value = {"user","isLogged","cartUser","languages","langPage"})
+@SessionAttributes(value = {"user","isLogged","cartUser","languages","langPage","articleComplete"})
 
 @Controller
 public class UserController {
@@ -85,6 +85,7 @@ public class UserController {
             model.addAttribute("user",userService.getUser( user ) );
             model.addAttribute("userName", userName);
             model.addAttribute("isLogged", true);
+            if(model.containsAttribute("articleComplete")) return "redirect:/account/services/add";
             return "redirect:/account";
         } else {
             System.out.println("User or password incorrect");

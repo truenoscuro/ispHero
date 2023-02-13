@@ -58,12 +58,10 @@ public class InvoiceService {
     private  void setInvoiceLine(InvoiceLine invoiceLine, ArticleDTO articleDTO){
         Map<String,String> properties = articleDTO.getProperty();
         invoiceLine.setNameArticle( articleDTO.getProduct( ) );
-        if( articleDTO.getDomainName() != null ) invoiceLine.setNameArticle(articleDTO.getDomainName() + properties.get("tld"));
-        invoiceLine.setPrice( properties.get( "priceBuy" ) );
-        if( properties.get("priceBuy") == null ) invoiceLine.setPrice("Free");
-        invoiceLine.setQuantity( properties.get( "quantity" ) );
-        if( properties.get("quantity") == null) invoiceLine.setQuantity("1");
-        invoiceLine.setVat( properties.get("vat") );
+        invoiceLine.setNameArticle(articleDTO.getDomainName() + properties.get("tld"));
+        invoiceLine.setPrice( articleDTO.getPriceBuy() );
+        invoiceLine.setQuantity(articleDTO.getQuantity());
+        invoiceLine.setVat(articleDTO.getVat());
     }
 
 

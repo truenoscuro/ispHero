@@ -19,15 +19,7 @@ public class HomeController {
     private TranslateService translateService;
 
     @GetMapping("/")
-    public String index(Model model) {
-        if(!model.containsAttribute("languages")){
-            List<TranslateDTO> languages =  translateService.getAll();
-            model.addAttribute("languages", translateService.getAll() );
-            model.addAttribute("langPage",languages.get(0));
-        }
-        return "home/index";
-    }
-
+    public String index(Model model) { return "home/index"; }
 
     @GetMapping("/about")
     public String about( Model model ) {

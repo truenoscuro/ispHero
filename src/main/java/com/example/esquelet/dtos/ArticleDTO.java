@@ -2,7 +2,6 @@ package com.example.esquelet.dtos;
 
 import com.example.esquelet.entities.Article;
 import com.example.esquelet.entities.Property;
-import com.google.gson.Gson;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,45 +13,109 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ArticleDTO {
+    private String category;
     private String product;
 
-    private String domainName;
 
-    private String name;
+    private String domainName = "";
+
+    private String name = "";
     private Map<String,String> property;
-    private Map<String ,String> typeProperty;
+
+    private List<String> years;
+    private Map<String,String> priceYear;
     private List<ArticleDTO> bundle;
 
+    // dates cartBuy
+    private String year;
+    private String priceBuy;
+    private String quantity;
+    private String vat;
+
+    //Cart id
+    private Long idCart;
+
+    // Service user
+    private ServiceDTO service ;
+
+    //articleBuy
+    private ArticleDTO domainAppend;
+    public ArticleDTO(String category,
+                      String product,
+                      Map<String, String> property,
+                      List<String> years,
+                      Map<String, String> priceYear,
+                      List<ArticleDTO> bundle) {
+        this.category = category;
+        this.product = product;
+        this.property = property;
+        this.years = years;
+        this.priceYear = priceYear;
+        this.bundle = bundle;
+    }
+
+    public void  setDatesBuy(ArticleDTO article){
+        year = article.getYear( );
+        priceBuy = priceYear.get( year );
+        quantity = 1 +  " ";
+        vat = 21 + " " ;
+        // vat = property.get("vat");
+
+    }
+
+    public void setDomainNameAndName( String domainName ){
+        this.domainName = domainName;
+        this.name = domainName + property.get("tld");
+    }
+
     public  static ArticleDTO  createArticleDTO(List<Article> articles ){
-        //product name
-        String product = articles.get(0).getProduct().getName();
-        // propertyes and typePropertyes
+        //price
+        Map<String,String> priceYear = new HashMap<>();
+        List<String> years = new ArrayList<>();
+        articles.stream()
+                .filter(article -> article.getProperty().getName().contains("price"))
+                .forEach( article ->{
+                    String year = article.getProperty().getName().replaceAll("[^0-9]", "");
+                    if(year.equals("")) year = "0";
+                    years.add( year );
+                    priceYear.put( year , article.getValueProperty( ) );
+                });
+        return  new ArticleDTO(
+                articles.get(0).getProduct().getCategory().getName(),
+                articles.get(0).getProduct().getName(),
+                generateProperty( articles ),
+                years,
+                priceYear,
+                generateBundle(articles)
+                );
+    }
+    private static Map<String,String> generateProperty(List<Article> articles ){
         Map<String,String> property  = new HashMap<>();
-        Map<String,String> typeProperty  = new HashMap<>();
-        articles.forEach( article -> {
-            Property propertyArticle = article.getProperty( );
-            property.put( propertyArticle.getName(),article.getValueProperty() );
-            typeProperty.put( propertyArticle.getName(),propertyArticle.getType() );
-        });
-        property.put("priceBuy","default");
-        property.put("quantity","default");
-        property.put("vat","default");
-        //bundle
+        articles.stream()
+                .filter( article -> !article.getProperty().getName().contains("price"))
+                .forEach( article ->
+                    property.put( article.getProperty( ).getName(),article.getValueProperty() )
+                );
+        property.put("vat","" + 21); // <-- put in ddbb
+        return property;
+    }
+    private static List<ArticleDTO> generateBundle(List<Article> articles){
         List<ArticleDTO> bundle = new ArrayList<>();
-        articles.stream().filter( article ->  article.getProperty().getName().equals( "isBundle" ) )
+        articles.stream()
+                .filter( article ->  article.getProperty().getName().equals( "isBundle" ) )
                 .findAny()
                 .ifPresent( article -> article.getArticlesChildren()
                         .stream().collect(Collectors.groupingBy( Article::getProduct ) )
                         .values()
                         .stream().map( ArticleDTO::createArticleDTO )
                         .forEach( bundle::add ) );
-
-        return  new ArticleDTO(product,"","",property,typeProperty,bundle);
+        return bundle;
     }
-
 
     public void addProperty(String key,String value){
         property.put(key,value);
     }
 
+
+    public boolean isDomain(){ return category.equals( "domain" ); }
 }

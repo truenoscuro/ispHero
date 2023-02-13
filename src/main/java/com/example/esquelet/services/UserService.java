@@ -39,6 +39,10 @@ public class UserService {
         return  userResult;
     }
 
+    public User getUser( String username ){
+        return userRepository.findByUsername( username ).get();
+    }
+
 
     // boolean if you want newsletter
     @Transactional
@@ -57,8 +61,10 @@ public class UserService {
         return user.isPresent();
     }
 
-
-
+    public boolean isAdmin( String userName ) {
+        Optional<User> user = userRepository.findByUsername(userName);
+        return user.map(value -> value.getRole().equals(Role.ADMIN)).orElse(false);
+    }
 
 
     public void sendRegisterMail( UserDTO user ) {
@@ -88,12 +94,8 @@ public class UserService {
         userDataRepository.save(user.getUserDataEntity());
     }
 
-
-
-
-
-
-
-
-
+    public User getUserByEmail(String mail) {
+        Optional<User> user = userRepository.findByEmail(mail);
+        return user.orElse(null);
+    }
 }
