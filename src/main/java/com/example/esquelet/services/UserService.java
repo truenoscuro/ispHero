@@ -94,7 +94,7 @@ public class UserService {
         userDataRepository.save(user.getUserDataEntity());
     }
 
-    public User getUserByEmail(String mail) {
+    public User getUserByEmail( String mail ) {
         Optional<User> user = userRepository.findByEmail(mail);
         return user.orElse(null);
     }

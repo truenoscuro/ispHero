@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ServService {
@@ -63,12 +64,20 @@ public class ServService {
         com.example.esquelet.entities.Service service = new com.example.esquelet.entities.Service();
         service.setArticle(article);
         service.setUser( user );
-        service.setDateExpired(LocalDateTime.now().plusYears(1));
+        service.setDateExpired(LocalDateTime.now().plusYears( Long.parseLong( articleDTO.getYear() ) ) );
         service.setCancelled( false );
         if(articleDTO.isDomain()) service.setNameDomain(articleDTO.getDomainName());
-        else if(articleDTO.getDomainAppend() != null) service.setNameDomain(articleDTO.getDomainAppend().getDomainName());
-        else service.setNameDomain(articleDTO.getService().getNameDomain());
+        else if( articleDTO.getDomainAppend() != null ) service.setNameDomain(articleDTO.getDomainAppend().getDomainName());
+        else service.setNameDomain( articleDTO.getService().getNameDomain() );
         return  service;
+    }
+
+    public void changeExpired( Long idService ){
+        serviceRepository.findById( idService ).ifPresent(
+                service -> {
+                    service.setCancelled( !service.isCancelled() );
+                    serviceRepository.save( service );
+                });
     }
 
 

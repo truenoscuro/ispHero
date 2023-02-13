@@ -57,10 +57,11 @@ public class AccountController {
         return "backendUser/account";
     }
 
-    @GetMapping("/account/{page}")
-    public String redirect(@PathVariable String page){
-        if(page.equals("services")) return "redirect:/account/services";
-        return "redirect:/account";
+    @GetMapping(value = "/account/{page}/{action}")
+    public String redirect(@PathVariable String page,
+                           @PathVariable(required = false) String action ){
+        if(!page.equals("services") || action != null ) return "redirect:/account" ;
+        return "redirect:/account/services";
     }
 
     @PostMapping("/account/vincule")
@@ -93,6 +94,13 @@ public class AccountController {
         }
         return "redirect:/account";
     }
+    @PostMapping("account/service/expire")
+    public String updateService(@RequestParam Long idService){
+        servService.changeExpired( idService );
+        return "redirect:/account";
+    }
+
+
 
 
     @PostMapping("/account/waitingdomains")
@@ -112,6 +120,14 @@ public class AccountController {
                 ( ( UserDTO ) model.getAttribute("user") ),
                 articleWaiting.getProduct()
         );
+        return "redirect:/account";
+    }
+
+    @PostMapping("/account/update")
+    public String updateUserData(@ModelAttribute UserDTO userData , Model model){
+        UserDTO user = (UserDTO) model.getAttribute("user");
+        user.setUserData(userData);
+        userService.addUserData(user);
         return "redirect:/account";
     }
 }
