@@ -134,7 +134,7 @@
                         <button class="btn btn-primary save" type="submit" th:text="#{messages.account.saveBtn}"></button>
                     </div>
                 </form>
-                <div class="col-12">
+                <div class="col-12" th:if="${user.password != null}">
                     <hr>
                     <h4 th:text="#{messages.account.changePassword}"></h4>
                     <form action="">

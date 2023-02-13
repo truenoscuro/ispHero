@@ -1,8 +1,10 @@
 package com.example.esquelet.controllers;
 
 
+import com.example.esquelet.dtos.UserDTO;
 import com.example.esquelet.entities.Role;
 import com.example.esquelet.entities.User;
+import com.example.esquelet.repositories.UserRepository;
 import com.example.esquelet.services.TokenService;
 import com.example.esquelet.services.UserService;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
@@ -13,9 +15,7 @@ import com.google.api.client.json.gson.GsonFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
@@ -23,6 +23,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
+@SessionAttributes(value = {"user","isLogged","cartUser","languages","langPage","articleComplete"})
 @RestController
 public class OAuthController {
 
@@ -30,6 +31,9 @@ public class OAuthController {
     TokenService tokenService;
     @Autowired
     UserService userService;
+
+    @Autowired
+    UserRepository userRepository;
 
     @PostMapping("/auth/google")
     public ResponseEntity<String> googleAuth( @RequestBody String token ) throws GeneralSecurityException, IOException {
@@ -72,12 +76,34 @@ public class OAuthController {
         }
     }
 
+    @PostMapping("/auth/login/google")
+    public ResponseEntity<String> googleAuthLogin( @RequestBody String token, Model model) throws GeneralSecurityException, IOException {
+        final NetHttpTransport TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
+        GoogleIdTokenVerifier tokenVerifier = new GoogleIdTokenVerifier.Builder(
+                TRANSPORT,
+                GsonFactory.getDefaultInstance())
+                .setAudience(Collections.singletonList("578391080478-tld06kdi3jv6guggqbuj5vrua8cq15vh.apps.googleusercontent.com"))
+                .build();
+        GoogleIdToken idToken = tokenVerifier.verify(token);
+        if (idToken == null) {
+            return new ResponseEntity<>("Unauthorized", null, 401);
+        }
+        GoogleIdToken.Payload payload = idToken.getPayload();
+        String mail = payload.getEmail();
+        System.out.println(mail);
+        User user = userService.getUserByEmail(mail);
 
-    // Test purpose
-   /* @GetMapping("/schedule")
-    public ResponseEntity<List<String>> getSchedule (HttpRequest request) {
-        String token = request.getHeaders().get("Authorization").toString();
-        System.out.println(token);
-        return null;
-    }*/
+        if (user == null) {
+            user = new User();
+            user.setEmail(mail);
+            user.setRole(Role.USER);
+            user.setVerified(true);
+            userRepository.save(user);
+        }
+
+        System.out.println("Login of user: " + user.getEmail());
+        token = tokenService.createToken(user.getEmail());
+        return new ResponseEntity<>(token, null, 200);
+    }
+
 }

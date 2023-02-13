@@ -1,11 +1,18 @@
 package com.example.esquelet.controllers;
 
 import com.example.esquelet.dtos.UserDTO;
+import com.example.esquelet.entities.Role;
 import com.example.esquelet.entities.User;
+import com.example.esquelet.repositories.UserRepository;
 import com.example.esquelet.services.TokenService;
 import com.example.esquelet.services.UserService;
 
 import com.example.esquelet.services.WaitingDomainService;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
+import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
+import com.google.api.client.http.javanet.NetHttpTransport;
+import com.google.api.client.json.gson.GsonFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -18,6 +25,9 @@ import com.mailersend.sdk.MailerSend;
 import com.mailersend.sdk.MailerSendResponse;
 import com.mailersend.sdk.exceptions.MailerSendException;
 
+import java.io.IOException;
+import java.security.GeneralSecurityException;
+import java.util.Collections;
 import java.util.Objects;
 
 
@@ -27,8 +37,8 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-
-
+    @Autowired
+    private UserRepository userRepository;
     @Autowired
     TokenService tokenService;
 
@@ -165,4 +175,5 @@ public class UserController {
             return "backendUser/register";
         }
     }
+
 }
