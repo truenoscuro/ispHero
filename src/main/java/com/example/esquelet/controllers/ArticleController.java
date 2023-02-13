@@ -72,11 +72,11 @@ public class ArticleController {
     }
 
     @GetMapping(value = "/product/{category}")
-    public String showByProduct(@PathVariable(required = false) String category, Model model ){
+    public String showByProduct(@PathVariable String category, Model model ){
         if( !category.equals("domain")
                 && !category.equals("mail")
                 && !category.equals("host")
-        ) category = "domain";
+         ) return "redirect:/product/domain";
         model.addAttribute("articles" , articleService.getArticleDTOList( category ) );
         model.addAttribute("articleBuy", new ArticleDTO() );
 
