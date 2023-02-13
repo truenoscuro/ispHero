@@ -23,7 +23,7 @@
                 <div class="container text-center title-1">
                     <p><span th:text="${articles[0].priceYear.get(articles[0].years[0])}" class="text-euro"></span>€ / year</p>
                 </div>
-                <div class="text-center mt-5">
+                <div class="text-center">
                     <div th:replace="fragments/cart.html :: addcart(${articles[0]},${articles[0].years[0]},${productBuy})"> </div>
                 </div>
             </div>
