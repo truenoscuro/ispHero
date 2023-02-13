@@ -38,6 +38,13 @@ public class AccountController {
     @Autowired
     private WaitingDomainRepository waitingDomainRepository;
 
+    private void chargeUser( Model model ){
+        UserDTO userDTO =  userService.getUser((UserDTO) model.getAttribute("user"));
+        servService.getServices( userDTO );
+        invoiceService.getInvoices( userDTO );
+        waitingDomainService.getWaitingDomainsByUser( userDTO );
+        model.addAttribute("user",userDTO);
+    }
 
     @GetMapping("/account")
     public String account(Model model) {
@@ -70,13 +77,6 @@ public class AccountController {
     public String addService(Model model){
         chargeUser( model );
         return "backendUser/services";
-    }
-    private void chargeUser( Model model ){
-        UserDTO userDTO =  userService.getUser((UserDTO) model.getAttribute("user"));
-        servService.getServices( userDTO );
-        invoiceService.getInvoices( userDTO );
-        waitingDomainService.getWaitingDomainsByUser( userDTO );
-        model.addAttribute("user",userDTO);
     }
 
 

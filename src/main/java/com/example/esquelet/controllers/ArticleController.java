@@ -84,11 +84,7 @@ public class ArticleController {
             if(finalWaitingDomain.containTld( article ) ) article.addProperty("waiting","true");
             else article.addProperty("waiting", "false");
         });
-
     }
-
-
-
 
     private boolean hasUser(Model model){
         return model.containsAttribute("user") &&
