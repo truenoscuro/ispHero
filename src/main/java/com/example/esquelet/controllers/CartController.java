@@ -13,8 +13,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.http.HttpRequest;
-import java.util.List;
 import java.util.Objects;
 
 @Controller
@@ -25,8 +23,7 @@ public class CartController {
     @Autowired
     private ArticleService articleService;
 
-    @Autowired
-    private UserService userService;
+
 
     @Autowired
     private InvoiceService invoiceService;
@@ -50,20 +47,20 @@ public class CartController {
     }
 
     @GetMapping("/cart")
-    public String view(Model model, HttpSession session){
+    public String view(Model model){
         initCart( model );
         model.addAttribute("articleComplete",new IdCart());
 
         return "backendUser/cartpage";
     }
+    @GetMapping("/cart/{page}")
+    public String redirect( @PathVariable String page ){
+        return "redirect:/cart";
+    }
     @PostMapping("/cart/addDomain")
     public String addDomain( @RequestParam("idCart") Long articleComplete , Model model ){
         ((IdCart) model.getAttribute("articleComplete")).setId(articleComplete);
-
-        if(!model.containsAttribute("user") ) return "redirect:/login";
-        UserDTO user = (UserDTO) model.getAttribute("user");
-        if(!user.isValid()) return "redirect:/login";
-        return "redirect:/account/services/add";
+        return "redirect:/account/services";
     }
 
 
@@ -95,6 +92,7 @@ public class CartController {
         return "redirect:/cart";
     }
 
+
     @PostMapping("/cart/remove")
     public String removeArticle(@RequestParam("idCart") Long idCart , Model model){
         Cart cart = (Cart) model.getAttribute("cartUser");
@@ -115,6 +113,7 @@ public class CartController {
     }
     @GetMapping("/cart/removeall")
     public String removeAll( Model model ){
+        initCart( model );
         ((Cart) model.getAttribute("cartUser")).removeAll();
         return "redirect:/cart";
     }

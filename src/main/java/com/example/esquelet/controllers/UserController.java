@@ -19,15 +19,12 @@ import java.util.Objects;
 
 
 @SessionAttributes(value = {"user","isLogged","cartUser","languages","langPage","articleComplete"})
-
 @Controller
 public class UserController {
 
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private WaitingDomainService waitingDomainService;
 
     @GetMapping("/register")
     public String register(Model model){
@@ -95,6 +92,8 @@ public class UserController {
         }
     }
 
+
+    //TODO use?-->
     @PostMapping("/message")
     public String messageSent(@RequestParam(name = "name") String name, @RequestParam(name = "email") String email, @RequestParam(name = "message") String message, Model model) {
         Email emailMessage = new Email();
