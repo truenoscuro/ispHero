@@ -12,7 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Data
-@EqualsAndHashCode(exclude = {"user"})
+@EqualsAndHashCode()
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,7 +20,7 @@ public class User {
 
 
 
-    public User(@NotNull String username, @NotNull String password, @NotNull String email, @NotNull Role role, boolean verified) {
+    public User(String username, String password, @NotNull String email, @NotNull Role role, boolean verified) {
         this.username = username;
         this.password = password;
         this.email = email;
@@ -32,9 +32,7 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Service> services;
 
-    @NotNull
     private String username;
-    @NotNull
     private String password;
     @NotNull
     private String email;
