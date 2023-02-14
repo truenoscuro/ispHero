@@ -10,7 +10,7 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 @Entity
-@EqualsAndHashCode(exclude = {"domainComplete"})
+@EqualsAndHashCode(exclude = {"tlds"})
 public class DomainRegistered {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
