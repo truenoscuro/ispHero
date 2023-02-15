@@ -30,18 +30,39 @@
     </div>
     <div class="tab-content mx-auto my-3" id="v-pills-tabContent">
         <div class="tab-pane fade active show" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
-
-            <h2 th:text="#{messages.account.yourServices}"></h2>
-            <div th:each=" groupServices : ${user.getGroupServices()}">
-
-               <!--  NOM DOMINI TLD-->
-                <div th:text="${groupServices}"></div>
-                <div th:text="${groupServices.key.nameDomain}"></div>
-                <div th:text="${groupServices.key.product}"></div>
-                <!-- LLISTA DE PRODUCTES -->
-                <ul th:each="service: ${groupServices.value}">
-                    <li th:text="${service.product}"></li>
-                </ul>
+            <div th:if="${!user.services.isEmpty()}">
+                <h2 th:text="#{messages.account.yourServices}"></h2>
+                <table class="table text-center mw-100">
+                    <thead class="table-primary">
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Domain</th>
+                        <th scope="col">TLD</th>
+                        <th scope="col" th:text="#{messages.account.expiryDate}"></th>
+                        <th scope="col" th:text="#{messages.account.active}"></th>
+                        <th scope="col">Extras</th>
+                        <th scope="col"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each=" service : ${user.getGroupServices()}">
+                        <th scope="row" th:text="${service.key.id}"></th>
+                        <td th:text="${service.key.nameDomain}"></td>
+                        <td th:text="${service.key.product}"></td>
+                        <td th:text="${service.key.dateExpired}"></td>
+                        <td th:if="${service.key.isCancelled}" th:text="#{messages.account.no}"></td>
+                        <td th:if="${!service.key.isCancelled}" th:text="#{messages.account.yes}"></td>
+                        <td class="d-flex flex-column">
+                            <span th:each="extra : ${service.value}" th:text="${extra.product} + ' ' + ${extra.category}"></span>
+                        </td>
+                        <td>
+                            <a th:href="@{/account/service/{id}(id=${service.key.id})}" class="btn btn-primary" th:text="#{messages.account.deleteBtn}"></a>
+                        </td>
+                    </tbody>
+                </table>
+            </div>
+            <div th:if="${user.services.isEmpty()}">
+                <h2 th:text="#{messages.account.noServices}"></h2>
             </div>
         </div>
         <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
@@ -127,7 +148,9 @@
                 </div>
             </div>
         </div>
-        <div class="tab-pane fade" id="v-pills-invoices" role="tabpanel" aria-labelledby="v-pills-invoices-tab">...</div>
+        <div class="tab-pane fade" id="v-pills-invoices" role="tabpanel" aria-labelledby="v-pills-invoices-tab">
+            <span th:text="${user.invoices}"></span>
+        </div>
         <div class="tab-pane fade" id="v-pills-waiting" role="tabpanel" aria-labelledby="v-pills-waiting-tab">
         <div class="container">
             <div th:unless="${user.waitingDomains.isEmpty()}">
