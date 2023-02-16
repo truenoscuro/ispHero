@@ -44,7 +44,7 @@ public class AccountController {
     }
 
     @GetMapping("/account")
-    public String account(Model model) {
+    public String account( Model model ) {
         chargeUser( model );
         return "backendUser/account";
     }
@@ -122,4 +122,5 @@ public class AccountController {
         userService.addUserData(user);
         return "redirect:/account";
     }
+
 }
