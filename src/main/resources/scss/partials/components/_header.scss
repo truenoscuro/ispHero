@@ -30,7 +30,7 @@ header {
 .main-logo {
     width: 75px;
     transition: all 0.3s ease-in-out;
-    filter: saturate(2.5);
+    filter: saturate(2.2);
 }
 
 .main-logo:hover {
@@ -63,5 +63,9 @@ header {
 
     .header-spc {
         position: static;
+    }
+
+    .main-logo {
+        width: 50px;
     }
 }
