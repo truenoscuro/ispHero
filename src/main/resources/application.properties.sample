@@ -5,3 +5,4 @@ spring.datasource.password=PASSWORD
 spring.jpa.database-platform=org.hibernate.dialect.MySQL8Dialect
 #spring.jpa.hibernate.ddl-auto=update
 server.servlet.session.persistent=false
+MAIL_API_KEY=

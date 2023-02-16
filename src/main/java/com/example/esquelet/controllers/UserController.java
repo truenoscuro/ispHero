@@ -155,46 +155,41 @@ public class UserController {
 
     @GetMapping("/validate/{token}")
     public String validate(@PathVariable String token, Model model) {
-        if (tokenService.validateToken(token) == 0) {
+        if( isTokenValid( token , model ) ){
             tokenService.getClaims(token);
             String email = tokenService.getClaims(token).get("email").toString();
             User user = userService.getUserByEmail(email);
-            //---
             user.setVerified(true);
             userService.updateUser(user);
             model.addAttribute("status", "verified");
-            return "backendUser/register";
-        } else if (tokenService.validateToken(token) == 1) {
-            model.addAttribute("status", "expired");
-            model.addAttribute("error", "Token expired. Please contact the administrator or register again.");
-            return "backendUser/register";
-        } else {
-            model.addAttribute("status", "invalid");
-            model.addAttribute("error", "Token invalid. Please contact the administrator or register again.");
-            return "backendUser/register";
         }
+        return "backendUser/register";
+
     }
 
     @GetMapping("/token/{token}")
     public String token(@PathVariable String token, Model model) {
-        if (tokenService.validateToken(token) == 0) {
-            tokenService.getClaims(token);
-            String email = tokenService.getClaims(token).get("email").toString();
-            User user = userService.getUserByEmail(email);
-            //---
-            model.addAttribute("isLogged",true);
-            model.addAttribute("user",userService.getUser(UserDTO.createUserDTO(user)) );
-            model.addAttribute("userName", user.getEmail());
-            return "redirect:/account";
-        } else if (tokenService.validateToken(token) == 1) {
-            model.addAttribute("status", "expired");
-            model.addAttribute("error", "Token expired. Please contact the administrator or register again.");
-            return "backendUser/register";
-        } else {
+        if(!isTokenValid(token,model )) return "backendUser/register";
+
+        tokenService.getClaims(token);
+        String email = tokenService.getClaims(token).get("email").toString();
+        User user = userService.getUserByEmail(email);
+        model.addAttribute("isLogged",true);
+        model.addAttribute("user",userService.getUser(UserDTO.createUserDTO(user)) );
+        model.addAttribute("userName", user.getEmail());
+
+        return "redirect:/account";
+    }
+    private  boolean isTokenValid( String token, Model model ){
+        int isValid =  tokenService.validateToken( token );
+        if( isValid == 0 ) return true;
+        model.addAttribute("status", "expired");
+        model.addAttribute("error", "Token expired. Please contact the administrator or register again.");
+        if( isValid == 2 ){
             model.addAttribute("status", "invalid");
             model.addAttribute("error", "Token invalid. Please contact the administrator or register again.");
-            return "backendUser/register";
         }
+        return false;
     }
 
 }
