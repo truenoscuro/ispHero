@@ -23,10 +23,6 @@ public class TranslateDTO {
 
     private Map<String,Map<String,String>> valuePropertyByProduct;
 
-    public TranslateDTO(String code, String name){
-        this.code = code;
-        this.name = name;
-    }
 
 
     public static TranslateDTO createTranslateDTO(Lang lang){
