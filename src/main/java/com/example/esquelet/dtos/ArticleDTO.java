@@ -37,9 +37,11 @@ public class ArticleDTO {
 
     // Service user
     private ServiceDTO service ;
-
     //articleBuy
     private ArticleDTO domainAppend;
+
+
+
     public ArticleDTO(String category,
                       String product,
                       Map<String, String> property,
@@ -54,13 +56,13 @@ public class ArticleDTO {
         this.bundle = bundle;
     }
 
+    //TODO change vat in database property
     public void  setDatesBuy(ArticleDTO article){
         year = article.getYear( );
         priceBuy = priceYear.get( year );
         quantity = 1 +  " ";
         vat = 21 + " " ;
         // vat = property.get("vat");
-
     }
 
     public void setDomainNameAndName( String domainName ){
@@ -118,4 +120,7 @@ public class ArticleDTO {
 
 
     public boolean isDomain(){ return category.equals( "domain" ); }
+
+
+
 }
