@@ -91,7 +91,7 @@ public class ArticleController {
         return "product/"+category;
     }
 
-    @PostMapping("/product/domain")
+    @PostMapping("/product/search")
     public String  domainCheck(
             @RequestParam( "domainSearch" ) String domainName,
             Model model ){
