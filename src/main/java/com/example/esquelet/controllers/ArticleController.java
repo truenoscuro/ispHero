@@ -95,12 +95,11 @@ public class ArticleController {
     public String  domainCheck(
             @RequestParam( "domainSearch" ) String domainName,
             Model model ){
-        // TODO if element is .Domain  return blanck
         domainName = domainName
                 .toLowerCase()
                 .split("\\.")[0]
-                .replaceAll("[^a-z]","");
-
+                .replaceAll("[^a-z0-9]","");
+        if(domainName.length() < 3) return "redirect:/product/domain";
         // TODO need translate??
         List<ArticleDTO> articles = articleService.getArticleDTOList( "domain" );
 
