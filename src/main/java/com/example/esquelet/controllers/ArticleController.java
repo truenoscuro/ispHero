@@ -3,6 +3,7 @@ package com.example.esquelet.controllers;
 
 import com.example.esquelet.dtos.*;
 
+import com.example.esquelet.repositories.WaitingDomainRepository;
 import com.example.esquelet.services.ArticleService;
 import com.example.esquelet.services.DomainRegisteredService;
 
@@ -13,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -28,6 +30,8 @@ public class ArticleController {
 
     @Autowired
     private TranslateService translateService;
+    @Autowired
+    private WaitingDomainRepository waitingDomainRepository;
 
 
     private void addDomainNameAndName( List<ArticleDTO> articles , String domainName ){
@@ -92,16 +96,22 @@ public class ArticleController {
             @RequestParam( "domainSearch" ) String domainName,
             Model model ){
 
-
+        domainName = domainName
+                .toLowerCase()
+                .split("\\.")[0]
+                .replaceAll("[^a-z]","");
 
         // TODO need translate??
         List<ArticleDTO> articles = articleService.getArticleDTOList( "domain" );
+
         //----
         addDomainNameAndName( articles , domainName );
         addHasTaken( articles , domainName );
         addHasWaiting( articles , model , domainName );
+
         //----
         model.addAttribute("articles", articles);
+
         // Only need pas 1 new ArticleDTO
         model.addAttribute("articleBuy", new ArticleDTO() );
         model.addAttribute("articleWaiting", new ArticleDTO() );
