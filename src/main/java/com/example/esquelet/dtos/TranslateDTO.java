@@ -1,6 +1,5 @@
 package com.example.esquelet.dtos;
 
-import com.example.esquelet.entities.Article;
 import com.example.esquelet.entities.Lang;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -8,7 +7,7 @@ import lombok.NoArgsConstructor;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.stream.Collectors;
+import java.util.concurrent.atomic.AtomicReference;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -22,12 +21,8 @@ public class TranslateDTO {
     private Map<String,String> property;
     private Map<String,String> category;
 
-    private Map<String,Map<String,String>> valueCategory;
+    private Map<String,Map<String,String>> valuePropertyByProduct;
 
-    public TranslateDTO(String code, String name){
-        this.code = code;
-        this.name = name;
-    }
 
 
     public static TranslateDTO createTranslateDTO(Lang lang){
@@ -46,22 +41,55 @@ public class TranslateDTO {
         lang.getTranslateCategories().forEach(translate ->
                 category.put(translate.getCategory().getName(),translate.getTranslation()));
         //------------ product1.tld
-        Map<String,Map<String,String>> valueCategory = new HashMap<>();
+        Map<String,Map<String,String>> valuePropertyByProduct = new HashMap<>();
         lang.getTranslateValueProperties().forEach( translate -> {
-            if( !valueCategory.containsKey( translate.getArticle().getProduct().getName() ) ){
-                valueCategory.put(translate.getArticle().getProduct().getName(),new HashMap<>());
-            }
+            String productName =  translate.getArticle().getProduct().getName();
+            if( !valuePropertyByProduct.containsKey( productName ) )
+                valuePropertyByProduct.put( productName ,new HashMap<>());
+
         });
-        lang.getTranslateValueProperties().forEach( translate ->{
-            valueCategory.get(translate.getArticle().getProduct().getName()).put(
+        lang.getTranslateValueProperties().forEach( translate ->
+            valuePropertyByProduct.get(translate.getArticle().getProduct().getName()).put(
                     translate.getArticle().getProperty().getName(), translate.getTranslation()
-            );
-        });
-        return  new TranslateDTO(code,name,product,property,category,valueCategory);
+            )
+        );
+        return  new TranslateDTO(code,name,product,property,category,valuePropertyByProduct);
 
 
 
     }
+
+
+
+    // return english key
+
+    public String productEnglish( String productName ){
+        AtomicReference<String> englishName = new AtomicReference<>("");
+        product.forEach((k,v) ->{
+            if( v.equals(productName) ) englishName.set(k);
+        });
+       return englishName.get();
+    }
+    public String propertyEnglish( String propertyName ){
+        AtomicReference<String> englishName = new AtomicReference<>("");
+        product.forEach((k,v) ->{
+            if( v.equals(propertyName) ) englishName.set(k);
+        });
+        return englishName.get();
+    }
+
+    public String categoryEnglish( String categoryName ){
+        AtomicReference<String> englishName = new AtomicReference<>("");
+        product.forEach((k,v) ->{
+            if( v.equals(categoryName) ) englishName.set(k);
+        });
+        return englishName.get();
+    }
+
+
+
+
+
 
 
 

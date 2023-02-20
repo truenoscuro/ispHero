@@ -2,11 +2,11 @@ package com.example.esquelet.controllers;
 
 
 import com.example.esquelet.dtos.ArticleDTO;
+import com.example.esquelet.dtos.TranslateDTO;
 import com.example.esquelet.dtos.UserDTO;
 import com.example.esquelet.models.Cart;
 import com.example.esquelet.models.IdCart;
 import com.example.esquelet.services.*;
-import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,7 +23,8 @@ public class CartController {
     @Autowired
     private ArticleService articleService;
 
-
+    @Autowired
+    private TranslateService translateService;
 
     @Autowired
     private InvoiceService invoiceService;
@@ -50,7 +51,13 @@ public class CartController {
     public String view(Model model){
         initCart( model );
         model.addAttribute("articleComplete",new IdCart());
-
+        ((Cart) model.getAttribute("cartUser")).getArticles()
+                .forEach( article ->
+                        translateService.translate(
+                                article,
+                                (TranslateDTO) Objects.requireNonNull(model.getAttribute("langPage"))
+                                )
+                );
         return "backendUser/cartpage";
     }
     @GetMapping("/cart/{page}")
@@ -122,6 +129,8 @@ public class CartController {
     public String buy(Model model){
         UserDTO user = (UserDTO) model.getAttribute("user");
         Cart cart = (Cart) model.getAttribute("cartUser");
+        //convert in english cart;
+        cart.getArticles().forEach(article -> translateService.originalTranslate( article ) );
         //add Service
         servService.addServicesByUser ( user , cart );
         // add Invoice
