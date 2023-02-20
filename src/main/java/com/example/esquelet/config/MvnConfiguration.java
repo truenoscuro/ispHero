@@ -34,7 +34,7 @@ public class MvnConfiguration implements WebMvcConfigurer {
         //--
         registry.addInterceptor(articleCompleteInterceptor)
                 .addPathPatterns("/","/product/**")
-                .excludePathPatterns("/product/domain");
+                .excludePathPatterns("/product/search");
     }
 
     @Override
