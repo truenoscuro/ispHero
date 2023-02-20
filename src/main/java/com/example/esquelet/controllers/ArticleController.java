@@ -95,7 +95,7 @@ public class ArticleController {
     public String  domainCheck(
             @RequestParam( "domainSearch" ) String domainName,
             Model model ){
-
+        // TODO if element is .Domain  return blanck
         domainName = domainName
                 .toLowerCase()
                 .split("\\.")[0]
