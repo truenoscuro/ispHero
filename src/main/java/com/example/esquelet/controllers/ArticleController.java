@@ -1,14 +1,12 @@
 package com.example.esquelet.controllers;
 
 
-import com.example.esquelet.dtos.ArticleDTO;
-import com.example.esquelet.dtos.DomainRegisteredDTO;
-import com.example.esquelet.dtos.UserDTO;
-import com.example.esquelet.dtos.WaitingDomainDTO;
+import com.example.esquelet.dtos.*;
 
 import com.example.esquelet.services.ArticleService;
 import com.example.esquelet.services.DomainRegisteredService;
 
+import com.example.esquelet.services.TranslateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Controller
@@ -26,6 +25,9 @@ public class ArticleController {
     private ArticleService articleService;
     @Autowired
     private DomainRegisteredService domainRegisteredService;
+
+    @Autowired
+    private TranslateService translateService;
 
 
     private void addDomainNameAndName( List<ArticleDTO> articles , String domainName ){
@@ -73,7 +75,13 @@ public class ArticleController {
                 && !category.equals("mail")
                 && !category.equals("host")
          ) return "redirect:/product/domain";
-        model.addAttribute("articles" , articleService.getArticleDTOList( category ) );
+        List<ArticleDTO> articles = articleService.getArticleDTOList( category );
+        //-- translate
+        articles.forEach(article -> translateService.translate(
+                article ,
+                (TranslateDTO) Objects.requireNonNull(model.getAttribute("langPage")))
+        );
+        model.addAttribute("articles" , articles );
         model.addAttribute("articleBuy", new ArticleDTO() );
 
         return "product/"+category;
@@ -85,6 +93,8 @@ public class ArticleController {
             Model model ){
 
 
+
+        // TODO need translate??
         List<ArticleDTO> articles = articleService.getArticleDTOList( "domain" );
         //----
         addDomainNameAndName( articles , domainName );

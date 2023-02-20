@@ -100,18 +100,17 @@ public class UserController {
         String password = user.getPassword();
         // Check user and password
         if (userService.checkUser(userName, password)) {
-            model.addAttribute("isLogged",true);
-            model.addAttribute("user",userService.getUser( user ) );
+            model.addAttribute("isLogged", true);
+            model.addAttribute("user", userService.getUser(user));
             model.addAttribute("userName", userName);
             model.addAttribute("isLogged", true);
-            if(model.containsAttribute("articleComplete")) return "redirect:/account/services/add";
+            if (model.containsAttribute("articleComplete")) return "redirect:/account/services/add";
             return "redirect:/account";
-        } else {
-            System.out.println("User or password incorrect");
-            // Add error message
-            model.addAttribute("case", "User or password incorrect");
-            return "backendUser/login";
         }
+        // Add error message
+        model.addAttribute("case", "User or password incorrect");
+        return "backendUser/login";
+
     }
 
 

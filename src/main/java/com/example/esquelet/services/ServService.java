@@ -45,7 +45,7 @@ public class ServService {
 
         // Service Save
         List<Article> articlesEntity = articles.stream()
-                .map( a -> productRepository.getProductsByName(a.getProduct())
+                .map( a -> productRepository.getProductsByName(a.getProduct()) // fail
                         .get().getArticles()
                         .stream().findFirst()
                         .get()
@@ -66,7 +66,7 @@ public class ServService {
         service.setUser( user );
         service.setDateExpired(LocalDateTime.now().plusYears( Long.parseLong( articleDTO.getYear() ) ) );
         service.setCancelled( false );
-        if(articleDTO.isDomain()) service.setNameDomain(articleDTO.getDomainName());
+        if( articleDTO.isDomain() ) service.setNameDomain( articleDTO.getDomainName() );
         else if( articleDTO.getDomainAppend() != null ) service.setNameDomain(articleDTO.getDomainAppend().getDomainName());
         else service.setNameDomain( articleDTO.getService().getNameDomain() );
         return  service;
