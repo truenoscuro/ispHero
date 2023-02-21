@@ -2,6 +2,7 @@ package com.example.esquelet.controllers;
 
 
 import com.example.esquelet.dtos.ArticleDTO;
+import com.example.esquelet.dtos.ServiceDTO;
 import com.example.esquelet.dtos.TranslateDTO;
 import com.example.esquelet.dtos.UserDTO;
 import com.example.esquelet.models.Cart;
@@ -60,8 +61,18 @@ public class CartController {
                 );
         return "backendUser/cartpage";
     }
+
     @GetMapping("/cart/{page}")
     public String redirect( @PathVariable String page ){
+        return "redirect:/cart";
+    }
+
+    @PostMapping("/cart/vincule")
+    public String vincule(@ModelAttribute("idCart") Long idCartArticle,Model model){
+        Long idCart = ((IdCart) model.getAttribute("articleComplete")).getId();
+        ArticleDTO article = ((Cart) model.getAttribute("cartUser")).getArticle( idCart );
+        article.getProperty().replace("needDomain","false");
+        article.setDomainAppend( ((Cart) model.getAttribute("cartUser")).getArticle( idCartArticle ) );
         return "redirect:/cart";
     }
     @PostMapping("/cart/addDomain")
