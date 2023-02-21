@@ -30,7 +30,7 @@ public class TranslateDTO {
         String name = lang.getName();
         //------------
         Map<String,String> product = new HashMap<>();
-        lang.getTranslateProducts().forEach(translate ->
+        lang.getTranslateProducts().forEach( translate ->
                         product.put(translate.getProduct().getName(),translate.getTranslation()));
         //------------
         Map<String,String> property = new HashMap<>();
@@ -64,9 +64,9 @@ public class TranslateDTO {
     // return english key
 
     public String productEnglish( String productName ){
-        AtomicReference<String> englishName = new AtomicReference<>("");
-        product.forEach((k,v) ->{
-            if( v.equals(productName) ) englishName.set(k);
+        AtomicReference<String> englishName = new AtomicReference<>(productName);
+        product.forEach((english,translate) ->{
+            if( translate.equals(productName) ) englishName.set(english);
         });
        return englishName.get();
     }
