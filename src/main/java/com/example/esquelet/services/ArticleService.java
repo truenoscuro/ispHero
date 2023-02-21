@@ -32,6 +32,8 @@ public class ArticleService {
         return ArticleDTO.createArticleDTO(product.getArticles());
     }
 
+
+    // TODO: change search by id
     public ArticleDTO getArticleDTO(String productName) {
         return getArticleDTO(productRepository.getProductsByName(productName).get());
     }

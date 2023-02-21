@@ -52,8 +52,12 @@ public class AccountController {
     @GetMapping(value = "/account/{page}/{action}")
     public String redirect(@PathVariable String page,
                            @PathVariable(required = false) String action ){
-        if(!page.equals("services") || action != null ) return "redirect:/account" ;
-        return "redirect:/account/services";
+        if(page.equals("services")
+                && action != null
+                && action.equals("add") )
+            return "redirect:/account/services";
+        return "redirect:/account" ;
+
     }
 
     @PostMapping("/account/vincule")

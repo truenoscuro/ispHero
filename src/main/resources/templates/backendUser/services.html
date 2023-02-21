@@ -13,14 +13,29 @@
   <tr>
     <th scope="col">Domain</th>
     <th scope="col">TLD</th>
+    <th scope="col"> Is in Cart </th>
     <th scope="col"></th>
   </tr>
   </thead>
   <tbody>
+  <tr th:each="article: ${cartUser.articles}">
+    <span th:if="${article.isDomain()}">
+      <td class="text-primary" th:text="${article.name}"></td>
+      <td th:text="${article.property.tld}"></td>
+      <td> cart </td>
+      <td>
+        <form action="/cart/vincule" method="post">
+          <input type="hidden" th:value="${article.idCart}" name="idCart">
+          <button type="submit" class="btn btn-danger" >Vincule cart</button>
+        </form>
+      </td>
+    </span>
+  </tr>
   <tr th:each="service: ${user.services}">
     <span th:if="${service.isDomain() && !service.isCancelled()}">
       <td class="text-primary" th:text="${service.nameDomain}"></td>
       <td th:text="${service.product}"></td>
+      <td> Service </td>
       <td>
         <form action="/account/vincule" method="post">
           <input type="hidden" th:value="${service.id}" name="idService">
