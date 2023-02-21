@@ -24,16 +24,16 @@ public class Lang {
     private String name;
 
 
-    @OneToMany(mappedBy = "lang",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "lang")
     private List<TranslateProduct> translateProducts;
-    @OneToMany(mappedBy = "lang",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "lang")
     private List<TranslateProperty> translateProperties;
 
-    @OneToMany(mappedBy = "lang",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "lang")
     private List<TranslateCategory> translateCategories;
 
 
-    @OneToMany(mappedBy = "lang",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "lang")
     private List<TranslateValueProperty> translateValueProperties;
 
 
