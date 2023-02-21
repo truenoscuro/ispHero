@@ -50,12 +50,12 @@ public class CartController {
     @GetMapping("/cart")
     public String view(Model model){
         initCart( model );
-        model.addAttribute("articleComplete",new IdCart());
         ((Cart) model.getAttribute("cartUser")).getArticles()
                 .forEach( article ->
                         translateService.translate(
                                 article,
-                                (TranslateDTO) Objects.requireNonNull(model.getAttribute("langPage"))
+                                (TranslateDTO) Objects.requireNonNull(model.getAttribute("langPa" +
+                                        "ge"))
                                 )
                 );
         return "backendUser/cartpage";
