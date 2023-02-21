@@ -32,11 +32,9 @@ class TranslateInterceptor implements HandlerInterceptor {
         //-- Code use
         String code = LocaleContextHolder.getLocale().toString();
         if(code.equals("en_US")) code = "en";
-
         // init Languages
         HttpSession session = request.getSession();
-        if(session.getAttribute("languages") == null)
-            session.setAttribute("languages", translateService.getAll());
+        session.setAttribute("languages", translateService.getAllSimple()); //Todo languages
         // change Language page
         List<TranslateDTO> translates = (List<TranslateDTO>) session.getAttribute("languages");
         String finalCode = code;

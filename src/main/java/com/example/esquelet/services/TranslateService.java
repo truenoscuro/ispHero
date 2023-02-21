@@ -17,6 +17,10 @@ public class TranslateService {
     @Autowired
     private LanguageRepository languageRepository;
 
+    public List<TranslateDTO> getAllSimple(){
+        return languageRepository.findAll().stream().map(TranslateDTO::createSimpleTranslateDTO).toList();
+    }
+
     public List<TranslateDTO> getAll(){
         return languageRepository.findAll().stream().map(TranslateDTO::createTranslateDTO).toList();
     }
@@ -25,6 +29,7 @@ public class TranslateService {
     }
 
     public void translate(ArticleDTO article , TranslateDTO translate ){
+        if(translate.getProduct() == null) translate = language( translate.getCode() ); // init parameters
         Map<String,String> valueProperties = article.getProperty();
         String productName = translate.productEnglish(article.getProduct());
         // translate value properties
@@ -36,10 +41,9 @@ public class TranslateService {
         if(translate.getProduct().containsKey(productName))
             article.setProduct(translate.getProduct().get( productName ));
     }
-
-
-
     public void originalTranslate( ArticleDTO article ){
         translate( article, language("en"));
     }
+
+
 }
