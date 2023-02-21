@@ -12,8 +12,7 @@ import java.util.Map;
 
 @Service
 public class TranslateService {
-
-
+    
     @Autowired
     private LanguageRepository languageRepository;
 
@@ -41,9 +40,5 @@ public class TranslateService {
         if(translate.getProduct().containsKey(productName))
             article.setProduct(translate.getProduct().get( productName ));
     }
-    public void originalTranslate( ArticleDTO article ){
-        translate( article, language("en"));
-    }
-
-
+    public void originalTranslate( ArticleDTO article ){ translate( article, language("en")); }
 }

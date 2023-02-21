@@ -31,7 +31,6 @@ class TranslateInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         //-- Code use
         String code = LocaleContextHolder.getLocale().toString();
-        if(code.equals("en_US")) code = "en";
         // init Languages
         HttpSession session = request.getSession();
         session.setAttribute("languages", translateService.getAllSimple()); //Todo languages
