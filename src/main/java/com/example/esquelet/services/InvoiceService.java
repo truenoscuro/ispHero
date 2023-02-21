@@ -14,6 +14,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
@@ -43,6 +44,7 @@ public class InvoiceService {
         // Invoice save
         Invoice invoice = new Invoice();
         invoice.setUser(user);
+        invoice.setDateBuy(LocalDateTime.now());
         invoice.setFullName("factura "+ user.getUsername());
         invoiceRepository.save(invoice);
         invoiceRepository.flush();

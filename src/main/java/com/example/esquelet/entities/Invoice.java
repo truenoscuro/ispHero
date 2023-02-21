@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.jetbrains.annotations.NotNull;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @AllArgsConstructor
@@ -22,13 +23,20 @@ public class Invoice {
 
 
 
+
     @ToString.Exclude
     @NotNull
     @ManyToOne
     private User user;
 
+
     @NotNull
     private String fullName;
+
+    @NotNull
+    private LocalDateTime dateBuy;
+
+
 
 
 

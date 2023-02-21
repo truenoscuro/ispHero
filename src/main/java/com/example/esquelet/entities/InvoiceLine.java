@@ -23,10 +23,15 @@ public class InvoiceLine {
     private String quantity;
     @NotNull
     private String vat;
+
+
     @ToString.Exclude
     @NotNull
     @ManyToOne
     private Invoice invoice;
+
+
+
 
 
 }
