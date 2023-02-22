@@ -55,7 +55,7 @@
                             <span th:each="extra : ${service.value}" th:text="${extra.product} + ' ' + ${extra.category}"></span>
                         </td>
                         <td>
-                            <a th:href="@{/account/service/{id}(id=${service.key.id})}" class="btn btn-outline-danger" th:text="#{messages.account.cancelBtn}"></a>
+                            <a th:href="@{/account/service/expire/{id}(id=${service.key.id})}" class="btn btn-outline-danger" th:text="#{messages.account.cancelBtn}"></a>
                         </td>
                     </tbody>
                 </table>

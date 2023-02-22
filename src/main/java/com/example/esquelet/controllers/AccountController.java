@@ -52,10 +52,9 @@ public class AccountController {
     @GetMapping(value = "/account/{page}/{action}")
     public String redirect(@PathVariable String page,
                            @PathVariable(required = false) String action ){
-        if(page.equals("services")
-                && action != null
-                && action.equals("add") )
-            return "redirect:/account/services";
+        if(!page.equals("services") || action == null) return "redirect:/account";
+        if(action.equals("add")) return "redirect:/account/services";
+        if(Integer.parseInt(action) >= 0) return "redirect:/account/service/expire/{idService}";
         return "redirect:/account" ;
 
     }
@@ -90,8 +89,8 @@ public class AccountController {
         }
         return "redirect:/account";
     }
-    @PostMapping("account/service/expire")
-    public String updateService(@RequestParam Long idService){
+    @GetMapping("account/service/expire/{id}")
+    public String updateService(@PathVariable("id") Long idService){
         servService.changeExpired( idService );
         return "redirect:/account";
     }

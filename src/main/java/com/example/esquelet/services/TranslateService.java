@@ -4,7 +4,6 @@ import com.example.esquelet.dtos.ArticleDTO;
 import com.example.esquelet.dtos.TranslateDTO;
 import com.example.esquelet.repositories.LanguageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
