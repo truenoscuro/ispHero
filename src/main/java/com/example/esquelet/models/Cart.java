@@ -34,7 +34,6 @@ public class Cart {
     }
 
     public ArticleDTO getArticle( Long  id ){
-        //System.out.println(articles.stream().filter(article -> Objects.equals(article.getIdCart(), id)).findFirst().get());
         return articles.stream().filter(article -> Objects.equals(article.getIdCart(), id)).findFirst().get();
     }
     public void removeAll( ){
