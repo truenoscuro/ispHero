@@ -36,9 +36,8 @@ class TranslateInterceptor implements HandlerInterceptor {
         session.setAttribute("languages", translateService.getAllSimple()); //Todo languages
         // change Language page
         List<TranslateDTO> translates = (List<TranslateDTO>) session.getAttribute("languages");
-        String finalCode = code;
         session.setAttribute("langPage", translates.stream()
-                .filter(t -> t.getCode().equals(finalCode))
+                .filter(t -> t.getCode().equals(code))
                 .findFirst().get()
         );
         return true;
