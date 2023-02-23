@@ -70,6 +70,7 @@
                     <input type="hidden" th:value="${user.idData}" name="idData">
                     <div class="row">
                         <h3 th:text="#{messages.account.personalInfo}"></h3>
+                        <input type="hidden" th:value="${user.username}" id="username">
                         <div class="col-12 col-md-6">
                             <div class="mb-3">
                                 <label for="name" class="form-label" th:text="#{messages.account.firstName}"></label>
@@ -111,7 +112,7 @@
                                        th:value="${user.city}" name="city" readonly>
                             </div>
                             <div class="mb-3">
-                                <label for="postalCode" class="form-label" th:text="#{messages.account.firstName}"></label>
+                                <label for="postalCode" class="form-label" th:text="#{messages.account.postalCode}"></label>
                                 <input type="text" class="form-control editable" id="postalCode" placeholder="Postal Code"
                                        th:value="${user.postalCode}" name="postalCode" readonly>
                             </div>
@@ -173,14 +174,19 @@
                 <h3 th:text="#{messages.account.noWaitingList}"></h3>
             </div>
         </div>
+        </div>
     </div>
-    </div>
+
 </div>
 <div th:unless="${user.verified}" class="container text center my-5 text-center">
     <p class="title-1">Please verify your mail first.</p>
 </div>
 <footer th:insert="~{fragments/general.html :: footer}"></footer>
-
+<div class="chat-icon-container">
+    <a href="#" class="chat-icon">
+        <i class="fa fa-comment" aria-hidden="true"></i>
+    </a>
+</div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
 <script>
 
@@ -231,6 +237,10 @@
             var dateFormatted = moment(date).format('DD/MM/YYYY');
             $(this).text(dateFormatted);
         })
+
+        $('.chat-icon-container').click(function () {
+            window.open('https://chat.isphero.com/' + $('#username').val() , 'Live Chat', 'height=600,width=500,toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=no,resizable=no')
+        });
     })
     var inputs = document.querySelectorAll('.editable');
 
