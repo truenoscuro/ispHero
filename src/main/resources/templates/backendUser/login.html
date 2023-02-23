@@ -29,7 +29,7 @@
         </form>
         <hr>
         <div class="login-form-buttons d-flex justify-content-center gap-2 mb-4">
-          <a href="#" class="btn login-button btn-google btn-format btn-block">
+          <a class="btn login-button btn-google btn-format btn-block">
             <i class="fab fa-google fa-fw"></i> Login with Google
           </a>
           <a href="/login" class="btn login-button btn-facebook btn-format btn-block">
@@ -46,7 +46,7 @@
 </main>
 
 <script async defer src="https://accounts.google.com/gsi/client"></script>
-<script>
+<script defer>
 
   // Google OAuth
   document.querySelector('.btn-google').addEventListener('click', function () {
