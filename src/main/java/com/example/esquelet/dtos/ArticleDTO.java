@@ -82,10 +82,16 @@ public class ArticleDTO {
                     years.add( year );
                     priceYear.put( year , article.getValueProperty( ) );
                 });
+        Map<String,String> properties =  generateProperty( articles );
+        //-- Aplicate discount;
+        if( properties.containsKey("discount") ){
+            float discount = (100-Float.parseFloat(properties.get("discount")))/100;
+            priceYear.forEach((year,price) -> priceYear.replace(year,(Float.parseFloat(price) * discount)+""));
+        }
         return  new ArticleDTO(
                 articles.get(0).getProduct().getCategory().getName(),
                 articles.get(0).getProduct().getName(),
-                generateProperty( articles ),
+                properties,
                 years,
                 priceYear,
                 generateBundle(articles)
@@ -98,7 +104,10 @@ public class ArticleDTO {
                 .forEach( article ->
                     property.put( article.getProperty( ).getName(),article.getValueProperty() )
                 );
-        property.put("vat","" + 21); // <-- put in ddbb
+
+
+
+        property.put("vat","" + 21); // <-- TODO put in ddbb
         return property;
     }
     private static List<ArticleDTO> generateBundle(List<Article> articles){
