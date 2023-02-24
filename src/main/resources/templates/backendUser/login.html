@@ -58,7 +58,6 @@
           console.log(responseGoogle);
 
           const tokenGoogle = responseGoogle.credential;
-
           const responseFetch = await fetch('https://isphero.com/auth/login/google', {
             method: 'POST',
             body: tokenGoogle,

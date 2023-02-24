@@ -8,23 +8,23 @@
 <div class="container mt-5 my-5">
     <div class="row">
         <div class="col-md-6">
-            <h2 th:text="#{messages.about.aboutUs}"></h2>
-            <p th:text="#{messages.about.aboutUsText}"></p>
-            <h3 th:text="#{messages.about.ourBusiness}"></h3>
-            <p th:text="#{messages.about.ourBusinessText}"></p>
+            <h2 th:text="${langPage.messages.aboutaboutUs}"></h2>
+            <p th:text="${langPage.messages.aboutaboutUsText}"></p>
+            <h3 th:text="${langPage.messages.aboutourBusiness}"></h3>
+            <p th:text="${langPage.messages.aboutourBusinessText}"></p>
         </div>
         <div class="col-md-6">
-            <h3 th:text="#{messages.about.contactUs}"></h3>
-            <p th:text="#{messages.about.contactUsTextp1}"></p>
-            <p th:text="#{messages.about.contactUsTextp2}"></p>
-            <p th:text="#{messages.about.contactUsTextp3}"></p>
+            <h3 th:text="${langPage.messages.aboutcontactUs}"></h3>
+            <p th:text="${langPage.messages.aboutcontactUsTextp1}"></p>
+            <p th:text="${langPage.messages.aboutcontactUsTextp2}"></p>
+            <p th:text="${langPage.messages.aboutcontactUsTextp3}"></p>
         </div>
     </div>
 </div>
 <div class="container mb-5">
     <div class="row">
         <div class="col-md-12">
-            <h3 class="text-center mb-3" th:text="#{messages.about.ourTeam}"></h3>
+            <h3 class="text-center mb-3" th:text="${langPage.messages.aboutourTeam}"></h3>
             <div class="row justify-content-evenly">
                 <div class="col-md-4">
                     <div class="card">
@@ -34,7 +34,7 @@
                         <div class="card-body">
                             <h5 class="card-title">Alexander Witt</h5>
                             <p class="card-text">CEO</p>
-                            <p class="card-text" th:text="#{messages.about.founder}"></p>
+                            <p class="card-text" th:text="${langPage.messages.aboutfounder}"></p>
                             <a href="mailto:info@isphero.com" class="btn btn-outline-primary">info@isphero.com</a>
                         </div>
                     </div>
@@ -47,7 +47,7 @@
                         <div class="card-body">
                             <h5 class="card-title">Nofre Ruiz Salom</h5>
                             <p class="card-text">CEO</p>
-                            <p class="card-text" th:text="#{messages.about.founder}"></p>
+                            <p class="card-text" th:text="${langPage.messages.aboutfounder}"></p>
                             <a href="mailto:info@isphero.com" class="btn btn-outline-primary">info@isphero.com</a>
                         </div>
                     </div>

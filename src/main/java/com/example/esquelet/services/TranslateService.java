@@ -2,6 +2,7 @@ package com.example.esquelet.services;
 
 import com.example.esquelet.dtos.ArticleDTO;
 import com.example.esquelet.dtos.TranslateDTO;
+import com.example.esquelet.entities.Lang;
 import com.example.esquelet.repositories.LanguageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,15 +20,22 @@ public class TranslateService {
         return languageRepository.findAll().stream().map(TranslateDTO::createSimpleTranslateDTO).toList();
     }
 
-    public List<TranslateDTO> getAll(){
-        return languageRepository.findAll().stream().map(TranslateDTO::createTranslateDTO).toList();
+    public Lang language(String code){
+        return languageRepository.findByCode( code ).get();
     }
-    public TranslateDTO language( String code ){
-        return TranslateDTO.createTranslateDTO( languageRepository.findByCode( code ).get() );
+
+    public void chargeMessages(TranslateDTO langPage){
+        if(langPage.haveArticles()) return;
+        langPage.chargeMessages( language( langPage.getCode() ) );
+    }
+    public void chargeArticles(TranslateDTO  langPage){
+        if( langPage.haveArticles() ) return;
+        langPage.chargeArticles(language(langPage.getCode()));
     }
 
     public void translate(ArticleDTO article , TranslateDTO translate ){
-        if(translate.getProduct() == null) translate = language( translate.getCode() ); // init parameters
+        chargeArticles(translate);
+        if( !translate.haveArticles() ) return;
         Map<String,String> valueProperties = article.getProperty();
         String productName = translate.productEnglish(article.getProduct());
         // translate value properties
@@ -39,5 +47,5 @@ public class TranslateService {
         if(translate.getProduct().containsKey(productName))
             article.setProduct(translate.getProduct().get( productName ));
     }
-    public void originalTranslate( ArticleDTO article ){ translate( article, language("en")); }
+
 }

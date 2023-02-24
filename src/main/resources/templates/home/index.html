@@ -8,9 +8,9 @@
     <div class="py-5 col-md-12" style="--bg-position-vertical: 40%;">
         <div class="site-center">
             <div class="content-md text-center color-text-dark mb-section-lg">
-                <h1 class="font-light m-0" th:text="#{messages.main.findDomain}">Buscar dominios</h1>
-                <h2 class="title-1"><strong class="text-primary" th:text="#{messages.main.searchAndBuy}">Busca y
-                    compra</strong><span th:text="#{messages.main.freeDomain}">tu dominio libre</span></h2>
+                <h1 class="font-light m-0" th:text="${langPage.messages.mainfindDomain}">Buscar dominios</h1>
+                <h2 class="title-1"><strong class="text-primary" th:text="${langPage.messages.mainsearchAndBuy}">Busca y
+                    compra</strong><span th:text="${' '+langPage.messages.mainfreeDomain}">tu dominio libre</span></h2>
             </div>
             <div th:insert="~{fragments/general.html :: domainSearchBar}"></div>
         </div>
@@ -50,14 +50,14 @@
         <div class="container">
             <div class="row">
                 <div class="col-12 col-md-6 col-lg-4 p-3 justify-content-center">
-                    <h2 class="heading-3 fs-36 lh-44 mb-24" th:text="#{messages.main.flexText}">Your digital
+                    <h2 class="heading-3 fs-36 lh-44 mb-24" th:text="${langPage.messages.mainflexText}">Your digital
                         solution</h2>
                     <ul class="checkmark-list">
-                        <li class="clearfix"><span class="ov-hidden" th:text="#{messages.main.flexp1}">Sustainable and scalable</span>
+                        <li class="clearfix"><span class="ov-hidden" th:text="${langPage.messages.mainflexp1}">Sustainable and scalable</span>
                         </li>
                         <li class="clearfix"><span class="ov-hidden"
-                                                   th:text="#{messages.main.flexp2}">Safe and secure</span></li>
-                        <li class="clearfix"><span class="ov-hidden" th:text="#{messages.main.flexp3}">Competent and customizable</span>
+                                                   th:text="${langPage.messages.mainflexp2}">Safe and secure</span></li>
+                        <li class="clearfix"><span class="ov-hidden" th:text="${langPage.messages.mainflexp3}">Competent and customizable</span>
                         </li>
                     </ul>
                 </div>
@@ -80,7 +80,7 @@
                             alt="Dominios" class="icon-img">"
                     </noscript>
                     <h3 class="d-block ff-opb fs-24">22 000</h3><span class="d-block ff-opr fs-18 mt-12"
-                                                                      th:text="#{messages.main.domainsRegistered}">dominios registrados</span>
+                                                                      th:text="${langPage.messages.maindomainsRegistered}">dominios registrados</span>
                 </div>
                 <div class="col-12 col-md-6 col-lg-3 py-4 about-grid"><img class="icon-img"
                                                                            data-lavender-original="null"
@@ -91,7 +91,7 @@
                             alt="Icon with a globe and circulating arrows" class="icon-img">"
                     </noscript>
                     <h3 class="d-block ff-opb fs-24">8 000</h3><span class="d-block ff-opr fs-18 mt-12"
-                                                                     th:text="#{messages.main.clientsServed}">clientes</span>
+                                                                     th:text="${langPage.messages.mainclientsServed}">clientes</span>
                 </div>
                 <div class="col-12 col-md-6 col-lg-3 py-4 about-grid"><img class="icon-img"
                                                                            data-lavender-original="null"
@@ -102,7 +102,7 @@
                             alt="Servidores" class="icon-img">"
                     </noscript>
                     <h3 class="d-block ff-opb fs-24">1 000</h3><span class="d-block ff-opr fs-18 mt-12"
-                                                                     th:text="#{messages.main.serversOnline}">servidores</span>
+                                                                     th:text="${langPage.messages.mainserversOnline}">servidores</span>
                 </div>
                 <div class="col-12 col-md-6 col-lg-3 py-4 about-grid"><img class="icon-img"
                                                                            data-lavender-original="null"
@@ -113,7 +113,7 @@
                             alt="Icono de colaboradores" class="icon-img">"
                     </noscript>
                     <h3 class="d-block ff-opb fs-24">400</h3><span class="d-block ff-opr fs-18 mt-12"
-                                                                   th:text="#{messages.main.collaborators}">colaboradores</span>
+                                                                   th:text="${langPage.messages.maincollaborators}">colaboradores</span>
                 </div>
             </div>
 
@@ -124,8 +124,8 @@
         <div class="card col-12 col-md-3 my-3">
             <img th:src="@{/img/people-and-technology.png}" class="card-img-top" alt="Domain Hosting">
             <div class="card-body mx-3 mb-3">
-                <h3 class="card-title" th:text="#{messages.main.card1Title}">Domain Hosting</h3>
-                <p class="card-text" th:text="#{messages.main.card1Text}">Keep your domain name safe and secure with our
+                <h3 class="card-title" th:text="${langPage.messages.maincard1Title}">Domain Hosting</h3>
+                <p class="card-text" th:text="${langPage.messages.maincard1Text}">Keep your domain name safe and secure with our
                     reliable hosting services. Our team of experts will help you find the perfect domain and keep it
                     running smoothly.</p>
             </div>
@@ -133,16 +133,16 @@
         <div class="card col-12 col-md-3 my-3">
             <img th:src="@{/img/stressed-person-using-computer.png}" class="card-img-top" alt="Domain Hosting">
             <div class="card-body mx-3 mb-3">
-                <h3 class="card-title" th:text="#{messages.main.card2Title}">We've got you covered</h3>
-                <p class="card-text" th:text="#{messages.main.card2Text}">Don't worry about any problems you may have.
+                <h3 class="card-title" th:text="${langPage.messages.maincard2Title}">We've got you covered</h3>
+                <p class="card-text" th:text="${langPage.messages.maincard2Text}">Don't worry about any problems you may have.
                     Our team of experts is here to help with any issue you may have, big or small.</p>
             </div>
         </div>
         <div class="card col-12 col-md-3 my-3">
             <img th:src="@{/img/people-raising-money.png}" class="card-img-top" alt="Domain Hosting">
             <div class="card-body mx-3 mb-3">
-                <h3 class="card-title" th:text="#{messages.main.card3Title}">Why Choose Us?</h3>
-                <p class="card-text" th:text="#{messages.main.card3Text}">We offer the best prices and rates in the
+                <h3 class="card-title" th:text="${langPage.messages.maincard3Title}">Why Choose Us?</h3>
+                <p class="card-text" th:text="${langPage.messages.maincard3Text}">We offer the best prices and rates in the
                     industry. Our team works hard to negotiate the best deals for our customers, ensuring that you get
                     the best value for your money.</p>
             </div>
@@ -154,8 +154,8 @@
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <div class="p-5">
-                    <h1 class="text-center" th:text="#{messages.main.subscribe}">Subscribe to our newsletter</h1>
-                    <p class="text-center" th:text="#{messages.main.subscribeText}">Get the latest news and updates from
+                    <h1 class="text-center" th:text="${langPage.messages.mainsubscribe}">Subscribe to our newsletter</h1>
+                    <p class="text-center" th:text="${langPage.messages.mainsubscribeText}">Get the latest news and updates from
                         our team</p>
                     <div class="container">
                         <form action="#" method="post" id="emailsub">
@@ -163,10 +163,10 @@
                                 <label for="email"></label>
                                 <div class="input-group gap-1">
                                     <input type="text" class="form-control" id="email" name="email"
-                                           placeholder="Enter email" th:placeholder="#{messages.main.subscribeBar}">
+                                           placeholder="Enter email" th:placeholder="${langPage.messages.mainsubscribeBar}">
                                     <div class="input-group-append">
                                         <button class="btn btn-primary" type="submit"
-                                                th:text="#{messages.main.subscribeButton}">Subscribe
+                                                th:text="${langPage.messages.mainsubscribeButton}">Subscribe
                                         </button>
                                     </div>
                                 </div>
@@ -179,17 +179,17 @@
     </div>
 </div>
 <div class="toast d-flex justify-content-center w-100">
-    <div class="alert alert-success position-fixed bottom-0 my-5" style="z-index: 3" th:text="#{messages.main.success}">
+    <div class="alert alert-success position-fixed bottom-0 my-5" style="z-index: 3" th:text="${langPage.messages.mainsuccess}">
         Your email has been registered!
     </div>
     <div class="alert alert-danger position-fixed bottom-0 my-5 taken" style="z-index: 3"
-         th:text="#{messages.main.error2}">You are already subscribed!
+         th:text="${langPage.messages.mainerror2}">You are already subscribed!
     </div>
     <div class="alert alert-danger position-fixed bottom-0 my-5 valid" style="z-index: 3"
-         th:text="#{messages.main.error}">Please enter a valid email!
+         th:text="${langPage.messages.mainerror}">Please enter a valid email!
     </div>
     <div class="alert alert-danger position-fixed bottom-0 my-5 valid" style="z-index: 3"
-         th:text="#{messages.main.errorDomain}">Please enter at least 3 characters!
+         th:text="${langPage.messages.mainerrorDomain}">Please enter at least 3 characters!
     </div>
 </div>
 <footer th:insert="~{fragments/general.html :: footer}"></footer>

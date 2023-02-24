@@ -36,10 +36,17 @@ class TranslateInterceptor implements HandlerInterceptor {
         session.setAttribute("languages", translateService.getAllSimple()); //Todo languages
         // change Language page
         List<TranslateDTO> translates = (List<TranslateDTO>) session.getAttribute("languages");
-        session.setAttribute("langPage", translates.stream()
-                .filter(t -> t.getCode().equals(code))
-                .findFirst().get()
-        );
+        if(session.getAttribute("langPage") == null ||
+                !((TranslateDTO) session.getAttribute("langPage")).getCode().equals(code))
+        {
+            session.setAttribute("langPage", translates.stream()
+                    .filter(t -> t.getCode().equals(code))
+                    .findFirst().get()
+            );
+        }
+        //-- charge messages change
+        TranslateDTO langPage = (TranslateDTO) session.getAttribute("langPage");
+        translateService.chargeMessages( langPage );
         return true;
     }
 
