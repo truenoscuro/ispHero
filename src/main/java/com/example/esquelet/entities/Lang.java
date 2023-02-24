@@ -42,7 +42,7 @@ public class Lang {
     @OneToMany(mappedBy = "lang")
     private List<TranslateValueProperty> translateValueProperties;
 
-    @OneToMany(mappedBy = "lang")
+    @OneToMany(mappedBy = "lang",fetch = FetchType.EAGER)
     private  List<TranslatePage> translatePages;
 
 

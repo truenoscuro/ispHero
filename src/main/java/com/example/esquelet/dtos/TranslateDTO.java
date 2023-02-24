@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
@@ -19,7 +20,7 @@ public class TranslateDTO {
 
     private Map<String,String> product;
     private Map<String,String> property;
-    private Map<String,String> category;
+    private Map<String,String> messages;
 
     private Map<String,Map<String,String>> valuePropertyByProduct;
 
@@ -28,24 +29,31 @@ public class TranslateDTO {
         this.name = name;
     }
 
+    public boolean haveMessages(){ return messages != null && !messages.isEmpty();}
 
-    public static TranslateDTO createTranslateDTO(Lang lang){
-        String code = lang.getCode();
-        String name = lang.getName();
-        //------------
+    public boolean haveArticles(){
+        return product!= null && !product.isEmpty() &&
+                valuePropertyByProduct != null && !valuePropertyByProduct.isEmpty();
+    }
+    public void chargeMessages( Lang lang ){
+
+        messages = new HashMap<>();
+        lang.getTranslatePages().forEach( translatePage -> {
+            String key = translatePage.getKeyText().getText();
+            key = Arrays.stream(key.split("\\.")).reduce((total,text)-> total +text ).get();
+            messages.put( key, translatePage.getTranslate());
+        }
+        );
+    }
+
+    public void chargeArticles( Lang lang ){
+
         Map<String,String> product = new HashMap<>();
         lang.getTranslateProducts().forEach( translate ->
-                        product.put(translate.getProduct().getName(),translate.getTranslation()));
-        //------------
-        Map<String,String> property = new HashMap<>();
-        lang.getTranslateProperties().forEach(translate ->
-                property.put(translate.getProperty().getName(),translate.getTranslation()));
-        //------------
-        Map<String,String> category = new HashMap<>();
-        lang.getTranslateCategories().forEach(translate ->
-                category.put(translate.getCategory().getName(),translate.getTranslation()));
-        //------------ product1.tld
-        Map<String,Map<String,String>> valuePropertyByProduct = new HashMap<>();
+                product.put(translate.getProduct().getName(),translate.getTranslation())
+        );
+
+        valuePropertyByProduct = new HashMap<>();
         lang.getTranslateValueProperties().forEach( translate -> {
             String productName =  translate.getArticle().getProduct().getName();
             if( !valuePropertyByProduct.containsKey( productName ) )
@@ -53,41 +61,21 @@ public class TranslateDTO {
 
         });
         lang.getTranslateValueProperties().forEach( translate ->
-            valuePropertyByProduct.get(translate.getArticle().getProduct().getName()).put(
-                    translate.getArticle().getProperty().getName(), translate.getTranslation()
-            )
+                valuePropertyByProduct.get(translate.getArticle().getProduct().getName()).put(
+                        translate.getArticle().getProperty().getName(), translate.getTranslation()
+                )
         );
-        return  new TranslateDTO(code,name,product,property,category,valuePropertyByProduct);
-
-
-
     }
 
 
 
     // return english key
-
     public String productEnglish( String productName ){
         AtomicReference<String> englishName = new AtomicReference<>(productName);
         product.forEach((english,translate) ->{
             if( translate.equals(productName) ) englishName.set(english);
         });
        return englishName.get();
-    }
-    public String propertyEnglish( String propertyName ){
-        AtomicReference<String> englishName = new AtomicReference<>("");
-        product.forEach((k,v) ->{
-            if( v.equals(propertyName) ) englishName.set(k);
-        });
-        return englishName.get();
-    }
-
-    public String categoryEnglish( String categoryName ){
-        AtomicReference<String> englishName = new AtomicReference<>("");
-        product.forEach((k,v) ->{
-            if( v.equals(categoryName) ) englishName.set(k);
-        });
-        return englishName.get();
     }
 
 

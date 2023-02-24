@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Objects;
 
 @Controller
@@ -141,7 +142,13 @@ public class CartController {
         UserDTO user = (UserDTO) model.getAttribute("user");
         Cart cart = (Cart) model.getAttribute("cartUser");
         //convert in english cart;
-        cart.getArticles().forEach(article -> translateService.originalTranslate( article ) );
+        cart.getArticles().forEach( article -> translateService.translate(
+                article,
+                ((List<TranslateDTO>) model.getAttribute("languages")).stream()
+                        .filter(language -> language.getCode().equals("en"))
+                        .findFirst().get()
+                )
+        );
         //add Service
         servService.addServicesByUser ( user , cart );
         // add Invoice

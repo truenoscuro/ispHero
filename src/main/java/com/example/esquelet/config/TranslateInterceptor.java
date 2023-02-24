@@ -44,6 +44,9 @@ class TranslateInterceptor implements HandlerInterceptor {
                     .findFirst().get()
             );
         }
+        //-- charge messages
+        TranslateDTO langPage = (TranslateDTO) session.getAttribute("langPage");
+        if (!langPage.haveMessages()) translateService.chargeMessages( langPage );
         return true;
     }
 
