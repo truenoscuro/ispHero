@@ -49,14 +49,14 @@
             <a class="nav-link" th:href="@{/product/{category}(category = 'host')}">Hosting</a>
           </li>
           <li class="nav-item mx-4 nav-hover">
-            <a class="nav-link" href="/about" th:text="#{messages.header.about}">About</a>
+            <a class="nav-link" href="/about" th:text="${langPage.messages.headerabout}">About</a>
           </li>
           <li class="nav-item mx-4 nav-hover">
-            <a class="nav-link" href="/contact" th:text="#{messages.header.contact}">Contact</a>
+            <a class="nav-link" href="/contact" th:text="${langPage.messages.headercontact}">Contact</a>
           </li>
         </ul>
         <div class="d-flex">
-            <a th:if="${isLogged}" class="btn btn-outline-primary" href="/account" th:text="#{messages.header.account}">Account</a>
+            <a th:if="${isLogged}" class="btn btn-outline-primary" href="/account" th:text="${langPage.messages.headeraccount}">Account</a>
             <a th:if="${isLogged}" class="btn btn-outline-danger mx-3" href="/logout">Logout</a>
             <a th:unless="${isLogged}" class="btn btn-primary mx-3" href="/login">Login</a>
           <div class="nav-item language-picker btn btn-outline-secondary" data-target="#languageModal" data-toggle="modal">
@@ -66,7 +66,7 @@
           <div class="nav-item mx-3 btn btn-outline-danger">
             <div class="cart">
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16"> <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/> </svg>
-              <span class="d-sm-inline d-none" th:text="#{messages.header.cart}"></span>
+              <span class="d-sm-inline d-none" th:text="${langPage.messages.headercart}"></span>
             </div>
           </div>
         </div>
@@ -87,12 +87,12 @@
                      class="form-control search-text"
                      id="domainSearch" name="domainSearch"
                      placeholder="Enter domain name"
-                     th:placeholder="#{messages.main.findDomainText}">
+                     th:placeholder="${langPage.messages.mainfindDomainText}">
               <div th:if="${articleDepent}">
                 <input type="hidden" name="productName" th:value="${articleDepent.product}">
               </div>
               <div class="input-group-append">
-                <button class="btn btn-primary domainSearchButton" type="submit" th:text="#{messages.main.searchButton}">Search</button>
+                <button class="btn btn-primary domainSearchButton" type="submit" th:text="${langPage.messages.mainsearchButton}">Search</button>
               </div>
             </div>
             <div class="scroll-container"><p class="scroll-left"><b>.ES</b> a partir de 8€  |  <b>.COM</b> a partir de 10€  |  <b>.CAT</b> a partir de 13€  |  <b>.TV</b> a partir de 15€  |  <b>.IO</b> a partir de 11€  |  <b>.NET</b> a partir de 9€  |  <b>.DE</b> a partir de 12€  |  <b>.IN</b> a partir de 11€ </p></div>
@@ -108,11 +108,11 @@
     <div class="container">
       <div class="row">
         <div class="col-md-4">
-          <h3 th:text="#{messages.footer.aboutUs}">About Us</h3>
-          <p th:text="#{messages.footer.aboutUsText}"></p>
+          <h3 th:text="${langPage.messages.footeraboutUs}">About Us</h3>
+          <p th:text="${langPage.messages.footeraboutUsText}"></p>
         </div>
         <div class="col-md-4">
-          <h3 th:text="#{messages.header.contact}">Contact</h3>
+          <h3 th:text="${langPage.messages.headercontact}">Contact</h3>
           <ul class="list-unstyled">
             <li>1820 NW 56th St</li>
             <li>Miami, Florida(FL), 33142</li>
@@ -124,8 +124,8 @@
           <h3>Links</h3>
           <ul class="list-unstyled">
             <li><a href="/" class="text-white">Home</a></li>
-            <li><a href="/about" class="text-white" th:text="#{messages.header.about}">About</a></li>
-            <li><a href="/contact" class="text-white" th:text="#{messages.header.contact}">Contact</a></li>
+            <li><a href="/about" class="text-white" th:text="${langPage.messages.headerabout}">About</a></li>
+            <li><a href="/contact" class="text-white" th:text="${langPage.messages.headercontact}">Contact</a></li>
           </ul>
         </div>
       </div>
@@ -133,7 +133,7 @@
     <div class="container">
       <div class="row justify-content-between">
         <div class="col-auto d-flex gap-2">
-            <a href="/privacy-policy" class="text-white text-decoration-none" th:text="#{messages.footer.privacyPolicy}">Privacy Policy</a> | <a href="/terms-of-service" class="text-white text-decoration-none" th:text="#{messages.footer.termsOfService}">Terms of Service</a> | <a href="/cookies-policy" class="text-white text-decoration-none" th:text="#{messages.footer.cookiePolicy}">Cookies Policy </a> | <span>&copy; 2023 ISP Hero</span>
+            <a href="/privacy-policy" class="text-white text-decoration-none" th:text="${langPage.messages.footerprivacyPolicy}">Privacy Policy</a> | <a href="/terms-of-service" class="text-white text-decoration-none" th:text="#{messages.footer.termsOfService}">Terms of Service</a> | <a href="/cookies-policy" class="text-white text-decoration-none" th:text="#{messages.footer.cookiePolicy}">Cookies Policy </a> | <span>&copy; 2023 ISP Hero</span>
         </div>
         <div class="col-auto d-flex gap-3">
             <a href="#" ><i class="fab fa-twitter"></i> Twitter</a>
