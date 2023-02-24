@@ -21,13 +21,16 @@ public class InvoiceDTO {
 
     private List<InvoiceLineDTO> lines;
 
+    private float total;
+
     public static InvoiceDTO createInvoiceDTO(Invoice invoice){
         return new InvoiceDTO(
                 invoice.getFullName(),
                 invoice.getDateBuy(),
                 invoice.getLines().stream()
                         .map(InvoiceLineDTO::createInvoiceLineDTO)
-                        .toList()
+                        .toList(),
+                invoice.getTotal()
         );
     }
 
