@@ -10,7 +10,7 @@
             <div class="content-md text-center color-text-dark mb-section-lg">
                 <h1 class="font-light m-0" th:text="${langPage.messages.mainfindDomain}">Buscar dominios</h1>
                 <h2 class="title-1"><strong class="text-primary" th:text="${langPage.messages.mainsearchAndBuy}">Busca y
-                    compra</strong><span th:text="${langPage.messages.mainfreeDomain}">tu dominio libre</span></h2>
+                    compra</strong><span th:text="${' '+langPage.messages.mainfreeDomain}">tu dominio libre</span></h2>
             </div>
             <div th:insert="~{fragments/general.html :: domainSearchBar}"></div>
         </div>
