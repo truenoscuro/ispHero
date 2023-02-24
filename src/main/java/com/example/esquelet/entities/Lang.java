@@ -16,7 +16,14 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 @Entity
-@EqualsAndHashCode(exclude = {"properties","translateProducts","translateProperties","translateCategories","translateValueProperties"})
+@EqualsAndHashCode(exclude = {
+        "properties",
+        "translateProducts",
+        "translateProperties",
+        "translateCategories",
+        "translateValueProperties",
+        "translatePage"
+})
 public class Lang {
     @Id
     private String code;
@@ -32,9 +39,11 @@ public class Lang {
     @OneToMany(mappedBy = "lang")
     private List<TranslateCategory> translateCategories;
 
-
     @OneToMany(mappedBy = "lang")
     private List<TranslateValueProperty> translateValueProperties;
+
+    @OneToMany(mappedBy = "lang")
+    private  List<TranslatePage> translatePages;
 
 
 
