@@ -12,17 +12,17 @@
         <div> <span class="domain-name" th:classappend="${article.property.taken}" th:text="${article.name}"></span> </div>
             <div>
                 <div class="hidden buy" th:classappend="'action-' + ${article.name} + ' ' + ${article.property.taken}">
-                    <form action="/cart/add" method="post" th:object="${productBuy}">
+                    <form action="/cart/add" method="post" th:object="${productBuy}" class="d-flex">
                         <label for="years">Duration:
-                            <select name="year" id="years">
+                            <select name="year" id="years" class="mx-3">
                                 <span th:each="year: ${article.years}">
                                     <option th:if="${year.equals('1')}"
                                             th:value="${year}"
-                                            th:text="${year + ' year'}">
+                                            th:text="${year + ' year - ' + article.priceYear.get('1') + ' €'}">
                                     </option>
                                     <option th:unless="${year.equals('1')}"
                                             th:value="${year}"
-                                            th:text="${year + ' years'}">
+                                            th:text="${year + ' years - ' + article.priceYear.get('2') + ' €'}">
                                     </option>
                                 </span>
                             </select>

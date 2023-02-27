@@ -40,7 +40,7 @@
                                                     <div class="ms-3">
                                                         <h5 th:if="${#strings.contains(article.product,'.')}" th:text="${article.name}"></h5>
                                                         <h5 th:if="${!#strings.contains(article.product,'.')}" th:text="${'Hosting ' + article.product}"></h5>
-                                                        <p th:if="${article.isDomain()}" class="small mb-0" th:text="${article.year}"></p>
+                                                        <p th:if="${article.isDomain()}" class="small mb-0" th:text="${article.year + ' years'}"></p>
                                                         <p th:if="${!article.isDomain()&&article.service != null}" class="small mb-0" th:text="${article.service.nameDomain}"></p>
                                                         <p th:if="${!article.isDomain()&&article.domainAppend != null}" class="small mb-0" th:text="${article.domainAppend.name}"></p>
                                                     </div>
@@ -49,19 +49,18 @@
                                                     <div style="width: 50px;">
                                                         <h5 class="fw-normal mb-0"></h5>
                                                     </div>
+                                                    <form th:if="${article.property.needDomain}" class="mx-2"
+                                                          action="/cart/addDomain"
+                                                          method="post">
+                                                        <input type="hidden" th:value="${article.idCart}" name="idCart">
+                                                        <button type="submit" class="bg-white border-0" title="The service you are trying to buy requires an associated domain. Please select one in use or buy a new one."><i class="fas fa-exclamation-triangle btn btn-warning"></i></button>
+                                                    </form>
                                                     <div style="width: 80px;">
                                                         <h5 class="mb-0" th:text="${article.priceBuy} + ' €'"></h5>
                                                     </div>
                                                     <form action="/cart/remove" method="post">
                                                         <input type="hidden" th:value="${article.idCart}" name="idCart">
                                                         <button type="submit" class="bg-white border-0"><i class="fas fa-trash-alt btn btn-outline-danger"></i></button>
-                                                    </form>
-
-                                                    <form th:if="${article.property.needDomain}"
-                                                          action="/cart/addDomain"
-                                                          method="post">
-                                                        <input type="hidden" th:value="${article.idCart}" name="idCart">
-                                                        <button type="submit" class="bg-white border-0"> Need Domain!  </button>
                                                     </form>
                                                 </div>
                                             </div>
@@ -74,9 +73,13 @@
                                     <div class="card-body">
                                         <div class="card-header">
                                             <h5 class="mb-3">Order summary</h5>
-                                            <h6>Total: <span th:text="${cartUser.total}"></span>  ,- €</h6>
+                                            <h6>Total: <span th:text="${cartUser.total}" id="total-pp"></span>  ,- €</h6>
                                         </div>
-                                        <div id="paypal-button-container"></div>
+                                        <div th:if="${user}" th:unless="${isLogged == null}" id="paypal-button-container"></div>
+                                        <div th:if="${isLogged == null}" th:unless="${user}">
+                                            <p> You need to be logged in to buy ! </p>
+                                            <a href="/login" class="col-12 btn btn-primary"> Login </a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -115,7 +118,7 @@
                     {
                         amount: {
                             currency_code: "USD",
-                            value: "59.99"
+                            value: document.querySelector("#total-pp").innerText,
                         }
                     }
                 ],
@@ -144,6 +147,7 @@
             const captureOrderHandler = (details) => {
                 const payerName = details.payer.name.given_name;
                 console.log('Transaction completed');
+                window.location.href = "/cart/buy";
             };
 
             return actions.order.capture().then(captureOrderHandler);

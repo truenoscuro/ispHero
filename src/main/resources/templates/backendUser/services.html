@@ -5,10 +5,15 @@
 </head>
 <body>
 <header th:insert="~{fragments/general.html :: header}"></header>
-<h1> SEARCH BY BUY </h1>
+<div class="text-center">
+  <h1>Search for a domain</h1>
+</div>
 <div th:insert="~{fragments/general.html :: domainSearchBar}"></div>
-<h1> USE ONE  DOMAIN YOU ?</h1>
-<table class="table text-center mw-100">
+<hr>
+<div class="text-center">
+  <h1>Want to use a specific domain?</h1>
+</div>
+<table class="table text-center col-12 container my-5">
   <thead class="table-primary">
   <tr>
     <th scope="col">Domain</th>
@@ -22,11 +27,11 @@
     <span th:if="${article.isDomain()}">
       <td class="text-primary" th:text="${article.name}"></td>
       <td th:text="${article.property.tld}"></td>
-      <td> cart </td>
+      <td> Cart </td>
       <td>
         <form action="/cart/vincule" method="post">
           <input type="hidden" th:value="${article.idCart}" name="idCart">
-          <button type="submit" class="btn btn-danger" >Vincule cart</button>
+          <button type="submit" class="btn btn-success" >Link to cart item</button>
         </form>
       </td>
     </span>
@@ -39,7 +44,7 @@
       <td>
         <form action="/account/vincule" method="post">
           <input type="hidden" th:value="${service.id}" name="idService">
-          <button type="submit" class="btn btn-danger" th:text="Vincule"></button>
+          <button type="submit" class="btn btn-success">Link to service</button>
         </form>
       </td>
     </span>
