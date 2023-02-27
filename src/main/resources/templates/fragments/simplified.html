@@ -5,6 +5,15 @@
 </head>
 <body>
 <div th:fragment="header">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-S2C6VQWGXP"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-S2C6VQWGXP');
+    </script>
     <div class="header-simplified">
         <a href="/"><img th:src="@{/img/logo.png}" alt="logo" style="display: block; margin: 15px auto; width: 75px;"></a>
     </div>

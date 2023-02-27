@@ -1,10 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-</head>
 <body>
 <div th:fragment="header" class="header-spc px-5">
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-S2C6VQWGXP"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-S2C6VQWGXP');
+  </script>
   <nav class="navbar navbar-expand-lg bg-transparent">
     <div class="container-fluid">
       <a class="navbar-brand" href="/"><img th:src="@{/img/logo.png}" alt="logo" class="main-logo"></a>
