@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 
@@ -45,7 +46,8 @@ public class InvoiceService {
         Invoice invoice = new Invoice();
         invoice.setUser(user);
         invoice.setDateBuy(LocalDateTime.now());
-        invoice.setFullName("factura "+ user.getUsername());
+        invoice.setFullName("Factura-" + DateTimeFormatter.ofPattern("dd-MM-yyyy").format(LocalDateTime.now()));
+        invoice.setTotal( cart.getTotal());
         invoiceRepository.save(invoice);
         invoiceRepository.flush();
         //InvoiceLine Save
@@ -59,8 +61,7 @@ public class InvoiceService {
 
     private  void setInvoiceLine(InvoiceLine invoiceLine, ArticleDTO articleDTO){
         Map<String,String> properties = articleDTO.getProperty();
-        invoiceLine.setNameArticle( articleDTO.getProduct( ) );
-        invoiceLine.setNameArticle(articleDTO.getDomainName() + properties.get("tld"));
+        invoiceLine.setNameArticle( articleDTO.getCategory() );
         invoiceLine.setPrice( articleDTO.getPriceBuy() );
         invoiceLine.setQuantity(articleDTO.getQuantity());
         invoiceLine.setVat(articleDTO.getVat());

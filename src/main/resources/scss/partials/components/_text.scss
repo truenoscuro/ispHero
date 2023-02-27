@@ -19,6 +19,31 @@
   display: none;
 }
 
+.chat-icon-container {
+  position: fixed;
+  bottom: 320px;
+  right: 40px;
+  z-index: 9999;
+}
+
+.chat-icon {
+  display: block;
+  width: 60px;
+  height: 60px;
+  background-color: #4caf50;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 60px;
+  font-size: 24px;
+  color: #fff;
+  text-decoration: none;
+  transition: all 0.3s ease-in-out;
+}
+
+.chat-icon:hover {
+  background-color: #3e8e41;
+}
+
 #domainSearch {
   max-width: 1440px;
   max-height: 55px;

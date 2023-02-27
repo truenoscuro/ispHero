@@ -98,6 +98,7 @@ public class OAuthController {
             user.setEmail(mail);
             user.setRole(Role.USER);
             user.setVerified(true);
+            user.setUsername(mail.substring(0, mail.indexOf("@")));
             userRepository.save(user);
         }
 

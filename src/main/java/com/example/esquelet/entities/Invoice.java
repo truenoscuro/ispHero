@@ -22,8 +22,7 @@ public class Invoice {
     private List<InvoiceLine> lines;
 
 
-
-
+    private float total;
     @ToString.Exclude
     @NotNull
     @ManyToOne
