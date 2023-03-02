@@ -7,21 +7,21 @@
 <header th:insert="~{fragments/general.html :: header}"></header>
 
 <div class="container my-5">
-  <h2 class="text-center title-1">Select the <span class="text-primary">mailing service</span> which most suits you!</h2>
+  <h2 class="text-center title-1" th:utext="${langPage.messages.mailheader}"></h2>
   <div class="card-deck d-flex gap-3 my-3 justify-content-between flex-column flex-md-row">
     <div class="card host-box">
       <div class="card-body">
-        <h5 class="card-title">Single mail account</h5>
-        <p>Our Basic Service is perfect for those who are just starting out and need a simple and reliable solution for their business mailing</p>
+        <h5 class="card-title" th:text="${langPage.messages.mailsingle}"></h5>
+        <p th:text="${langPage.messages.mailsingledesc}"></p>
         <ul class="list-group list-group-flush">
-          <li class="list-group-item">Personalized E-Mail account</li>
-          <li class="list-group-item">Add it to your existing domains</li>
-          <li class="list-group-item">24/7 customer support</li>
-          <li class="list-group-item">Anti Spam and virus protection</li>
-          <li class="list-group-item"><span th:text="${articles[0].property.accounts}" class="fw-bold"></span> Mail account</li>
+          <li class="list-group-item" th:text="${langPage.messages.mailsingleadv1}"></li>
+          <li class="list-group-item" th:text="${langPage.messages.mailsingleadv2}"></li>
+          <li class="list-group-item" th:text="${langPage.messages.mailsingleadv3}"></li>
+          <li class="list-group-item" th:text="${langPage.messages.mailsingleadv4}"></li>
+          <li class="list-group-item"><span th:text="${articles[0].property.accounts} + ' '" class="fw-bold"></span><span th:text="${langPage.messages.mailsingleadv5}"></span></li>
         </ul>
         <div class="container text-center title-1">
-          <p><span th:text="${articles[0].priceYear.get(articles[0].years[0])}" class="text-euro"></span>€ / year</p>
+          <p><span th:text="${articles[0].priceYear.get(articles[0].years[0])}" class="text-euro"></span>€ / <span th:text="${langPage.messages.productyear}"></span></p>
         </div>
         <div class="text-center">
           <div th:replace="~{fragments/cart.html :: addcart(${articles[0]},${articles[0].years[0]},${productBuy})}"> </div>
@@ -30,17 +30,17 @@
     </div>
     <div class="card host-box">
       <div class="card-body">
-        <h5 class="card-title">Professional Mailing</h5>
-        <p>Our Advanced Service is perfect for those who have more complex needs and require more advanced features and resources.</p>
+        <h5 class="card-title" th:text="${langPage.messages.mailprof}"></h5>
+        <p th:text="${langPage.messages.mailprofdesc}"></p>
         <ul class="list-group list-group-flush">
-          <li class="list-group-item">Customizable resources and settings</li>
-          <li class="list-group-item">Advanced security features</li>
-          <li class="list-group-item">100% free of ads</li>
-          <li class="list-group-item">Integrated tools for working as a group</li>
-          <li class="list-group-item"><span th:text="${articles[1].property.accounts}" class="fw-bold"></span> Mail accounts</li>
+          <li class="list-group-item" th:text="${langPage.messages.mailprofadv1}">Customizable resources and settings</li>
+          <li class="list-group-item" th:text="${langPage.messages.mailprofadv2}">Advanced security features</li>
+          <li class="list-group-item" th:text="${langPage.messages.mailprofadv3}">100% free of ads</li>
+          <li class="list-group-item" th:text="${langPage.messages.mailprofadv4}">Integrated tools for working as a group</li>
+          <li class="list-group-item"><span th:text="${articles[1].property.accounts} + ' '" class="fw-bold"></span><span th:text="${langPage.messages.mailprofadv5}"></span></li>
         </ul>
         <div class="container text-center title-1">
-          <p><span th:text="${articles[1].priceYear.get(articles[1].years[0])}" class="text-euro"></span>€ / year</p>
+          <p><span th:text="${articles[1].priceYear.get(articles[1].years[0])}" class="text-euro"></span>€ / <span th:text="${langPage.messages.productyear}"></span></p>
         </div>
         <div th:replace="~{fragments/cart.html :: addcart(${articles[1]},${articles[1].years[0]},${productBuy})}"> </div>
       </div>
@@ -49,9 +49,9 @@
   <div class="container">
     <div class="row my-5">
       <div class="col-md-6">
-        <h3>Technical specifications</h3>
-        <p>Our domain servers are built on state-of-the-art technology to provide a fast and reliable service for our customers. Our servers are powered by Intel Xeon processors and use DDR4 memory to ensure high performance and low latency. The servers are connected to a high-speed network with redundant connections to multiple Tier-1 providers, ensuring a fast and stable connection for our customers.</p>
-        <p><a href="#">Learn more</a></p>
+        <h3 th:text="${langPage.messages.infotechnical}"></h3>
+        <p th:text="${langPage.messages.infotext1}"></p>
+        <p><a href="#" th:text="${langPage.messages.infolearn}"></a></p>
       </div>
       <div class="col-md-6 text-center">
         <img th:src="@{/img/server.svg}" alt="Server" class="info-img">
@@ -63,16 +63,16 @@
         <img th:src="@{/img/control-panel.svg}" alt="cPanel" class="info-img">
       </div>
       <div class="col-md-6">
-        <h3>Control panel</h3>
-        <p>Our domain servers are running the latest version of the industry-standard control panel, cPanel (modified by us), which allows customers to easily manage their domains, email accounts, and web hosting services. The servers are also equipped with the latest version of the Apache web server, PHP, and MySQL to support a wide range of web applications and frameworks.</p>
+        <h3 th:text="${langPage.messages.infocp}"></h3>
+        <p th:text="${langPage.messages.infotext2}"></p>
       </div>
     </div>
     <hr>
     <div class="row my-5">
       <div class="col-md-6">
-        <h3>Support</h3>
-        <p>We have a team of experienced system administrators who are available 24/7 to monitor the servers and ensure that they are running smoothly. In case of any issues, our team will take the necessary actions to resolve them as quickly as possible.</p>
-        <p><a href="/contact">Contact us</a></p>
+        <h3 th:text="${langPage.messages.infosupport}">Support</h3>
+        <p th:text="${langPage.messages.infotext3}"></p>
+        <p><a href="/contact" th:text="${langPage.messages.aboutcontactUs}"></a></p>
       </div>
       <div class="col-md-6 text-center">
         <img th:src="@{/img/support.svg}" alt="Support" class="info-img">

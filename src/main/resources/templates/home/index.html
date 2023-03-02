@@ -21,27 +21,21 @@
                 <img class="card-img-top tld-img" th:src="@{/img/es-tld.png}" alt="com TLD">
                 <div class="card-body m-3">
                     <h5 class="card-title"><b>.es</b></h5>
-                    <p class="card-text">The .es is a well-known TLD, it is a good option for Spanish companies, websites and individuals as it
-                        gives them a sense of location, identity and trust. It is a stable and reliable TLD, with good support and security measures.</p>
+                    <p class="card-text" th:text="${langPage.messages.domaintld1}"></p>
                 </div>
             </div>
             <div class="card card-tld p-3">
                 <img class="card-img-top tld-img" th:src="@{/img/cat-tld.png}" alt="info TLD">
                 <div class="card-body m-3">
                     <h5 class="card-title"><b>.cat</b></h5>
-                    <p class="card-text">The .cat TLD is administered by the Fundació puntCAT,
-                        a non-profit organization created by the Government of Catalonia and the Catalan Internet community.
-                        It is a stable and reliable TLD, and it is a good option for Catalan companies, websites and individuals as i
-                        t gives them a sense of location, identity and trust.</p>
+                    <p class="card-text" th:text="${langPage.messages.domaintld2}"></p>
                 </div>
             </div>
             <div class="card card-tld p-3">
                 <img class="card-img-top tld-img" th:src="@{/img/tv-tld.png}" alt="org TLD">
                 <div class="card-body m-3">
                     <h5 class="card-title"><b>.tv</b></h5>
-                    <p class="card-text">The .tv is a TLD that is intended for use with television-related websites. .tv is the
-                        country code TLD for Tuvalu, a small island nation in the Pacific Ocean. However,
-                        it is marketed to be used for creating video-based websites, streaming platforms, and other media-related websites.</p>
+                    <p class="card-text" th:text="${langPage.messages.domaintld3}"></p>
                 </div>
             </div>
         </div>
