@@ -127,19 +127,21 @@
                 <div class="col-12" th:if="${user.password != null}">
                     <hr>
                     <h4 th:text="${langPage.messages.accountchangePassword}"></h4>
-                    <form action="">
+                    <form action="/account/changePassword" th:object="${userPassword}" method="post">
                         <div class="mb-3">
                             <label for="password" class="form-label" th:text="${langPage.messages.accountoldPassword}"></label>
-                            <input type="password" class="form-control" id="password" placeholder="Password">
+                            <input type="password" class="form-control" id="password"
+                                   placeholder="Password" th:field="*{password}">
                         </div>
                         <div class="mb-3">
                             <label for="newPassword" class="form-label" th:text="${langPage.messages.accountnewPassword}"></label>
-                            <input type="password" class="form-control" id="newPassword" placeholder="New password">
+                            <input type="password" class="form-control" id="newPassword"
+                                   placeholder="New password"  th:field="*{password2}">
                         </div>
                         <div class="mb-3">
                             <label for="repeatNewPassword" class="form-label" th:text="${langPage.messages.accountconfirmPassword}"></label>
                             <input type="password" class="form-control" id="repeatNewPassword"
-                                   placeholder="Repeat new password">
+                                   placeholder="Repeat new password" th:field="*{passwordRepeat}">
                         </div>
                         <div class="container my-2">
                             <button class="btn btn-success" th:text="${langPage.messages.accountchangePasswordBtn}"></button>
