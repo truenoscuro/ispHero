@@ -13,31 +13,31 @@
         <h1>Login</h1>
       </div>
       <div>
-        <input type="text" th:field="*{username}" id="username" placeholder="Username">
+        <input type="text" th:field="*{username}" id="username" th:placeholder="${langPage.messages.username}">
       </div>
       <div class="d-flex">
-        <input type="password" th:field="*{password}" id="password" placeholder="Password">
+        <input type="password" th:field="*{password}" id="password" th:placeholder="${langPage.messages.password}">
         <i class="far fa-eye" id="togglePassword" style="margin-left: -30px; margin-top: 14px; cursor: pointer;"></i>
       </div>
       <div>
         <p th:unless="${case} == null" th:text="${case}" class="alert alert-danger text-center my-2 mx-auto"></p>
       </div>
       <div class="login-form-buttons my-3">
-        <button class="login-form-button login-button btn-format" type="submit" style="vertical-align:middle"><span>Login</span></button>
+        <button class="login-form-button login-button btn-format" type="submit" style="vertical-align:middle"><span class="freedom" th:text="${langPage.messages.login}"></span></button>
         <form action="/register" method="get" class="login">
-          <input type="reset" value="Register" class="register-form-button register btn-format">
+          <input type="reset" th:value="${langPage.messages.register}" class="register-form-button register btn-format">
         </form>
         <hr>
         <div class="login-form-buttons d-flex justify-content-center gap-2 mb-4">
           <a class="btn login-button btn-google btn-format btn-block">
-            <i class="fab fa-google fa-fw"></i> Login with Google
+            <i class="fab fa-google fa-fw"></i> <span th:text="${langPage.messages.logingoogle}"></span>
           </a>
           <a href="/login" class="btn login-button btn-facebook btn-format btn-block">
-            <i class="fab fa-facebook-f fa-fw"></i> Login with Facebook
+            <i class="fab fa-facebook-f fa-fw"></i> <span th:text="${langPage.messages.loginfb}"></span>
           </a>
         </div>
         <div class="forgot-pw">
-          <a href="/password-recovery" class="forgot-pw">Forgot your password?</a>
+          <a href="/password-recovery" class="forgot-pw"><span th:text="${langPage.messages.loginforgot}"></span></a>
         </div>
       </div>
     </form>

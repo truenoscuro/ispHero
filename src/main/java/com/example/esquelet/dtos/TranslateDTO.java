@@ -42,8 +42,7 @@ public class TranslateDTO {
             String key = translatePage.getKeyText().getText();
             key = Arrays.stream(key.split("\\.")).reduce((total,text)-> total +text ).get();
             messages.put( key, translatePage.getTranslate());
-        }
-        );
+        });
     }
 
     public void chargeArticles( Lang lang ){

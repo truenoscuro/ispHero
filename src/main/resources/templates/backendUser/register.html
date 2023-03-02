@@ -20,15 +20,15 @@
                     <div>
                         <div class="d-flex flex-column gap-3">
                             <div class="form-group">
-                                <label for="username">Username</label>
+                                <label for="username" th:text="${langPage.messages.username}"></label>
                                 <input type="text" id="username" th:field="*{username}">
                             </div>
                             <div class="form-group">
-                                <label for="password">Password</label>
+                                <label for="password" th:text="${langPage.messages.password}"></label>
                                 <input type="password" id="password" th:field="*{password}">
                             </div>
                             <div class="form-group">
-                                <label for="password2">Repeat Password</label>
+                                <label for="password2" th:text="${langPage.messages.repeatpw}"></label>
                                 <input type="password" id="password2"  th:field="*{password2}">
                             </div>
                             <div class="form-group">
@@ -41,16 +41,20 @@
                         </div>
                     </div>
                     <div class="login-form-buttons">
-                        <input type="submit" value="Register now!" class="register-form-button btn-format">
-                        <span>Already registered? <a th:href="@{/login}">Login here</a></span>
+                        <input type="submit" th:value="${langPage.messages.registernow}" class="register-form-button btn-format">
+                        <span><span th:text="${langPage.messages.registeralready} + ' '"></span><a th:href="@{/login}" th:text="${langPage.messages.registerlogin}"></a></span>
                     </div>
                 </form>
             </div>
             <div class="col-md-12 my-5" th:if='${status == "true"}'>
-                <h1 class="text-center">You have been registered!</h1>
-                <p class="text-center">We have sent you an email to <span class="text-primary" th:text="${user.getEmail()}"></span> to confirm your registration. Please check your inbox.</p>
+                <h1 class="text-center" th:text="${langPage.messages.registerregistered}"></h1>
+                <p class="text-center">
+                    <span th:text="${langPage.messages.registersent1} + ' '"></span>
+                    <span class="text-primary" th:text="${user.getEmail()}"></span>
+                    <span th:text="' ' + ${langPage.messages.registersent2}"></span>
+                </p>
                 <div class="text-center my-5">
-                    <a href="/" class="btn btn-primary btn-block">Go to homepage</a>
+                    <a href="/" class="btn btn-primary btn-block" th:text="${langPage.messages.homepage}"></a>
                 </div>
             </div>
             <div class="col-md-12 my-5" th:if='${status == "verified"}'>
