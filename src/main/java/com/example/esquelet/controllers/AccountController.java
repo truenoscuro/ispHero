@@ -10,6 +10,7 @@ import com.example.esquelet.repositories.WaitingDomainRepository;
 import com.example.esquelet.services.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -35,6 +36,8 @@ public class AccountController {
     @Autowired
     ServService servService;
 
+
+
     private void chargeUser( Model model ){
         UserDTO userDTO =  userService.getUser((UserDTO) model.getAttribute("user"));
         servService.getServices( userDTO );
@@ -46,6 +49,7 @@ public class AccountController {
     @GetMapping("/account")
     public String account( Model model ) {
         chargeUser( model );
+        model.addAttribute("userPassword" , new UserDTO() );
         return "backendUser/account";
     }
 
@@ -123,6 +127,25 @@ public class AccountController {
         UserDTO user = (UserDTO) model.getAttribute("user");
         user.setUserData(userData);
         userService.addUserData(user);
+        return "redirect:/account";
+    }
+
+    @PostMapping("/account/changePassword")
+    public String updatePassword(@ModelAttribute UserDTO userPassword, Model model){
+        UserDTO user = (UserDTO) model.getAttribute("user");
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        if( !bCryptPasswordEncoder.matches( userPassword.getPassword() ,  user.getPassword() ) ){
+            // password original diff
+            System.out.println("password original diff");
+            return "redirect:/account";
+        }
+        if( !userPassword.getPassword2().equals( userPassword.getPasswordRepeat( ) ) ){
+            // password diff
+            System.out.println("new passwords diff");
+            return "redirect:/account";
+        }
+        String newPassword = bCryptPasswordEncoder.encode( userPassword.getPassword2( ) );
+        userService.updatePassword( user , newPassword );
         return "redirect:/account";
     }
 

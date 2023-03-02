@@ -24,6 +24,8 @@ public class UserDTO {
     private String password;
     private String password2;
 
+    private String passwordRepeat;
+
     private String email;
 
     private String role;

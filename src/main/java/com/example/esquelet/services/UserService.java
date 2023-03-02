@@ -101,7 +101,7 @@ public class UserService {
         }
     }
 
-
+    @Transactional
     public void addUserData(UserDTO user){
         userDataRepository.save(user.getUserDataEntity());
     }
@@ -111,8 +111,16 @@ public class UserService {
         return user.orElse(null);
     }
 
+    @Transactional
     public void updateUser(User user) {
         userRepository.save(user);
+    }
+
+    @Transactional
+    public void updatePassword(UserDTO userDTO, String newPassword){
+        User user = userRepository.findById(userDTO.getId()).get();
+        user.setPassword(newPassword);
+        userRepository.save( user );
     }
 
 }
