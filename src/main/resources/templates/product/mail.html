@@ -7,7 +7,7 @@
 <header th:insert="~{fragments/general.html :: header}"></header>
 
 <div class="container my-5">
-  <h2 class="text-center title-1">Select the <span class="text-primary">mailing service</span> which most suits you!</h2>
+  <h2 class="text-center title-1" th:utext="${langPage.messages.mailheader}"></h2>
   <div class="card-deck d-flex gap-3 my-3 justify-content-between flex-column flex-md-row">
     <div class="card host-box">
       <div class="card-body">
@@ -49,9 +49,9 @@
   <div class="container">
     <div class="row my-5">
       <div class="col-md-6">
-        <h3>Technical specifications</h3>
-        <p>Our domain servers are built on state-of-the-art technology to provide a fast and reliable service for our customers. Our servers are powered by Intel Xeon processors and use DDR4 memory to ensure high performance and low latency. The servers are connected to a high-speed network with redundant connections to multiple Tier-1 providers, ensuring a fast and stable connection for our customers.</p>
-        <p><a href="#">Learn more</a></p>
+        <h3 th:text="${langPage.messages.infotechnical}"></h3>
+        <p th:text="${langPage.messages.infotext1}"></p>
+        <p><a href="#" th:text="${langPage.messages.infolearn}"></a></p>
       </div>
       <div class="col-md-6 text-center">
         <img th:src="@{/img/server.svg}" alt="Server" class="info-img">
@@ -63,16 +63,16 @@
         <img th:src="@{/img/control-panel.svg}" alt="cPanel" class="info-img">
       </div>
       <div class="col-md-6">
-        <h3>Control panel</h3>
-        <p>Our domain servers are running the latest version of the industry-standard control panel, cPanel (modified by us), which allows customers to easily manage their domains, email accounts, and web hosting services. The servers are also equipped with the latest version of the Apache web server, PHP, and MySQL to support a wide range of web applications and frameworks.</p>
+        <h3 th:text="${langPage.messages.infocp}"></h3>
+        <p th:text="${langPage.messages.infotext2}"></p>
       </div>
     </div>
     <hr>
     <div class="row my-5">
       <div class="col-md-6">
-        <h3>Support</h3>
-        <p>We have a team of experienced system administrators who are available 24/7 to monitor the servers and ensure that they are running smoothly. In case of any issues, our team will take the necessary actions to resolve them as quickly as possible.</p>
-        <p><a href="/contact">Contact us</a></p>
+        <h3 th:text="${langPage.messages.infosupport}">Support</h3>
+        <p th:text="${langPage.messages.infotext3}"></p>
+        <p><a href="/contact" th:text="${langPage.messages.aboutcontactUs}"></a></p>
       </div>
       <div class="col-md-6 text-center">
         <img th:src="@{/img/support.svg}" alt="Support" class="info-img">
