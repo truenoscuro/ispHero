@@ -104,14 +104,14 @@
                 <button class="btn btn-primary domainSearchButton" type="submit" th:text="${langPage.messages.mainsearchButton}">Search</button>
               </div>
             </div>
-            <div class="scroll-container"><p class="scroll-left"><b>.ES</b> a partir de 8€  |  <b>.COM</b> a partir de 10€  |  <b>.CAT</b> a partir de 13€  |  <b>.TV</b> a partir de 15€  |  <b>.IO</b> a partir de 11€  |  <b>.NET</b> a partir de 9€  |  <b>.DE</b> a partir de 12€  |  <b>.IN</b> a partir de 11€ </p></div>
+            <div class="scroll-container"><p class="scroll-left"><b>.ES</b> <span th:text="' ' + ${langPage.messages.from} + ' '"></span> 8€  |  <b>.COM</b> <span th:text="' ' + ${langPage.messages.from} + ' '"></span> 10€  |  <b>.CAT</b> <span th:text="' ' + ${langPage.messages.from} + ' '"></span> 13€  |  <b>.TV</b> <span th:text="' ' + ${langPage.messages.from} + ' '"></span> 15€  |  <b>.IO</b> <span th:text="' ' + ${langPage.messages.from} + ' '"></span> 11€  |  <b>.NET</b> <span th:text="' ' + ${langPage.messages.from} + ' '"></span> 9€  |  <b>.DE</b> <span th:text="' ' + ${langPage.messages.from} + ' '"></span> 12€  |  <b>.IN</b> <span th:text="' ' + ${langPage.messages.from} + ' '"></span> 11€ </p></div>
           </div>
         </form>
       </div>
     </div>
   </div>
 </div>
-<!--   FRAGMENT                                      -->
+<!--   FRAGMENT                        -->
 <footer th:fragment="footer" class="position-relative align-bottom">
   <footer class="bg-dark text-white py-5">
     <div class="container">
