@@ -135,6 +135,7 @@ public class AccountController {
         UserDTO user = (UserDTO) model.getAttribute("user");
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
         if( !bCryptPasswordEncoder.matches( userPassword.getPassword() ,  user.getPassword() ) ){
+            // TODO need confirm to fail
             // password original diff
             System.out.println("password original diff");
             return "redirect:/account";

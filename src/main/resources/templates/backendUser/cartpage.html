@@ -75,8 +75,12 @@
                                             <h5 class="mb-3">Order summary</h5>
                                             <h6>Total: <span th:text="${cartUser.total}" id="total-pp"></span>  ,- €</h6>
                                         </div>
-                                        <div th:if="${user}" th:unless="${isLogged == null}" id="paypal-button-container"></div>
-                                        <div th:if="${isLogged == null}" th:unless="${user}">
+                                        <div th:if="${isLogged && user.hasData()}" id="paypal-button-container"></div>
+                                        <div  th:if="${isLogged && !user.hasData()}">
+                                            <p> Complete personal data </p>
+                                            <a href="/account"> Complete personal data</a>
+                                        </div>
+                                        <div th:unless="${isLogged}" >
                                             <p> You need to be logged in to buy ! </p>
                                             <a href="/login" class="col-12 btn btn-primary"> Login </a>
                                         </div>
