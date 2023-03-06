@@ -12,6 +12,9 @@
     </div>
 </div>
 <div th:if="${user.verified}" class="d-flex flex-md-row flex-column align-items-start mx-3 mx-md-5 my-3">
+    <div th:if="${user.ProfileImg != null}">
+        <img th:src="${user.ProfileImg}" alt="img">
+    </div>
     <div class="nav flex-row flex-md-column nav-pills mx-auto mx-md-0 me-md-3 my-3 gap-1 bg-light" id="v-pills-tab" role="tablist"
          aria-orientation="vertical" style="border-radius: 5px">
         <button class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home"
@@ -148,6 +151,14 @@
                         </div>
                     </form>
                 </div>
+
+                <form method="post" action="/account/updateProfileImg" enctype="multipart/form-data">
+                    <label for="image"> Change image </label>
+                    <input type="file" id="image" name="image">
+                    <input type="submit" value="envia">
+                </form>
+
+
             </div>
         </div>
         <div class="tab-pane fade" id="v-pills-invoices" role="tabpanel" aria-labelledby="v-pills-invoices-tab">

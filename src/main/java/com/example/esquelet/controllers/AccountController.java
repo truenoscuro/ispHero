@@ -14,7 +14,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.Objects;
 
 @Controller
@@ -22,27 +24,32 @@ import java.util.Objects;
 public class AccountController {
 
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     @Autowired
-    ArticleService articleService;
+    private ArticleService articleService;
 
     @Autowired
-    WaitingDomainService waitingDomainService;
+    private WaitingDomainService waitingDomainService;
 
     @Autowired
-    InvoiceService invoiceService;
+    private InvoiceService invoiceService;
 
     @Autowired
-    ServService servService;
+    private ServService servService;
+
+    @Autowired
+    private ProfileImgService profileImgService;
 
 
 
     private void chargeUser( Model model ){
         UserDTO userDTO =  userService.getUser((UserDTO) model.getAttribute("user"));
+        profileImgService.getProfileImg( userDTO );
         servService.getServices( userDTO );
         invoiceService.getInvoices( userDTO );
         waitingDomainService.getWaitingDomainsByUser( userDTO );
+
         model.addAttribute("user",userDTO);
     }
 
@@ -147,6 +154,20 @@ public class AccountController {
         }
         String newPassword = bCryptPasswordEncoder.encode( userPassword.getPassword2( ) );
         userService.updatePassword( user , newPassword );
+        return "redirect:/account";
+    }
+    @GetMapping("/account/updateProfileImg")
+    public String updateProfileImg( Model model){
+        return "img";
+    }
+
+
+    @PostMapping("/account/updateProfileImg")
+    public String updateProfileImg(@RequestParam("image") MultipartFile imageFile, Model model) throws IOException {
+        profileImgService.saveProfileImg(
+                (UserDTO) Objects.requireNonNull(model.getAttribute("user")),
+                imageFile
+        );
         return "redirect:/account";
     }
 
