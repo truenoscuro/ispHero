@@ -15,15 +15,12 @@
                     <div class="card-body p-4">
                         <div class="row">
                             <div class="col-lg-7">
-                                <h5 class="mb-3"><a href="/" class="text-body"><i class="fas fa-long-arrow-alt-left me-2"></i>Continue shopping</a></h5>
+                                <h5 class="mb-3"><a href="/" class="text-body"><i class="fas fa-long-arrow-alt-left me-2"></i><span th:text="${langPage.messages.cartcontinue}"></span></a></h5>
                                 <hr>
                                 <div class="d-flex justify-content-between align-items-center mb-4">
                                     <div>
-                                        <p class="mb-1">Shopping cart</p>
-                                        <p class="mb-0">You have <span th:text="${#lists.size(cartUser.articles)}"></span> items in your cart</p>
-                                    </div>
-                                    <div>
-                                        <p class="mb-0"><span class="text-muted">Sort by:</span> <a href="#" class="text-body">price <i class="fas fa-angle-down mt-1"></i></a></p>
+                                        <p class="mb-1" th:text="${langPage.messages.headercart}"></p>
+                                        <p class="mb-0"><span th:text="${langPage.messages.cartyouhave + ' '}"></span><span th:text="${#lists.size(cartUser.articles)}"></span><span th:text="${' ' + langPage.messages.cartitems}"></span></p>
                                     </div>
                                 </div>
                                 <div th:each="article: ${cartUser.articles}">
@@ -40,7 +37,7 @@
                                                     <div class="ms-3">
                                                         <h5 th:if="${#strings.contains(article.product,'.')}" th:text="${article.name}"></h5>
                                                         <h5 th:if="${!#strings.contains(article.product,'.')}" th:text="${'Hosting ' + article.product}"></h5>
-                                                        <p th:if="${article.isDomain()}" class="small mb-0" th:text="${article.year + ' years'}"></p>
+                                                        <p th:if="${article.isDomain()}" class="small mb-0" th:text="${article.year + ' ' + langPage.messages.productyear}"></p>
                                                         <p th:if="${!article.isDomain()&&article.service != null}" class="small mb-0" th:text="${article.service.nameDomain}"></p>
                                                         <p th:if="${!article.isDomain()&&article.domainAppend != null}" class="small mb-0" th:text="${article.domainAppend.name}"></p>
                                                     </div>
@@ -53,7 +50,7 @@
                                                           action="/cart/addDomain"
                                                           method="post">
                                                         <input type="hidden" th:value="${article.idCart}" name="idCart">
-                                                        <button type="submit" class="bg-white border-0" title="The service you are trying to buy requires an associated domain. Please select one in use or buy a new one."><i class="fas fa-exclamation-triangle btn btn-warning"></i></button>
+                                                        <button type="submit" class="bg-white border-0" th:title="${langPage.messages.producttooltip}"><i class="fas fa-exclamation-triangle btn btn-warning"></i></button>
                                                     </form>
                                                     <div style="width: 80px;">
                                                         <h5 class="mb-0" th:text="${article.priceBuy} + ' €'"></h5>
@@ -72,16 +69,16 @@
                                 <div class="card rounded-3">
                                     <div class="card-body">
                                         <div class="card-header">
-                                            <h5 class="mb-3">Order summary</h5>
+                                            <h5 class="mb-3" th:text="${langPage.messages.cartsummary}"></h5>
                                             <h6>Total: <span th:text="${cartUser.total}" id="total-pp"></span>  ,- €</h6>
                                         </div>
-                                        <div th:if="${isLogged && user.hasData()}" id="paypal-button-container"></div>
-                                        <div  th:if="${isLogged && !user.hasData()}">
+                                        <div th:if="${user != null && user.hasData()}" id="paypal-button-container"></div>
+                                        <div  th:if="${user != null && !user.hasData()}">
                                             <p th:text="${langPage.messages.cartpersonal1}"></p>
                                             <a href="/account" th:text="${langPage.messages.cartpersonal2}"></a>
                                         </div>
-                                        <div th:unless="${isLogged}" >
-                                            <p th:text="${langPage.messages.cartlogin}"></p>
+                                        <div th:unless="${user != null || user != false}" >
+                                            <p th:text="${langPage.messages.login}"></p>
                                             <a href="/login" class="col-12 btn btn-primary"> Login </a>
                                         </div>
                                     </div>
