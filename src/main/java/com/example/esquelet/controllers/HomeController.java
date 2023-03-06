@@ -5,6 +5,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
@@ -42,10 +44,8 @@ public class HomeController {
 
     @RequestMapping(value = {"/robots", "/robot", "/robot.txt", "/robots.txt"})
     public void robot(HttpServletResponse response) {
-
         InputStream resourceAsStream = null;
         try {
-
             ClassLoader classLoader = getClass().getClassLoader();
             resourceAsStream = classLoader.getResourceAsStream("robots.txt");
 
@@ -64,5 +64,14 @@ public class HomeController {
                 }
             }
         }
+    }
+
+    @GetMapping(value = {"/sitemap.xml", "/sitemap"}, produces = "application/xml")
+    public void getSitemap(HttpServletResponse response) throws IOException {
+        InputStream myStream = new FileInputStream("src/main/resources/static/sitemap.xml");
+        response.addHeader("Content-disposition", "filename=sitemap.xml");
+        response.setContentType("application/xml");
+        IOUtils.copy(myStream, response.getOutputStream());
+        response.flushBuffer();
     }
 }
