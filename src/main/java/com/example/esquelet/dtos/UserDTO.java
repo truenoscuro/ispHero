@@ -18,6 +18,7 @@ import java.util.Map;
 public class UserDTO {
 
     //User
+    private String profileImg;
     private Long id;
     private String username;
 
