@@ -36,7 +36,8 @@
                                                     </div>
                                                     <div class="ms-3">
                                                         <h5 th:if="${#strings.contains(article.product,'.')}" th:text="${article.name}"></h5>
-                                                        <h5 th:if="${!#strings.contains(article.product,'.')}" th:text="${'Hosting ' + article.product}"></h5>
+                                                        <h5 th:if="${article.category.equals('host')}" th:text="${'Hosting ' + article.product}"></h5>
+                                                        <h5 th:if="${article.category.equals('mail')}" th:text="${'Mail ' + article.product}"></h5>
                                                         <p th:if="${article.isDomain()}" class="small mb-0" th:text="${article.year + ' ' + langPage.messages.productyear}"></p>
                                                         <p th:if="${!article.isDomain()&&article.service != null}" class="small mb-0" th:text="${article.service.nameDomain}"></p>
                                                         <p th:if="${!article.isDomain()&&article.domainAppend != null}" class="small mb-0" th:text="${article.domainAppend.name}"></p>
@@ -72,12 +73,12 @@
                                             <h5 class="mb-3" th:text="${langPage.messages.cartsummary}"></h5>
                                             <h6>Total: <span th:text="${cartUser.total}" id="total-pp"></span>  ,- €</h6>
                                         </div>
-                                        <div th:if="${user != null && user.hasData()}" id="paypal-button-container"></div>
-                                        <div  th:if="${user != null && !user.hasData()}">
+                                        <div th:if="${user !=null && user.isValid() && user.hasData()}" id="paypal-button-container"></div>
+                                        <div  th:if="${user != null && user.isValid() && !user.hasData()}">
                                             <p th:text="${langPage.messages.cartpersonal1}"></p>
                                             <a href="/account" th:text="${langPage.messages.cartpersonal2}"></a>
                                         </div>
-                                        <div th:unless="${user != null || user != false}" >
+                                        <div th:if="${user == null || !user.isValid()}" >
                                             <p th:text="${langPage.messages.login}"></p>
                                             <a href="/login" class="col-12 btn btn-primary"> Login </a>
                                         </div>

@@ -86,6 +86,7 @@ public class CartController {
     @PostMapping("/cart/add")
     public String addArticle(@ModelAttribute ArticleDTO articleBuy ,
                              Model model){
+        System.out.println(articleBuy);
 
         initCart( model );
         ArticleDTO article = chargeArticleBuy( articleBuy );
@@ -107,6 +108,7 @@ public class CartController {
                 articleAppend.setDomainAppend(article);
             }
         }
+        System.out.println(article);
         cart.add( article );
         return "redirect:/cart";
     }
