@@ -78,7 +78,8 @@ public class UserService {
         return user.map(value -> value.getRole().equals(Role.ADMIN)).orElse(false);
     }
 
-
+    @Value("${url.emailLink}")
+    private String emailLink;
     public void sendRegisterMail( UserDTO user ) {
         Email registerMail = new Email();
         registerMail.setFrom("ISP Hero", "info@isphero.com");
@@ -88,7 +89,19 @@ public class UserService {
 
         registerMail.AddRecipient(recipient);
         String tokenValidation = tokenService.createValidationToken(user.getEmail());
-        registerMail.setHtml("<h1>ISP Hero</h1><p>Hi "+user.getUsername()+"</p><p>Thank you for registering with ISP Hero. Please click the link below to verify your email address.</p><p><a href=\"https://isphero.com/validate/" + tokenValidation +  "\">Verify your email address</a></p><br><hr><br><p>This link will expire in 24 hours.</p><p>If you did not register with ISP Hero, please ignore this email.</p><p>Thanks for your interest in us,</p><p>ISP Hero</p>");
+        registerMail.setHtml("<h1>ISP Hero</h1>" +
+                "<p>Hi " + user.getUsername()+ "</p>" +
+                "<p>Thank you for registering with ISP Hero. Please click the link below to verify your email address.</p>" +
+                "<p>" +
+                "<a href='" + emailLink + tokenValidation +  "'>" +
+                "Verify your email address" +
+                "</a>" +
+                "</p>" +
+                "<br><hr><br>" +
+                "<p>This link will expire in 24 hours.</p>" +
+                "<p>If you did not register with ISP Hero, please ignore this email.</p>" +
+                "<p>Thanks for your interest in us,</p><p>ISP Hero</p>"
+        );
 
         MailerSend mailerSend = new MailerSend();
         mailerSend.setToken(MAIL_API_KEY);
