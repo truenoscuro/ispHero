@@ -15,6 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 public class InvoiceDTO {
 
+    private Long id;
     private String fullName;
 
     private LocalDateTime dateBuy;
@@ -25,6 +26,7 @@ public class InvoiceDTO {
 
     public static InvoiceDTO createInvoiceDTO(Invoice invoice){
         return new InvoiceDTO(
+                invoice.getId(),
                 invoice.getFullName(),
                 invoice.getDateBuy(),
                 invoice.getLines().stream()

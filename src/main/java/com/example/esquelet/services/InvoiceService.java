@@ -10,10 +10,17 @@ import com.example.esquelet.models.Cart;
 import com.example.esquelet.repositories.InvoiceLineRepository;
 import com.example.esquelet.repositories.InvoiceRepository;
 import com.example.esquelet.repositories.UserRepository;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 
+import java.io.ByteArrayOutputStream;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -67,5 +74,9 @@ public class InvoiceService {
         invoiceLine.setVat(articleDTO.getVat());
     }
 
+    // Get Invoice by id
+    public InvoiceDTO getInvoiceByID(Long id) {
+        return invoiceRepository.findById(id).map(InvoiceDTO::createInvoiceDTO).orElse(null);
+    }
 
 }

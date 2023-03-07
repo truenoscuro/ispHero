@@ -1,6 +1,7 @@
 package com.example.esquelet.controllers;
 
 import com.example.esquelet.dtos.ArticleDTO;
+import com.example.esquelet.dtos.InvoiceDTO;
 import com.example.esquelet.dtos.ServiceDTO;
 import com.example.esquelet.dtos.UserDTO;
 
@@ -9,13 +10,22 @@ import com.example.esquelet.models.IdCart;
 import com.example.esquelet.repositories.WaitingDomainRepository;
 import com.example.esquelet.services.*;
 
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Objects;
 
@@ -166,4 +176,37 @@ public class AccountController {
         return "redirect:/account";
     }
 
+    @GetMapping("/account/invoice/{id}")
+    public ResponseEntity<byte[]> getInvoice(@PathVariable("id") Long idInvoice, Model model) throws DocumentException {
+        // Get Invoice by id
+        InvoiceDTO invoice = invoiceService.getInvoiceByID( idInvoice );
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        Document document = new Document();
+        PdfWriter.getInstance(document, byteArrayOutputStream);
+        document.open();
+        document.add(
+                new Paragraph(
+                        "Factura: " + invoice.getFullName() + " - " + invoice.getDateBuy())
+        );
+        invoice.getLines().forEach( invoiceLine -> {
+            try {
+                document.add(
+                        new Paragraph(
+                                invoiceLine.getNameArticle() + " - " + invoiceLine.getQuantity() + " - " + invoiceLine.getPrice() + "€")
+                );
+            } catch (DocumentException e) {
+                throw new RuntimeException(e);
+            }
+        });
+        document.add(
+                new Paragraph(
+                        "Total: " + invoice.getTotal() + "€")
+        );
+        document.close();
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_PDF);
+        headers.add("Content-Disposition", "inline; filename=" + invoice.getFullName() + invoice.getDateBuy() + ".pdf");
+        return new ResponseEntity<>(byteArrayOutputStream.toByteArray(), headers, HttpStatus.OK);
+    }
 }
