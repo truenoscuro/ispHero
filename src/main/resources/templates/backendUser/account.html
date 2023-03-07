@@ -170,7 +170,7 @@
         </div>
         <div class="tab-pane fade" id="v-pills-invoices" role="tabpanel" aria-labelledby="v-pills-invoices-tab">
             <div class="container d-flex justify-content-evenly align-items-stretch flex-wrap">
-                <div th:each="invoice: ${user.invoices}" class="mx-1 d-flex">
+                <div th:each="invoice: ${user.invoices}" class="mx-1 my-2 d-flex">
                     <div class="card align-self-stretch">
                         <h5 class="card-title p-2" th:text="${invoice.fullName}"></h5>
                         <div class="card-body d-flex flex-column">
