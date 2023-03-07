@@ -20,7 +20,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 @Controller
-@SessionAttributes(value = {"user","isLogged","cartUser","languages","langPage"})
+@SessionAttributes(value = {"user","isLogged","cartUser","languages","langPage","urlCdn"})
 public class ArticleController {
 
     @Autowired

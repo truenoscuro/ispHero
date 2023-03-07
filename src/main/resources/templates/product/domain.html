@@ -20,21 +20,21 @@
 <div class="container">
     <div class="card-deck d-flex my-3 gap-5 justify-content-center justify-content-sm-evenly flex-column flex-md-row col-12">
         <div class="card p-3">
-            <img class="card-img-top tld-img" th:src="@{/img/com-tld.png}" alt="com TLD">
+            <img class="card-img-top tld-img" th:src="${ urlCdn + '/com-tld.png'}" alt="com TLD">
             <div class="card-body m-3">
                 <h5 class="card-title"><b>.com</b></h5>
                 <p class="card-text" th:text="${langPage.messages.domaintld4}"></p>
             </div>
         </div>
         <div class="card p-3">
-            <img class="card-img-top tld-img" th:src="@{/img/org-tld.png}" alt="org TLD">
+            <img class="card-img-top tld-img" th:src="${urlCdn + '/org-tld.png'}" alt="org TLD">
             <div class="card-body m-3">
                 <h5 class="card-title"><b>.org</b></h5>
                 <p class="card-text" th:text="${langPage.messages.domaintld5}"></p>
             </div>
         </div>
         <div class="card p-3">
-            <img class="card-img-top tld-img" th:src="@{/img/info-tld.png}" alt="info TLD">
+            <img class="card-img-top tld-img" th:src="${urlCdn + '/info-tld.png'}" alt="info TLD">
             <div class="card-body m-3">
                 <h5 class="card-title"><b>.info</b></h5>
                 <p class="card-text" th:text="${langPage.messages.domaintld6}"></p>
@@ -55,13 +55,13 @@
             <p><a href="#" th:text="${langPage.messages.infolearn}"></a></p>
         </div>
         <div class="col-md-6 text-center">
-            <img th:src="@{/img/server.svg}" alt="Server" class="info-img">
+            <img th:src="${urlCdn + '/server.svg'}" alt="Server" class="info-img">
         </div>
     </div>
     <hr>
     <div class="row my-5 second-row">
         <div class="col-md-6 text-center">
-            <img th:src="@{/img/control-panel.svg}" alt="cPanel" class="info-img">
+            <img th:src="${urlCdn + '/control-panel.svg'}" alt="cPanel" class="info-img">
         </div>
         <div class="col-md-6">
             <h3 th:text="${langPage.messages.infocp}"></h3>
@@ -76,7 +76,7 @@
             <p><a href="/contact" th:text="${langPage.messages.aboutcontactUs}"></a></p>
         </div>
         <div class="col-md-6 text-center">
-            <img th:src="@{/img/support.svg}" alt="Support" class="info-img">
+            <img th:src="${urlCdn + '/support.svg'}" alt="Support" class="info-img">
         </div>
     </div>
 

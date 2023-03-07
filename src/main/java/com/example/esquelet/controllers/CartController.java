@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Controller
-@SessionAttributes(value = {"user","isLogged","cartUser","languages","langPage","articleComplete"})
+@SessionAttributes(value = {"user","isLogged","cartUser","languages","langPage","articleComplete","urlCdn"})
 
 public class CartController {
 
