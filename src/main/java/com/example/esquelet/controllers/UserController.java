@@ -31,7 +31,7 @@ import java.util.Collections;
 import java.util.Objects;
 
 
-@SessionAttributes(value = {"user","isLogged","cartUser","languages","langPage","articleComplete"})
+@SessionAttributes(value = {"user","isLogged","cartUser","languages","langPage","articleComplete","urlCdn"})
 @Controller
 public class UserController {
 

@@ -7,3 +7,5 @@ spring.jpa.database-platform=org.hibernate.dialect.MySQL8Dialect
 server.servlet.session.persistent=false
 language.default=en
 MAIL_API_KEY=
+
+url.urlcdn=https://cdnisphero.blob.core.windows.net/cdn

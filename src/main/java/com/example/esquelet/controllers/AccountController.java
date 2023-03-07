@@ -20,7 +20,7 @@ import java.io.IOException;
 import java.util.Objects;
 
 @Controller
-@SessionAttributes(value = {"user","isLogged","cartUser","languages","langPage","articleComplete"})
+@SessionAttributes(value = {"user","isLogged","cartUser","languages","langPage","articleComplete","urlCdn"})
 public class AccountController {
 
     @Autowired
@@ -156,11 +156,6 @@ public class AccountController {
         userService.updatePassword( user , newPassword );
         return "redirect:/account";
     }
-    @GetMapping("/account/updateProfileImg")
-    public String updateProfileImg( Model model){
-        return "img";
-    }
-
 
     @PostMapping("/account/updateProfileImg")
     public String updateProfileImg(@RequestParam("image") MultipartFile imageFile, Model model) throws IOException {

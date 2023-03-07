@@ -11,7 +11,7 @@ import java.io.InputStream;
 import java.util.List;
 
 @Controller
-@SessionAttributes(value = {"user","isLogged","cartUser","languages","langPage"})
+@SessionAttributes(value = {"user","isLogged","cartUser","languages","langPage","urlCdn"})
 public class HomeController {
 
     @GetMapping("/")

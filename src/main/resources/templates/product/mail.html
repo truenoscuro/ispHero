@@ -54,13 +54,13 @@
         <p><a href="#" th:text="${langPage.messages.infolearn}"></a></p>
       </div>
       <div class="col-md-6 text-center">
-        <img th:src="@{/img/server.svg}" alt="Server" class="info-img">
+        <img th:src="${urlCdn + '/server.svg'}" alt="Server" class="info-img">
       </div>
     </div>
     <hr>
     <div class="row my-5 second-row">
       <div class="col-md-6 text-center">
-        <img th:src="@{/img/control-panel.svg}" alt="cPanel" class="info-img">
+        <img th:src="${urlCdn + '/control-panel.svg'}" alt="cPanel" class="info-img">
       </div>
       <div class="col-md-6">
         <h3 th:text="${langPage.messages.infocp}"></h3>
@@ -75,7 +75,7 @@
         <p><a href="/contact" th:text="${langPage.messages.aboutcontactUs}"></a></p>
       </div>
       <div class="col-md-6 text-center">
-        <img th:src="@{/img/support.svg}" alt="Support" class="info-img">
+        <img th:src="${urlCdn + '/support.svg'}" alt="Support" class="info-img">
       </div>
     </div>
 

@@ -24,6 +24,10 @@ public class MvnConfiguration implements WebMvcConfigurer {
     @Qualifier("ArticleCompleteInterceptor")
     private  ArticleCompleteInterceptor articleCompleteInterceptor;
 
+    @Autowired
+    @Qualifier("ChargeUrlCdn")
+    private ChargeUrlCdn chargeUrlCdn;
+
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         //--
@@ -35,6 +39,8 @@ public class MvnConfiguration implements WebMvcConfigurer {
         registry.addInterceptor(articleCompleteInterceptor)
                 .addPathPatterns("/","/product/**","/cart")
                 .excludePathPatterns("/product/search");
+        //--
+        registry.addInterceptor(chargeUrlCdn);
     }
 
     @Override
