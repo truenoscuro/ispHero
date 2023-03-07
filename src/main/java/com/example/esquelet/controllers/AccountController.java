@@ -5,6 +5,7 @@ import com.example.esquelet.dtos.InvoiceDTO;
 import com.example.esquelet.dtos.ServiceDTO;
 import com.example.esquelet.dtos.UserDTO;
 
+import com.example.esquelet.entities.Invoice;
 import com.example.esquelet.models.Cart;
 import com.example.esquelet.models.IdCart;
 import com.example.esquelet.repositories.WaitingDomainRepository;
@@ -179,7 +180,12 @@ public class AccountController {
     @GetMapping("/account/invoice/{id}")
     public ResponseEntity<byte[]> getInvoice(@PathVariable("id") Long idInvoice, Model model) throws DocumentException {
         // Get Invoice by id
-        InvoiceDTO invoice = invoiceService.getInvoiceByID( idInvoice );
+        InvoiceDTO invoice = invoiceService.getInvoiceDTOByID( idInvoice );
+        if (invoice == null) return ResponseEntity.notFound().build();
+
+        Invoice invoiceSimple = invoiceService.getInvoiceByID( idInvoice );
+        if (!Objects.equals(invoiceSimple.getUser().getId(), ((UserDTO) Objects.requireNonNull(model.getAttribute("user"))).getId())) return ResponseEntity.notFound().build();
+
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         Document document = new Document();
         PdfWriter.getInstance(document, byteArrayOutputStream);

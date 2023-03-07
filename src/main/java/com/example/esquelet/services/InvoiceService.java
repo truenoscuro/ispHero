@@ -75,8 +75,12 @@ public class InvoiceService {
     }
 
     // Get Invoice by id
-    public InvoiceDTO getInvoiceByID(Long id) {
+    public InvoiceDTO getInvoiceDTOByID(Long id) {
         return invoiceRepository.findById(id).map(InvoiceDTO::createInvoiceDTO).orElse(null);
+    }
+
+    public Invoice getInvoiceByID(Long id) {
+        return invoiceRepository.findById(id).orElse(null);
     }
 
 }

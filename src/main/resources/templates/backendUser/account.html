@@ -180,7 +180,7 @@
                             </ul>
                             <div class="d-flex justify-content-between mt-auto align-items-baseline align-self-stretch">
                                 <p class="card-text text-success"><span th:text="${invoice.total}"></span> €</p>
-                                <a th:href="@{/account/invoice/{id}(id=${invoice.id})}" class="btn btn-outline-success mx-2">PDF</a>
+                                <a th:href="@{/account/invoice/{id}(id=${invoice.id})}" target="_blank" class="btn btn-outline-success mx-2">PDF</a>
                             </div>
                         </div>
                     </div>
