@@ -64,14 +64,10 @@
                     <a href="/" class="btn btn-primary btn-block">Go to homepage</a>
                 </div>
             </div>
-            <div class="alert alert-danger" th:if="${error}">
-                <p th:text="${error}" class="text-danger text-center my-2 mx-auto"></p>
-            </div>
         </div>
     </div>
 </main>
 <!--<footer th:insert="~{fragments/general.html :: footer}"></footer>-->
-
 <script>
     "use strict";
 
@@ -86,8 +82,33 @@
     }
 
     $(document).ready(function () {
+        // When password is on focus, show a small tooltip with the password requirements
+        $("#password").focus(function () {
+            $("#password").tooltip({
+                title: "Password must contain at least 6 characters, 1 uppercase letter, 1 lowercase letter and 1 number.",
+                placement: "right",
+                trigger: "focus",
+                show: { effect: "blind", duration: 1000 }
+            });
+        }).keyup(function () {
+            let password = $("#password").val();
+            let password2 = $("#password2").val();
+            let passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/;
+            if (passwordRegex.test(password)) {
+                $("#password").css("border-color", "green");
+                if (password === password2) {
+                    $("#password2").css("border-color", "green");
+                }
+            } else {
+                $("#password").css("border-color", "red");
+                $("#password2").css("border-color", "red");
+            }
+        });
+
         $("#password2").keyup(checkPasswordMatch);
     });
+
+
 </script>
 </body>
 </html>
