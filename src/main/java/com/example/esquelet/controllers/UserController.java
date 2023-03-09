@@ -46,6 +46,7 @@ public class UserController {
     private String MAIL_API_KEY;
     @GetMapping("/register")
     public String register(Model model){
+        model.addAttribute("user",new User());
         model.addAttribute("pageTitle","Register");
         return "backendUser/register";
     }
