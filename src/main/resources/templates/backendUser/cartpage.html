@@ -90,10 +90,6 @@
                 </div>
         </div>
         </div>
-        <form action="/cart/removeall" method="get">
-            <input type="submit" value="remove all">
-        </form>
-        <a href="/cart/buy"> Buy ! </a>
     </section>
 </div>
 <div th:unless="${!#lists.isEmpty(cartUser.articles)}" th:insert="~{fragments/cart.html :: emptycart}" class="mt-auto">

@@ -120,7 +120,7 @@ public class UserController {
         Email emailMessage = new Email();
         emailMessage.setFrom("Contact from ISP Hero", "info@isphero.com");
         emailMessage.addRecipient("ISP Hero", "info@isphero.com");
-        emailMessage.setSubject("Contact from: " + name);
+        emailMessage.setSubject("Contact from: " + name + " with email: " + email);
         emailMessage.setHtml(message);
 
         MailerSend mailerSend = new MailerSend();
