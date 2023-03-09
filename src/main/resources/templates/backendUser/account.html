@@ -169,16 +169,19 @@
             </div>
         </div>
         <div class="tab-pane fade" id="v-pills-invoices" role="tabpanel" aria-labelledby="v-pills-invoices-tab">
-            <div class="container gap-3 d-flex justify-content-evenly">
-                <div th:each="invoice: ${user.invoices}">
-                    <div class="card">
+            <div class="container d-flex justify-content-evenly align-items-stretch flex-wrap">
+                <div th:each="invoice: ${user.invoices}" class="mx-1 my-2 d-flex">
+                    <div class="card align-self-stretch">
                         <h5 class="card-title p-2" th:text="${invoice.fullName}"></h5>
-                        <div class="card-body">
+                        <div class="card-body d-flex flex-column">
                             <h6 class="card-subtitle mb-2 text-muted" th:text="${invoice.dateBuy}"></h6>
                             <ul>
                                 <li th:each="product : ${invoice.lines}" th:text="${product.nameArticle} + ' - '+ ${product.price} + ' €'" ></li>
                             </ul>
-                            <p class="card-text text-success"><span th:text="${invoice.total}"></span> €</p>
+                            <div class="d-flex justify-content-between mt-auto align-items-baseline align-self-stretch">
+                                <p class="card-text text-success"><span th:text="${invoice.total}"></span> €</p>
+                                <a th:href="@{/account/invoice/{id}(id=${invoice.id})}" target="_blank" class="btn btn-outline-success mx-2">PDF</a>
+                            </div>
                         </div>
                     </div>
                 </div>

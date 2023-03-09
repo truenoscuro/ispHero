@@ -1,21 +1,32 @@
 package com.example.esquelet.controllers;
 
 import com.example.esquelet.dtos.ArticleDTO;
+import com.example.esquelet.dtos.InvoiceDTO;
 import com.example.esquelet.dtos.ServiceDTO;
 import com.example.esquelet.dtos.UserDTO;
 
+import com.example.esquelet.entities.Invoice;
 import com.example.esquelet.models.Cart;
 import com.example.esquelet.models.IdCart;
 import com.example.esquelet.repositories.WaitingDomainRepository;
 import com.example.esquelet.services.*;
 
+import com.itextpdf.text.*;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Objects;
 
@@ -166,4 +177,118 @@ public class AccountController {
         return "redirect:/account";
     }
 
+    @GetMapping("/account/invoice/{id}")
+    public ResponseEntity<byte[]> getInvoice(@PathVariable("id") Long idInvoice, Model model) throws DocumentException {
+        // Get Invoice by id
+        InvoiceDTO invoice = invoiceService.getInvoiceDTOByID( idInvoice );
+        if (invoice == null) return ResponseEntity.notFound().build();
+
+        Invoice invoiceSimple = invoiceService.getInvoiceByID( idInvoice );
+        if (!Objects.equals(invoiceSimple.getUser().getId(), ((UserDTO) Objects.requireNonNull(model.getAttribute("user"))).getId())) return ResponseEntity.notFound().build();
+
+        UserDTO user = (UserDTO) model.getAttribute("user");
+        assert user != null;
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        // Let's get the hands dirty :]
+        Document document = new Document();
+        PdfWriter.getInstance(document, byteArrayOutputStream);
+
+        //Metadata
+        document.addTitle("Invoice-" + invoice.getDateBuy());
+        document.addSubject("Invoice for " + user.getFirstName() + " " + user.getLastName1());
+        document.addAuthor("ISP Hero");
+
+        document.open();
+
+        Font font = FontFactory.getFont(FontFactory.HELVETICA, 16, BaseColor.BLACK);
+        Font userAddress = FontFactory.getFont(FontFactory.HELVETICA, 14, BaseColor.BLACK);
+        Font companyAddress = FontFactory.getFont(FontFactory.HELVETICA, 10, BaseColor.DARK_GRAY);
+
+        PdfPTable contact = new PdfPTable(2);
+        contact.setWidthPercentage(100);
+
+        PdfPCell companyCell = new PdfPCell();
+        companyCell.setBorder(Rectangle.NO_BORDER);
+        // Add company address
+        Paragraph header = new Paragraph();
+        header.setFont(companyAddress);
+        header.setIndentationLeft(40);
+        header.add("ISP Hero\n");
+        header.add("1820 NW 56th St\n");
+        header.add("Miami, Florida(FL),33142\n");
+        header.add("United States\n");
+        header.add("\n");
+        companyCell.addElement(header);
+
+        PdfPCell userCell = new PdfPCell();
+        userCell.setBorder(Rectangle.NO_BORDER);
+        // Add customer address
+        Paragraph address = new Paragraph();
+        address.setFont(userAddress);
+        address.setIndentationLeft(10);
+        address.add("Invoice to:\n");
+        address.add(user.getFirstName() + " " + user.getLastName1() + " " + user.getLastName2() + "\n");
+        address.add(user.getAddress() + "\n");
+        address.add(user.getEmail() + "\n");
+        address.add("\n");
+        userCell.addElement(address);
+
+        contact.addCell(userCell);
+        contact.addCell(companyCell);
+
+        document.add(contact);
+
+        // Add some spacing between the contact info and the invoice details
+        document.add(new Paragraph("\n"));
+        document.add(new Paragraph("\n"));
+
+        // Add invoice details
+        PdfPTable table = new PdfPTable(3);
+        table.setWidthPercentage(100);
+        table.setWidths(new float[]{2f, 3f, 3f});
+
+        PdfPCell cell = new PdfPCell();
+        cell.setPadding(5);
+        cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+        cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+
+        cell.setPhrase(new Phrase("Description", font));
+        table.addCell(cell);
+
+        cell.setPhrase(new Phrase("Quantity", font));
+        table.addCell(cell);
+
+        cell.setPhrase(new Phrase("Price", font));
+        table.addCell(cell);
+
+        table.setHeaderRows(1);
+
+        // Add invoice items
+        invoice.getLines().forEach(line -> {
+            cell.setPhrase(new Phrase(String.valueOf(line.getNameArticle()), font));
+            table.addCell(cell);
+
+            cell.setPhrase(new Phrase(String.valueOf(line.getQuantity()), font));
+            table.addCell(cell);
+
+            cell.setPhrase(new Phrase(line.getPrice() + " €", font));
+            table.addCell(cell);
+        });
+
+        document.add(table);
+
+        // Add total
+        Paragraph total = new Paragraph();
+        total.setFont(font);
+        total.setAlignment(Element.ALIGN_RIGHT);
+        total.add("Total: " + invoice.getTotal() + " €\n");
+        document.add(total);
+
+        document.close();
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_PDF);
+        headers.add("Content-Disposition", "inline; filename=" + invoice.getFullName() + invoice.getDateBuy() + ".pdf");
+        return new ResponseEntity<>(byteArrayOutputStream.toByteArray(), headers, HttpStatus.OK);
+    }
 }
