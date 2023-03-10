@@ -8,9 +8,9 @@
 
   <div>
     <div class="alert alert-success text-center my-5" role="alert">
-      <h4 class="alert-heading">Message Sent!</h4>
-      <p>Thank you for your message. We will get back to you as soon as possible.</p>
-      <p>You will be redirected in <span class="fw-bolder" id="seconds">5</span> seconds.</p>
+      <h4 class="alert-heading" th:text="${langPage.messages.messagesent}"></h4>
+      <p th:text="${langPage.messages.messagethanks}"></p>
+      <p><span th:text="${langPage.messages.messageredirect + ' '}"></span><span class="fw-bolder" id="seconds">5</span> <span th:text="${' ' + langPage.messages.messageseconds}"></span></p>
     </div>
   </div>
 </main>
