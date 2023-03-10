@@ -11,7 +11,7 @@
   <div class="card-deck d-flex gap-3 my-3 justify-content-between flex-column flex-md-row">
     <div class="card host-box">
       <div class="card-body">
-        <h5 class="card-title" th:text="${langPage.messages.mailsingle}"></h5>
+        <h1 class="card-title" th:text="${langPage.messages.mailsingle}"></h1>
         <p th:text="${langPage.messages.mailsingledesc}"></p>
         <ul class="list-group list-group-flush">
           <li class="list-group-item" th:text="${langPage.messages.mailsingleadv1}"></li>
@@ -30,7 +30,7 @@
     </div>
     <div class="card host-box">
       <div class="card-body">
-        <h5 class="card-title" th:text="${langPage.messages.mailprof}"></h5>
+        <h1 class="card-title" th:text="${langPage.messages.mailprof}"></h1>
         <p th:text="${langPage.messages.mailprofdesc}"></p>
         <ul class="list-group list-group-flush">
           <li class="list-group-item" th:text="${langPage.messages.mailprofadv1}"></li>
@@ -49,7 +49,7 @@
   <div class="container">
     <div class="row my-5">
       <div class="col-md-6">
-        <h3 th:text="${langPage.messages.infotechnical}"></h3>
+        <h2 th:text="${langPage.messages.infotechnical}"></h2>
         <p th:text="${langPage.messages.infotext1}"></p>
         <p><a href="#" th:text="${langPage.messages.infolearn}"></a></p>
       </div>
@@ -63,14 +63,14 @@
         <img th:src="${urlCdn + '/control-panel.svg'}" alt="cPanel" class="info-img">
       </div>
       <div class="col-md-6">
-        <h3 th:text="${langPage.messages.infocp}"></h3>
+        <h2 th:text="${langPage.messages.infocp}"></h2>
         <p th:text="${langPage.messages.infotext2}"></p>
       </div>
     </div>
     <hr>
     <div class="row my-5">
       <div class="col-md-6">
-        <h3 th:text="${langPage.messages.infosupport}">Support</h3>
+        <h2 th:text="${langPage.messages.infosupport}">Support</h2>
         <p th:text="${langPage.messages.infotext3}"></p>
         <p><a href="/contact" th:text="${langPage.messages.aboutcontactUs}"></a></p>
       </div>

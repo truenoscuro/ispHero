@@ -25,7 +25,17 @@
   <meta name="description" content="ISP Hero is an aspiring new hosting service with the best prices and offers the newest technology!">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/tilt.js/1.2.1/tilt.jquery.min.js"></script>
   <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js" integrity="sha256-eTyxS0rkjpLEo16uXTS0uVCS4815lc40K2iVpWDvdSY=" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
+  <!-- Social Media Meta Tags -->
+  <meta property="og:title" content="ISP Hero" />
+  <meta property="og:description" content="ISP Hero is an aspiring new hosting service with the best prices and offers the newest technology!" />
+  <meta property="og:image" content="https://isphero.com/icon-512x512.png" />
+  <meta property="og:url" content="https://isphero.com" />
+  <!-- Twitter Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta property="twitter:domain" content="isphero.com" />
+  <meta name="twitter:title" content="ISP Hero" />
+  <meta name="twitter:description" content="ISP Hero is an aspiring new hosting service with the best prices and offers the newest technology!" />
+  <meta name="twitter:image" content="https://isphero.com/icon-512x512.png" />
   <!-- PWA -->
   <link rel="manifest" href="/manifest.json" />
   <link rel="apple-touch-icon" th:href="@{/icon-192x192.png}"/>
@@ -36,6 +46,7 @@
   <meta name="theme-color" content="#4171d6"/>
   <link rel="icon" type="image/x-icon" th:href="@{/favicon.ico}" />
   <title th:text="${pageTitle} ? 'ISP Hero - ' + ${pageTitle} : 'ISP Hero'"></title>
+</head>
 <body>
 <!--   FRAGMENT                                      -->
 <div th:fragment="header">
@@ -118,11 +129,11 @@
     <div class="container">
       <div class="row">
         <div class="col-md-4">
-          <h3 th:text="${langPage.messages.footeraboutUs}">About Us</h3>
+          <h2 th:text="${langPage.messages.footeraboutUs}">About Us</h2>
           <p th:text="${langPage.messages.footeraboutUsText}"></p>
         </div>
         <div class="col-md-4">
-          <h3 th:text="${langPage.messages.headercontact}">Contact</h3>
+          <h2 th:text="${langPage.messages.headercontact}">Contact</h2>
           <ul class="list-unstyled">
             <li>1820 NW 56th St</li>
             <li>Miami, Florida(FL), 33142</li>
@@ -131,7 +142,7 @@
           </ul>
         </div>
         <div class="col-md-4">
-          <h3>Links</h3>
+          <h2>Links</h2>
           <ul class="list-unstyled">
             <li><a href="/" class="text-white">Home</a></li>
             <li><a href="/about" class="text-white" th:text="${langPage.messages.headerabout}">About</a></li>
@@ -146,9 +157,9 @@
             <a href="/privacy-policy" class="text-white text-decoration-none" th:text="${langPage.messages.footerprivacyPolicy}">Privacy Policy</a> | <a href="/terms-of-service" class="text-white text-decoration-none" th:text="${langPage.messages.footertermsOfService}">Terms of Service</a> | <a href="/cookies-policy" class="text-white text-decoration-none" th:text="${langPage.messages.footercookiePolicy}">Cookies Policy </a> | <span>&copy; 2023 ISP Hero</span>
         </div>
         <div class="col-auto d-flex gap-3">
-            <a href="#" ><i class="fab fa-twitter"></i> Twitter</a>
-            <a href="#"><i class="fab fa-facebook-f"></i> Facebook</a>
-            <a href="#"><i class="fab fa-instagram"></i> Instagram</a>
+            <a href="#" class="text-white"><i class="fab fa-twitter"></i> Twitter</a>
+            <a href="#" class="text-white"><i class="fab fa-facebook-f"></i> Facebook</a>
+            <a href="#" class="text-white"><i class="fab fa-instagram"></i> Instagram</a>
         </div>
       </div>
     </div>
@@ -219,6 +230,7 @@
       window.location.href = '/cart'
     })
   </script>
+
 </footer>
 </body>
 </html>

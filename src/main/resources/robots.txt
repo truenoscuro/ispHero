@@ -2,3 +2,7 @@ User-agent: *
 Disallow: /cart/
 Disallow: /checkout/
 Disallow: /account/
+Disallow: /register/
+Allow: /index/
+Sitemap: https://isphero.com/sitemap
+Sitemap: https://isphero.com/sitemap.xml

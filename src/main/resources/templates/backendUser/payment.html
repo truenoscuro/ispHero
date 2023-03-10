@@ -14,9 +14,9 @@
                     <p class="card-text">Your order has been placed and a confirmation email will be sent to your inbox shortly.</p>
                     <p class="card-text">Order details:</p>
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item">Order number: 123456</li>
-                        <li class="list-group-item">Date: January 29, 2023</li>
-                        <li class="list-group-item">Total: $50.00</li>
+                        <li class="list-group-item">Order number: <span id="random"></span></li>
+                        <li class="list-group-item">Date: <span id="date"></span></li>
+                        <li class="list-group-item">Total: <span th:text="${' ' + total + ' €'}" id="total"></span></li>
                     </ul>
                     <a href="/" class="btn btn-primary mt-3">Continue shopping</a>
                 </div>
@@ -26,5 +26,15 @@
 </div>
 
 <footer th:insert="~{fragments/general.html :: footer}"></footer>
+<script>
+    // Insert current date in #date
+    const today = new Date();
+    const date = today.getDate() + ' / ' + (today.getMonth() + 1) + ' / ' + today.getFullYear();
+    document.getElementById("date").innerHTML = date;
+
+    // Insert random number in #random
+    const random = Math.floor(Math.random() * 1000);
+    document.getElementById("random").innerHTML = random;
+</script>
 </body>
 </html>

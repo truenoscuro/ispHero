@@ -143,7 +143,10 @@ public class CartController {
     public String buy(Model model){
         UserDTO user = (UserDTO) model.getAttribute("user");
         Cart cart = (Cart) model.getAttribute("cartUser");
-        //convert in english cart;
+        assert cart != null;
+        float total = cart.getTotal();
+        model.addAttribute("total",total);
+
         cart.getArticles().forEach( article -> translateService.translate(
                 article,
                 ((List<TranslateDTO>) model.getAttribute("languages")).stream()
@@ -158,15 +161,18 @@ public class CartController {
         //update DomainRegistered
         domainRegisteredService.updateDomainRegisteredWithCart( cart );
 
-        cart.removeAll();
         return "redirect:/cart/payment";
     }
 
     @GetMapping("/cart/payment")
     public String payment(Model model){
-        initCart( model );
+        Cart cart = (Cart) model.getAttribute("cartUser");
         model.addAttribute("cartUser",model.getAttribute("cartUser") );
         model.addAttribute("pageTitle","Payment");
+        assert cart != null;
+        model.addAttribute("total", cart.getTotal());
+        cart.removeAll();
+
         return "backendUser/payment";
     }
 

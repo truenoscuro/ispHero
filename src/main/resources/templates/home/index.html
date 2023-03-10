@@ -21,21 +21,21 @@
             <div class="card card-tld p-3">
                 <img class="card-img-top tld-img" th:src="${urlCdn + '/es-tld.png'}" alt="com TLD">
                 <div class="card-body m-3">
-                    <h5 class="card-title"><b>.es</b></h5>
+                    <h3 class="card-title"><b>.es</b></h3>
                     <p class="card-text" th:text="${langPage.messages.domaintld1}"></p>
                 </div>
             </div>
             <div class="card card-tld p-3">
                 <img class="card-img-top tld-img" th:src="${urlCdn + '/cat-tld.png'}" alt="info TLD">
                 <div class="card-body m-3">
-                    <h5 class="card-title"><b>.cat</b></h5>
+                    <h3 class="card-title"><b>.cat</b></h3>
                     <p class="card-text" th:text="${langPage.messages.domaintld2}"></p>
                 </div>
             </div>
             <div class="card card-tld p-3">
                 <img class="card-img-top tld-img" th:src="${urlCdn + '/tv-tld.png'}" alt="org TLD">
                 <div class="card-body m-3">
-                    <h5 class="card-title"><b>.tv</b></h5>
+                    <h3 class="card-title"><b>.tv</b></h3>
                     <p class="card-text" th:text="${langPage.messages.domaintld3}"></p>
                 </div>
             </div>
@@ -111,13 +111,12 @@
                                                                    th:text="${langPage.messages.maincollaborators}">colaboradores</span>
                 </div>
             </div>
-
-            <div class="text-right text-primary p-3">ISP Hero, March 2023</div>
+            <div class="text-right p-3">ISP Hero, March 2023</div>
         </div>
     </div>
     <div class="d-flex justify-content-center d-sm-flex justify-content-sm-evenly flex-column flex-md-row p-3 col-12">
         <div class="card col-12 col-md-3 my-3">
-            <img th:src="${urlCdn + '/people-and-technology.png'}" class="card-img-top" alt="Domain Hosting">
+            <img th:src="${urlCdn + '/people-and-technology.png'}" class="card-img-top why-us-img " alt="Domain Hosting">
             <div class="card-body mx-3 mb-3">
                 <h3 class="card-title" th:text="${langPage.messages.maincard1Title}">Domain Hosting</h3>
                 <p class="card-text" th:text="${langPage.messages.maincard1Text}">Keep your domain name safe and secure with our
@@ -126,7 +125,7 @@
             </div>
         </div>
         <div class="card col-12 col-md-3 my-3">
-            <img th:src="${urlCdn + '/stressed-person-using-computer.png'}" class="card-img-top" alt="Domain Hosting">
+            <img th:src="${urlCdn + '/stressed-person-using-computer.png'}" class="card-img-top why-us-img" alt="Domain Hosting">
             <div class="card-body mx-3 mb-3">
                 <h3 class="card-title" th:text="${langPage.messages.maincard2Title}">We've got you covered</h3>
                 <p class="card-text" th:text="${langPage.messages.maincard2Text}">Don't worry about any problems you may have.
@@ -134,7 +133,7 @@
             </div>
         </div>
         <div class="card col-12 col-md-3 my-3">
-            <img th:src="${urlCdn + '/people-raising-money.png'}" class="card-img-top" alt="Domain Hosting">
+            <img th:src="${urlCdn + '/people-raising-money.png'}" class="card-img-top why-us-img " alt="Domain Hosting">
             <div class="card-body mx-3 mb-3">
                 <h3 class="card-title" th:text="${langPage.messages.maincard3Title}">Why Choose Us?</h3>
                 <p class="card-text" th:text="${langPage.messages.maincard3Text}">We offer the best prices and rates in the
@@ -255,6 +254,24 @@
             }
         });
     });
+</script>
+<script>
+    window.addEventListener('load', () => {
+        registerSW();
+    });
+
+    async function registerSW() {
+        if ('serviceWorker' in navigator) {
+            try {
+                await navigator
+                    .serviceWorker
+                    .register('sw.js');
+            }
+            catch (e) {
+                console.log('SW registration failed');
+            }
+        }
+    }
 </script>
 </body>
 </html>

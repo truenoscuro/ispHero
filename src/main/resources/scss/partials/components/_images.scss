@@ -35,12 +35,17 @@
 .tld-img {
     max-height: 150px;
     margin: 0 auto;
-    max-width: 300px;
+    width: auto;
     transform: translateZ(20px);
 }
 
 .card {
     transform-style: preserve-3d;
+}
+
+.why-us-img {
+    width: 470px;
+    height: auto;
 }
 
 .info-img {
