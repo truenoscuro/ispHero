@@ -10,8 +10,13 @@ self.addEventListener("install", function (e) {
 
 self.addEventListener("fetch", function (event) {
     event.respondWith(
-        caches.match(event.request).then(function (response) {
-            return response || fetch(event.request);
+        fetch(event.request).then(function (response) {
+            return caches.open(staticCacheName).then(function (cache) {
+                cache.put(event.request, response.clone()).then(r => console.log(r));
+                return response;
+            });
+        }).catch(function () {
+            return caches.match(event.request);
         })
     );
 });
