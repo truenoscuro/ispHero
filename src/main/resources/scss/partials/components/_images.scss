@@ -44,7 +44,7 @@
 }
 
 .why-us-img {
-    width: 470px;
+    width: auto;
     height: auto;
 }
 
@@ -61,5 +61,10 @@
     .info-img {
         max-height: 200px;
         max-width: 400px;
+    }
+
+    .why-us-img {
+        width: auto;
+        height: auto;
     }
 }
