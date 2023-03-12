@@ -29,6 +29,7 @@ header {
 
 .main-logo {
     width: 75px;
+    height: 75px;
     transition: all 0.3s ease-in-out;
     filter: saturate(2.2);
 }
@@ -66,6 +67,7 @@ header {
     }
 
     .main-logo {
-        width: 50px;
+        width: 60px;
+        height: 60px;
     }
 }
