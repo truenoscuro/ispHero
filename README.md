@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="200" height="200" src="https://github.com/truenoscuro/ispHero/blob/master/src/main/resources/static/img/logo.png">
+  <img width="200" height="200" src="https://cdnisphero.blob.core.windows.net/cdn/logo.png">
 </p>
 
 # _Welcome to_ ISP Hero!
